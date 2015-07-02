@@ -55,3 +55,11 @@ docs/_build/
 
 # PyBuilder
 target/
+
+.ipynb_checkpoints/DatasetsGeneration-checkpoint.ipynb
+
+.ipynb_checkpoints/Diffusion-checkpoint.ipynb
+
+.ipynb_checkpoints/HofreeDataset-checkpoint.ipynb
+
+.ipynb_checkpoints/ScikitLearnNMF-checkpoint.ipynb
