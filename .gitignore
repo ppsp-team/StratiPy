@@ -63,3 +63,16 @@ target/
 .ipynb_checkpoints/HofreeDataset-checkpoint.ipynb
 
 .ipynb_checkpoints/ScikitLearnNMF-checkpoint.ipynb
+
+Hofree-edgelist.csv
+
+StratificationResults.csv
+
+data/influence.mat
+Hofree-edgelist.csv
+
+StratificationResults.csv
+
+StratificationResults.csv
+
+Hofree-edgelist.csv
