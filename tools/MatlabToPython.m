@@ -2,7 +2,7 @@
 % You need to download code and data from:
 % http://chianti.ucsd.edu/~mhofree/wordpress/?page_id=26
 % Put then the script at the root folder "nbs_release_v0.2"
-% The two files 'adj_mat.mat' and 'entrez_to_idmat.mat' should then be copied in the "stratipy/data" folder with the original mutation data file "somatic_data_OV.mat" (localized in the "nbs_release_v0.2/data/TCGA_somatic_mutations folder").
+% The two files 'adj_mat.mat' and 'entrez_to_idmat.mat' should then be copied in the "stratipy/data" folder with the original mutation data file "somatic_data_UCEC.mat" and phenotype data file "UCEC_clinical_phenotype.mat" (both localized in the "nbs_release_v0.2/data/TCGA_somatic_mutations folder").
 
 library_path = pwd;
 addpath(genpath(library_path))
