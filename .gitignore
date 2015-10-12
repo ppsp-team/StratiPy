@@ -64,8 +64,14 @@ target/
 
 .ipynb_checkpoints/ScikitLearnNMF-checkpoint.ipynb
 
+.ipynb_checkpoints/SimulatedNetworks-checkpoint.ipynb
+
 Hofree-edgelist.csv
 
 StratificationResults.csv
 
 data/influenceDistance.mat
+
+data/bootstrap.mat
+
+data/PPI_influence.mat
