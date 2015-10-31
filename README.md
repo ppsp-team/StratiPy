@@ -21,3 +21,9 @@ Patients stratification with Graph-regularized Non-negative Matrix Factorization
 
 ## Notes
 - Use the Matlab2Python.m script in the "tools" folder if you want to generate by yourself the data from the Hofree et al. paper (tested with Matlab R2013a).
+
+
+##usage
+- use Tools/parseTCGA.py to convert TCGA data to appropriate data in res/<>.pickle
+- Tools/createNet to process networkdata to processed matrix in res/<>.pickle
+- Tools/processMutations.py for actuall analysis
