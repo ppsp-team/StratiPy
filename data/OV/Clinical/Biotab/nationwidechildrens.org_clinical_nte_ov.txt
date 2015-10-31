@@ -1,0 +1,11 @@
+bcr_patient_uuid	bcr_patient_barcode	new_tumor_event_dx_days_to	new_tumor_event_dx_evidence	new_tumor_event_dx_method_other	new_tumor_event_radiation_tx	additional_pharmaceutical_therapy	days_to_new_tumor_event_additional_surgery_procedure	new_neoplasm_event_type	new_tumor_event_additional_surgery_procedure
+bcr_patient_uuid	bcr_patient_barcode	days_to_new_tumor_event_after_initial_treatment	progression_determined_by	progression_determined_by_notes	additional_radiation_therapy	additional_pharmaceutical_therapy	days_to_new_tumor_event_additional_surgery_procedure	new_neoplasm_event_type	new_tumor_event_additional_surgery_procedure
+CDE_ID:	CDE_ID:2673794	CDE_ID:3392464	CDE_ID:2786205	CDE_ID:2786210	CDE_ID:3427615	CDE_ID:3427616	CDE_ID:3008335	CDE_ID:3119721	CDE_ID:3427611
+F1CB3D48-1415-408D-89D1-DFDCC5924963	TCGA-29-A5NZ	704	[Not Available]	[Not Applicable]	NO	YES	[Not Available]	Progression of Disease	[Not Available]
+F1CB3D48-1415-408D-89D1-DFDCC5924963	TCGA-29-A5NZ	358	[Not Available]	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+7EBC776E-BDE1-4563-ADB1-8BD441872733	TCGA-59-A5PD	145	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+7EBC776E-BDE1-4563-ADB1-8BD441872733	TCGA-59-A5PD	145	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	[Unknown]	[Not Available]
+260723BF-9620-450D-BF31-F3A45543F9DB	TCGA-OY-A56P	794	Imaging Study	[Not Applicable]	[Not Available]	YES	[Not Available]	Recurrence	[Not Available]
+260723BF-9620-450D-BF31-F3A45543F9DB	TCGA-OY-A56P	794	Imaging Study	[Not Applicable]	[Not Available]	YES	[Not Available]	[Unknown]	[Not Available]
+B8023162-5E82-40E6-AD8C-8ACF81821F01	TCGA-WR-A838	245	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Progression of Disease	[Not Available]
+B8023162-5E82-40E6-AD8C-8ACF81821F01	TCGA-WR-A838	245	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	[Unknown]	[Not Available]

@@ -1,0 +1,516 @@
+bcr_patient_uuid	bcr_patient_barcode	bcr_followup_barcode	new_tumor_event_dx_days_to	new_tumor_event_dx_evidence	new_tumor_event_dx_method_other	new_tumor_event_radiation_tx	additional_pharmaceutical_therapy	days_to_new_tumor_event_additional_surgery_procedure	new_neoplasm_event_type	new_tumor_event_additional_surgery_procedure
+bcr_patient_uuid	bcr_patient_barcode	bcr_followup_barcode	days_to_new_tumor_event_after_initial_treatment	progression_determined_by	progression_determined_by_notes	additional_radiation_therapy	additional_pharmaceutical_therapy	days_to_new_tumor_event_additional_surgery_procedure	new_neoplasm_event_type	new_tumor_event_additional_surgery_procedure
+CDE_ID:	CDE_ID:2673794	CDE_ID:	CDE_ID:3392464	CDE_ID:2786205	CDE_ID:2786210	CDE_ID:3427615	CDE_ID:3427616	CDE_ID:3008335	CDE_ID:3119721	CDE_ID:3427611
+6d10d4ee-6331-4bba-93bc-a7b64cc0b22a	TCGA-04-1331	TCGA-04-1331-F23906	459	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+b46263ab-c3ca-4fda-a895-74c7e6e6fe22	TCGA-04-1332	TCGA-04-1332-F23911	393	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+31872f6a-d225-4f91-b38d-4505d19e406c	TCGA-04-1338	TCGA-04-1338-F23933	380	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+f7752d6e-f9cd-4dc9-ab01-3ab87acb21e4	TCGA-04-1348	TCGA-04-1348-F23967	575	Molecular Marker(S)	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+f7752d6e-f9cd-4dc9-ab01-3ab87acb21e4	TCGA-04-1348	TCGA-04-1348-F23967	[Not Available]	Molecular Marker(S)	[Not Applicable]	NO	YES	1463	Metastatic	YES
+4b930a10-4b12-4428-84f9-3255b4a3bc4f	TCGA-04-1349	TCGA-04-1349-F23977	428	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+0f4a4ad1-e394-45c4-9aa9-aadf2bff0628	TCGA-04-1350	TCGA-04-1350-F23988	111	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+12b032ed-ff92-4bfe-b980-eb273ae8ae17	TCGA-04-1351	TCGA-04-1351-F24001	1658	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+8652ddee-98f4-4584-b450-e6f2f5c9d7ec	TCGA-04-1356	TCGA-04-1356-F24005	156	Physical Examination	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+a6aad7f9-8444-4c2f-8e4b-b19fd453544f	TCGA-04-1361	TCGA-04-1361-F24013	927	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+1d192835-524e-429d-bf74-3c4727acb446	TCGA-04-1362	TCGA-04-1362-F24020	223	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+80f85c54-e12f-4afa-8fa5-5f3e083b6f95	TCGA-04-1364	TCGA-04-1364-F24028	288	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+0484a929-7a7f-4926-8d25-470ddab082ec	TCGA-04-1365	TCGA-04-1365-F24044	1328	Molecular Marker(S)	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+30b8f4cd-9245-4496-a8a8-c3e59093bc0a	TCGA-04-1367	TCGA-04-1367-F62486	2997	Molecular Marker(S)	[Not Applicable]	NO	YES	[Not Available]	Progression of Disease	[Not Available]
+6c43727d-631a-40fb-b1a1-242a12889eaa	TCGA-04-1369	TCGA-04-1369-F24056	315	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Progression of Disease	[Not Available]
+e9483296-cb91-497a-b955-39a3c3289dac	TCGA-04-1514	TCGA-04-1514-F24071	1221	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+e9483296-cb91-497a-b955-39a3c3289dac	TCGA-04-1514	TCGA-04-1514-F24071	[Not Available]	Imaging Study	[Not Applicable]	NO	YES	1284	Metastatic	YES
+35916942-e7aa-45db-ad27-03cba67d4d5b	TCGA-04-1517	TCGA-04-1517-F24092	349	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+2bb96e1e-6992-434d-83e5-2f03713b3911	TCGA-04-1525	TCGA-04-1525-F24099	213	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+42b3dfa3-152f-4ab7-ac9f-988c7f473bea	TCGA-04-1530	TCGA-04-1530-F24104	350	First Seen At Further Surgery	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+42b3dfa3-152f-4ab7-ac9f-988c7f473bea	TCGA-04-1530	TCGA-04-1530-F24104	[Not Available]	First Seen At Further Surgery	[Not Applicable]	NO	YES	350	Locoregional Disease	YES
+1fe19c6b-71d0-4b07-923b-74ea32210db0	TCGA-04-1536	TCGA-04-1536-F24110	498	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+0c1a2e7d-e7e4-481e-a012-ef214c444497	TCGA-04-1542	TCGA-04-1542-F24118	1020	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+c75c915f-ef4b-4c19-8ace-995e6c6015fd	TCGA-04-1638	TCGA-04-1638-F24136	298	Other Method: Specify In Notes	[Not Applicable]	YES	YES	[Not Available]	Recurrence	[Not Available]
+6f592f17-e00b-4d04-a45b-d9d4cf4c3075	TCGA-04-1644	TCGA-04-1644-F24145	634	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Progression of Disease	[Not Available]
+d38ca631-ed5c-4182-a647-625060726fa7	TCGA-04-1646	TCGA-04-1646-F24152	508	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+cddce77f-21e6-4124-9f03-96fb5ca7cefa	TCGA-04-1648	TCGA-04-1648-F24159	412	Molecular Marker(S)	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+314e446d-3a57-4c91-ac2e-4fc211456ee6	TCGA-04-1649	TCGA-04-1649-F24168	1672	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+55153632-1673-487a-85c0-f156377db1fc	TCGA-04-1651	TCGA-04-1651-F24172	990	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+d86adfac-56be-4a69-9315-5a90b4113e65	TCGA-04-1652	TCGA-04-1652-F24179	880	Molecular Marker(S)	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+ff33db70-91d4-4dbb-a4fc-d81a128d0f32	TCGA-04-1654	TCGA-04-1654-F24185	808	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+f8a5547f-f1bc-4c01-8b68-25b5ee0caeab	TCGA-04-1655	TCGA-04-1655-F24191	819	Physical Examination	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+6746533a-8d0b-4ebc-87ec-49c8738121a8	TCGA-09-0364	TCGA-09-0364-F24198	395	Imaging Study	[Not Applicable]	YES	YES	[Not Available]	Recurrence	[Not Available]
+7621ed77-98bc-4b4e-8011-e18fcd014071	TCGA-09-0365	TCGA-09-0365-F24203	251	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+23771dab-2aab-4d2b-95e2-9af7092cee6b	TCGA-09-0366	TCGA-09-0366-F24207	190	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+23771dab-2aab-4d2b-95e2-9af7092cee6b	TCGA-09-0366	TCGA-09-0366-F24207	[Not Available]	Imaging Study	[Not Applicable]	NO	YES	190	Locoregional Disease	YES
+1d9893c8-0de3-4b07-b0ba-a53019b23eb4	TCGA-09-0369	TCGA-09-0369-F24217	274	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+1d9893c8-0de3-4b07-b0ba-a53019b23eb4	TCGA-09-0369	TCGA-09-0369-F24217	[Not Available]	Imaging Study	[Not Applicable]	NO	YES	326	Locoregional Disease	YES
+867f9563-16c9-45a8-b519-6df61ba1b6b7	TCGA-09-1662	TCGA-09-1662-F24243	1046	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+867f9563-16c9-45a8-b519-6df61ba1b6b7	TCGA-09-1662	TCGA-09-1662-F24243	[Not Available]	Imaging Study	[Not Applicable]	NO	YES	1081	Both Locoregional and Distant Metastasis	YES
+9d25cd0e-0a3e-4ee0-b1a3-58ffab348c9d	TCGA-09-1665	TCGA-09-1665-F24272	468	Imaging Study	[Not Applicable]	YES	YES	[Not Available]	Recurrence	[Not Available]
+4eac2c98-86d2-4ee6-a1d3-157d013c78dc	TCGA-09-1666	TCGA-09-1666-F24279	480	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+4eac2c98-86d2-4ee6-a1d3-157d013c78dc	TCGA-09-1666	TCGA-09-1666-F24279	[Not Available]	Imaging Study	[Not Applicable]	NO	YES	568	Locoregional Disease	YES
+32d4d200-1fdf-44ed-b81f-1954a9c93926	TCGA-09-1667	TCGA-09-1667-F24292	460	Imaging Study	[Not Applicable]	YES	YES	[Not Available]	Recurrence	[Not Available]
+32d4d200-1fdf-44ed-b81f-1954a9c93926	TCGA-09-1667	TCGA-09-1667-F24292	[Not Available]	Imaging Study	[Not Applicable]	YES	YES	511	Locoregional Disease	YES
+60014a6e-6a13-4f92-bbfd-eeeee9632f98	TCGA-09-1670	TCGA-09-1670-F24309	547	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+3768d34f-1527-40db-b116-cd80cee5ec3a	TCGA-09-2045	TCGA-09-2045-F24338	631	Physical Examination	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+05eb8bd5-d31b-4595-921a-366e53ea5a8b	TCGA-09-2049	TCGA-09-2049-F24354	953	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+02594e5e-8751-47c1-9245-90c66984b665	TCGA-09-2051	TCGA-09-2051-F24373	583	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+02594e5e-8751-47c1-9245-90c66984b665	TCGA-09-2051	TCGA-09-2051-F24373	[Not Available]	Imaging Study	[Not Applicable]	NO	YES	875	Metastatic	YES
+869c9aae-85eb-4faa-8893-b3f487e8981c	TCGA-10-0925	TCGA-10-0925-F24403	558	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+e641aed9-1dd8-4c30-b231-f12b20a76df0	TCGA-10-0926	TCGA-10-0926-F24413	287	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+933dbfbd-4697-403e-bd73-c17cb300c94b	TCGA-10-0927	TCGA-10-0927-F24420	1001	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+99f1ae02-86ec-4d93-8cd4-650bf6f02c10	TCGA-10-0930	TCGA-10-0930-F24432	680	Physical Examination	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+e07a61e2-bcd2-4a96-80df-97e04aafbd32	TCGA-10-0931	TCGA-10-0931-F24440	300	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+9446e349-71e6-455a-aa8f-53ec96597146	TCGA-10-0933	TCGA-10-0933-F24454	356	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+65ddccd2-70a7-48b3-88e1-9d6fd1dcd11b	TCGA-10-0934	TCGA-10-0934-F24458	111	First Seen At Further Surgery	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+65ddccd2-70a7-48b3-88e1-9d6fd1dcd11b	TCGA-10-0934	TCGA-10-0934-F24458	[Not Available]	First Seen At Further Surgery	[Not Applicable]	NO	YES	75	Metastatic	YES
+a5030259-cf9c-4a58-8710-b9da8ee59320	TCGA-10-0937	TCGA-10-0937-F24476	235	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+7ca97692-0bf5-4bbd-81ce-10a051d04bd5	TCGA-10-0938	TCGA-10-0938-F24483	362	Imaging Study	[Not Applicable]	[Not Available]	[Not Available]	[Not Available]	Progression of Disease	[Not Available]
+7ca97692-0bf5-4bbd-81ce-10a051d04bd5	TCGA-10-0938	TCGA-10-0938-F24483	[Not Available]	Imaging Study	[Not Applicable]	[Not Available]	[Not Available]	362	Metastatic	YES
+1e14f098-17b2-4f54-8e4f-e38088008df7	TCGA-13-0714	TCGA-13-0714-F24489	110	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Progression of Disease	[Not Available]
+3867e193-c82f-4693-9b32-bac76b5f4d06	TCGA-13-0717	TCGA-13-0717-F24494	294	Physical Examination	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+0d23fa5b-95f8-4626-a4d2-c72ad3cc553b	TCGA-13-0720	TCGA-13-0720-F24498	292	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+ff530f28-0ec0-4494-bb54-44bb055bae1c	TCGA-13-0723	TCGA-13-0723-F24503	210	Molecular Marker(S)	[Not Applicable]	YES	YES	[Not Available]	Progression of Disease	[Not Available]
+a9abe7a7-4126-414b-87d2-a6d25abcf1fa	TCGA-13-0724	TCGA-13-0724-F24507	83	[Not Available]	[Not Applicable]	NO	YES	[Not Available]	Progression of Disease	[Not Available]
+446ce2a3-d328-443c-a419-3344baad0e16	TCGA-13-0725	TCGA-13-0725-F24510	190	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+32960bc7-839a-42c5-9460-3917fa578ffc	TCGA-13-0726	TCGA-13-0726-F24515	392	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+90f4b65c-cfd4-4066-a5b9-842885c172e2	TCGA-13-0727	TCGA-13-0727-F24519	253	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+15c84da3-16e5-4909-aea9-cb5894b0f8af	TCGA-13-0751	TCGA-13-0751-F24525	653	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+2956e414-f167-438f-8747-a46fe0723622	TCGA-13-0755	TCGA-13-0755-F24531	34	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Progression of Disease	[Not Available]
+2c69f3a4-c26c-4fbb-a1c0-b1f57554c43a	TCGA-13-0757	TCGA-13-0757-F24534	293	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+514aa64e-a58d-48c2-aff9-498604cc11d6	TCGA-13-0758	TCGA-13-0758-F24539	212	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Progression of Disease	[Not Available]
+00630714-7ab3-44e1-afff-186300edae44	TCGA-13-0761	TCGA-13-0761-F24545	424	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+00630714-7ab3-44e1-afff-186300edae44	TCGA-13-0761	TCGA-13-0761-F72596	424	[Not Available]	[Not Applicable]	[Not Available]	[Not Available]	[Not Available]	[Unknown]	[Not Available]
+6485b68f-caa7-45cd-9bc5-78c2add8191d	TCGA-13-0762	TCGA-13-0762-F72597	1003	[Not Available]	[Not Applicable]	[Not Available]	[Not Available]	[Not Available]	[Unknown]	[Not Available]
+034825d0-e8b7-4ac0-be31-25f6038cb04a	TCGA-13-0764	TCGA-13-0764-F24554	272	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+034825d0-e8b7-4ac0-be31-25f6038cb04a	TCGA-13-0764	TCGA-13-0764-F72599	272	[Not Available]	[Not Applicable]	[Not Available]	[Not Available]	[Not Available]	[Unknown]	[Not Available]
+774ce281-96b2-467a-9170-079797ee10f7	TCGA-13-0765	TCGA-13-0765-F24559	668	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+774ce281-96b2-467a-9170-079797ee10f7	TCGA-13-0765	TCGA-13-0765-F72600	668	[Not Available]	[Not Applicable]	[Not Available]	[Not Available]	[Not Available]	[Unknown]	[Not Available]
+8fe44099-b313-4bfd-a94a-27e72f2a818c	TCGA-13-0766	TCGA-13-0766-F24567	628	Physical Examination	[Not Applicable]	[Not Available]	[Not Available]	[Not Available]	Recurrence	[Not Available]
+8fe44099-b313-4bfd-a94a-27e72f2a818c	TCGA-13-0766	TCGA-13-0766-F72601	628	[Not Available]	[Not Applicable]	[Not Available]	[Not Available]	[Not Available]	[Unknown]	[Not Available]
+e732f81c-9b7d-44bd-a905-ff53fbed5009	TCGA-13-0768	TCGA-13-0768-F72603	398	[Not Available]	[Not Applicable]	[Not Available]	[Not Available]	[Not Available]	[Unknown]	[Not Available]
+90118207-8f11-4784-ac1b-0deec2e7af3a	TCGA-13-0791	TCGA-13-0791-F24579	281	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+90118207-8f11-4784-ac1b-0deec2e7af3a	TCGA-13-0791	TCGA-13-0791-F72604	281	[Not Available]	[Not Applicable]	[Not Available]	[Not Available]	[Not Available]	[Unknown]	[Not Available]
+c11cae7e-91cd-4470-a9d8-188a4f6b8fa1	TCGA-13-0792	TCGA-13-0792-F24588	816	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+c11cae7e-91cd-4470-a9d8-188a4f6b8fa1	TCGA-13-0792	TCGA-13-0792-F72605	816	[Not Available]	[Not Applicable]	[Not Available]	[Not Available]	[Not Available]	[Unknown]	[Not Available]
+5e90e1ed-cbfd-44ba-a6ff-63ff576b3c73	TCGA-13-0793	TCGA-13-0793-F24593	351	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+5e90e1ed-cbfd-44ba-a6ff-63ff576b3c73	TCGA-13-0793	TCGA-13-0793-F72606	351	[Not Available]	[Not Applicable]	[Not Available]	[Not Available]	[Not Available]	[Unknown]	[Not Available]
+b63cad1b-b4c7-4e50-8acb-5cee4e9ce4a9	TCGA-13-0794	TCGA-13-0794-F24598	845	Physical Examination	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+b63cad1b-b4c7-4e50-8acb-5cee4e9ce4a9	TCGA-13-0794	TCGA-13-0794-F72607	845	[Not Available]	[Not Applicable]	[Not Available]	[Not Available]	[Not Available]	[Unknown]	[Not Available]
+b1e11e94-646b-4c44-9d33-1ca67d8356fb	TCGA-13-0795	TCGA-13-0795-F24602	325	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+b1e11e94-646b-4c44-9d33-1ca67d8356fb	TCGA-13-0795	TCGA-13-0795-F72608	325	[Not Available]	[Not Applicable]	[Not Available]	[Not Available]	[Not Available]	[Unknown]	[Not Available]
+0de910b1-edaf-47e4-a265-727ee12ac1c3	TCGA-13-0797	TCGA-13-0797-F72609	525	[Not Available]	[Not Applicable]	[Not Available]	[Not Available]	[Not Available]	[Unknown]	[Not Available]
+b9418c6d-94f7-4db4-a1e4-f384b09d54cb	TCGA-13-0799	TCGA-13-0799-F72611	1262	[Not Available]	[Not Applicable]	[Not Available]	[Not Available]	[Not Available]	[Unknown]	[Not Available]
+390eed6b-50af-48a9-9fd6-3a68a2bbb7f9	TCGA-13-0800	TCGA-13-0800-F72612	1396	[Not Available]	[Not Applicable]	[Not Available]	[Not Available]	[Not Available]	[Unknown]	[Not Available]
+b8c3d99c-429b-42a3-b486-6fbcb90cc2e0	TCGA-13-0801	TCGA-13-0801-F72613	345	[Not Available]	[Not Applicable]	[Not Available]	[Not Available]	[Not Available]	[Unknown]	[Not Available]
+3c8b5986-f9d5-4e7e-9dd4-3ad301451279	TCGA-13-0802	TCGA-13-0802-F72615	510	[Not Available]	[Not Applicable]	[Not Available]	[Not Available]	[Not Available]	[Unknown]	[Not Available]
+54cf3bfe-51c0-4cca-9054-bf76b05a9371	TCGA-13-0803	TCGA-13-0803-F24629	337	Molecular Marker(S)	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+7e34d3c1-1fab-4326-9a69-4260d2bac558	TCGA-13-0804	TCGA-13-0804-F24633	329	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+2a3a6222-f477-4198-ab9e-cdf527c1a6cf	TCGA-13-0805	TCGA-13-0805-F24638	177	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Progression of Disease	[Not Available]
+5c159ab5-8475-4d93-89b8-b6befed4a5b3	TCGA-13-0883	TCGA-13-0883-F24646	819	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+63a75e0b-9241-4f0e-9236-01a2e2c05b7e	TCGA-13-0884	TCGA-13-0884-F24651	1251	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+14c58def-60ee-48e0-a74b-da4eb77ef344	TCGA-13-0887	TCGA-13-0887-F24668	514	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+0740321b-f8a5-4e1d-b390-ca6187598fac	TCGA-13-0891	TCGA-13-0891-F24686	762	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+0740321b-f8a5-4e1d-b390-ca6187598fac	TCGA-13-0891	TCGA-13-0891-F72621	762	[Not Available]	[Not Applicable]	[Not Available]	[Not Available]	[Not Available]	[Unknown]	[Not Available]
+15170c7f-5880-4fb6-82ce-68d3df0dfb68	TCGA-13-0893	TCGA-13-0893-F24690	461	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+e8372916-7ac7-4535-ae97-0248208224f5	TCGA-13-0894	TCGA-13-0894-F24695	565	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+79e6e31c-22a1-481c-903b-ab5499cbd450	TCGA-13-0897	TCGA-13-0897-F24700	554	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+79e6e31c-22a1-481c-903b-ab5499cbd450	TCGA-13-0897	TCGA-13-0897-F24700	[Not Available]	Imaging Study	[Not Applicable]	NO	YES	568	Locoregional Disease	YES
+79e6e31c-22a1-481c-903b-ab5499cbd450	TCGA-13-0897	TCGA-13-0897-F72622	554	[Not Available]	[Not Applicable]	[Not Available]	[Not Available]	[Not Available]	[Unknown]	[Not Available]
+5c6f3cd4-19c5-418d-b1be-d3fbf63e99db	TCGA-13-0899	TCGA-13-0899-F24704	547	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+5c6f3cd4-19c5-418d-b1be-d3fbf63e99db	TCGA-13-0899	TCGA-13-0899-F72623	547	[Not Available]	[Not Applicable]	[Not Available]	[Not Available]	[Not Available]	[Unknown]	[Not Available]
+27920e1e-b9ab-4587-970a-0cba7025becb	TCGA-13-0901	TCGA-13-0901-F24712	390	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+0b519c08-9f23-4ceb-9a13-e16509ca55d7	TCGA-13-0904	TCGA-13-0904-F24723	330	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Progression of Disease	[Not Available]
+0b519c08-9f23-4ceb-9a13-e16509ca55d7	TCGA-13-0904	TCGA-13-0904-F72625	330	[Not Available]	[Not Applicable]	[Not Available]	[Not Available]	[Not Available]	[Unknown]	[Not Available]
+2038fd65-d8f1-4b16-af90-b1c8f9a379a7	TCGA-13-0905	TCGA-13-0905-F72638	1535	[Not Available]	[Not Applicable]	[Not Available]	[Not Available]	[Not Available]	[Unknown]	[Not Available]
+0ba7b6cc-e5f5-47d7-859a-24e31aa336ab	TCGA-13-0908	TCGA-13-0908-F24739	552	Molecular Marker(S)	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+0ba7b6cc-e5f5-47d7-859a-24e31aa336ab	TCGA-13-0908	TCGA-13-0908-F72639	552	[Not Available]	[Not Applicable]	[Not Available]	[Not Available]	[Not Available]	[Unknown]	[Not Available]
+b783f33b-734a-4801-bf39-b559a2035c6f	TCGA-13-0910	TCGA-13-0910-F72627	1212	[Not Available]	[Not Applicable]	[Not Available]	[Not Available]	[Not Available]	[Unknown]	[Not Available]
+8cad4217-5699-4735-9be3-fc0015a8d262	TCGA-13-0911	TCGA-13-0911-F24749	279	Molecular Marker(S)	[Not Applicable]	NO	YES	[Not Available]	Progression of Disease	[Not Available]
+8cad4217-5699-4735-9be3-fc0015a8d262	TCGA-13-0911	TCGA-13-0911-F72628	279	[Not Available]	[Not Applicable]	[Not Available]	[Not Available]	[Not Available]	[Unknown]	[Not Available]
+58d34254-4f5b-40a4-9e9f-7160062fb2a4	TCGA-13-0912	TCGA-13-0912-F24753	469	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+58d34254-4f5b-40a4-9e9f-7160062fb2a4	TCGA-13-0912	TCGA-13-0912-F72629	469	[Not Available]	[Not Applicable]	[Not Available]	[Not Available]	[Not Available]	[Unknown]	[Not Available]
+3e8a51bf-7e1f-4eab-af83-3c60d04db1bf	TCGA-13-0913	TCGA-13-0913-F24758	871	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+3e8a51bf-7e1f-4eab-af83-3c60d04db1bf	TCGA-13-0913	TCGA-13-0913-F24758	[Not Available]	Imaging Study	[Not Applicable]	NO	YES	912	Metastatic	YES
+3e8a51bf-7e1f-4eab-af83-3c60d04db1bf	TCGA-13-0913	TCGA-13-0913-F72630	871	[Not Available]	[Not Applicable]	[Not Available]	[Not Available]	[Not Available]	[Unknown]	[Not Available]
+85a85a11-7200-4e96-97af-6ba26d680d59	TCGA-13-0920	TCGA-13-0920-F24775	297	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+85a85a11-7200-4e96-97af-6ba26d680d59	TCGA-13-0920	TCGA-13-0920-F72633	297	[Not Available]	[Not Applicable]	[Not Available]	[Not Available]	[Not Available]	[Unknown]	[Not Available]
+378f7ea2-86b4-4072-80b8-e12d67193106	TCGA-13-0923	TCGA-13-0923-F72635	1719	[Not Available]	[Not Applicable]	[Not Available]	[Not Available]	[Not Available]	[Unknown]	[Not Available]
+fbb45305-de8d-4baf-8bd0-047b29c2e9d9	TCGA-13-0924	TCGA-13-0924-F72636	962	[Not Available]	[Not Applicable]	[Not Available]	[Not Available]	[Not Available]	[Unknown]	[Not Available]
+0d5e232d-5aa2-4f6f-be58-ffd5f15ee0b8	TCGA-13-1403	TCGA-13-1403-F72653	418	[Not Available]	[Not Applicable]	[Not Available]	[Not Available]	[Not Available]	[Unknown]	[Not Available]
+8e107f4b-1912-4d3e-814a-b863e2d65ed7	TCGA-13-1404	TCGA-13-1404-F72655	1581	[Not Available]	[Not Applicable]	[Not Available]	[Not Available]	[Not Available]	[Unknown]	[Not Available]
+29dccd25-4c4a-463b-a353-38a193337f38	TCGA-13-1405	TCGA-13-1405-F72656	228	[Not Available]	[Not Applicable]	[Not Available]	[Not Available]	[Not Available]	[Unknown]	[Not Available]
+f2dcf4cc-609d-4532-a90d-6ae2bbb53365	TCGA-13-1407	TCGA-13-1407-F72657	1333	[Not Available]	[Not Applicable]	[Not Available]	[Not Available]	[Not Available]	[Unknown]	[Not Available]
+8fac8e40-beac-4059-9d54-7ee530598cfd	TCGA-13-1408	TCGA-13-1408-F72659	765	[Not Available]	[Not Applicable]	[Not Available]	[Not Available]	[Not Available]	[Unknown]	[Not Available]
+18e0e996-8f23-4f53-94a5-dde38b550863	TCGA-13-1409	TCGA-13-1409-F72660	690	[Not Available]	[Not Applicable]	[Not Available]	[Not Available]	[Not Available]	[Unknown]	[Not Available]
+c3f9ee36-d34f-472b-ac7f-801a0d400aa4	TCGA-13-1410	TCGA-13-1410-F72661	319	[Not Available]	[Not Applicable]	[Not Available]	[Not Available]	[Not Available]	[Unknown]	[Not Available]
+a9d3a7b0-faf8-4e56-8600-d9e6882a4f23	TCGA-13-1411	TCGA-13-1411-F72662	238	[Not Available]	[Not Applicable]	[Not Available]	[Not Available]	[Not Available]	[Unknown]	[Not Available]
+44493c23-82e9-4d9f-8e3c-7b3f9ae44970	TCGA-13-1412	TCGA-13-1412-F72669	409	[Not Available]	[Not Applicable]	[Not Available]	[Not Available]	[Not Available]	[Unknown]	[Not Available]
+13f5814c-1f99-4ffa-84a4-3bbd8979faae	TCGA-13-1477	TCGA-13-1477-F24839	235	Imaging Study	[Not Applicable]	YES	YES	[Not Available]	Progression of Disease	[Not Available]
+f3af727e-b592-4828-94f5-22008666cf8c	TCGA-13-1482	TCGA-13-1482-F24848	602	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+611600a6-43ec-4029-9682-cd6d6a3312ec	TCGA-13-1483	TCGA-13-1483-F24852	297	Molecular Marker(S)	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+ead71c90-cc5e-42ce-8754-c3cf15a41134	TCGA-13-1484	TCGA-13-1484-F24857	497	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+ead71c90-cc5e-42ce-8754-c3cf15a41134	TCGA-13-1484	TCGA-13-1484-F72640	497	[Not Available]	[Not Applicable]	[Not Available]	[Not Available]	[Not Available]	[Unknown]	[Not Available]
+49bfd0fe-48ce-49db-9f76-ce2310410950	TCGA-13-1485	TCGA-13-1485-F24861	170	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Progression of Disease	[Not Available]
+c9e28934-8379-4511-817c-d787f2c4ca3a	TCGA-13-1487	TCGA-13-1487-F24865	412	Molecular Marker(S)	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+a85f6f9c-1e1d-44fc-85eb-3b2d96cfbc61	TCGA-13-1488	TCGA-13-1488-F24871	351	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+7248cd60-be22-44bc-bc58-f644db0940a2	TCGA-13-1489	TCGA-13-1489-F24875	806	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+7248cd60-be22-44bc-bc58-f644db0940a2	TCGA-13-1489	TCGA-13-1489-F24875	[Not Available]	Imaging Study	[Not Applicable]	NO	YES	833	Locoregional Disease	YES
+7248cd60-be22-44bc-bc58-f644db0940a2	TCGA-13-1489	TCGA-13-1489-F72641	806	[Not Available]	[Not Applicable]	[Not Available]	[Not Available]	[Not Available]	[Unknown]	[Not Available]
+c8febeef-8e7e-459e-88cb-8086692dc559	TCGA-13-1491	TCGA-13-1491-F24884	508	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+c8febeef-8e7e-459e-88cb-8086692dc559	TCGA-13-1491	TCGA-13-1491-F24884	[Not Available]	Imaging Study	[Not Applicable]	NO	YES	1298	Metastatic	YES
+f50ee039-1da9-43d9-ac01-657ec77a7f32	TCGA-13-1494	TCGA-13-1494-F24893	693	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+f50ee039-1da9-43d9-ac01-657ec77a7f32	TCGA-13-1494	TCGA-13-1494-F24893	[Not Available]	Imaging Study	[Not Applicable]	NO	YES	767	Metastatic	YES
+f50ee039-1da9-43d9-ac01-657ec77a7f32	TCGA-13-1494	TCGA-13-1494-F72644	693	[Not Available]	[Not Applicable]	[Not Available]	[Not Available]	[Not Available]	[Unknown]	[Not Available]
+74dcdfb4-a637-4111-9a22-4b4bc7bbc8f7	TCGA-13-1495	TCGA-13-1495-F24897	977	Imaging Study	[Not Applicable]	[Not Available]	[Not Available]	[Not Available]	Recurrence	[Not Available]
+74dcdfb4-a637-4111-9a22-4b4bc7bbc8f7	TCGA-13-1495	TCGA-13-1495-F24897	[Not Available]	Imaging Study	[Not Applicable]	[Not Available]	[Not Available]	984	Both Locoregional and Distant Metastasis	YES
+74dcdfb4-a637-4111-9a22-4b4bc7bbc8f7	TCGA-13-1495	TCGA-13-1495-F72645	977	[Not Available]	[Not Applicable]	[Not Available]	[Not Available]	[Not Available]	[Unknown]	[Not Available]
+bc4bc342-20bf-40c3-af26-2c6f942da93d	TCGA-13-1497	TCGA-13-1497-F24908	813	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+bc4bc342-20bf-40c3-af26-2c6f942da93d	TCGA-13-1497	TCGA-13-1497-F24908	[Not Available]	Imaging Study	[Not Applicable]	NO	YES	861	Metastatic	YES
+bc4bc342-20bf-40c3-af26-2c6f942da93d	TCGA-13-1497	TCGA-13-1497-F72646	813	[Not Available]	[Not Applicable]	[Not Available]	[Not Available]	[Not Available]	[Unknown]	[Not Available]
+56a30462-2819-4c18-95be-8e73880a4921	TCGA-13-1498	TCGA-13-1498-F24914	534	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Progression of Disease	[Not Available]
+56a30462-2819-4c18-95be-8e73880a4921	TCGA-13-1498	TCGA-13-1498-F72647	534	[Not Available]	[Not Applicable]	[Not Available]	[Not Available]	[Not Available]	[Unknown]	[Not Available]
+b25570ed-baca-4e3f-87c6-2ef18119ba49	TCGA-13-1499	TCGA-13-1499-F24919	583	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+b25570ed-baca-4e3f-87c6-2ef18119ba49	TCGA-13-1499	TCGA-13-1499-F24919	[Not Available]	Imaging Study	[Not Applicable]	NO	YES	595	Locoregional Disease	YES
+b25570ed-baca-4e3f-87c6-2ef18119ba49	TCGA-13-1499	TCGA-13-1499-F72649	583	[Not Available]	[Not Applicable]	[Not Available]	[Not Available]	[Not Available]	[Unknown]	[Not Available]
+a285786d-120e-4c88-b48b-8111f4413988	TCGA-13-1500	TCGA-13-1500-F24926	253	Molecular Marker(S)	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+561968ce-da9a-4d69-8bc2-bc87b9550f93	TCGA-13-1501	TCGA-13-1501-F24931	392	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Progression of Disease	[Not Available]
+561968ce-da9a-4d69-8bc2-bc87b9550f93	TCGA-13-1501	TCGA-13-1501-F72651	392	[Not Available]	[Not Applicable]	[Not Available]	[Not Available]	[Not Available]	[Unknown]	[Not Available]
+cd49126a-ec15-43fa-9e43-3f7460d43f2b	TCGA-13-1504	TCGA-13-1504-F72652	548	[Not Available]	[Not Applicable]	[Not Available]	[Not Available]	[Not Available]	[Unknown]	[Not Available]
+914f84bf-578b-4f4d-93cb-378228ea58f6	TCGA-13-1505	TCGA-13-1505-F72674	1561	[Not Available]	[Not Applicable]	[Not Available]	[Not Available]	[Not Available]	[Unknown]	[Not Available]
+1cc02c64-a34e-46ae-9bc7-5d50f2fefb31	TCGA-13-1506	TCGA-13-1506-F72675	666	[Not Available]	[Not Applicable]	[Not Available]	[Not Available]	[Not Available]	[Unknown]	[Not Available]
+502e8d02-2953-4514-a2e1-6179dd94da73	TCGA-13-1507	TCGA-13-1507-F72677	324	[Not Available]	[Not Applicable]	[Not Available]	[Not Available]	[Not Available]	[Unknown]	[Not Available]
+fe402983-70da-44db-b7b1-c32702ddde26	TCGA-13-1509	TCGA-13-1509-F72678	578	[Not Available]	[Not Applicable]	[Not Available]	[Not Available]	[Not Available]	[Unknown]	[Not Available]
+dac96910-0cb2-44ea-b108-2d6d51b07112	TCGA-13-1510	TCGA-13-1510-F72679	1189	[Not Available]	[Not Applicable]	[Not Available]	[Not Available]	[Not Available]	[Unknown]	[Not Available]
+756f6768-e69a-4fe9-aa41-7c58aabe4577	TCGA-13-1511	TCGA-13-1511-F72680	459	[Not Available]	[Not Applicable]	[Not Available]	[Not Available]	[Not Available]	[Unknown]	[Not Available]
+82093ed9-a3c8-4e34-931f-4ec7ae745711	TCGA-13-1512	TCGA-13-1512-F72681	427	[Not Available]	[Not Applicable]	[Not Available]	[Not Available]	[Not Available]	[Unknown]	[Not Available]
+8ae56ffc-960c-46c2-bd6c-1dcff33875d0	TCGA-13-1817	TCGA-13-1817-F24974	541	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+8ae56ffc-960c-46c2-bd6c-1dcff33875d0	TCGA-13-1817	TCGA-13-1817-F24974	[Not Available]	Imaging Study	[Not Applicable]	NO	YES	633	Both Locoregional and Distant Metastasis	YES
+82e96c6c-a88c-4e52-be56-7f24f6c7b835	TCGA-13-1819	TCGA-13-1819-F24982	429	Imaging Study	[Not Applicable]	YES	YES	[Not Available]	Recurrence	[Not Available]
+82e96c6c-a88c-4e52-be56-7f24f6c7b835	TCGA-13-1819	TCGA-13-1819-F24982	[Not Available]	Imaging Study	[Not Applicable]	YES	YES	483	Locoregional Disease	YES
+82e96c6c-a88c-4e52-be56-7f24f6c7b835	TCGA-13-1819	TCGA-13-1819-F72642	429	[Not Available]	[Not Applicable]	[Not Available]	[Not Available]	[Not Available]	[Unknown]	[Not Available]
+56c4bd48-ab15-4b49-ae2f-968653052b50	TCGA-13-2057	TCGA-13-2057-F72682	897	[Not Available]	[Not Applicable]	[Not Available]	[Not Available]	[Not Available]	[Unknown]	[Not Available]
+f4b56568-a74a-4a2e-89d9-11722ecf5948	TCGA-13-2059	TCGA-13-2059-F72684	1005	[Not Available]	[Not Applicable]	[Not Available]	[Not Available]	[Not Available]	[Unknown]	[Not Available]
+196f4600-b6c9-4652-9f77-65c92883f8c1	TCGA-13-2060	TCGA-13-2060-F72683	1475	[Not Available]	[Not Applicable]	[Not Available]	[Not Available]	[Not Available]	[Unknown]	[Not Available]
+8d1dcf21-efd3-4fbe-ad44-f43a19239383	TCGA-13-2065	TCGA-13-2065-F72688	946	[Not Available]	[Not Applicable]	[Not Available]	[Not Available]	[Not Available]	[Unknown]	[Not Available]
+bcb87812-94e3-4dc0-867e-d049b44a2690	TCGA-13-2066	TCGA-13-2066-F72687	1028	[Not Available]	[Not Applicable]	[Not Available]	[Not Available]	[Not Available]	[Unknown]	[Not Available]
+0d15e5aa-2483-4f81-973a-ff469296c911	TCGA-13-2071	TCGA-13-2071-F72689	322	[Not Available]	[Not Applicable]	[Not Available]	[Not Available]	[Not Available]	[Unknown]	[Not Available]
+34f285ab-6c31-4865-a0a7-a57af3567df0	TCGA-20-0987	TCGA-20-0987-F25518	442	Physical Examination	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+c9524775-6b50-4793-8858-24b6a6d3e4e6	TCGA-20-0990	TCGA-20-0990-F25523	871	Molecular Marker(S)	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+ac2e88ff-8b1e-4691-9a96-5a581f98d827	TCGA-20-1683	TCGA-20-1683-F25544	618	Molecular Marker(S)	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+b923ac70-70ea-4a82-8466-46350c5803bf	TCGA-23-1021	TCGA-23-1021-F25567	[Not Available]	[Not Available]	[Not Applicable]	NO	YES	1181	Locoregional Disease	YES
+d0673efd-3315-4dd5-8ab6-912bfa07dceb	TCGA-23-1022	TCGA-23-1022-F25576	450	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+9e18238f-ae85-4b75-ae87-d92da9731a40	TCGA-23-1023	TCGA-23-1023-F25587	490	Other Method: Specify In Notes	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+9e18238f-ae85-4b75-ae87-d92da9731a40	TCGA-23-1023	TCGA-23-1023-F25587	[Not Available]	Other Method: Specify In Notes	[Not Applicable]	NO	YES	1209	Locoregional Disease	YES
+c6ede8ae-881c-47a0-a0ef-745ed4b7764a	TCGA-23-1026	TCGA-23-1026-F25610	797	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+c6ede8ae-881c-47a0-a0ef-745ed4b7764a	TCGA-23-1026	TCGA-23-1026-F25610	[Not Available]	Imaging Study	[Not Applicable]	NO	YES	816	Locoregional Disease	YES
+c9e58844-9d61-44a2-aee6-1760bc19711b	TCGA-23-1027	TCGA-23-1027-F25616	114	[Not Available]	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+df53c3c0-3605-4d2b-bdc7-96d9beab27ea	TCGA-23-1028	TCGA-23-1028-F25624	133	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+df53c3c0-3605-4d2b-bdc7-96d9beab27ea	TCGA-23-1028	TCGA-23-1028-F25624	[Not Available]	Imaging Study	[Not Applicable]	NO	YES	133	Metastatic	YES
+cbcf6922-a3c0-43a1-826e-642918b0a635	TCGA-23-1030	TCGA-23-1030-F25643	544	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+cbcf6922-a3c0-43a1-826e-642918b0a635	TCGA-23-1030	TCGA-23-1030-F25643	[Not Available]	Imaging Study	[Not Applicable]	NO	YES	544	Metastatic	YES
+7c466a5f-a6b4-4d1a-a0f5-ddcd7ef90ff1	TCGA-23-1109	TCGA-23-1109-F25663	987	Imaging Study	[Not Applicable]	YES	YES	[Not Available]	Recurrence	[Not Available]
+7c466a5f-a6b4-4d1a-a0f5-ddcd7ef90ff1	TCGA-23-1109	TCGA-23-1109-F25663	[Not Available]	Imaging Study	[Not Applicable]	YES	YES	987	Locoregional Disease	YES
+9fb1ba57-2007-4477-b000-2d36f163efd2	TCGA-23-1110	TCGA-23-1110-F25666	326	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+c0c3caab-9277-4a31-a96c-c607e38d5ccc	TCGA-23-1114	TCGA-23-1114-F25685	634	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+c0c3caab-9277-4a31-a96c-c607e38d5ccc	TCGA-23-1114	TCGA-23-1114-F25685	[Not Available]	Imaging Study	[Not Applicable]	NO	YES	634	Metastatic	YES
+70fe08bd-a0b4-4a88-b82e-813b176f8e40	TCGA-23-1116	TCGA-23-1116-F72416	286	[Not Available]	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+70fe08bd-a0b4-4a88-b82e-813b176f8e40	TCGA-23-1116	TCGA-23-1116-F72416	286	[Not Available]	[Not Applicable]	NO	YES	[Not Available]	[Unknown]	[Not Available]
+a88b7e66-5f12-4023-a7e2-fcfbd1f25977	TCGA-23-1117	TCGA-23-1117-F25699	418	Other Method: Specify In Notes	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+a88b7e66-5f12-4023-a7e2-fcfbd1f25977	TCGA-23-1117	TCGA-23-1117-F25699	[Not Available]	Other Method: Specify In Notes	[Not Applicable]	NO	YES	438	Locoregional Disease	YES
+2dfd8a0e-e642-49b3-abd7-f0334927eebb	TCGA-23-1119	TCGA-23-1119-F25711	3378	Other Method: Specify In Notes	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+2dfd8a0e-e642-49b3-abd7-f0334927eebb	TCGA-23-1119	TCGA-23-1119-F25711	[Not Available]	Other Method: Specify In Notes	[Not Applicable]	NO	YES	3378	Metastatic	YES
+d2c0d320-d1c5-4eed-af4f-15540e60db0b	TCGA-23-1122	TCGA-23-1122-F25724	447	Imaging Study	[Not Applicable]	YES	YES	[Not Available]	Recurrence	[Not Available]
+d2c0d320-d1c5-4eed-af4f-15540e60db0b	TCGA-23-1122	TCGA-23-1122-F25724	[Not Available]	Imaging Study	[Not Applicable]	YES	YES	470	Metastatic	YES
+8a6d2ce3-cc57-451b-9b07-8263782aa23f	TCGA-23-1124	TCGA-23-1124-F25739	641	First Seen At Further Surgery	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+8a6d2ce3-cc57-451b-9b07-8263782aa23f	TCGA-23-1124	TCGA-23-1124-F25739	[Not Available]	First Seen At Further Surgery	[Not Applicable]	NO	YES	644	Metastatic	YES
+1592af8e-8d11-4325-8a2b-e0c690b15b58	TCGA-23-2072	TCGA-23-2072-F25757	476	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+ef57bc45-858f-4d4e-8407-b7eadfa43be5	TCGA-23-2077	TCGA-23-2077-F25763	1232	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+ef57bc45-858f-4d4e-8407-b7eadfa43be5	TCGA-23-2077	TCGA-23-2077-F25763	[Not Available]	Imaging Study	[Not Applicable]	NO	YES	1345	Locoregional Disease	YES
+e3ea5137-76b8-4afc-9b80-ed74714e7172	TCGA-23-2079	TCGA-23-2079-F25775	283	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+e3ea5137-76b8-4afc-9b80-ed74714e7172	TCGA-23-2079	TCGA-23-2079-F25775	[Not Available]	Imaging Study	[Not Applicable]	NO	YES	2488	Locoregional Disease	YES
+41178cbc-db73-4007-b5d8-febebf7f578d	TCGA-23-2081	TCGA-23-2081-F25781	[Not Available]	[Not Available]	[Not Applicable]	NO	YES	250	Locoregional Disease	YES
+2cb82948-7cbe-4b6c-8414-c02f662de2d0	TCGA-23-2084	TCGA-23-2084-F25795	619	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+2cb82948-7cbe-4b6c-8414-c02f662de2d0	TCGA-23-2084	TCGA-23-2084-F25795	[Not Available]	Imaging Study	[Not Applicable]	NO	YES	627	Locoregional Disease	YES
+95e58015-a7c0-4bdc-bf64-7617d24d0784	TCGA-24-0970	TCGA-24-0970-F25870	280	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+9a30dee8-962a-49db-a85a-c39515c91b68	TCGA-24-0979	TCGA-24-0979-F25891	428	Imaging Study	[Not Applicable]	YES	YES	[Not Available]	Recurrence	[Not Available]
+d1eeaca3-52c0-4a0c-916a-fd64cec911d9	TCGA-24-0980	TCGA-24-0980-F25896	145	Other Method: Specify In Notes	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+206ce0ed-36a4-47ab-ac8e-f6fca6ac5c18	TCGA-24-0982	TCGA-24-0982-F25900	153	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+f34aa3b6-e966-49c6-bc55-130545772c53	TCGA-24-1103	TCGA-24-1103-F25824	678	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+f9f44f86-10c7-4473-b156-5afbfa9a2ad0	TCGA-24-1104	TCGA-24-1104-F25834	959	Imaging Study	[Not Applicable]	YES	YES	[Not Available]	Recurrence	[Not Available]
+7e01f23a-0b0e-46a2-9f30-c3a9d2c779d2	TCGA-24-1105	TCGA-24-1105-F25844	470	Imaging Study	[Not Applicable]	YES	YES	[Not Available]	Recurrence	[Not Available]
+9c744ff8-1cde-4176-b6d7-0ab62bf42620	TCGA-24-1428	TCGA-24-1428-F25960	448	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+3018efe7-13a1-47ae-a726-8fc967c73841	TCGA-24-1430	TCGA-24-1430-F25966	449	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+384170fc-e8be-426a-a54e-bf1ca61f2986	TCGA-24-1431	TCGA-24-1431-F25977	199	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+5503b3a1-7d03-41b2-9ec8-e478c5414d67	TCGA-24-1434	TCGA-24-1434-F25984	337	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+49d2c0cf-a3f3-4519-a755-0a5f769df2ea	TCGA-24-1435	TCGA-24-1435-F25993	505	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+171f7917-69eb-4a3f-9cc0-0e1dffd412c1	TCGA-24-1463	TCGA-24-1463-F26009	971	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+4160e048-f0b0-40f5-805b-e277a5893a3b	TCGA-24-1464	TCGA-24-1464-F26022	323	Imaging Study	[Not Applicable]	YES	YES	[Not Available]	Recurrence	[Not Available]
+098acb76-0bf5-44e5-bcae-f919cf5fa5e5	TCGA-24-1466	TCGA-24-1466-F26028	491	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+34f545ab-d420-4dd2-8db4-3159896efd23	TCGA-24-1467	TCGA-24-1467-F26039	1253	Molecular Marker(S)	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+34f545ab-d420-4dd2-8db4-3159896efd23	TCGA-24-1467	TCGA-24-1467-F26039	[Not Available]	Molecular Marker(S)	[Not Applicable]	NO	YES	1253	Metastatic	YES
+d7b3156d-672a-4a55-868d-9ca6a09fcb0f	TCGA-24-1474	TCGA-24-1474-F26073	332	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+21f6bf91-dfc6-4a59-8b76-88a0f95c7b47	TCGA-24-1544	TCGA-24-1544-F26080	643	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Progression of Disease	[Not Available]
+f2ec64f5-a414-4c34-99c7-d59bc4e831e0	TCGA-24-1545	TCGA-24-1545-F26088	861	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+66c92b9e-de3c-4d1a-bb69-46ffbc6caf33	TCGA-24-1548	TCGA-24-1548-F26101	207	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+3b81ec7c-0934-4649-9231-9919dd26dd15	TCGA-24-1549	TCGA-24-1549-F26113	1042	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+3b81ec7c-0934-4649-9231-9919dd26dd15	TCGA-24-1549	TCGA-24-1549-F26113	[Not Available]	Imaging Study	[Not Applicable]	NO	YES	1154	Metastatic	YES
+1858b58f-fdf4-413c-9c29-96ae85b88a74	TCGA-24-1550	TCGA-24-1550-F26130	892	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+1858b58f-fdf4-413c-9c29-96ae85b88a74	TCGA-24-1550	TCGA-24-1550-F26130	[Not Available]	Imaging Study	[Not Applicable]	NO	YES	1121	Locoregional Disease	YES
+499a9b57-ee1a-4012-bbab-c6ad955b5e0a	TCGA-24-1551	TCGA-24-1551-F26139	764	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+62379be5-13f0-474b-94d3-6f944ec4ee96	TCGA-24-1552	TCGA-24-1552-F26148	403	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+08c64000-d320-4e4d-974b-da503d48890c	TCGA-24-1553	TCGA-24-1553-F26157	553	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+5d36676e-4140-44b5-aa0e-b2af092b7dc0	TCGA-24-1555	TCGA-24-1555-F26171	1577	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+7592a659-7175-486f-a16e-24a4b4365a36	TCGA-24-1556	TCGA-24-1556-F26184	539	Imaging Study	[Not Applicable]	YES	YES	[Not Available]	Recurrence	[Not Available]
+7592a659-7175-486f-a16e-24a4b4365a36	TCGA-24-1556	TCGA-24-1556-F26184	[Not Available]	Imaging Study	[Not Applicable]	YES	YES	762	Locoregional Disease	YES
+7dcc809b-e33a-4453-b92a-c00786f48cb0	TCGA-24-1557	TCGA-24-1557-F26194	447	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Progression of Disease	[Not Available]
+ba68f2cf-9271-41fd-9655-1fac7681f588	TCGA-24-1558	TCGA-24-1558-F26212	273	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+afd92922-b8dc-48bd-a9c0-bc8d95855eb7	TCGA-24-1560	TCGA-24-1560-F26221	143	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+4c18d9cf-4af4-4a86-8b1c-f78795fbbd7e	TCGA-24-1562	TCGA-24-1562-F26237	229	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+52386f66-2877-4c75-894e-5c1dc03e6ef4	TCGA-24-1563	TCGA-24-1563-F26248	396	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+d77ef9cf-f8e6-4ee9-8d4f-1106885f6b06	TCGA-24-1564	TCGA-24-1564-F26260	221	Imaging Study	[Not Applicable]	YES	YES	[Not Available]	Recurrence	[Not Available]
+cf1e86ec-4bcb-403c-831b-d67bddef14eb	TCGA-24-1565	TCGA-24-1565-F26274	145	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+2cb50c2d-e749-4172-b101-d975507435c5	TCGA-24-1567	TCGA-24-1567-F26279	319	Molecular Marker(S)	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+19427350-619b-4b9c-a3ba-37f667bb2843	TCGA-24-1603	TCGA-24-1603-F26284	992	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+d3164236-c14a-4230-b527-ecd1a3992f02	TCGA-24-1614	TCGA-24-1614-F26306	644	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+5d7027f5-60a0-47ab-a79d-667c9acc0e54	TCGA-24-1616	TCGA-24-1616-F26315	405	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+d48fff14-9413-40a7-a09c-41f12bbe0aa9	TCGA-24-1852	TCGA-24-1852-F26363	1009	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+d48fff14-9413-40a7-a09c-41f12bbe0aa9	TCGA-24-1852	TCGA-24-1852-F26363	[Not Available]	Imaging Study	[Not Applicable]	NO	YES	1211	Locoregional Disease	YES
+8449955f-42d9-46f6-919a-5cc5d59e6284	TCGA-24-1923	TCGA-24-1923-F26379	343	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+26558703-a659-43f2-86cb-0695989bc14e	TCGA-24-1924	TCGA-24-1924-F26386	320	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+8c47ae58-91c7-4247-b420-50f31f5eb00d	TCGA-24-1927	TCGA-24-1927-F26396	290	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+b45c543a-40d9-423a-a7fa-98e4b325b487	TCGA-24-1928	TCGA-24-1928-F26403	70	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+62efb5ae-43dc-4a4c-a898-6cd9c6dba027	TCGA-24-1930	TCGA-24-1930-F26410	544	Imaging Study	[Not Applicable]	YES	YES	[Not Available]	Recurrence	[Not Available]
+62efb5ae-43dc-4a4c-a898-6cd9c6dba027	TCGA-24-1930	TCGA-24-1930-F26410	[Not Available]	Imaging Study	[Not Applicable]	YES	YES	1923	Locoregional Disease	YES
+62efb5ae-43dc-4a4c-a898-6cd9c6dba027	TCGA-24-1930	TCGA-24-1930-F26410	[Not Available]	Imaging Study	[Not Applicable]	YES	YES	670	Metastatic	YES
+e20ea417-7296-4da8-9fdb-71cd1f45153a	TCGA-24-2020	TCGA-24-2020-F26431	723	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+5201ee13-2aed-4641-9169-4d5ee07a23da	TCGA-24-2023	TCGA-24-2023-F26442	1069	Molecular Marker(S)	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+0a48873a-092a-4b25-822b-b0b3c18c08a8	TCGA-24-2024	TCGA-24-2024-F26450	421	Molecular Marker(S)	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+0a48873a-092a-4b25-822b-b0b3c18c08a8	TCGA-24-2024	TCGA-24-2024-F26450	[Not Available]	Molecular Marker(S)	[Not Applicable]	NO	YES	419	Locoregional Disease	YES
+219f54ef-4235-482d-b799-f2fa9930105c	TCGA-24-2027	TCGA-24-2027-F26460	617	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+bbbf1184-1e19-479a-b31f-daa692d52e02	TCGA-24-2029	TCGA-24-2029-F26476	372	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+d2ccefea-c1d6-465f-97b1-e51e29c5f1f8	TCGA-24-2030	TCGA-24-2030-F26480	646	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+872d2922-7292-4681-adb7-d3b267eccbe7	TCGA-24-2033	TCGA-24-2033-F26490	351	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+062982f8-9f49-425a-99e9-008af5ed9040	TCGA-24-2035	TCGA-24-2035-F26496	287	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+c9226204-cb61-40b8-8a94-a7e71c14ea3a	TCGA-24-2036	TCGA-24-2036-F26505	914	Physical Examination	[Not Applicable]	YES	YES	[Not Available]	Recurrence	[Not Available]
+c9226204-cb61-40b8-8a94-a7e71c14ea3a	TCGA-24-2036	TCGA-24-2036-F26505	[Not Available]	Physical Examination	[Not Applicable]	YES	YES	579	Locoregional Disease	YES
+17181157-c9e2-4bd6-8653-f5dce56f9053	TCGA-24-2038	TCGA-24-2038-F26518	1169	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+17181157-c9e2-4bd6-8653-f5dce56f9053	TCGA-24-2038	TCGA-24-2038-F26518	[Not Available]	Imaging Study	[Not Applicable]	NO	YES	1183	Locoregional Disease	YES
+9af2248a-d86a-4277-93b4-8eba5a39bd3c	TCGA-24-2254	TCGA-24-2254-F26523	606	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+f2ce00e4-0d4f-4faa-bee1-ddf1b306e97b	TCGA-24-2260	TCGA-24-2260-F26532	667	Physical Examination	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+99a61986-7b23-46b5-99a4-efba6bad3766	TCGA-24-2267	TCGA-24-2267-F26544	512	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+99a61986-7b23-46b5-99a4-efba6bad3766	TCGA-24-2267	TCGA-24-2267-F26544	[Not Available]	Imaging Study	[Not Applicable]	NO	YES	955	Metastatic	YES
+a8c4a333-6b67-44c8-9000-516f8ccea788	TCGA-24-2271	TCGA-24-2271-F26557	827	Physical Examination	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+a8c4a333-6b67-44c8-9000-516f8ccea788	TCGA-24-2271	TCGA-24-2271-F26557	[Not Available]	Physical Examination	[Not Applicable]	NO	YES	22	Metastatic	YES
+97ad0360-3be4-401a-a94c-7f2800a1b519	TCGA-24-2280	TCGA-24-2280-F26561	535	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+b867e933-e3e3-4491-9bb6-b18c48d6f173	TCGA-24-2289	TCGA-24-2289-F26578	568	Molecular Marker(S)	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+2b14123b-8fcd-402c-9399-4e7c47f20252	TCGA-24-2290	TCGA-24-2290-F26583	324	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+7bd1851f-7e2e-4dbc-9f0e-7cb2863371e1	TCGA-24-2295	TCGA-24-2295-F26605	281	First Seen At Further Surgery	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+7e4e7914-ec23-4c55-98d6-3c5eecffa8e4	TCGA-24-2298	TCGA-24-2298-F26616	469	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+d73a0a33-e4e8-44bd-9580-2038ab06583a	TCGA-25-1313	TCGA-25-1313-F26628	394	Molecular Marker(S)	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+0b2ea4b7-98bb-4190-b682-2c75b447c90a	TCGA-25-1314	TCGA-25-1314-F26633	274	[Not Available]	[Not Applicable]	NO	YES	[Not Available]	Progression of Disease	[Not Available]
+0b2ea4b7-98bb-4190-b682-2c75b447c90a	TCGA-25-1314	TCGA-25-1314-F26633	[Not Available]	[Not Available]	[Not Applicable]	NO	YES	274	Locoregional Disease	YES
+635f5335-b008-428e-b005-615776a6643f	TCGA-25-1315	TCGA-25-1315-F26639	153	[Not Available]	[Not Applicable]	NO	YES	[Not Available]	Progression of Disease	[Not Available]
+635f5335-b008-428e-b005-615776a6643f	TCGA-25-1315	TCGA-25-1315-F26639	[Not Available]	[Not Available]	[Not Applicable]	NO	YES	153	Locoregional Disease	YES
+58427bce-6b81-4083-aeda-25f59e292bbc	TCGA-25-1316	TCGA-25-1316-F26646	276	[Not Available]	[Not Applicable]	NO	YES	[Not Available]	Progression of Disease	[Not Available]
+13319c20-02f6-4b5f-b24f-3d8f4084094c	TCGA-25-1318	TCGA-25-1318-F26655	185	First Seen At Further Surgery	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+13319c20-02f6-4b5f-b24f-3d8f4084094c	TCGA-25-1318	TCGA-25-1318-F26655	[Not Available]	First Seen At Further Surgery	[Not Applicable]	NO	YES	181	Metastatic	YES
+914d8613-3c25-4a10-be50-28b42f4d3a5d	TCGA-25-1319	TCGA-25-1319-F26660	730	[Not Available]	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+46395c3d-5e51-477f-946e-e58b87cc7baa	TCGA-25-1320	TCGA-25-1320-F26664	424	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+6ad8bc89-d8e9-48c2-bc25-c8e51f972b4d	TCGA-25-1321	TCGA-25-1321-F26670	454	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+6ad8bc89-d8e9-48c2-bc25-c8e51f972b4d	TCGA-25-1321	TCGA-25-1321-F26670	[Not Available]	Imaging Study	[Not Applicable]	NO	YES	638	Metastatic	[Not Available]
+2ee36d9d-128b-4761-aa1a-a637da106f3d	TCGA-25-1323	TCGA-25-1323-F26680	365	Physical Examination	[Not Applicable]	NO	YES	[Not Available]	Progression of Disease	[Not Available]
+07a859fc-6f78-4905-9035-90e2403dbe8d	TCGA-25-1326	TCGA-25-1326-F26691	396	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+79fd602b-3e8e-4353-aa78-4f5f170b607d	TCGA-25-1328	TCGA-25-1328-F26698	244	First Seen At Further Surgery	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+79fd602b-3e8e-4353-aa78-4f5f170b607d	TCGA-25-1328	TCGA-25-1328-F26698	[Not Available]	First Seen At Further Surgery	[Not Applicable]	NO	YES	244	Locoregional Disease	YES
+808eb134-9c7d-43bb-b86c-2f3259193954	TCGA-25-1623	TCGA-25-1623-F26707	342	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+88d61634-913c-435a-8d25-e019c8dab7da	TCGA-25-1625	TCGA-25-1625-F26712	526	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+88d61634-913c-435a-8d25-e019c8dab7da	TCGA-25-1625	TCGA-25-1625-F26712	[Not Available]	Imaging Study	[Not Applicable]	NO	YES	545	Metastatic	YES
+662d77d1-1a43-427a-813b-e11edd30868e	TCGA-25-1626	TCGA-25-1626-F26716	318	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+3f917550-89a6-404b-94df-938c99121411	TCGA-25-1628	TCGA-25-1628-F26724	287	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+3f917550-89a6-404b-94df-938c99121411	TCGA-25-1628	TCGA-25-1628-F26724	[Not Available]	Imaging Study	[Not Applicable]	NO	YES	483	Metastatic	YES
+c435627c-159d-4a6d-a819-30abac24bf4d	TCGA-25-1632	TCGA-25-1632-F26735	537	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+20336269-5a5b-4ba7-8fe8-665a1f9af738	TCGA-25-1633	TCGA-25-1633-F26742	616	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+15556b28-c6bd-455a-87b6-4b7b3e33d0e4	TCGA-25-1634	TCGA-25-1634-F26749	380	Other Method: Specify In Notes	[Not Applicable]	YES	YES	[Not Available]	Recurrence	[Not Available]
+bc2591b0-65d7-48c3-a5cc-783f67b65869	TCGA-25-1635	TCGA-25-1635-F26756	614	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+15f1a992-0724-4d76-a71a-702ac7753a41	TCGA-25-1870	TCGA-25-1870-F26763	243	First Seen At Further Surgery	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+15f1a992-0724-4d76-a71a-702ac7753a41	TCGA-25-1870	TCGA-25-1870-F26763	[Not Available]	First Seen At Further Surgery	[Not Applicable]	NO	YES	243	Metastatic	YES
+ff844242-7559-4b07-b09e-69ea40e5ac6b	TCGA-25-1871	TCGA-25-1871-F26769	230	Physical Examination	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+ff844242-7559-4b07-b09e-69ea40e5ac6b	TCGA-25-1871	TCGA-25-1871-F26769	[Not Available]	Physical Examination	[Not Applicable]	NO	YES	334	Locoregional Disease	YES
+077079c3-6877-467b-b9cc-5c650aae4f07	TCGA-25-1877	TCGA-25-1877-F26774	549	[Not Available]	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+9bdbaccf-b43b-4ec3-8b9b-dff65215eb00	TCGA-25-1878	TCGA-25-1878-F26779	971	Molecular Marker(S)	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+818dc159-aba4-46bc-a4ed-68ee0f8c4461	TCGA-25-2042	TCGA-25-2042-F26785	[Not Available]	First Seen At Further Surgery	[Not Applicable]	NO	YES	123	Metastatic	YES
+b4b49027-7815-4813-9769-a3fe3a26a37a	TCGA-25-2393	TCGA-25-2393-F26803	305	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+fd4740db-76a8-4362-be71-7b609479bb67	TCGA-25-2398	TCGA-25-2398-F26812	577	First Seen At Further Surgery	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+ad2b1a0a-153f-483d-b228-5763eba3f6cc	TCGA-25-2399	TCGA-25-2399-F26818	243	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+5c127332-5ca0-45f1-a5ac-4876ad94e491	TCGA-25-2400	TCGA-25-2400-F26823	577	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+22178c3c-6b04-46d8-8041-dc83fa195029	TCGA-25-2404	TCGA-25-2404-F26831	426	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+fdd4adb8-9295-480a-9352-305b5eb51187	TCGA-25-2408	TCGA-25-2408-F26837	334	First Seen At Further Surgery	[Not Applicable]	NO	[Not Available]	[Not Available]	Recurrence	[Not Available]
+fdd4adb8-9295-480a-9352-305b5eb51187	TCGA-25-2408	TCGA-25-2408-F26837	[Not Available]	First Seen At Further Surgery	[Not Applicable]	NO	[Not Available]	334	Metastatic	YES
+dce71741-ccbe-40b7-a0b8-2048d07187a4	TCGA-25-2409	TCGA-25-2409-F26841	304	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+05019013-7ea5-4905-ac79-901146ba2ee2	TCGA-29-1688	TCGA-29-1688-F27124	184	First Seen At Further Surgery	[Not Applicable]	YES	YES	[Not Available]	Recurrence	[Not Available]
+05019013-7ea5-4905-ac79-901146ba2ee2	TCGA-29-1688	TCGA-29-1688-F27124	[Not Available]	First Seen At Further Surgery	[Not Applicable]	YES	YES	184	Locoregional Disease	YES
+b4225c44-b9b6-46c5-aabf-7b0d9a9fe20b	TCGA-29-1691	TCGA-29-1691-F27148	613	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+b4225c44-b9b6-46c5-aabf-7b0d9a9fe20b	TCGA-29-1691	TCGA-29-1691-F27148	[Not Available]	Imaging Study	[Not Applicable]	NO	YES	624	Metastatic	YES
+92960f76-0242-4a1c-bf7d-014c2f720219	TCGA-29-1692	TCGA-29-1692-F27159	544	[Not Available]	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+92960f76-0242-4a1c-bf7d-014c2f720219	TCGA-29-1692	TCGA-29-1692-F27159	[Not Available]	[Not Available]	[Not Applicable]	NO	YES	2837	Locoregional Disease	YES
+6fb71a0c-bc50-48c8-acfa-db94be1e151a	TCGA-29-1693	TCGA-29-1693-F27174	694	Imaging Study	[Not Applicable]	YES	YES	[Not Available]	Recurrence	[Not Available]
+6fb71a0c-bc50-48c8-acfa-db94be1e151a	TCGA-29-1693	TCGA-29-1693-F27174	[Not Available]	Imaging Study	[Not Applicable]	YES	YES	2050	Locoregional Disease	YES
+1db60f09-7f5a-4f21-8003-06a6abc781db	TCGA-29-1694	TCGA-29-1694-F27192	[Not Available]	First Seen At Further Surgery	[Not Applicable]	YES	YES	206	Locoregional Disease	YES
+8a98a6e6-b763-4824-858b-fd2738e6c9a3	TCGA-29-1696	TCGA-29-1696-F27206	342	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+8a98a6e6-b763-4824-858b-fd2738e6c9a3	TCGA-29-1696	TCGA-29-1696-F27206	[Not Available]	Imaging Study	[Not Applicable]	NO	YES	454	Locoregional Disease	YES
+42ebd30b-175e-4ece-a806-e55cb7e40e96	TCGA-29-1697	TCGA-29-1697-F27216	500	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+18d21132-a795-4551-83ba-66483de423a2	TCGA-29-1698	TCGA-29-1698-F27227	181	First Seen At Further Surgery	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+18d21132-a795-4551-83ba-66483de423a2	TCGA-29-1698	TCGA-29-1698-F27227	[Not Available]	First Seen At Further Surgery	[Not Applicable]	NO	YES	181	Locoregional Disease	YES
+86b513ba-df09-485d-92d4-fb9e888f7350	TCGA-29-1701	TCGA-29-1701-F27243	298	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+0e1598d8-cbe5-4113-95f1-4bcda061239b	TCGA-29-1702	TCGA-29-1702-F27249	286	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+b3511675-fd68-4745-8020-e290ca0fd115	TCGA-29-1703	TCGA-29-1703-F27255	324	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+8e7f1c74-7cb3-43c0-b07c-bf69b780053f	TCGA-29-1704	TCGA-29-1704-F27269	568	Other Method: Specify In Notes	[Not Applicable]	YES	YES	[Not Available]	Recurrence	[Not Available]
+8e7f1c74-7cb3-43c0-b07c-bf69b780053f	TCGA-29-1704	TCGA-29-1704-F27269	[Not Available]	Other Method: Specify In Notes	[Not Applicable]	YES	YES	608	Locoregional Disease	YES
+f9c835db-2ab6-4bf5-826f-48723493c0ec	TCGA-29-1705	TCGA-29-1705-F27279	283	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+f9c835db-2ab6-4bf5-826f-48723493c0ec	TCGA-29-1705	TCGA-29-1705-F27279	[Not Available]	Imaging Study	[Not Applicable]	NO	YES	434	Locoregional Disease	YES
+7fd6ab8a-201e-431d-a886-6ab553b6ca36	TCGA-29-1707	TCGA-29-1707-F27288	1201	Other Method: Specify In Notes	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+7fd6ab8a-201e-431d-a886-6ab553b6ca36	TCGA-29-1707	TCGA-29-1707-F27288	[Not Available]	Other Method: Specify In Notes	[Not Applicable]	NO	YES	1248	Metastatic	YES
+4261267c-7042-4c6e-83ed-12fb401003fc	TCGA-29-1710	TCGA-29-1710-F27294	315	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+4261267c-7042-4c6e-83ed-12fb401003fc	TCGA-29-1710	TCGA-29-1710-F27294	[Not Available]	Imaging Study	[Not Applicable]	NO	YES	878	Metastatic	YES
+5495b18a-10ec-427b-83b8-03ef4b587b13	TCGA-29-1762	TCGA-29-1762-F27316	1375	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+242da7d0-8c6a-4395-9a0d-aa36e7c25ce6	TCGA-29-1763	TCGA-29-1763-F27325	428	Other Method: Specify In Notes	[Not Applicable]	YES	YES	[Not Available]	Recurrence	[Not Available]
+242da7d0-8c6a-4395-9a0d-aa36e7c25ce6	TCGA-29-1763	TCGA-29-1763-F27325	[Not Available]	Other Method: Specify In Notes	[Not Applicable]	YES	YES	1868	Locoregional Disease	YES
+c70228cc-79c0-4c00-8926-6671c1474701	TCGA-29-1764	TCGA-29-1764-F27338	792	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+01ea6354-137b-47f3-9021-a01a382b1147	TCGA-29-1766	TCGA-29-1766-F27350	672	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+838693d5-1ae0-4d75-834b-e1b89b96b0ed	TCGA-29-1768	TCGA-29-1768-F27358	547	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+5abb6d80-fc39-49a4-8db5-3db24543feb6	TCGA-29-1770	TCGA-29-1770-F27373	377	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+5abb6d80-fc39-49a4-8db5-3db24543feb6	TCGA-29-1770	TCGA-29-1770-F27373	[Not Available]	Imaging Study	[Not Applicable]	NO	YES	432	Locoregional Disease	YES
+7b042fb2-8f53-4fb1-8a44-40cd2128b279	TCGA-29-1771	TCGA-29-1771-F27383	595	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+d3dd5e69-9752-4b50-9b1f-814afbc2c3dd	TCGA-29-1774	TCGA-29-1774-F27391	234	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+a4a3fca9-723a-47f5-a49d-b3acb71c04a7	TCGA-29-1775	TCGA-29-1775-F27398	341	First Seen At Further Surgery	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+a4a3fca9-723a-47f5-a49d-b3acb71c04a7	TCGA-29-1775	TCGA-29-1775-F27398	[Not Available]	First Seen At Further Surgery	[Not Applicable]	NO	YES	341	Locoregional Disease	YES
+1aea3c25-d2bc-4ff5-bc27-32e939944e9d	TCGA-29-1785	TCGA-29-1785-F27442	473	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+a2319490-b85d-4219-a1b0-fa1ec432d5c8	TCGA-29-2414	TCGA-29-2414-F27451	552	Other Method: Specify In Notes	[Not Applicable]	YES	YES	[Not Available]	Recurrence	[Not Available]
+a2319490-b85d-4219-a1b0-fa1ec432d5c8	TCGA-29-2414	TCGA-29-2414-F27451	[Not Available]	Other Method: Specify In Notes	[Not Applicable]	YES	YES	2222	Locoregional Disease	YES
+40635bf3-d8ba-4833-b623-547e55e5d07e	TCGA-29-2425	TCGA-29-2425-F27462	1577	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Progression of Disease	[Not Available]
+40635bf3-d8ba-4833-b623-547e55e5d07e	TCGA-29-2425	TCGA-29-2425-F27462	[Not Available]	Imaging Study	[Not Applicable]	NO	YES	1024	Locoregional Disease	YES
+6f25001a-f890-4fd0-a994-e62a9ea5c6f3	TCGA-29-2427	TCGA-29-2427-F27470	1582	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+996313ef-11e7-459d-ba5f-ac1a4d0de513	TCGA-29-2431	TCGA-29-2431-F27485	960	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+0e6c9433-289c-4744-a0c1-47ec67774047	TCGA-29-2432	TCGA-29-2432-F27492	174	[Not Available]	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+F1CB3D48-1415-408D-89D1-DFDCC5924963	TCGA-29-A5NZ	TCGA-29-A5NZ-F59530	879	[Not Available]	[Not Applicable]	NO	YES	[Not Available]	Progression of Disease	[Not Available]
+F1CB3D48-1415-408D-89D1-DFDCC5924963	TCGA-29-A5NZ	TCGA-29-A5NZ-F59530	879	[Not Available]	[Not Applicable]	NO	YES	[Not Available]	[Unknown]	[Not Available]
+F1CB3D48-1415-408D-89D1-DFDCC5924963	TCGA-29-A5NZ	TCGA-29-A5NZ-F59529	697	[Not Available]	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+F1CB3D48-1415-408D-89D1-DFDCC5924963	TCGA-29-A5NZ	TCGA-29-A5NZ-F59529	697	[Not Available]	[Not Applicable]	NO	YES	[Not Available]	[Unknown]	[Not Available]
+F1CB3D48-1415-408D-89D1-DFDCC5924963	TCGA-29-A5NZ	TCGA-29-A5NZ-F59527	396	[Not Available]	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+F1CB3D48-1415-408D-89D1-DFDCC5924963	TCGA-29-A5NZ	TCGA-29-A5NZ-F59527	396	[Not Available]	[Not Applicable]	NO	YES	[Not Available]	[Unknown]	[Not Available]
+09820a33-80b1-42d0-8366-a0ddaf94b122	TCGA-30-1714	TCGA-30-1714-F27518	241	Imaging Study	[Not Applicable]	YES	YES	[Not Available]	Recurrence	[Not Available]
+ad2939e6-b8b8-475a-90e2-6a369c3d3167	TCGA-30-1718	TCGA-30-1718-F27534	896	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+5d603bba-62e6-48fb-b8fc-401109abcaee	TCGA-30-1853	TCGA-30-1853-F27542	634	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+5d603bba-62e6-48fb-b8fc-401109abcaee	TCGA-30-1853	TCGA-30-1853-F27542	[Not Available]	Imaging Study	[Not Applicable]	NO	YES	654	Locoregional Disease	YES
+91a6f311-c758-4e40-9abb-cc0f6584b9c9	TCGA-30-1856	TCGA-30-1856-F27552	220	First Seen At Further Surgery	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+91a6f311-c758-4e40-9abb-cc0f6584b9c9	TCGA-30-1856	TCGA-30-1856-F27552	[Not Available]	First Seen At Further Surgery	[Not Applicable]	NO	YES	224	Locoregional Disease	YES
+dac8d825-dd47-47ed-a426-0ee75feb76f3	TCGA-30-1859	TCGA-30-1859-F27566	[Not Available]	[Not Available]	[Not Applicable]	NO	YES	210	Locoregional Disease	YES
+563853a2-9ac2-48be-adf3-1e547ee2b274	TCGA-30-1860	TCGA-30-1860-F27580	397	Imaging Study	[Not Applicable]	YES	YES	[Not Available]	Recurrence	[Not Available]
+563853a2-9ac2-48be-adf3-1e547ee2b274	TCGA-30-1860	TCGA-30-1860-F27580	[Not Available]	Imaging Study	[Not Applicable]	YES	YES	974	Locoregional Disease	YES
+cbc7f427-5f7b-4267-ad56-055d8880a4cc	TCGA-30-1866	TCGA-30-1866-F27595	285	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+cbc7f427-5f7b-4267-ad56-055d8880a4cc	TCGA-30-1866	TCGA-30-1866-F27595	[Not Available]	Imaging Study	[Not Applicable]	NO	YES	285	Locoregional Disease	YES
+84f5876d-82b0-45ff-8f3d-a10653683454	TCGA-30-1869	TCGA-30-1869-F27607	767	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+bc873b2a-35b7-4365-a2cc-e6a83063556e	TCGA-30-1880	TCGA-30-1880-F27620	348	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+4a2ca7b8-729d-4fab-a6f3-a5d1e5d1f4f3	TCGA-30-1891	TCGA-30-1891-F27640	181	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+4a2ca7b8-729d-4fab-a6f3-a5d1e5d1f4f3	TCGA-30-1891	TCGA-30-1891-F27640	[Not Available]	Imaging Study	[Not Applicable]	NO	YES	536	Locoregional Disease	YES
+a09f0626-002a-48fd-8b2d-c66b8285cf23	TCGA-30-1892	TCGA-30-1892-F27654	253	Physical Examination	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+6fee41dc-b8a9-4347-8085-b7e05f813ad0	TCGA-31-1944	TCGA-31-1944-F27668	678	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+6fee41dc-b8a9-4347-8085-b7e05f813ad0	TCGA-31-1944	TCGA-31-1944-F27668	[Not Available]	Imaging Study	[Not Applicable]	NO	YES	701	Locoregional Disease	YES
+da274941-3edd-420b-9262-bbd959923c67	TCGA-31-1946	TCGA-31-1946-F27679	664	Physical Examination	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+4ca9c0e8-75a7-4665-9d88-6dd2bb44b1e1	TCGA-31-1950	TCGA-31-1950-F27688	349	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+b0839f46-8c82-4619-be3d-c857a1759463	TCGA-31-1951	TCGA-31-1951-F27692	659	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+61feee94-3ac9-42fe-aaa3-dc6a3efe563c	TCGA-31-1953	TCGA-31-1953-F27698	70	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+cce34351-1700-405b-818f-a598f63a33e8	TCGA-31-1955	TCGA-31-1955-F27704	918	Physical Examination	[Not Applicable]	YES	YES	[Not Available]	Recurrence	[Not Available]
+e1158102-06f2-47bb-9fe0-49b57f070755	TCGA-31-1956	TCGA-31-1956-F27711	[Not Available]	[Not Available]	[Not Applicable]	NO	YES	119	Locoregional Disease	YES
+de548bdd-14ca-486b-bd16-a6fbdd5b50d2	TCGA-36-1568	TCGA-36-1568-F27850	548	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+0f530b3e-5b6d-4892-9ebd-9138d76fdca7	TCGA-36-1570	TCGA-36-1570-F27857	375	Physical Examination	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+12581634-eebb-4841-8498-71dc9d78c546	TCGA-36-1571	TCGA-36-1571-F27862	375	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+eeb9d147-608d-4692-8adf-2f601d23a8ff	TCGA-36-1574	TCGA-36-1574-F27868	648	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+3445c524-5a37-40b6-8614-956d76eed939	TCGA-36-1576	TCGA-36-1576-F27874	817	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+f65f2e78-c001-4ef3-ae88-3e4f83c7aceb	TCGA-36-1578	TCGA-36-1578-F27884	310	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+533f5ff9-466c-4cdb-9c46-b841c2626775	TCGA-36-1580	TCGA-36-1580-F27889	440	Physical Examination	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+ef5e85cf-2d82-4d52-a02c-fed5c76e4cec	TCGA-36-1581	TCGA-36-1581-F27893	702	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+20ac688c-04c1-45a6-823a-6b523002ce92	TCGA-36-2529	TCGA-36-2529-F27897	567	Physical Examination	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+92a1a8f3-54f2-4983-bb14-dcb73658d897	TCGA-36-2530	TCGA-36-2530-F27906	630	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+e08a619d-8a55-435d-8c41-a77a112ed889	TCGA-36-2534	TCGA-36-2534-F27918	383	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Progression of Disease	[Not Available]
+5075cdc1-1b7c-4e25-98ea-fb568bd35f2d	TCGA-36-2537	TCGA-36-2537-F27923	431	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Progression of Disease	[Not Available]
+3ea880f4-7a78-4cb7-bfe4-54b3c30a812e	TCGA-36-2538	TCGA-36-2538-F27930	523	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+30c7efdd-5a86-4418-a33c-a5d27fe56e42	TCGA-36-2540	TCGA-36-2540-F27936	665	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+73b63d07-0c1d-4bf2-bf11-b183e090e200	TCGA-36-2543	TCGA-36-2543-F27946	27	[Not Available]	[Not Applicable]	NO	YES	[Not Available]	Progression of Disease	[Not Available]
+da56dfbe-35ae-4bd7-9a11-d9bbb02b1833	TCGA-36-2544	TCGA-36-2544-F27948	325	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Progression of Disease	[Not Available]
+3250e604-d12a-4922-aaca-6f0cae095842	TCGA-36-2548	TCGA-36-2548-F27962	395	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+9f096022-e3ec-4f63-8c52-03ef24c018f3	TCGA-36-2551	TCGA-36-2551-F27970	338	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+7922df77-f09a-488c-a1be-58646ceb9b3e	TCGA-42-2582	TCGA-42-2582-F28812	616	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+7922df77-f09a-488c-a1be-58646ceb9b3e	TCGA-42-2582	TCGA-42-2582-F28812	[Not Available]	Imaging Study	[Not Applicable]	NO	YES	616	Metastatic	YES
+7922df77-f09a-488c-a1be-58646ceb9b3e	TCGA-42-2582	TCGA-42-2582-F34655	1073	Imaging Study	[Not Applicable]	YES	YES	[Not Available]	Progression of Disease	[Not Available]
+7922df77-f09a-488c-a1be-58646ceb9b3e	TCGA-42-2582	TCGA-42-2582-F34655	1073	Imaging Study	[Not Applicable]	YES	YES	[Not Available]	[Unknown]	[Not Available]
+7922df77-f09a-488c-a1be-58646ceb9b3e	TCGA-42-2582	TCGA-42-2582-F34657	1179	Imaging Study	[Not Applicable]	YES	YES	[Not Available]	Progression of Disease	[Not Available]
+7922df77-f09a-488c-a1be-58646ceb9b3e	TCGA-42-2582	TCGA-42-2582-F34657	1179	Imaging Study	[Not Applicable]	YES	YES	[Not Available]	[Unknown]	[Not Available]
+654d02ab-05b4-4863-99d9-04d087ff91b4	TCGA-42-2588	TCGA-42-2588-F28039	112	[Not Available]	[Not Applicable]	NO	YES	[Not Available]	Progression of Disease	[Not Available]
+654d02ab-05b4-4863-99d9-04d087ff91b4	TCGA-42-2588	TCGA-42-2588-F28039	[Not Available]	[Not Available]	[Not Applicable]	NO	YES	141	Metastatic	YES
+654d02ab-05b4-4863-99d9-04d087ff91b4	TCGA-42-2588	TCGA-42-2588-F28821	267	[Not Available]	[Not Applicable]	NO	YES	[Not Available]	Progression of Disease	[Not Available]
+dfb7dc5d-92f4-4a3a-9667-db38efcc9fdb	TCGA-42-2589	TCGA-42-2589-F28800	364	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+dfb7dc5d-92f4-4a3a-9667-db38efcc9fdb	TCGA-42-2589	TCGA-42-2589-F39385	1028	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Progression of Disease	[Not Available]
+dfb7dc5d-92f4-4a3a-9667-db38efcc9fdb	TCGA-42-2589	TCGA-42-2589-F39385	364	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+dfb7dc5d-92f4-4a3a-9667-db38efcc9fdb	TCGA-42-2589	TCGA-42-2589-F39385	1028	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	[Unknown]	[Not Available]
+dfb7dc5d-92f4-4a3a-9667-db38efcc9fdb	TCGA-42-2589	TCGA-42-2589-F41366	1274	[Not Available]	[Not Applicable]	YES	YES	[Not Available]	[Unknown]	[Not Available]
+2724109f-7d5a-402c-a915-741e43c6f7f9	TCGA-42-2590	TCGA-42-2590-F28050	226	[Not Available]	[Not Applicable]	NO	YES	[Not Available]	Progression of Disease	[Not Available]
+2724109f-7d5a-402c-a915-741e43c6f7f9	TCGA-42-2590	TCGA-42-2590-F28809	226	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Progression of Disease	[Not Available]
+ed21615c-0de3-421c-9e8d-8996026c4431	TCGA-57-1584	TCGA-57-1584-F28072	530	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+ed21615c-0de3-421c-9e8d-8996026c4431	TCGA-57-1584	TCGA-57-1584-F28072	[Not Available]	Imaging Study	[Not Applicable]	NO	YES	532	Metastatic	YES
+48e66676-dbed-48a4-9a7f-a6d247b15c17	TCGA-57-1586	TCGA-57-1586-F28080	259	Molecular Marker(S)	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+e978a457-92ff-4eab-b759-ec6e74d973e8	TCGA-59-2350	TCGA-59-2350-F28102	211	[Not Available]	[Not Applicable]	[Not Available]	[Not Available]	[Not Available]	Progression of Disease	[Not Available]
+e978a457-92ff-4eab-b759-ec6e74d973e8	TCGA-59-2350	TCGA-59-2350-F28102	[Not Available]	[Not Available]	[Not Applicable]	[Not Available]	[Not Available]	211	Locoregional Disease	YES
+16829472-5666-4fba-9bf9-360ec1689aa0	TCGA-59-2351	TCGA-59-2351-F28104	2139	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Progression of Disease	[Not Available]
+16829472-5666-4fba-9bf9-360ec1689aa0	TCGA-59-2351	TCGA-59-2351-F28104	[Not Available]	Imaging Study	[Not Applicable]	NO	YES	2154	Both Locoregional and Distant Metastasis	YES
+d7925dfc-18ce-46ab-a47b-9d06eacc96d0	TCGA-59-2354	TCGA-59-2354-F28107	462	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Progression of Disease	[Not Available]
+2ae65a06-df0f-4de1-a536-537cae0cc260	TCGA-61-1724	TCGA-61-1724-F28135	[Not Available]	Imaging Study	[Not Applicable]	NO	YES	187	Locoregional Disease	YES
+a6eb0cd0-fe57-41b0-8593-776208684293	TCGA-61-1725	TCGA-61-1725-F28143	844	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+07fbdb3c-8337-4319-8255-f2363f8a031e	TCGA-61-1728	TCGA-61-1728-F28156	533	[Not Available]	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+07fbdb3c-8337-4319-8255-f2363f8a031e	TCGA-61-1728	TCGA-61-1728-F28156	[Not Available]	[Not Available]	[Not Applicable]	NO	YES	533	Metastatic	YES
+04ecaf38-0232-4dcd-9242-308a22cc1331	TCGA-61-1733	TCGA-61-1733-F28163	175	[Not Available]	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+04ecaf38-0232-4dcd-9242-308a22cc1331	TCGA-61-1733	TCGA-61-1733-F28163	[Not Available]	[Not Available]	[Not Applicable]	NO	YES	175	Metastatic	YES
+0a2d29de-869a-4dc8-ad11-6ee0d0a3a895	TCGA-61-1736	TCGA-61-1736-F28175	764	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+0a2d29de-869a-4dc8-ad11-6ee0d0a3a895	TCGA-61-1736	TCGA-61-1736-F28175	[Not Available]	Imaging Study	[Not Applicable]	NO	YES	812	Locoregional Disease	YES
+72c40fba-f502-489b-ad87-843f52655894	TCGA-61-1738	TCGA-61-1738-F28190	276	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+72c40fba-f502-489b-ad87-843f52655894	TCGA-61-1738	TCGA-61-1738-F28190	[Not Available]	Imaging Study	[Not Applicable]	NO	YES	907	Locoregional Disease	YES
+16ced1b8-64d5-4498-82df-4d37bfe5b310	TCGA-61-1741	TCGA-61-1741-F28201	488	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+a3e26259-732b-49fb-bc95-2f0ec7a0494e	TCGA-61-1743	TCGA-61-1743-F28209	809	[Not Available]	[Not Applicable]	NO	[Not Available]	[Not Available]	Recurrence	[Not Available]
+a3e26259-732b-49fb-bc95-2f0ec7a0494e	TCGA-61-1743	TCGA-61-1743-F28209	[Not Available]	[Not Available]	[Not Applicable]	NO	[Not Available]	829	Locoregional Disease	YES
+7a75d318-b301-4f77-a97f-4d6784d27216	TCGA-61-1901	TCGA-61-1901-F28226	329	Imaging Study	[Not Applicable]	YES	YES	[Not Available]	Progression of Disease	[Not Available]
+f553e953-6464-421f-8933-26ca82cb79d3	TCGA-61-1906	TCGA-61-1906-F28240	236	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+7ab3765f-910a-41c9-86cc-08534d2a4e4b	TCGA-61-1907	TCGA-61-1907-F28250	743	[Not Available]	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+93095c36-2263-438f-a619-a4a4d6ae13c7	TCGA-61-1911	TCGA-61-1911-F28260	844	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+93095c36-2263-438f-a619-a4a4d6ae13c7	TCGA-61-1911	TCGA-61-1911-F28260	[Not Available]	Imaging Study	[Not Applicable]	NO	YES	855	Metastatic	YES
+8e1b8811-1eb2-4337-852c-c19eaa0ee418	TCGA-61-1914	TCGA-61-1914-F28273	1674	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+8e1b8811-1eb2-4337-852c-c19eaa0ee418	TCGA-61-1914	TCGA-61-1914-F28273	[Not Available]	Imaging Study	[Not Applicable]	NO	YES	1702	Locoregional Disease	YES
+b25b3379-df8f-4900-9bce-0f8df50f549b	TCGA-61-1916	TCGA-61-1916-F28284	326	[Not Available]	[Not Applicable]	[Not Available]	[Not Available]	[Not Available]	Recurrence	[Not Available]
+b25b3379-df8f-4900-9bce-0f8df50f549b	TCGA-61-1916	TCGA-61-1916-F28284	[Not Available]	[Not Available]	[Not Applicable]	[Not Available]	[Not Available]	367	Metastatic	YES
+3491d67a-4f83-4f67-8085-bbb9fe942be5	TCGA-61-1918	TCGA-61-1918-F28295	413	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+ce871097-a6e9-4139-897e-642ee24ee123	TCGA-61-1919	TCGA-61-1919-F28300	439	[Not Available]	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+ce871097-a6e9-4139-897e-642ee24ee123	TCGA-61-1919	TCGA-61-1919-F28300	[Not Available]	[Not Available]	[Not Applicable]	NO	YES	438	Metastatic	YES
+29949b65-2913-4c86-bbd7-b85c5df6f15e	TCGA-61-2000	TCGA-61-2000-F28311	339	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+29949b65-2913-4c86-bbd7-b85c5df6f15e	TCGA-61-2000	TCGA-61-2000-F28311	[Not Available]	Imaging Study	[Not Applicable]	NO	YES	381	Locoregional Disease	YES
+3ac45a71-c463-4f0f-b030-58c475a34418	TCGA-61-2008	TCGA-61-2008-F28334	818	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+3ac45a71-c463-4f0f-b030-58c475a34418	TCGA-61-2008	TCGA-61-2008-F28334	[Not Available]	Imaging Study	[Not Applicable]	NO	YES	828	Locoregional Disease	YES
+ae914f23-87b9-4169-a7f7-a3483078c902	TCGA-61-2009	TCGA-61-2009-F28341	101	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+ae914f23-87b9-4169-a7f7-a3483078c902	TCGA-61-2009	TCGA-61-2009-F28341	[Not Available]	Imaging Study	[Not Applicable]	NO	YES	819	Locoregional Disease	YES
+f0ca8205-0754-4bd8-a6a8-31901040c5e7	TCGA-61-2017	TCGA-61-2017-F28359	1006	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+f0ca8205-0754-4bd8-a6a8-31901040c5e7	TCGA-61-2017	TCGA-61-2017-F28359	[Not Available]	Imaging Study	[Not Applicable]	NO	YES	1033	Locoregional Disease	YES
+778ce436-a825-4689-81c1-b7c965404163	TCGA-61-2095	TCGA-61-2095-F28389	445	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+778ce436-a825-4689-81c1-b7c965404163	TCGA-61-2095	TCGA-61-2095-F28389	[Not Available]	Imaging Study	[Not Applicable]	NO	YES	452	Metastatic	YES
+6beaa1cb-a9f1-4127-898c-7aff2273788e	TCGA-61-2096	TCGA-61-2096-F28398	421	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+05263959-c4f5-4540-b6d2-d8c8a128861f	TCGA-61-2104	TCGA-61-2104-F28442	1680	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+05263959-c4f5-4540-b6d2-d8c8a128861f	TCGA-61-2104	TCGA-61-2104-F28442	[Not Available]	Imaging Study	[Not Applicable]	NO	YES	1680	Metastatic	YES
+dc5a6ce7-01e5-408d-812e-e3e0ddc1cde5	TCGA-61-2109	TCGA-61-2109-F28450	465	Molecular Marker(S)	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+88180134-710f-46ea-9b06-5e5d860d6d9f	TCGA-61-2110	TCGA-61-2110-F28456	213	First Seen At Further Surgery	[Not Applicable]	YES	YES	[Not Available]	Recurrence	[Not Available]
+88180134-710f-46ea-9b06-5e5d860d6d9f	TCGA-61-2110	TCGA-61-2110-F28456	[Not Available]	First Seen At Further Surgery	[Not Applicable]	YES	YES	213	Metastatic	YES
+91a17d40-c8cb-4cce-b306-966382a8fe4a	TCGA-61-2111	TCGA-61-2111-F28467	2205	Other Method: Specify In Notes	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+91a17d40-c8cb-4cce-b306-966382a8fe4a	TCGA-61-2111	TCGA-61-2111-F28467	[Not Available]	Other Method: Specify In Notes	[Not Applicable]	NO	YES	2232	Metastatic	YES
+71faa2c1-0d5b-4dcc-bdf9-f2405f29907c	TCGA-61-2113	TCGA-61-2113-F28479	291	[Not Available]	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+1098441d-fb10-4590-a302-0a7cc2332798	TCGA-61-2610	TCGA-61-2610-F28484	524	Imaging Study	[Not Applicable]	YES	YES	[Not Available]	Recurrence	[Not Available]
+1098441d-fb10-4590-a302-0a7cc2332798	TCGA-61-2610	TCGA-61-2610-F28484	[Not Available]	Imaging Study	[Not Applicable]	YES	YES	554	Locoregional Disease	YES
+499645bd-e33e-4f89-8526-50460e8bb884	TCGA-61-2611	TCGA-61-2611-F28491	383	First Seen At Further Surgery	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+499645bd-e33e-4f89-8526-50460e8bb884	TCGA-61-2611	TCGA-61-2611-F28491	[Not Available]	First Seen At Further Surgery	[Not Applicable]	NO	YES	383	Locoregional Disease	YES
+c040df8a-9d6d-43bd-911a-17a7b4e1ec74	TCGA-61-2612	TCGA-61-2612-F28496	179	First Seen At Further Surgery	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+c040df8a-9d6d-43bd-911a-17a7b4e1ec74	TCGA-61-2612	TCGA-61-2612-F28496	[Not Available]	First Seen At Further Surgery	[Not Applicable]	NO	YES	189	Locoregional Disease	YES
+c88502e9-0bc6-47c3-adc4-d98b63c7797b	TCGA-61-2613	TCGA-61-2613-F28500	358	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+09643c0d-efdb-46b4-94df-018bd6134a88	TCGA-61-2614	TCGA-61-2614-F28505	38	Imaging Study	[Not Applicable]	NO	YES	[Not Available]	Recurrence	[Not Available]
+09643c0d-efdb-46b4-94df-018bd6134a88	TCGA-61-2614	TCGA-61-2614-F28505	[Not Available]	Imaging Study	[Not Applicable]	NO	YES	38	Locoregional Disease	YES
+B8023162-5E82-40E6-AD8C-8ACF81821F01	TCGA-WR-A838	TCGA-WR-A838-F66184	245	[Not Available]	[Not Applicable]	[Not Available]	[Not Available]	[Not Available]	Progression of Disease	[Not Available]
