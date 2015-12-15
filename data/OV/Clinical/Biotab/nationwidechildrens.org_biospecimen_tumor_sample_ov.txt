@@ -1,0 +1,457 @@
+bcr_patient_uuid	bcr_patient_barcode	bcr_sample_uuid	days_to_tumor_sample_procurement	tumor_necrosis_percent	tumor_nuclei_percent	tumor_weight	vial_number
+	CDE_ID:2673794			CDE_ID:2841237	CDE_ID:2841225	CDE_ID:3081946	
+fef1696c-a8f4-4db6-8615-e486522baaaa	TCGA-24-0966	67c7b4cb-5fe3-49cf-9aa3-df23717553bb	[Not Available]	0	95	[Not Available]	1
+d1eeaca3-52c0-4a0c-916a-fd64cec911d9	TCGA-24-0980	d2713ae1-4993-415c-8bb3-a69dd31ef6f5	[Not Available]	5	90	[Not Available]	1
+6d10d4ee-6331-4bba-93bc-a7b64cc0b22a	TCGA-04-1331	a1ec9279-c1a6-4e58-97ed-9ec1f36187c5	[Not Available]	10	80	[Not Available]	1
+b46263ab-c3ca-4fda-a895-74c7e6e6fe22	TCGA-04-1332	b8243412-b7b4-4a7b-b823-4b33488ff429	[Not Available]	10	80	[Not Available]	1
+ab3dbbbe-eed6-4a35-a505-1815225e86c9	TCGA-04-1335	b7f485a3-5ef3-4f76-980c-88de07816fa4	[Not Available]	10	80	[Not Available]	1
+538acb2a-c4ca-4656-a91c-841a42dbf15f	TCGA-04-1336	28428f8d-2361-410d-9b7e-961d653400e3	[Not Available]	10	80	[Not Available]	1
+d1e974e7-dd68-40cc-ad06-2b57d964e5a1	TCGA-04-1337	d8ab03a2-3dc9-433f-b9f3-644f0fb7313f	[Not Available]	10	80	[Not Available]	1
+31872f6a-d225-4f91-b38d-4505d19e406c	TCGA-04-1338	7b90d4ab-6c0a-4428-9ef1-20c7c09ff9e7	[Not Available]	10	80	[Not Available]	1
+92badeb5-a50e-4a62-a67e-6a8a59c948ab	TCGA-04-1341	8873baff-198d-4e4c-9d6d-18ee9d164f0d	[Not Available]	20	90	[Not Available]	1
+8727855e-120a-4216-a803-8cc6cd1159be	TCGA-04-1342	5253b93c-6340-416a-90b6-fd56b0bf896f	[Not Available]	10	80	[Not Available]	1
+b7715ff6-57a6-4513-9447-aa8bc93f16d4	TCGA-04-1343	1d8b4c59-7500-4951-80bc-bfd7a035b876	[Not Available]	10	80	[Not Available]	1
+25a0a9e6-4f5b-45d8-8f34-abfd31d5ff1b	TCGA-04-1346	ea3b7dfd-fb04-4afb-af79-d98790e8077f	[Not Available]	10	70	[Not Available]	1
+f0c353fd-947c-41e2-b643-3ecc0d69796c	TCGA-04-1347	4c4747d9-c0bc-486e-b88c-5c1b8214d4de	[Not Available]	20	80	[Not Available]	1
+34f285ab-6c31-4865-a0a7-a57af3567df0	TCGA-20-0987	27a6b2d1-ad0f-4193-b54c-646560930289	[Not Available]	10	90	[Not Available]	1
+c9524775-6b50-4793-8858-24b6a6d3e4e6	TCGA-20-0990	f1e6b558-3009-4547-9761-1f7f86eb3214	[Not Available]	0	90	[Not Available]	1
+36595b52-2b5f-4e87-80eb-37c29109e92a	TCGA-20-0991	62af5b99-db7f-4c92-97f1-92e825c15729	[Not Available]	5	90	[Not Available]	1
+d7f82e34-5b34-4e8c-a0cf-d7561bcea43c	TCGA-20-0996	3a1b2b51-6389-4d30-8524-987cda0e2207	[Not Available]	0	80	[Not Available]	1
+b923ac70-70ea-4a82-8466-46350c5803bf	TCGA-23-1021	36c901d8-885d-4fc0-8cd2-69229fddc566	[Not Available]	[Not Available]	[Not Available]	[Not Available]	1
+d0673efd-3315-4dd5-8ab6-912bfa07dceb	TCGA-23-1022	65e5e0dc-01e3-43b1-80b5-09762432309e	[Not Available]	[Not Available]	[Not Available]	[Not Available]	1
+9e18238f-ae85-4b75-ae87-d92da9731a40	TCGA-23-1023	a6fdfc35-a178-4d5a-8e07-346b55dd936d	[Not Available]	[Not Available]	[Not Available]	[Not Available]	1
+8ac6ce06-ab50-4ab4-a469-9f8bf01be963	TCGA-23-1024	96430cd1-1f32-4d4e-ae16-e39df6405739	[Not Available]	[Not Available]	[Not Available]	[Not Available]	1
+c6ede8ae-881c-47a0-a0ef-745ed4b7764a	TCGA-23-1026	30d07f1e-0899-4d8f-9bd9-abe572affc8c	[Not Available]	[Not Available]	[Not Available]	[Not Available]	1
+c9e58844-9d61-44a2-aee6-1760bc19711b	TCGA-23-1027	ddb8c0dd-c3df-4b78-850d-56b0644e12d7	[Not Available]	[Not Available]	[Not Available]	[Not Available]	1
+df53c3c0-3605-4d2b-bdc7-96d9beab27ea	TCGA-23-1028	4363b3c8-bfdb-4668-b72a-d15ed0f5bfff	[Not Available]	[Not Available]	[Not Available]	[Not Available]	1
+cbcf6922-a3c0-43a1-826e-642918b0a635	TCGA-23-1030	b3716b9c-af9c-41cd-9ceb-f45fcda4a2d5	[Not Available]	[Not Available]	[Not Available]	[Not Available]	1
+c7c3fe4a-327a-4b7e-a259-989b72971209	TCGA-23-1031	2d9d04a0-dd74-49f0-958d-80076449c9a5	[Not Available]	[Not Available]	[Not Available]	[Not Available]	1
+d1976840-35f7-4423-8458-12fb32a52b33	TCGA-23-1032	a155cdf0-597c-4ddd-a184-10a29ff428e1	[Not Available]	[Not Available]	[Not Available]	[Not Available]	1
+acb7ec56-8a47-495f-a11b-2c9fb5d8fe95	TCGA-23-1107	255026d7-92a8-46f3-95ca-d1128e8ec3db	[Not Available]	[Not Available]	[Not Available]	[Not Available]	1
+7c466a5f-a6b4-4d1a-a0f5-ddcd7ef90ff1	TCGA-23-1109	146f9463-de59-4418-9099-2425a6f86a0f	[Not Available]	[Not Available]	[Not Available]	[Not Available]	1
+9fb1ba57-2007-4477-b000-2d36f163efd2	TCGA-23-1110	5adca90e-f8ae-4a74-9c7f-a2b64fda2b31	[Not Available]	[Not Available]	[Not Available]	[Not Available]	1
+6209e80d-a115-4f8e-bf0d-18461401a1c6	TCGA-23-1113	9552886e-881b-4bed-842c-596fcc8d87c3	[Not Available]	[Not Available]	[Not Available]	[Not Available]	1
+70fe08bd-a0b4-4a88-b82e-813b176f8e40	TCGA-23-1116	91fbc26e-c049-49af-8307-22c7980079df	[Not Available]	[Not Available]	[Not Available]	[Not Available]	1
+a88b7e66-5f12-4023-a7e2-fcfbd1f25977	TCGA-23-1117	2ae53fe7-c681-4742-b5e4-0e4e3722cce8	[Not Available]	[Not Available]	[Not Available]	[Not Available]	1
+700e91bb-d675-41b2-bbbd-935767c7b447	TCGA-23-1118	e1be8ad9-1a52-4677-8436-3da22ad12e9a	[Not Available]	[Not Available]	[Not Available]	[Not Available]	1
+2dfd8a0e-e642-49b3-abd7-f0334927eebb	TCGA-23-1119	072ba366-b5ad-46bd-ad87-e85057ca6bf7	[Not Available]	[Not Available]	[Not Available]	[Not Available]	1
+fdf83fdf-dfbb-4306-9a1b-b4487d18b402	TCGA-23-1120	6fc497cb-41c0-487c-b527-b33a9af83ef2	[Not Available]	[Not Available]	[Not Available]	[Not Available]	1
+81005bae-686a-4598-8994-49d90ebac56f	TCGA-23-1121	6fe8f2d5-83c6-42f0-b82e-d8c532af9bbc	[Not Available]	[Not Available]	[Not Available]	[Not Available]	1
+d2c0d320-d1c5-4eed-af4f-15540e60db0b	TCGA-23-1122	ff14c071-ccce-4d44-8d0b-c4cbdfb59c8c	[Not Available]	[Not Available]	[Not Available]	[Not Available]	1
+60cce7ac-d27d-44a6-9873-ecf91da5e906	TCGA-23-1123	ed537d83-388b-4125-8c8c-204a0bcbcde8	[Not Available]	[Not Available]	[Not Available]	[Not Available]	1
+8a6d2ce3-cc57-451b-9b07-8263782aa23f	TCGA-23-1124	d8246fda-3072-4470-8a7c-de05bac409c2	[Not Available]	[Not Available]	[Not Available]	[Not Available]	1
+619b14f3-b8cc-4c0a-8304-6719853d592a	TCGA-24-0968	bd548e12-22a8-471f-b13f-fd7ea5e4e406	[Not Available]	5	90	[Not Available]	1
+9a30dee8-962a-49db-a85a-c39515c91b68	TCGA-24-0979	9b072344-31cf-471a-af4f-23ae73a98c93	[Not Available]	5	80	[Not Available]	1
+206ce0ed-36a4-47ab-ac8e-f6fca6ac5c18	TCGA-24-0982	7fec33cd-6f46-44c7-8204-e0f42b543abe	[Not Available]	5	80	[Not Available]	1
+f34aa3b6-e966-49c6-bc55-130545772c53	TCGA-24-1103	6f9a6f73-285d-4a9c-80eb-5f2ebc1787a4	[Not Available]	1	80	[Not Available]	1
+f9f44f86-10c7-4473-b156-5afbfa9a2ad0	TCGA-24-1104	fce206e4-6f50-466b-800c-7e295ea56124	[Not Available]	1	95	[Not Available]	1
+7e01f23a-0b0e-46a2-9f30-c3a9d2c779d2	TCGA-24-1105	ae4aa065-8b1d-42a3-98ef-357e19c1f1e1	[Not Available]	1	80	[Not Available]	1
+f7752d6e-f9cd-4dc9-ab01-3ab87acb21e4	TCGA-04-1348	cdaa3a57-c3e7-4858-a048-8f75b882dde7	[Not Available]	20	80	[Not Available]	1
+4b930a10-4b12-4428-84f9-3255b4a3bc4f	TCGA-04-1349	c7280560-2561-4c23-9c53-c5eb6ceb99b3	[Not Available]	10	70	[Not Available]	1
+0f4a4ad1-e394-45c4-9aa9-aadf2bff0628	TCGA-04-1350	c8a0c290-56de-4ebe-80d3-ca8fb2f85188	[Not Available]	10	90	[Not Available]	1
+12b032ed-ff92-4bfe-b980-eb273ae8ae17	TCGA-04-1351	945b24bb-bb74-478c-b65c-1c5a57ccf062	[Not Available]	10	80	[Not Available]	1
+8652ddee-98f4-4584-b450-e6f2f5c9d7ec	TCGA-04-1356	3d1f80f8-1033-48d9-9b97-36f025486b0a	[Not Available]	10	80	[Not Available]	1
+feda41d8-ca56-425d-b149-4d5485328107	TCGA-04-1357	45893b0e-301f-474a-b390-936d7d74f57e	[Not Available]	10	80	[Not Available]	1
+e0502c47-3234-4609-a8d5-730a9e6eb5b8	TCGA-04-1360	b3c4e71f-d202-4950-8f8c-e6887eb5039c	[Not Available]	10	80	[Not Available]	1
+a6aad7f9-8444-4c2f-8e4b-b19fd453544f	TCGA-04-1361	702cc8d9-38f6-474a-bd7e-e56820c5a5b0	[Not Available]	10	80	[Not Available]	1
+1d192835-524e-429d-bf74-3c4727acb446	TCGA-04-1362	2cd492fc-4e79-4483-a8d6-31c0156c50c9	[Not Available]	10	90	[Not Available]	1
+80f85c54-e12f-4afa-8fa5-5f3e083b6f95	TCGA-04-1364	c8f56f7e-6b69-4276-ba97-7a70c4fa5071	[Not Available]	10	80	[Not Available]	1
+0484a929-7a7f-4926-8d25-470ddab082ec	TCGA-04-1365	c91df211-f021-40ea-aa79-9fe01a309ad8	[Not Available]	10	90	[Not Available]	1
+30b8f4cd-9245-4496-a8a8-c3e59093bc0a	TCGA-04-1367	52ec58ba-3228-466a-a5ef-64a6567921d3	[Not Available]	20	80	[Not Available]	1
+bff84539-7862-45b2-b5fc-e77291fcca8b	TCGA-04-1371	e173653b-f144-4754-b835-dc69af2e79da	[Not Available]	10	80	[Not Available]	1
+3fc8f799-5bd3-4f48-baf0-c458ce86ab7e	TCGA-24-1413	c20183e0-600b-4d1d-975f-2b6e43c35d0d	[Not Available]	1	80	[Not Available]	1
+66face4a-f35c-4364-90e5-8f28e6372606	TCGA-25-1312	ce884866-7563-44b2-a7b0-849512c66abf	[Not Available]	0	80	[Not Available]	1
+d73a0a33-e4e8-44bd-9580-2038ab06583a	TCGA-25-1313	2e142ad3-0560-4e09-b5ce-ba9df578963d	[Not Available]	0	80	[Not Available]	1
+0b2ea4b7-98bb-4190-b682-2c75b447c90a	TCGA-25-1314	a3d8fe02-63fa-40ff-9563-38e8d2bf04bb	[Not Available]	0	95	[Not Available]	1
+635f5335-b008-428e-b005-615776a6643f	TCGA-25-1315	d1a2fb08-a7b9-4920-af5a-33118478a429	[Not Available]	0	90	[Not Available]	1
+58427bce-6b81-4083-aeda-25f59e292bbc	TCGA-25-1316	fdf5e5b9-8d6c-4581-93d4-bedae0bf371d	[Not Available]	0	95	[Not Available]	1
+78777a80-cc6c-46c9-a14a-837ac7943719	TCGA-25-1317	12be4fe0-391e-4bdd-9af9-33fa7a135975	[Not Available]	5	70	[Not Available]	1
+13319c20-02f6-4b5f-b24f-3d8f4084094c	TCGA-25-1318	ced18b90-cbcc-4593-9eaf-2d91daa9d756	[Not Available]	0	80	[Not Available]	1
+914d8613-3c25-4a10-be50-28b42f4d3a5d	TCGA-25-1319	c063d066-9073-4f05-8a38-601aa65dc5bf	[Not Available]	5	90	[Not Available]	1
+46395c3d-5e51-477f-946e-e58b87cc7baa	TCGA-25-1320	97a91868-8a8d-4b2d-bba2-8bd187f572ac	[Not Available]	10	70	[Not Available]	1
+6ad8bc89-d8e9-48c2-bc25-c8e51f972b4d	TCGA-25-1321	57f7a91d-c569-433f-ae21-8a22e5d187bf	[Not Available]	15	85	[Not Available]	1
+b520aae5-65a6-4b27-bc2a-10b02c7b1aeb	TCGA-25-1322	9bc6ca0e-c74a-49f7-be04-6546e56e8ba2	[Not Available]	2	80	[Not Available]	1
+2ee36d9d-128b-4761-aa1a-a637da106f3d	TCGA-25-1323	b1d85c32-1698-44ed-a4e2-707611a3889c	[Not Available]	[Not Available]	80	[Not Available]	1
+c73244fd-d486-439f-a94f-fb0bd4e9ac8f	TCGA-25-1324	fedfb74c-a7cd-4900-bdcb-93bdbd095c89	[Not Available]	0	90	[Not Available]	1
+9471bc5e-18da-4356-bb0f-c78edd35ff99	TCGA-25-1325	d2b50eee-be64-4bf5-a603-2a99b244f0c7	[Not Available]	0	90	[Not Available]	1
+07a859fc-6f78-4905-9035-90e2403dbe8d	TCGA-25-1326	655bee4a-887e-495e-9afe-586b75516e7d	[Not Available]	10	85	[Not Available]	1
+79fd602b-3e8e-4353-aa78-4f5f170b607d	TCGA-25-1328	1ff50970-b13c-4aef-bfb7-fb1b516ff079	[Not Available]	0	80	[Not Available]	1
+955c80be-53df-4565-9303-a7abf96a2f81	TCGA-25-1329	d7ad6239-b56b-4762-9656-7653f308e01d	[Not Available]	0	80	[Not Available]	1
+f9793a4b-c0e7-4475-bf80-69543b7ee2f6	TCGA-24-1416	7404e874-190e-4353-8755-1d9be35eedb7	[Not Available]	1	80	[Not Available]	1
+48f831b0-5d91-44ae-bc4e-db57ca84fe46	TCGA-24-1417	1fce45c1-b4e9-40fb-b914-23ec7472aca2	[Not Available]	1	90	[Not Available]	1
+195ecf43-06bd-4ffe-8d8b-a766f3f7179b	TCGA-24-1418	b40f7345-8f0c-4db7-90ba-424ae5ee22ed	[Not Available]	1	80	[Not Available]	1
+5e18b17d-4626-4b6d-8ac6-e560cee0376c	TCGA-24-1419	92d562df-4a58-43da-8811-843d3d3c9438	[Not Available]	1	85	[Not Available]	1
+05ba5839-e00a-4a9e-8ba3-ecb490781e62	TCGA-24-1422	b6568556-a2fb-4eec-a953-b8b81d2fd6dd	[Not Available]	1	80	[Not Available]	1
+f64ebc7f-0e5a-42b4-af57-6cdb90d24f90	TCGA-24-1423	eaf742ea-5bdc-4f44-a390-77cba766d260	[Not Available]	0	95	[Not Available]	1
+c3e443b9-5dc5-4793-91e3-534f21485268	TCGA-24-1424	9f88d3b0-edc0-4fca-a4a9-4d8aacedf9a7	[Not Available]	1	90	[Not Available]	1
+c8acee1b-6854-409b-86ab-bf69dbe22ab6	TCGA-24-1426	4a4ec9eb-d594-449b-adfb-703ac1f25bb5	[Not Available]	1	90	[Not Available]	1
+02d9aa2e-b16a-48ea-a420-5daed9fd51a6	TCGA-24-1427	93827307-1efa-43b5-aea5-380c6ce5feed	[Not Available]	1	85	[Not Available]	1
+9c744ff8-1cde-4176-b6d7-0ab62bf42620	TCGA-24-1428	b0dfa5b0-79fc-4f28-bca7-d47f54c05775	[Not Available]	1	90	[Not Available]	1
+3018efe7-13a1-47ae-a726-8fc967c73841	TCGA-24-1430	eb401991-7a9a-494a-8f7c-072f39e40ec2	[Not Available]	1	95	[Not Available]	1
+384170fc-e8be-426a-a54e-bf1ca61f2986	TCGA-24-1431	44f5f2b7-94ac-4bbd-8ca8-bb5be4b0fbdb	[Not Available]	1	80	[Not Available]	1
+5503b3a1-7d03-41b2-9ec8-e478c5414d67	TCGA-24-1434	e6751f11-2f24-426c-a34f-c03cddc999cc	[Not Available]	1	80	[Not Available]	1
+49d2c0cf-a3f3-4519-a755-0a5f769df2ea	TCGA-24-1435	a36ab3e1-b5fb-4557-af54-88d4ada2aaaf	[Not Available]	1	98	[Not Available]	1
+6e84e89d-4f35-43b8-b47d-b1343b8c1ab9	TCGA-24-1436	e1eda97e-24fe-4dc8-92eb-080399b1d82d	[Not Available]	1	80	[Not Available]	1
+171f7917-69eb-4a3f-9cc0-0e1dffd412c1	TCGA-24-1463	58b3222f-4ac0-4920-babc-e35b64cf90c6	[Not Available]	1	80	[Not Available]	1
+4160e048-f0b0-40f5-805b-e277a5893a3b	TCGA-24-1464	cd43784d-8829-4cac-819f-d2960c5409cb	[Not Available]	1	90	[Not Available]	1
+098acb76-0bf5-44e5-bcae-f919cf5fa5e5	TCGA-24-1466	3bf6ec5d-e075-41a7-bf32-470ec1f09e98	[Not Available]	1	80	[Not Available]	1
+34f545ab-d420-4dd2-8db4-3159896efd23	TCGA-24-1467	b0b13b63-cf9d-4cb9-a3fa-217d499763f8	[Not Available]	1	90	[Not Available]	1
+e9483296-cb91-497a-b955-39a3c3289dac	TCGA-04-1514	18e0f4ed-43e2-451f-82bd-102260a30aaa	[Not Available]	10	80	[Not Available]	1
+42b3dfa3-152f-4ab7-ac9f-988c7f473bea	TCGA-04-1530	2b89e52a-a064-4151-87e1-20fec4eed015	[Not Available]	10	80	[Not Available]	1
+0c1a2e7d-e7e4-481e-a012-ef214c444497	TCGA-04-1542	d33fd264-13db-4642-afca-37125751cc28	[Not Available]	10	70	[Not Available]	1
+b120b701-c194-43d7-a491-3206fac38ec1	TCGA-24-1425	7d0d7e28-9530-4d03-9041-aeca61ecf42c	[Not Available]	1	80	[Not Available]	1
+cd6e5d3d-1c86-40dd-9cb3-b2e2075dec56	TCGA-24-1469	389c632d-45cf-447e-9069-11b2fcb543f5	[Not Available]	1	90	[Not Available]	1
+a3898640-0d85-441d-a000-b5b8ff857399	TCGA-24-1470	5287e961-91f0-4fb0-a00a-d570377cee62	[Not Available]	1	90	[Not Available]	1
+ceb19678-b453-4529-b6cb-d02f9cb101b4	TCGA-24-1471	43d7d5cf-e988-4b6b-925e-2b7bbd67e4fc	[Not Available]	1	95	[Not Available]	1
+d7b3156d-672a-4a55-868d-9ca6a09fcb0f	TCGA-24-1474	216c9136-673a-4e87-8537-daf1e4fbf394	[Not Available]	1	95	[Not Available]	1
+3b81ec7c-0934-4649-9231-9919dd26dd15	TCGA-24-1549	cd81e8c8-2526-4427-a1db-6ce6bff105e6	[Not Available]	1	90	[Not Available]	1
+1858b58f-fdf4-413c-9c29-96ae85b88a74	TCGA-24-1550	2726ed05-ac38-41d6-85f3-35ab0bcbc47a	[Not Available]	10	80	[Not Available]	1
+499a9b57-ee1a-4012-bbab-c6ad955b5e0a	TCGA-24-1551	a081a22a-184f-44af-92cf-674c7d349e03	[Not Available]	1	85	[Not Available]	1
+62379be5-13f0-474b-94d3-6f944ec4ee96	TCGA-24-1552	411b4c26-fcc4-438a-8731-d0cf5dd6c74f	[Not Available]	1	95	[Not Available]	1
+08c64000-d320-4e4d-974b-da503d48890c	TCGA-24-1553	aefe6c18-3891-4c17-99d3-16931151d96e	[Not Available]	1	95	[Not Available]	1
+5d36676e-4140-44b5-aa0e-b2af092b7dc0	TCGA-24-1555	b359856a-959f-4b31-9e92-ef33c591c17a	[Not Available]	1	80	[Not Available]	1
+4c18d9cf-4af4-4a86-8b1c-f78795fbbd7e	TCGA-24-1562	a323f2f5-b250-40a6-a318-084a3933e829	[Not Available]	1	90	[Not Available]	1
+52386f66-2877-4c75-894e-5c1dc03e6ef4	TCGA-24-1563	9347d927-3747-4f06-ab2a-672aefdf48ea	[Not Available]	1	80	[Not Available]	1
+d77ef9cf-f8e6-4ee9-8d4f-1106885f6b06	TCGA-24-1564	e370c642-1d03-4f08-8bd4-1c99dae80679	[Not Available]	1	90	[Not Available]	1
+cf1e86ec-4bcb-403c-831b-d67bddef14eb	TCGA-24-1565	6feb1257-da6f-4a70-bbd1-f3aa843ef72a	[Not Available]	1	90	[Not Available]	1
+19427350-619b-4b9c-a3ba-37f667bb2843	TCGA-24-1603	bb14a720-4899-48d9-a57b-e1fd2aa9d8ec	[Not Available]	1	99	[Not Available]	1
+65435f50-a35d-49e3-a36e-b95d9e274ca0	TCGA-24-1604	b3909bea-c426-4dad-94a9-15577e9f0c09	[Not Available]	1	80	[Not Available]	1
+d3164236-c14a-4230-b527-ecd1a3992f02	TCGA-24-1614	c36e2d42-0759-46f2-8032-b92e555400c9	[Not Available]	1	85	[Not Available]	1
+5d7027f5-60a0-47ab-a79d-667c9acc0e54	TCGA-24-1616	20d8a43d-e1a7-4e85-8da2-2e9b5f1d3a9a	[Not Available]	1	80	[Not Available]	1
+35916942-e7aa-45db-ad27-03cba67d4d5b	TCGA-04-1517	bb9d5cff-b801-49c7-b319-86c8d1e78b32	[Not Available]	20	80	[Not Available]	1
+e9b5336e-d724-4e7d-8c81-1147abd0a80d	TCGA-04-1519	ef8a2e99-c991-4d51-81ba-34f9a57949b8	[Not Available]	10	80	[Not Available]	1
+2bb96e1e-6992-434d-83e5-2f03713b3911	TCGA-04-1525	97e8b382-80bc-4297-8688-092f0032d089	[Not Available]	10	80	[Not Available]	1
+867f9563-16c9-45a8-b519-6df61ba1b6b7	TCGA-09-1662	510f8684-3686-4192-b2a3-dd2499365f78	[Not Available]	0	75	[Not Available]	1
+4eac2c98-86d2-4ee6-a1d3-157d013c78dc	TCGA-09-1666	77ab9685-021c-4d99-8980-79bec534828e	[Not Available]	0	90	[Not Available]	1
+b1c90c69-6149-4105-8182-ab9212f196be	TCGA-09-1669	646165d1-4eb0-4dbd-8e05-90cdb30e1d22	[Not Available]	0	80	[Not Available]	1
+21f6bf91-dfc6-4a59-8b76-88a0f95c7b47	TCGA-24-1544	cf7b9151-6479-41af-986c-d9db10e33ca6	[Not Available]	2	90	[Not Available]	1
+f2ec64f5-a414-4c34-99c7-d59bc4e831e0	TCGA-24-1545	ed59c414-e594-44c8-b920-159336d45b4f	[Not Available]	1	80	[Not Available]	1
+9e7d3dea-5d81-4f10-819c-1c2a68ddd150	TCGA-24-1546	db9720f0-d7ef-469c-ae11-e8f17488126b	[Not Available]	1	80	[Not Available]	1
+66c92b9e-de3c-4d1a-bb69-46ffbc6caf33	TCGA-24-1548	5d4e65aa-d7d0-43ec-b395-df2f01b1a203	[Not Available]	1	85	[Not Available]	1
+7592a659-7175-486f-a16e-24a4b4365a36	TCGA-24-1556	ba4d22b5-f97a-413f-9cc7-30d1e5c91f7e	[Not Available]	1	90	[Not Available]	1
+7dcc809b-e33a-4453-b92a-c00786f48cb0	TCGA-24-1557	fa79b363-380e-48ae-bb82-db395085353c	[Not Available]	1	90	[Not Available]	1
+ba68f2cf-9271-41fd-9655-1fac7681f588	TCGA-24-1558	3e8bd387-4fda-4623-924e-314267c55eea	[Not Available]	1	98	[Not Available]	1
+afd92922-b8dc-48bd-a9c0-bc8d95855eb7	TCGA-24-1560	aeff4cbe-7abb-449a-a6f4-65e030548f4c	[Not Available]	1	90	[Not Available]	1
+2cb50c2d-e749-4172-b101-d975507435c5	TCGA-24-1567	8a3e4430-40be-46e0-bb38-946435911371	[Not Available]	1	80	[Not Available]	1
+808eb134-9c7d-43bb-b86c-2f3259193954	TCGA-25-1623	09f0e0d8-1f35-4781-8c71-5b0843483cd7	[Not Available]	20	60	[Not Available]	1
+88d61634-913c-435a-8d25-e019c8dab7da	TCGA-25-1625	4ee39504-ac69-4dd7-b8a4-8d1cc3c20418	[Not Available]	0	90	[Not Available]	1
+662d77d1-1a43-427a-813b-e11edd30868e	TCGA-25-1626	1b396d98-af47-49c3-bf45-9f26ed32d71c	[Not Available]	0	70	[Not Available]	1
+cbe3309e-9b7b-4f62-87b5-0f5ed4218ada	TCGA-25-1627	c405e873-8ef5-43f6-8065-830fdb99825d	[Not Available]	5	90	[Not Available]	1
+3f917550-89a6-404b-94df-938c99121411	TCGA-25-1628	efe5ae48-c145-4b24-a1df-ba485d355dfa	[Not Available]	5	80	[Not Available]	1
+263e85e2-7b6f-453f-8fd0-e5ea1409fece	TCGA-25-1630	899b4fa3-95cb-4f8e-930c-bc29e20b5144	[Not Available]	5	90	[Not Available]	1
+6a1be87b-c4e0-4fd4-b050-50a245b22038	TCGA-25-1631	6b4aff1a-568e-453f-9679-55b3442c491d	[Not Available]	10	70	[Not Available]	1
+c435627c-159d-4a6d-a819-30abac24bf4d	TCGA-25-1632	ed9c97d8-4df2-4ed3-b455-4955d72901a8	[Not Available]	2	90	[Not Available]	1
+20336269-5a5b-4ba7-8fe8-665a1f9af738	TCGA-25-1633	170514dc-2d77-48f3-b9d0-42c216211e5b	[Not Available]	0	80	[Not Available]	1
+15556b28-c6bd-455a-87b6-4b7b3e33d0e4	TCGA-25-1634	c0091bb4-1079-4254-ad42-42ac1ddd7f1e	[Not Available]	0	80	[Not Available]	1
+bc2591b0-65d7-48c3-a5cc-783f67b65869	TCGA-25-1635	8eab6a91-e73b-4555-9915-8ac4b91d9de3	[Not Available]	5	60	[Not Available]	1
+de548bdd-14ca-486b-bd16-a6fbdd5b50d2	TCGA-36-1568	0c2b931b-813b-450f-a911-d25fd7465e18	[Not Available]	0	70	[Not Available]	1
+7d82ce56-32eb-4107-aa5c-c568764805c9	TCGA-36-1569	eacec9c7-f638-4f61-bd7b-a60995267213	[Not Available]	0	70	[Not Available]	1
+0f530b3e-5b6d-4892-9ebd-9138d76fdca7	TCGA-36-1570	22b7e0e2-334c-419c-a243-358ba22e479a	[Not Available]	0	90	[Not Available]	1
+12581634-eebb-4841-8498-71dc9d78c546	TCGA-36-1571	a1d026c2-4d7a-4454-a8e3-30e5c243aba0	[Not Available]	0	90	[Not Available]	1
+eeb9d147-608d-4692-8adf-2f601d23a8ff	TCGA-36-1574	353b6c00-ebfe-4650-8379-f46c8fe3e9cf	[Not Available]	0	80	[Not Available]	1
+6ea9877f-eb8d-4ee9-af4c-32a78474d9a6	TCGA-36-1575	e53c2985-f410-43f1-8fde-7181112b9c14	[Not Available]	10	85	[Not Available]	1
+3445c524-5a37-40b6-8614-956d76eed939	TCGA-36-1576	24ffa457-5765-43c1-8cdd-b50a31dc5b56	[Not Available]	0	70	[Not Available]	1
+e294b940-2828-499c-be24-47ef6c2e9035	TCGA-36-1577	73a2a82b-c87c-4c04-8cfe-cc679379b28d	[Not Available]	20	70	[Not Available]	1
+f65f2e78-c001-4ef3-ae88-3e4f83c7aceb	TCGA-36-1578	25d8f564-9ba7-4336-9b92-038fc26dcbd1	[Not Available]	0	90	[Not Available]	1
+533f5ff9-466c-4cdb-9c46-b841c2626775	TCGA-36-1580	e134063e-745d-4c97-8d48-6f3e238daefc	[Not Available]	10	70	[Not Available]	1
+ef5e85cf-2d82-4d52-a02c-fed5c76e4cec	TCGA-36-1581	3d547b69-ceaa-49c1-8ea9-03a32b3fac90	[Not Available]	0	90	[Not Available]	1
+4ea50685-3b63-440a-b037-597ef2529e7d	TCGA-57-1582	84ee744e-ee7f-46e4-b1bd-40524ffcc902	[Not Available]	[Not Available]	90	[Not Available]	1
+76cc2d21-eebc-4f09-9bc7-dbf7af0aafa8	TCGA-57-1583	04b379ac-220b-4582-84c8-be370d5ad619	[Not Available]	[Not Available]	95	[Not Available]	1
+ed21615c-0de3-421c-9e8d-8996026c4431	TCGA-57-1584	99287cbc-e4d4-4d24-b373-7865b7905727	[Not Available]	[Not Available]	80	[Not Available]	1
+5ed14506-f69a-4da8-9965-72d3270b9f72	TCGA-57-1585	1e9787c4-b4f7-481a-b44d-cf975ec8bfb7	[Not Available]	[Not Available]	80	[Not Available]	1
+f8a5547f-f1bc-4c01-8b68-25b5ee0caeab	TCGA-04-1655	43d20453-c167-4893-819d-754785da9a71	[Not Available]	10	90	[Not Available]	1
+60014a6e-6a13-4f92-bbfd-eeeee9632f98	TCGA-09-1670	1ad76860-b19e-45ac-b81a-bb0bdac2b5ab	[Not Available]	0	80	[Not Available]	1
+66dc6379-a98b-498f-8109-e3a811d043ea	TCGA-09-1672	24d4d55b-7a37-4450-afd5-9558ad0ef262	[Not Available]	0	80	[Not Available]	1
+4e6f88de-7624-4719-8234-4c9e5b2e2988	TCGA-09-1673	95522925-79b0-4ce7-8323-dce56cbf15cd	[Not Available]	0	95	[Not Available]	1
+1ede8063-e0e9-466d-891c-ac8916f1b5fa	TCGA-09-1674	59db495c-1778-47a2-b649-968025f08821	[Not Available]	0	80	[Not Available]	1
+94bd4c68-4bfc-4db3-9365-97c867747133	TCGA-20-1682	3c3da068-a62f-43c9-91c7-41ead1ca7f75	[Not Available]	5	80	[Not Available]	1
+ac2e88ff-8b1e-4691-9a96-5a581f98d827	TCGA-20-1683	a0300830-9dd9-46bc-94c0-23b2e8703e25	[Not Available]	0	80	[Not Available]	1
+94030805-8beb-441a-af73-11a80768edb5	TCGA-20-1684	d8ecb5e2-5af0-4a84-8b51-22c395850721	[Not Available]	0	80	[Not Available]	1
+cbc5b936-ead5-4858-ab90-e639402789b0	TCGA-20-1685	90d6af06-579f-42a2-90f4-bf587e209d70	[Not Available]	0	85	[Not Available]	1
+f007fa7a-7da9-4cb0-8aea-623af1a122c5	TCGA-20-1686	13f9890c-e405-4625-888e-496eee30dfb4	[Not Available]	[Not Available]	80	[Not Available]	1
+9bf16a89-2fc7-4c08-93bc-3105eec5c3cc	TCGA-20-1687	bcd16bf3-0877-4e4b-b70b-7d6a497af7ac	[Not Available]	[Not Available]	80	[Not Available]	1
+bc3e0b74-ea09-46a5-9f61-16bd15ffd883	TCGA-23-1809	ef7f3a0d-b620-4355-8212-4bad381fe29c	[Not Available]	[Not Available]	[Not Available]	[Not Available]	1
+21966708-4e66-4211-add0-f1515b09e362	TCGA-24-1847	f1989bf4-c884-430d-a075-679f7b4a4b07	[Not Available]	1	95	[Not Available]	1
+05019013-7ea5-4905-ac79-901146ba2ee2	TCGA-29-1688	3385e66c-5764-4260-929f-b653a23c7afb	[Not Available]	20	80	[Not Available]	1
+6b06281b-d3a9-440e-a86c-ee7db003352a	TCGA-29-1690	50633d92-0d7d-476e-8d4b-9a8de94771a2	[Not Available]	20	80	[Not Available]	1
+b4225c44-b9b6-46c5-aabf-7b0d9a9fe20b	TCGA-29-1691	5dbb6c5e-be66-47ca-9bb4-1845b8004286	[Not Available]	20	80	[Not Available]	1
+6fb71a0c-bc50-48c8-acfa-db94be1e151a	TCGA-29-1693	13caa1a6-03a5-4fcf-9b54-4dfa86fb5c84	[Not Available]	20	80	[Not Available]	1
+1db60f09-7f5a-4f21-8003-06a6abc781db	TCGA-29-1694	4d74ff85-24e2-4e93-aa23-94d58efd22e4	[Not Available]	20	80	[Not Available]	1
+33d36b64-4688-40a7-9a4f-7cd3d4cc683d	TCGA-29-1695	7a1db005-662a-4df4-886a-ec3319bde99a	[Not Available]	20	80	[Not Available]	1
+8a98a6e6-b763-4824-858b-fd2738e6c9a3	TCGA-29-1696	75d36397-75e8-4925-bf1e-6f73bd9293ba	[Not Available]	20	80	[Not Available]	1
+42ebd30b-175e-4ece-a806-e55cb7e40e96	TCGA-29-1697	3669f3bd-dffe-4737-bf81-07f38deceb2e	[Not Available]	20	80	[Not Available]	1
+18d21132-a795-4551-83ba-66483de423a2	TCGA-29-1698	f66a6768-2ef9-4318-91fe-8f3498553569	[Not Available]	20	80	[Not Available]	1
+fe0e3851-d8cb-4533-9536-b4826cd25f87	TCGA-29-1699	a0a9b124-82fa-4eff-a5df-38932e8ce44a	[Not Available]	20	80	[Not Available]	1
+86b513ba-df09-485d-92d4-fb9e888f7350	TCGA-29-1701	eae870be-bbc8-4ffe-bffc-86d87414ff4b	[Not Available]	20	80	[Not Available]	1
+0e1598d8-cbe5-4113-95f1-4bcda061239b	TCGA-29-1702	7150c48b-144f-40f0-b4d0-e4b34e35556d	[Not Available]	20	80	[Not Available]	1
+b3511675-fd68-4745-8020-e290ca0fd115	TCGA-29-1703	d86b5d2b-9a8e-4bfa-9549-12fd45e8c296	[Not Available]	20	80	[Not Available]	1
+f9c835db-2ab6-4bf5-826f-48723493c0ec	TCGA-29-1705	fd3e7ba8-21a5-438b-82ee-482ed6905310	[Not Available]	20	75	[Not Available]	1
+7fd6ab8a-201e-431d-a886-6ab553b6ca36	TCGA-29-1707	64b5eb1a-1d6e-477e-a33b-c9a4546daef3	[Not Available]	20	80	[Not Available]	1
+4261267c-7042-4c6e-83ed-12fb401003fc	TCGA-29-1710	61513da0-4eb3-4cae-bfff-7b05f3362488	[Not Available]	20	80	[Not Available]	1
+f58e49fc-9641-4b46-be4c-766445ec70a3	TCGA-29-1711	f0f721b2-edab-49c9-b271-2204878c2ae5	[Not Available]	20	80	[Not Available]	1
+374ea8df-ecc4-44b0-b519-33efa5078018	TCGA-29-1761	d9939f44-f5d7-469f-b256-4af851190454	[Not Available]	20	80	[Not Available]	1
+5495b18a-10ec-427b-83b8-03ef4b587b13	TCGA-29-1762	5df514e7-6e12-474a-92f2-067898b351ac	[Not Available]	20	80	[Not Available]	1
+242da7d0-8c6a-4395-9a0d-aa36e7c25ce6	TCGA-29-1763	3231d01a-e80c-46a1-8c9c-3492dca9f250	[Not Available]	20	80	[Not Available]	1
+c70228cc-79c0-4c00-8926-6671c1474701	TCGA-29-1764	d9bcf06a-d8f7-4702-962f-4fde7e254786	[Not Available]	20	80	[Not Available]	1
+01ea6354-137b-47f3-9021-a01a382b1147	TCGA-29-1766	d3a81bab-cce2-48b3-8eb8-9ef9766af108	[Not Available]	20	80	[Not Available]	1
+838693d5-1ae0-4d75-834b-e1b89b96b0ed	TCGA-29-1768	f21ac7ce-b8b2-4c44-be65-4c4abf8a86c4	[Not Available]	20	80	[Not Available]	1
+5abb6d80-fc39-49a4-8db5-3db24543feb6	TCGA-29-1770	e14eecdb-9843-4549-917b-ee1e3d77025d	[Not Available]	20	80	[Not Available]	1
+7b042fb2-8f53-4fb1-8a44-40cd2128b279	TCGA-29-1771	dfd33c2b-ea87-486d-8188-63418f3b1cc1	[Not Available]	20	80	[Not Available]	1
+f6ebf3a7-31c6-4f4c-9a0b-74cf35bfedf6	TCGA-29-1781	b9a63363-bd0c-496f-a375-fce0d0a370d8	[Not Available]	20	80	[Not Available]	1
+460616ec-f66f-483b-88c1-757edd86261d	TCGA-29-1783	7d811a29-b303-453e-9c0e-91ae12907510	[Not Available]	20	80	[Not Available]	1
+23d32627-9fd2-4312-bcda-ee7409e3983f	TCGA-29-1784	90c52b7a-a0fb-4e5f-9c80-ee94516ab8d9	[Not Available]	20	80	[Not Available]	1
+1aea3c25-d2bc-4ff5-bc27-32e939944e9d	TCGA-29-1785	051e9ab0-af6a-4bd7-8673-c596dc6e78a0	[Not Available]	20	80	[Not Available]	1
+09820a33-80b1-42d0-8366-a0ddaf94b122	TCGA-30-1714	44b8b591-5dd6-4b93-bd8f-d1c3284af41f	[Not Available]	10	90	[Not Available]	1
+ad2939e6-b8b8-475a-90e2-6a369c3d3167	TCGA-30-1718	9ea630a2-1412-4f40-897a-38a52600a1cb	[Not Available]	10	90	[Not Available]	1
+48e66676-dbed-48a4-9a7f-a6d247b15c17	TCGA-57-1586	e4d6fa52-fb29-47ac-aade-8f6020a5b55e	[Not Available]	[Not Available]	90	[Not Available]	1
+c75c915f-ef4b-4c19-8ace-995e6c6015fd	TCGA-04-1638	2f2797fb-4468-4544-84fd-0a4270416ea2	[Not Available]	10	90	[Not Available]	1
+d38ca631-ed5c-4182-a647-625060726fa7	TCGA-04-1646	b1893596-d585-4d0f-a70d-7c2bf18479cf	[Not Available]	10	90	[Not Available]	1
+cddce77f-21e6-4124-9f03-96fb5ca7cefa	TCGA-04-1648	bc979254-2b16-43ab-ba8d-7670a3b4ab3a	[Not Available]	10	80	[Not Available]	1
+314e446d-3a57-4c91-ac2e-4fc211456ee6	TCGA-04-1649	c15f0bb8-862e-4f49-8489-8d435a64c0fe	[Not Available]	10	80	[Not Available]	1
+55153632-1673-487a-85c0-f156377db1fc	TCGA-04-1651	7d9f2d6d-3ec6-4fed-9d3a-52e813bd8be6	[Not Available]	10	80	[Not Available]	1
+d86adfac-56be-4a69-9315-5a90b4113e65	TCGA-04-1652	7ef1c29d-2804-4c46-bce1-c9dbab392eb5	[Not Available]	10	80	[Not Available]	1
+3438c018-9856-4628-ae59-7d365713647f	TCGA-09-1664	6ffadfe2-3bbb-497f-9b6a-ea2bf6b7143e	[Not Available]	0	70	[Not Available]	1
+4d71dd15-cd01-4dae-ad70-6dc325140207	TCGA-23-1029	5e13d3ce-ac89-4316-94a1-8395bd56fbfa	[Not Available]	[Not Available]	[Not Available]	[Not Available]	1
+6b2a9f9a-fe96-4311-a330-925c4ad36fe7	TCGA-23-1111	2dc30180-9f69-4dd5-914c-1a27fcf170bd	[Not Available]	[Not Available]	[Not Available]	[Not Available]	1
+09c77947-a333-4392-b18d-a6c1f08764a1	TCGA-24-1842	8c53c83d-85c8-49b5-8838-cb0585c894b2	[Not Available]	1	95	[Not Available]	1
+9ec86cbd-8c74-4697-90da-529ab91ab835	TCGA-24-1843	737481f9-845a-4c7a-b12f-881d9da3998a	[Not Available]	2	80	[Not Available]	1
+a36a4440-15ef-4837-904b-380a964d16f1	TCGA-24-1844	8ea52904-f56c-4c1f-b8a4-9906805001ff	[Not Available]	1	80	[Not Available]	1
+a782352e-c4bb-4c3e-ba82-456a47c3689a	TCGA-24-1845	c6987abb-e8cb-4701-bee2-416627c1f970	[Not Available]	1	95	[Not Available]	1
+67f526f1-def5-43b4-bc89-154baae190fc	TCGA-24-1846	046c032f-69e8-4815-b7ab-28858392d6b0	[Not Available]	1	80	[Not Available]	1
+94efd4f9-69b0-4efa-8a0c-61106e898fdd	TCGA-24-1849	121db3fb-cc6b-48bb-8bfe-a582075658fe	[Not Available]	1	80	[Not Available]	1
+b6b607cd-67b8-4c04-a212-a4e8c0743f05	TCGA-24-1850	511be3b8-efdb-4e2e-8115-7b83e16471c1	[Not Available]	5	80	[Not Available]	1
+94769f2c-b6fd-48ec-af34-b41165340b7c	TCGA-29-1769	cbfe2502-c3d1-44a5-bd1a-4a775c86d27f	[Not Available]	20	80	[Not Available]	1
+d3dd5e69-9752-4b50-9b1f-814afbc2c3dd	TCGA-29-1774	145c1cbf-1d36-4439-896b-afabfcc8d864	[Not Available]	20	80	[Not Available]	1
+a4a3fca9-723a-47f5-a49d-b3acb71c04a7	TCGA-29-1775	8237646f-49e5-438a-b192-a2e31f87a971	[Not Available]	20	80	[Not Available]	1
+7472b3ba-9b15-4d97-8708-a2dd82ca0f45	TCGA-29-1776	5b6791a5-2fec-41c8-87fb-9d83a3bed4bc	[Not Available]	20	80	[Not Available]	1
+5ced5b58-fab4-4bcd-b706-d6e49ce0cfc5	TCGA-29-1777	afb43292-69c2-4d84-84f5-0bde9a6e9ea5	[Not Available]	20	80	[Not Available]	1
+44e840c9-ea54-4dba-9b2a-264ef1f2c304	TCGA-29-1778	be6771b3-dc5e-46fb-998a-a66a6fd63c85	[Not Available]	20	80	[Not Available]	1
+7d1e9451-7a6a-4086-af7f-3ed57505daf0	TCGA-30-1855	74590212-e087-46be-aaf2-43e259aef8e6	[Not Available]	10	80	[Not Available]	1
+91a6f311-c758-4e40-9abb-cc0f6584b9c9	TCGA-30-1856	3c50e97f-5cf5-4a1a-80f2-593f96f28fbb	[Not Available]	20	90	[Not Available]	1
+45baebac-32ae-4093-9eba-488b95c1a58d	TCGA-30-1857	9aae154c-ffe9-4e86-9111-903b55de9228	[Not Available]	40	90	[Not Available]	1
+47feba88-1ec9-4904-b0e2-3718f294badb	TCGA-61-1722	25c449d6-6af8-4c61-ad3e-51232e710821	[Not Available]	0	90	[Not Available]	1
+a6eb0cd0-fe57-41b0-8593-776208684293	TCGA-61-1725	6ecade07-4c2f-4587-9c8b-589943f1c9e6	[Not Available]	0	90	[Not Available]	1
+99407c1d-40b5-4ded-ba29-1e40dfd65be4	TCGA-61-1727	3a7de9e1-8a68-48f5-bf45-727fb2680d13	[Not Available]	0	90	[Not Available]	1
+107bd8af-13e6-4c6a-9bdc-83c08eaaff90	TCGA-61-1730	de16b5da-44f0-4eb7-ad94-7e2b307c0a96	[Not Available]	0	90	[Not Available]	1
+04ecaf38-0232-4dcd-9242-308a22cc1331	TCGA-61-1733	a047a512-409f-4293-9585-9933f1503f9d	[Not Available]	0	85	[Not Available]	1
+0aa020cb-69d2-4235-a609-c279a133d8bb	TCGA-61-1737	782164d9-0804-48f7-bb97-a35ebfb0c372	[Not Available]	0	90	[Not Available]	1
+72c40fba-f502-489b-ad87-843f52655894	TCGA-61-1738	ce503b11-3be6-4c58-85b6-d987033232e0	[Not Available]	0	90	[Not Available]	1
+005a6517-2e5a-4ea3-ab36-531522723607	TCGA-61-1740	ac9c5b5e-8e14-4a76-a68d-78a8349c40f7	[Not Available]	0	90	[Not Available]	1
+16ced1b8-64d5-4498-82df-4d37bfe5b310	TCGA-61-1741	e5e22755-8759-4349-a6ba-87fff441183c	[Not Available]	0	90	[Not Available]	1
+0dd95368-0713-45f0-84f4-c91af9cbba74	TCGA-61-1895	41d620dc-9489-4eae-bdd7-81c4da7294c7	[Not Available]	20	80	[Not Available]	1
+35b1bb47-b32b-4acd-8e5e-fe6bd56c0289	TCGA-61-1899	f5b7f407-1eec-443e-a40d-39349d58c195	[Not Available]	20	80	[Not Available]	1
+ef653772-e5d2-46ec-8610-f81d75d7353c	TCGA-61-1900	fb634d39-a4fe-493e-a982-2e360e69cbd2	[Not Available]	20	80	[Not Available]	1
+7a75d318-b301-4f77-a97f-4d6784d27216	TCGA-61-1901	3dd1ec35-18b3-4263-b80e-ac39553f56b3	[Not Available]	20	80	[Not Available]	1
+b3df9c0a-420c-4cc2-a3e0-56df1ed7e997	TCGA-61-1903	f6af1664-abbc-4c49-b924-585fd4a73852	[Not Available]	20	80	[Not Available]	1
+2cdd5154-ee5c-4d67-b2eb-947dfaa56be2	TCGA-61-1904	f0c5f7c0-352b-4210-960c-b05cc4c481a0	[Not Available]	20	80	[Not Available]	1
+f553e953-6464-421f-8933-26ca82cb79d3	TCGA-61-1906	f96781ca-85ca-4983-9c10-9a3dbdefbf70	[Not Available]	20	80	[Not Available]	1
+7ab3765f-910a-41c9-86cc-08534d2a4e4b	TCGA-61-1907	0230bc74-adc5-4443-ac9e-342d7f344ce7	[Not Available]	20	80	[Not Available]	1
+75f2d97a-b96c-403f-8055-5c5c8083e856	TCGA-61-1910	a8786e7f-5004-43c8-a5a8-fc2fb89d2ab0	[Not Available]	20	80	[Not Available]	1
+93095c36-2263-438f-a619-a4a4d6ae13c7	TCGA-61-1911	7f7b442a-3985-4f4a-98b1-da82670c957c	[Not Available]	20	80	[Not Available]	1
+8516d4f2-0b98-4847-99c6-4d7269fa4af2	TCGA-61-1913	a3ab808e-6386-45e3-abc3-10083bb0c9a4	[Not Available]	20	80	[Not Available]	1
+8e1b8811-1eb2-4337-852c-c19eaa0ee418	TCGA-61-1914	98f6fcfd-df24-422f-a14d-144fd1a02849	[Not Available]	20	80	[Not Available]	1
+0adadf17-c4b6-48b0-a326-21450de3e144	TCGA-61-1915	20b7cc25-46e5-4160-bc33-ba4591301ff2	[Not Available]	20	80	[Not Available]	1
+ff33db70-91d4-4dbb-a4fc-d81a128d0f32	TCGA-04-1654	63567a34-2805-4e08-b18c-15e19d18c86b	[Not Available]	10	90	[Not Available]	1
+97efb80d-4f46-4aef-b95e-20d260de01b2	TCGA-24-1920	9674aaad-5429-4db3-8f5f-04a0e2b7c6f9	[Not Available]	2	90	[Not Available]	1
+8449955f-42d9-46f6-919a-5cc5d59e6284	TCGA-24-1923	84d06f56-6611-4fa1-89fd-df8780f7f446	[Not Available]	2	80	[Not Available]	1
+26558703-a659-43f2-86cb-0695989bc14e	TCGA-24-1924	525471c8-0249-45ed-a443-db52ca6c04d9	[Not Available]	2	90	[Not Available]	1
+8c47ae58-91c7-4247-b420-50f31f5eb00d	TCGA-24-1927	890fdee1-d4a1-4b22-9062-9d515dbdd867	[Not Available]	2	90	[Not Available]	1
+b45c543a-40d9-423a-a7fa-98e4b325b487	TCGA-24-1928	595af317-cf8b-4f25-b005-426b078ffc4a	[Not Available]	1	90	[Not Available]	1
+62efb5ae-43dc-4a4c-a898-6cd9c6dba027	TCGA-24-1930	b9e08539-3921-490e-9f35-013f9704d516	[Not Available]	2	90	[Not Available]	1
+e20ea417-7296-4da8-9fdb-71cd1f45153a	TCGA-24-2020	871fc478-cf3f-43c2-8aea-0db7c777abe1	[Not Available]	1	98	[Not Available]	1
+5201ee13-2aed-4641-9169-4d5ee07a23da	TCGA-24-2023	3ab5e7ea-fc93-4a73-b43d-c3c74ad48bdb	[Not Available]	1	95	[Not Available]	1
+2517ca7a-6057-4c19-b7e1-f6d078e9881a	TCGA-24-2026	fe8b3cb8-15ce-4d0c-b168-d8d3db4be176	[Not Available]	1	95	[Not Available]	1
+219f54ef-4235-482d-b799-f2fa9930105c	TCGA-24-2027	d458ab44-bd23-410d-9ffa-4d469d16c62b	[Not Available]	1	85	[Not Available]	1
+bbbf1184-1e19-479a-b31f-daa692d52e02	TCGA-24-2029	2c991856-488d-4bf0-b2b0-16217562a1d6	[Not Available]	2	80	[Not Available]	1
+15f1a992-0724-4d76-a71a-702ac7753a41	TCGA-25-1870	b6eb7ad6-2676-416e-b165-0cf683116793	[Not Available]	0	80	[Not Available]	1
+ff844242-7559-4b07-b09e-69ea40e5ac6b	TCGA-25-1871	19e1d694-4cae-4fd9-92fb-4d8395c8d75a	[Not Available]	5	80	[Not Available]	1
+077079c3-6877-467b-b9cc-5c650aae4f07	TCGA-25-1877	95bc63bd-436a-4ee4-91dd-95c5188fe261	[Not Available]	0	90	[Not Available]	1
+9bdbaccf-b43b-4ec3-8b9b-dff65215eb00	TCGA-25-1878	deac0f80-013b-479a-b839-c49958477b96	[Not Available]	0	90	[Not Available]	1
+5d603bba-62e6-48fb-b8fc-401109abcaee	TCGA-30-1853	35817ec6-5c0c-44d7-b5a8-b6de3ab24fdd	[Not Available]	90	20	[Not Available]	1
+dac8d825-dd47-47ed-a426-0ee75feb76f3	TCGA-30-1859	4edae34f-d69b-4b02-b772-ec0318fcb506	[Not Available]	2	90	[Not Available]	1
+563853a2-9ac2-48be-adf3-1e547ee2b274	TCGA-30-1860	5ae1ae22-b891-472a-b737-e48c73b91798	[Not Available]	20	90	[Not Available]	1
+0724f800-e873-45d0-bc56-809d0ec4f6e9	TCGA-30-1861	2642249c-adc7-48e2-8493-1597e269c2c9	[Not Available]	10	80	[Not Available]	1
+58f5a54e-de50-4cca-afa1-cc331d8b3479	TCGA-30-1862	6211110a-552c-492f-b066-c3b41db7fbad	[Not Available]	[Not Available]	100	[Not Available]	1
+cbc7f427-5f7b-4267-ad56-055d8880a4cc	TCGA-30-1866	887e9b15-4a8c-4950-8954-b9f6bff18bb1	[Not Available]	10	90	[Not Available]	1
+f9824a6e-7a97-445c-8846-df8d8cddedaa	TCGA-30-1867	b4ba3078-548e-47dc-a9e5-5bac1e7649a0	[Not Available]	[Not Available]	80	[Not Available]	1
+84f5876d-82b0-45ff-8f3d-a10653683454	TCGA-30-1869	b0d7387a-b93c-4eb9-a864-04dad488b702	[Not Available]	10	100	[Not Available]	1
+bc873b2a-35b7-4365-a2cc-e6a83063556e	TCGA-30-1880	03bd6b37-5c15-458e-a7ec-fe61c0a0bf67	[Not Available]	10	90	[Not Available]	1
+f7e01929-733b-420a-ab2b-051dd4a992e5	TCGA-30-1887	5cc5bff3-2986-49fe-bb1c-896a5691dfaa	[Not Available]	10	90	[Not Available]	1
+4a2ca7b8-729d-4fab-a6f3-a5d1e5d1f4f3	TCGA-30-1891	8e66ac32-4df0-45b2-915e-37eacd1040a2	[Not Available]	20	80	[Not Available]	1
+a09f0626-002a-48fd-8b2d-c66b8285cf23	TCGA-30-1892	5b68e68c-3cbf-4506-ac94-4b23b3daba70	[Not Available]	10	80	[Not Available]	1
+6fee41dc-b8a9-4347-8085-b7e05f813ad0	TCGA-31-1944	69617aa2-3b7b-47b5-9f34-2051339dfd34	[Not Available]	3	75	[Not Available]	1
+da274941-3edd-420b-9262-bbd959923c67	TCGA-31-1946	d445f92f-5b61-4131-b474-f0ce49e52379	[Not Available]	0	80	[Not Available]	1
+4ca9c0e8-75a7-4665-9d88-6dd2bb44b1e1	TCGA-31-1950	5ce49570-ce22-4370-9d38-6cf43f808e81	[Not Available]	0	75	[Not Available]	1
+b0839f46-8c82-4619-be3d-c857a1759463	TCGA-31-1951	cc6a73f6-9dee-4eeb-85c3-c81f02d1adef	[Not Available]	0	80	[Not Available]	1
+61feee94-3ac9-42fe-aaa3-dc6a3efe563c	TCGA-31-1953	0918328b-5726-4429-a7dc-bb4d4869575b	[Not Available]	0	85	[Not Available]	1
+cce34351-1700-405b-818f-a598f63a33e8	TCGA-31-1955	f34c3ad8-793e-4977-a243-71f855c76779	[Not Available]	5	85	[Not Available]	1
+e1158102-06f2-47bb-9fe0-49b57f070755	TCGA-31-1956	3218e049-6d6a-471c-8453-d8ac52cf9d14	[Not Available]	10	65	[Not Available]	1
+186d40cd-624c-4016-a497-b30c892d393c	TCGA-31-1959	dd8556f8-461a-468d-8604-c4f2366b1cd7	[Not Available]	0	75	[Not Available]	1
+419a486f-7fa5-4fbd-9e98-2f8f4c6d5081	TCGA-57-1992	bb3bf7dc-4e01-48a7-9c48-953e33c999e6	[Not Available]	0	80	[Not Available]	1
+15fc17cd-d073-4f81-a4a2-2db3cb9d7069	TCGA-57-1993	41dbed72-2bd8-4e94-9e20-ba18211bdcbc	[Not Available]	0	95	[Not Available]	1
+602e2934-223a-44db-8c33-06eb05d72f94	TCGA-57-1994	a2667408-6465-4258-9e68-f88ec3cd7b7d	[Not Available]	10	90	[Not Available]	1
+1c0318d9-0472-4840-add4-46bb9f914a30	TCGA-61-1721	a65361d0-e9ae-4d90-bbf7-70bc213d263e	[Not Available]	0	90	[Not Available]	1
+2ae65a06-df0f-4de1-a536-537cae0cc260	TCGA-61-1724	3545a19f-40bc-4414-8895-2a176f2989fa	[Not Available]	0	90	[Not Available]	1
+07fbdb3c-8337-4319-8255-f2363f8a031e	TCGA-61-1728	9c3d5caf-78e2-4a1c-9e08-1ca5aa1c5625	[Not Available]	0	85	[Not Available]	1
+a3e26259-732b-49fb-bc95-2f0ec7a0494e	TCGA-61-1743	4090084e-e95a-4112-b87f-bddafc13b333	[Not Available]	0	95	[Not Available]	1
+87cdf9a8-0579-4d3e-b4df-0f8eef63d7f4	TCGA-61-1917	ec9f63ce-bf4d-4970-9df3-8bafabc8d9f5	[Not Available]	20	80	[Not Available]	1
+3491d67a-4f83-4f67-8085-bbb9fe942be5	TCGA-61-1918	f17ca1b8-f58c-4b17-bc4d-3bd33d9aec5f	[Not Available]	20	80	[Not Available]	1
+ce871097-a6e9-4139-897e-642ee24ee123	TCGA-61-1919	207be628-ffc8-4eb6-88b3-1705a3ee2ab5	[Not Available]	20	80	[Not Available]	1
+ea605be2-6578-4e01-8ec3-bbd84c0b7f1d	TCGA-09-2053	db421624-7088-4ce6-b070-38930461990c	[Not Available]	0	70	[Not Available]	1
+1592af8e-8d11-4325-8a2b-e0c690b15b58	TCGA-23-2072	595f73d9-f31f-4498-bb36-1504a9f280bd	[Not Available]	[Not Available]	[Not Available]	[Not Available]	1
+ef57bc45-858f-4d4e-8407-b7eadfa43be5	TCGA-23-2077	70944721-dbf3-4a65-ae98-a008a48ba55e	[Not Available]	[Not Available]	[Not Available]	[Not Available]	1
+ebe677e6-94b6-45be-a58d-eaae4cf63d12	TCGA-23-2078	dc3d8cea-908f-423f-976d-150bb1050063	[Not Available]	[Not Available]	[Not Available]	[Not Available]	1
+e3ea5137-76b8-4afc-9b80-ed74714e7172	TCGA-23-2079	c471a964-1dc4-4dd9-a66a-07f93c06f4a2	[Not Available]	[Not Available]	[Not Available]	[Not Available]	1
+41178cbc-db73-4007-b5d8-febebf7f578d	TCGA-23-2081	48b84b42-0a80-4429-9d6f-1a51b8aaae2e	[Not Available]	[Not Available]	[Not Available]	[Not Available]	1
+2cb82948-7cbe-4b6c-8414-c02f662de2d0	TCGA-23-2084	6ea4f0e4-f241-4d14-af35-a9bbcb8f4a9d	[Not Available]	[Not Available]	[Not Available]	[Not Available]	1
+bbad2efe-e9c7-4f8f-924b-ebbbe4c181d4	TCGA-24-2019	d2dd3d17-790f-4aa2-945d-db72df6ec8eb	[Not Available]	5	95	[Not Available]	1
+0a48873a-092a-4b25-822b-b0b3c18c08a8	TCGA-24-2024	a3f8dcad-c42a-4070-80c4-782627bbaca2	[Not Available]	1	90	[Not Available]	1
+d2ccefea-c1d6-465f-97b1-e51e29c5f1f8	TCGA-24-2030	b1afae0f-041b-4bfe-bc0c-732156b69617	[Not Available]	1	90	[Not Available]	1
+062982f8-9f49-425a-99e9-008af5ed9040	TCGA-24-2035	e4ccc95d-79ca-49e3-8cd0-c8452c5f9aa2	[Not Available]	1	80	[Not Available]	1
+c9226204-cb61-40b8-8a94-a7e71c14ea3a	TCGA-24-2036	389cd452-fcf0-498b-9e65-7e28dbe8d5a4	[Not Available]	1	99	[Not Available]	1
+17181157-c9e2-4bd6-8653-f5dce56f9053	TCGA-24-2038	cb5c8591-15ab-46b3-a819-57cbf71c6bce	[Not Available]	1	80	[Not Available]	1
+9af2248a-d86a-4277-93b4-8eba5a39bd3c	TCGA-24-2254	c2699551-32d9-46ad-9c41-04730ef6a8a4	[Not Available]	2	80	[Not Available]	1
+f2ce00e4-0d4f-4faa-bee1-ddf1b306e97b	TCGA-24-2260	719b2658-c704-4d9b-9e5b-e49f9e117e75	[Not Available]	2	80	[Not Available]	1
+eec69ea9-ceb8-456a-aff4-41fb8a261e36	TCGA-24-2261	7bcd356d-7031-44b1-b1d7-8d8f60f0caff	[Not Available]	1	90	[Not Available]	1
+b5e64bdb-24f1-400d-aaf7-8fda8ab6fd3c	TCGA-61-1734	43228687-69df-425e-9414-1a853bd31742	[Not Available]	0	90	[Not Available]	1
+0a2d29de-869a-4dc8-ad11-6ee0d0a3a895	TCGA-61-1736	8a5f3650-3bfa-48f9-80c3-270b05daa00c	[Not Available]	0	85	[Not Available]	1
+931738a7-4b5b-46dc-b69f-72600862d8af	TCGA-61-1995	2e1fa816-2b90-4c40-8ab5-617d19736cb0	[Not Available]	20	80	[Not Available]	1
+565d06a1-3640-4274-8fb3-8cad7e578876	TCGA-61-1998	981e7677-6bde-4617-8c24-732d606b81e4	[Not Available]	20	80	[Not Available]	1
+29949b65-2913-4c86-bbd7-b85c5df6f15e	TCGA-61-2000	fdb8966d-55c9-49be-80dd-369246604aad	[Not Available]	20	80	[Not Available]	1
+85bb4987-51e7-40fe-ad59-2aa56754eca9	TCGA-61-2002	c9aa3e59-a10a-4e4c-b8cb-40d970f43df7	[Not Available]	20	80	[Not Available]	1
+33dc48d8-2e01-482b-944c-ac10da727ec9	TCGA-61-2003	74826da0-ddc4-49b0-bcb5-591691f4f8d6	[Not Available]	20	80	[Not Available]	1
+3ac45a71-c463-4f0f-b030-58c475a34418	TCGA-61-2008	69d76e7a-e0cb-4a8d-b6cd-67d8702d2af9	[Not Available]	20	80	[Not Available]	1
+ae914f23-87b9-4169-a7f7-a3483078c902	TCGA-61-2009	8832fa0d-1bd8-42a9-b002-1a02500d48eb	[Not Available]	20	80	[Not Available]	1
+20c6be4d-7baf-4ea0-93e2-a5212f2e9b9c	TCGA-61-2012	0befd656-457c-4fa2-81c0-6c5a56f70196	[Not Available]	20	80	[Not Available]	1
+512de609-757b-42be-8b30-c414f71af422	TCGA-61-2016	b15d7b36-c394-4ba4-a896-3e8beb2f8db0	[Not Available]	20	80	[Not Available]	1
+f0ca8205-0754-4bd8-a6a8-31901040c5e7	TCGA-61-2017	9c2c353b-dff6-4a94-8e21-741641cd6c4c	[Not Available]	20	80	[Not Available]	1
+13d6c31a-6899-4119-a5c2-90adcb5bd20c	TCGA-61-2018	90c18a2d-7f79-44df-bc6f-055e286635a4	[Not Available]	20	80	[Not Available]	1
+be03bfec-5bb6-4cab-9dd2-bee590bd45f1	TCGA-61-2087	20966202-b3d0-42a1-adca-0519ac328535	[Not Available]	20	80	[Not Available]	1
+242943fe-1fa0-4a12-8f7e-9c6c4af1194d	TCGA-61-2088	29d36fc7-e849-42aa-bcc8-2fd9f7c9e24e	[Not Available]	20	80	[Not Available]	1
+c183d3fb-2eee-44f8-890e-b9bf907141e6	TCGA-61-2092	962bb8fd-018e-49d0-b1df-dc0192e1b2a6	[Not Available]	20	80	[Not Available]	1
+b31d85cc-d2e2-4bd1-9986-d6bbe30e657f	TCGA-61-2094	ae00d18f-7117-4cfb-a306-168f1f5d493a	[Not Available]	20	80	[Not Available]	1
+778ce436-a825-4689-81c1-b7c965404163	TCGA-61-2095	b2cde517-9404-45b2-bd39-3dedb4e129fc	[Not Available]	[Not Available]	80	[Not Available]	1
+6beaa1cb-a9f1-4127-898c-7aff2273788e	TCGA-61-2096	1869670a-32f8-4b35-8db3-2d02f348cf17	[Not Available]	20	80	[Not Available]	1
+47681e4b-01e8-4779-b966-ce57aff4b712	TCGA-61-2097	dfcd4fbd-4441-40aa-a36a-13383c8d7f1a	[Not Available]	20	80	[Not Available]	1
+eb7c3b35-7a5e-4621-b31f-9775c51f9a23	TCGA-61-2098	60b275ef-91db-4572-a187-74fea2507bb8	[Not Available]	20	80	[Not Available]	1
+5d1a54fe-e0df-4c17-b623-b649a136dc82	TCGA-61-2101	46d32513-dc68-4261-8e1b-26d407b6546a	[Not Available]	20	80	[Not Available]	1
+7a08efd0-f984-430e-a8eb-1881047214b6	TCGA-61-2102	d800778e-cc83-4447-9cfa-ca29adeacb8f	[Not Available]	20	80	[Not Available]	1
+05263959-c4f5-4540-b6d2-d8c8a128861f	TCGA-61-2104	87b7ed22-4fe1-4539-8c37-ab085e2cb9c1	[Not Available]	20	80	[Not Available]	1
+dc5a6ce7-01e5-408d-812e-e3e0ddc1cde5	TCGA-61-2109	98198891-a060-4107-b56d-61f19ac5fab5	[Not Available]	20	80	[Not Available]	1
+88180134-710f-46ea-9b06-5e5d860d6d9f	TCGA-61-2110	6ae6b10a-fc2b-4c6e-a30e-0299c22ac042	[Not Available]	20	80	[Not Available]	1
+91a17d40-c8cb-4cce-b306-966382a8fe4a	TCGA-61-2111	b469134f-2528-456e-bf69-c5b5a9268145	[Not Available]	20	80	[Not Available]	1
+71faa2c1-0d5b-4dcc-bdf9-f2405f29907c	TCGA-61-2113	9ba8451e-7ffc-43f2-b602-8ce8764dfc14	[Not Available]	20	80	[Not Available]	1
+2e05cd3a-a55f-43b8-b2a9-72fb742b89c9	TCGA-09-2043	81111396-3a9d-4ef6-810c-a20280e667a6	[Not Available]	0	70	[Not Available]	1
+7d03ddb6-f3fe-4b50-8bba-514aa65e7d0e	TCGA-09-2044	1f60c05e-f171-4815-b0da-40aa1b24f300	[Not Available]	0	95	[Not Available]	1
+3768d34f-1527-40db-b116-cd80cee5ec3a	TCGA-09-2045	4d5aaf12-a500-4709-9c99-5b9fef2c79b1	[Not Available]	0	90	[Not Available]	1
+184aac07-44c1-47f1-8adf-50acbcc1762c	TCGA-09-2048	fe693f25-efb5-46d5-8bab-de5b87eef1ad	[Not Available]	0	90	[Not Available]	1
+3c037acf-f453-4513-a6dd-129163ddde2a	TCGA-09-2050	239e7813-ba65-4f3c-b7de-77e166707c75	[Not Available]	0	70	[Not Available]	1
+02594e5e-8751-47c1-9245-90c66984b665	TCGA-09-2051	c46d2ade-620c-44a6-93ba-8edda9909c1b	[Not Available]	0	70	[Not Available]	1
+838778c3-0b33-4fc5-97fc-5da163475485	TCGA-09-2055	d06d97f8-785b-4a5a-9398-9ecae2b2acce	[Not Available]	0	85	[Not Available]	1
+196f4600-b6c9-4652-9f77-65c92883f8c1	TCGA-13-2060	bffd965b-885f-4914-b25b-a993338acaad	[Not Available]	[Not Available]	[Not Available]	[Not Available]	1
+1d0225b5-f515-4197-bba7-3dc17e502b88	TCGA-24-2262	c8767fb2-1e4a-42de-b648-847d4a5df78b	[Not Available]	2	90	[Not Available]	1
+99a61986-7b23-46b5-99a4-efba6bad3766	TCGA-24-2267	00be5ec1-3b0f-4b5a-b116-4efce25d2cc8	[Not Available]	2	80	[Not Available]	1
+a8c4a333-6b67-44c8-9000-516f8ccea788	TCGA-24-2271	de9d08f5-24f5-4cdc-8f30-d05a2bea5301	[Not Available]	1	80	[Not Available]	1
+97ad0360-3be4-401a-a94c-7f2800a1b519	TCGA-24-2280	e24b153c-001b-43a3-b0d4-2b6eec615cfd	[Not Available]	1	90	[Not Available]	1
+59b3fbfe-0b7c-41e5-b756-ee7e23730df5	TCGA-24-2281	fcd83e7f-2210-465d-8362-3b5e2c368625	[Not Available]	1	80	[Not Available]	1
+28ed2d42-5b4c-4bca-b2b2-6b2a6d3c42cf	TCGA-24-2288	8f515078-38de-44c1-81ce-e40d8a942fc7	[Not Available]	1	95	[Not Available]	1
+b867e933-e3e3-4491-9bb6-b18c48d6f173	TCGA-24-2289	f39ab685-fda1-43e8-aa70-fa3ed1566061	[Not Available]	1	90	[Not Available]	1
+2b14123b-8fcd-402c-9399-4e7c47f20252	TCGA-24-2290	bbfed693-79e1-4dc7-896e-15b98fc7dbac	[Not Available]	1	95	[Not Available]	1
+bdd792e7-d75f-4aa3-b38e-f0708e112075	TCGA-24-2293	542c8797-ff2c-49c6-955b-ef8222194b6d	[Not Available]	1	80	[Not Available]	1
+7bd1851f-7e2e-4dbc-9f0e-7cb2863371e1	TCGA-24-2295	aeb94013-c6ef-4a67-9c1c-262415ad9ba9	[Not Available]	1	85	[Not Available]	1
+2ab32e11-80d6-4ed0-a42e-da612219bbdd	TCGA-24-2297	e1855137-b479-4d9c-b729-ff84263abd89	[Not Available]	1	95	[Not Available]	1
+7e4e7914-ec23-4c55-98d6-3c5eecffa8e4	TCGA-24-2298	96e08856-06cc-463d-b2c5-5ed29204f66e	[Not Available]	1	80	[Not Available]	1
+818dc159-aba4-46bc-a4ed-68ee0f8c4461	TCGA-25-2042	71484ed8-3496-48b2-81b8-888d04f10f0a	[Not Available]	0	70	[Not Available]	1
+01abf2cf-541c-4610-8ce8-318016db6e59	TCGA-25-2390	d5f1fb25-213b-42c6-866e-a0a2a97b0714	[Not Available]	0	95	[Not Available]	1
+f5033d52-ec36-4e67-88d8-b6d898b81b2f	TCGA-25-2391	2179798c-4fd4-4434-b1d5-1453f6054fa2	[Not Available]	0	80	[Not Available]	1
+7413c891-f74e-456f-bc70-69c83fb53c70	TCGA-25-2392	bbfeb712-4736-49c9-9cc6-74a94c6e8195	[Not Available]	0	90	[Not Available]	1
+b4b49027-7815-4813-9769-a3fe3a26a37a	TCGA-25-2393	e69d97a1-39ab-49a6-9f73-5be13fa49d30	[Not Available]	0	80	[Not Available]	1
+6264e699-d40b-4ebc-b443-0a0edcb220dc	TCGA-25-2396	96d1655d-0a5e-4e2e-b9eb-f422ced79483	[Not Available]	0	70	[Not Available]	1
+4c099644-047c-42a3-8187-bfcbfe6662e4	TCGA-25-2397	6ba4eb6f-f6dc-441d-879a-7e27dc903c7f	[Not Available]	0	80	[Not Available]	1
+fd4740db-76a8-4362-be71-7b609479bb67	TCGA-25-2398	a5ad2377-7f60-4c8a-8343-4589b01dc4c5	[Not Available]	5	70	[Not Available]	1
+ad2b1a0a-153f-483d-b228-5763eba3f6cc	TCGA-25-2399	c9aa6cf0-f536-4640-8290-3e745ae2a36b	[Not Available]	5	80	[Not Available]	1
+5c127332-5ca0-45f1-a5ac-4876ad94e491	TCGA-25-2400	b5e8849b-9002-4b65-a2ea-6a46c04aba4a	[Not Available]	1	90	[Not Available]	1
+3bc8a74f-49bd-46b6-a3a4-68ca838e83c6	TCGA-25-2401	efc25de9-e672-4b44-9003-5b277a47a625	[Not Available]	2	70	[Not Available]	1
+22178c3c-6b04-46d8-8041-dc83fa195029	TCGA-25-2404	7c1f016a-1728-4496-acbc-97aa89c5ee58	[Not Available]	0	70	[Not Available]	1
+fdd4adb8-9295-480a-9352-305b5eb51187	TCGA-25-2408	3dc8ee96-f075-4761-947b-6532fb72b10c	[Not Available]	0	90	[Not Available]	1
+dce71741-ccbe-40b7-a0b8-2048d07187a4	TCGA-25-2409	3d0f2483-ae45-4b2f-bba3-76a0eaecff4f	[Not Available]	0	95	[Not Available]	1
+a2319490-b85d-4219-a1b0-fa1ec432d5c8	TCGA-29-2414	c8de9eaf-cda6-4680-a710-93fd9e9a8903	[Not Available]	20	80	[Not Available]	1
+40635bf3-d8ba-4833-b623-547e55e5d07e	TCGA-29-2425	0a6d3bb3-512a-47bc-9b84-b6fa017da9c3	[Not Available]	20	80	[Not Available]	1
+6f25001a-f890-4fd0-a994-e62a9ea5c6f3	TCGA-29-2427	41b8564a-48df-44ab-9242-8d1d89697658	[Not Available]	20	80	[Not Available]	1
+b0585c7a-7205-4dac-9d54-6da89674accb	TCGA-29-2428	15d26f43-0581-4cdd-aa2f-a04ad6901fd8	[Not Available]	20	80	[Not Available]	1
+20cf00ea-d7da-42bb-bce7-f005f0b952eb	TCGA-59-2348	cbdafa49-7dd7-4a42-b0a5-891aad11a802	[Not Available]	0	90	300	1
+2222b629-02ab-4ead-997f-09d91c6f7cf4	TCGA-59-2349	ddf4a6ae-f3ee-4972-a12a-156260ddf5fa	[Not Available]	0	95	300	1
+e978a457-92ff-4eab-b759-ec6e74d973e8	TCGA-59-2350	d10b7299-8788-4800-b0a4-e836a18d5def	[Not Available]	5	90	300	1
+16829472-5666-4fba-9bf9-360ec1689aa0	TCGA-59-2351	5de10a41-af67-4417-9152-54a184a37f68	[Not Available]	5	70	300	1
+758e6b52-062e-4ca0-84d1-ea38477414ac	TCGA-59-2352	2892b681-6001-4124-ae86-3363be75463b	[Not Available]	0	90	300	1
+d7925dfc-18ce-46ab-a47b-9d06eacc96d0	TCGA-59-2354	7ce668a0-da92-4201-9f07-2c5b02df2c88	[Not Available]	0	85	300	1
+708eec28-2348-4e15-b98c-8c6f9d057b1e	TCGA-59-2355	fc1a6b07-e91e-47c5-bf00-80be3c167605	[Not Available]	0	65	300	1
+f4d95c8e-fb84-46ca-acc0-827015cc9d0a	TCGA-59-2363	faf406a4-d3d4-4ff5-8a3b-86ecbc6802ab	[Not Available]	5	85	300	1
+8ae56ffc-960c-46c2-bd6c-1dcff33875d0	TCGA-13-1817	37f60609-19cd-4ac2-8e18-86556d942054	[Not Available]	[Not Available]	[Not Available]	[Not Available]	1
+82e96c6c-a88c-4e52-be56-7f24f6c7b835	TCGA-13-1819	8650fc72-abbf-477a-9c12-2a36eb7afaf7	[Not Available]	[Not Available]	[Not Available]	[Not Available]	1
+d48fff14-9413-40a7-a09c-41f12bbe0aa9	TCGA-24-1852	7b02cbd0-d7c8-49e9-93ab-38d25f85edd2	[Not Available]	1	95	[Not Available]	1
+92960f76-0242-4a1c-bf7d-014c2f720219	TCGA-29-1692	19c726ec-9c8b-40ba-83aa-9c5df03f82de	[Not Available]	20	80	[Not Available]	1
+8e7f1c74-7cb3-43c0-b07c-bf69b780053f	TCGA-29-1704	0b7f454a-33b0-4e5c-9e55-81d7b00d15f4	[Not Available]	20	80	[Not Available]	1
+8e7f1c74-7cb3-43c0-b07c-bf69b780053f	TCGA-29-1704	6c16d954-664c-4ecc-8b7f-024f12d2ebfc	[Not Available]	20	80	[Not Available]	1
+b25b3379-df8f-4900-9bce-0f8df50f549b	TCGA-61-1916	21b12282-efae-494d-9f1f-d2316740238d	[Not Available]	20	80	[Not Available]	1
+cddbac56-2861-46a5-98a3-df32ab69d5da	TCGA-04-1353	d0325dba-92a3-475e-960f-7d41e931ba4c	[Not Available]	30	70	[Not Available]	1
+6c43727d-631a-40fb-b1a1-242a12889eaa	TCGA-04-1369	c845066f-9a5b-4db4-9ca5-75c1998c8e9f	[Not Available]	10	90	[Not Available]	1
+7e6cdbc7-26a7-44f2-96fa-094738cbccae	TCGA-04-1370	1d01657e-e7ad-44fd-a2a1-77f56bc3bd25	[Not Available]	10	80	[Not Available]	1
+1c86e4e5-ecc9-4f6d-a557-77bf396a653b	TCGA-04-1516	443b9ac6-d6fe-48a6-bb53-f6f5a56d2f2f	[Not Available]	20	80	[Not Available]	1
+6f592f17-e00b-4d04-a45b-d9d4cf4c3075	TCGA-04-1644	5f768645-a8b9-478a-be1a-1ab0df652744	[Not Available]	10	80	[Not Available]	1
+56c4bd48-ab15-4b49-ae2f-968653052b50	TCGA-13-2057	7df2f2bf-f528-4e94-8241-f45d1f757d4a	[Not Available]	[Not Available]	[Not Available]	[Not Available]	1
+f4b56568-a74a-4a2e-89d9-11722ecf5948	TCGA-13-2059	55a04faa-6302-4078-84d3-875fa4a9b56e	[Not Available]	[Not Available]	[Not Available]	[Not Available]	1
+a22c1451-7841-4fa3-b2f2-5d5cd8aa67d3	TCGA-13-2061	7377ab66-ae3f-489c-a093-3ee0d707e385	[Not Available]	[Not Available]	[Not Available]	[Not Available]	1
+8d1dcf21-efd3-4fbe-ad44-f43a19239383	TCGA-13-2065	82a783d9-ca3a-4d3f-8524-8c74eabd525a	[Not Available]	[Not Available]	[Not Available]	[Not Available]	1
+bcb87812-94e3-4dc0-867e-d049b44a2690	TCGA-13-2066	9f643408-6b72-475c-acc5-76ae22fcc143	[Not Available]	[Not Available]	[Not Available]	[Not Available]	1
+49e5ee61-a1c9-4038-84ac-92683e573a65	TCGA-23-2641	2b167743-ece1-4949-8f40-9fda2878d18c	[Not Available]	0	99	[Not Available]	1
+5554a003-da6f-4ddf-9f05-6785987ac46c	TCGA-23-2643	8d21b5b5-032a-45b6-9e10-5e470c02a6a8	[Not Available]	5	85	[Not Available]	1
+66a0df9b-096b-4e8e-9b9c-54bf8637720b	TCGA-23-2645	5c264206-28ee-4030-b4b1-c39a24c74292	[Not Available]	5	85	[Not Available]	1
+246404ae-3bc4-4db7-aee3-0346ca3f7322	TCGA-23-2647	1cd136b5-dbf8-4443-a264-8e08b92db4e7	[Not Available]	0	75	[Not Available]	1
+ae5fa7cb-1984-423f-aa88-571314860943	TCGA-23-2649	d663817a-472d-45d9-818a-da26258ff62f	[Not Available]	20	85	[Not Available]	1
+4309ca23-1cf9-40a2-a01c-ccee90f958b2	TCGA-29-2429	91b66bf9-7e88-49b2-af17-6c2875b0ec77	[Not Available]	20	80	[Not Available]	1
+996313ef-11e7-459d-ba5f-ac1a4d0de513	TCGA-29-2431	0300f834-54c9-4449-be35-e903c672ada5	[Not Available]	20	80	[Not Available]	1
+0e6c9433-289c-4744-a0c1-47ec67774047	TCGA-29-2432	36b40d6f-9c82-4cbc-99fc-6d8d6233786b	[Not Available]	20	80	[Not Available]	1
+cb090048-9af1-489d-9ebe-7efaa3dc4e85	TCGA-29-2434	0d17245a-0437-4cce-934d-c5c97f625ff5	[Not Available]	30	80	[Not Available]	1
+8fa35df3-f544-4c47-bdd1-e4d6fc6662be	TCGA-29-2435	69a797dd-1083-4a83-a184-ec19f704d770	[Not Available]	20	80	[Not Available]	1
+295231ab-477b-4077-a368-db34f867102c	TCGA-29-2436	cbfb8f28-567f-47fe-852c-daabd799c23e	[Not Available]	20	80	[Not Available]	1
+20ac688c-04c1-45a6-823a-6b523002ce92	TCGA-36-2529	d1127665-616e-4209-90e2-f17ebd888594	[Not Available]	5	60	[Not Available]	1
+92a1a8f3-54f2-4983-bb14-dcb73658d897	TCGA-36-2530	cd7ced6f-b5ff-4eff-a480-68b21548f222	[Not Available]	0	90	[Not Available]	1
+04abcf51-c52a-4e74-a5f4-4bc4fb444902	TCGA-36-2532	55adc5a0-fa45-43ec-95a7-6f06865f6b86	[Not Available]	5	95	[Not Available]	1
+f7dece2a-d12c-4363-b8c3-2683c32d8271	TCGA-36-2533	5ed1a91f-e14f-4220-a41e-f23ebd6cf72d	[Not Available]	0	80	[Not Available]	1
+e08a619d-8a55-435d-8c41-a77a112ed889	TCGA-36-2534	930f0074-f5ea-408c-9efa-11762eb4551a	[Not Available]	0	80	[Not Available]	1
+5075cdc1-1b7c-4e25-98ea-fb568bd35f2d	TCGA-36-2537	04237168-046b-48b7-bed3-fc1544c8f248	[Not Available]	0	85	[Not Available]	1
+3ea880f4-7a78-4cb7-bfe4-54b3c30a812e	TCGA-36-2538	c442c707-0e09-4f14-a78a-4b5d04996fce	[Not Available]	0	80	[Not Available]	1
+30c7efdd-5a86-4418-a33c-a5d27fe56e42	TCGA-36-2540	e0a6f11c-2efb-4965-bb16-c41c09f3aafe	[Not Available]	0	80	[Not Available]	1
+7aadc24b-3de2-478f-b9e5-aca44424f514	TCGA-36-2542	fdd84afe-2917-4a2a-90a6-d2bb6387bde5	[Not Available]	0	90	[Not Available]	1
+73b63d07-0c1d-4bf2-bf11-b183e090e200	TCGA-36-2543	30e87bd3-07d0-40f3-aee8-e4d53f455f47	[Not Available]	0	90	[Not Available]	1
+da56dfbe-35ae-4bd7-9a11-d9bbb02b1833	TCGA-36-2544	1b8c379e-26d3-4dbc-a626-1d4d0819bf0e	[Not Available]	0	85	[Not Available]	1
+f3cd0ca3-8e5d-481b-b28c-619a4123dcd0	TCGA-36-2545	080769a2-1e15-44b4-802e-a6ff8024298f	[Not Available]	0	90	[Not Available]	1
+5e447cbc-9bc9-4e1a-9b43-06cf619e5aa9	TCGA-36-2547	eb366987-569c-4bae-9cf4-9bec7eb29075	[Not Available]	5	80	[Not Available]	1
+3250e604-d12a-4922-aaca-6f0cae095842	TCGA-36-2548	68d9544c-08ca-4d6b-99cb-fb94caea6f7c	[Not Available]	20	80	[Not Available]	1
+9815ab87-454d-4dfc-8b3d-4b35af32d764	TCGA-36-2549	fcaba42f-3964-49e9-80d5-365348a196fd	[Not Available]	0	85	[Not Available]	1
+9f096022-e3ec-4f63-8c52-03ef24c018f3	TCGA-36-2551	16f04eaf-b4a1-42f9-97b8-a6ed207c7109	[Not Available]	0	85	[Not Available]	1
+2d8b42fb-b12c-454e-a5a5-22c91913386f	TCGA-36-2552	55ca2556-a159-494a-85b9-b2932d5e1170	[Not Available]	0	80	[Not Available]	1
+7922df77-f09a-488c-a1be-58646ceb9b3e	TCGA-42-2582	0f090f58-729b-439c-bfe1-2ae0a88a98c7	[Not Available]	10	90	230	1
+eef62876-7d17-496a-8971-2c7008d77014	TCGA-42-2587	cfb17027-0adf-4a33-ab1f-ba6e194f9e98	[Not Available]	5	95	500	1
+654d02ab-05b4-4863-99d9-04d087ff91b4	TCGA-42-2588	ebb440f3-8642-482d-9286-23df89948ccc	[Not Available]	10	90	600	1
+dfb7dc5d-92f4-4a3a-9667-db38efcc9fdb	TCGA-42-2589	71c51745-db77-468c-812b-2c988b8ce87c	[Not Available]	5	90	400	1
+2724109f-7d5a-402c-a915-741e43c6f7f9	TCGA-42-2590	08dd82e2-d3dc-4e82-895d-108c0856542b	[Not Available]	5	95	1400	1
+0750ebcc-348a-4ea9-9dd2-6274d5e6eeaa	TCGA-42-2591	93ca6be9-e1ea-4f0f-a111-b8067751f4ed	[Not Available]	5	95	700	1
+3db7ecdd-315f-4475-a375-f6044a4b0070	TCGA-42-2593	a2ace9c2-d0ee-4c05-b82c-3e95099d2a87	[Not Available]	5	95	300	1
+5d8abed4-62b3-4e17-a8ce-9f6028e97103	TCGA-59-2372	e5dcc7e4-865d-4d57-ac59-966d0d149978	[Not Available]	0	95	300	1
+1098441d-fb10-4590-a302-0a7cc2332798	TCGA-61-2610	2383894e-342a-4d53-bc2d-53b464a86e7b	[Not Available]	30	60	400	1
+499645bd-e33e-4f89-8526-50460e8bb884	TCGA-61-2611	9ed8b497-1acc-4234-9db9-316c66df7cf8	[Not Available]	30	60	490	1
+c040df8a-9d6d-43bd-911a-17a7b4e1ec74	TCGA-61-2612	71380c4a-6782-485f-882d-26ba8b3308ee	[Not Available]	30	60	700	1
+c88502e9-0bc6-47c3-adc4-d98b63c7797b	TCGA-61-2613	14b03385-4e6c-45f0-815f-88f67b742728	[Not Available]	30	60	700	1
+09643c0d-efdb-46b4-94df-018bd6134a88	TCGA-61-2614	5631f6eb-f081-42ef-ab13-9c9a507c9f73	[Not Available]	30	60	600	1
+F3618472-32DC-4C90-A407-90050F68BE85	TCGA-13-A5FT	64BB8411-D52D-4EC9-B6A7-F0C25D8A050A	[Not Available]	10	90	200	1
+0F7AC6CA-7806-4B2A-9D37-94FF74FCD010	TCGA-13-A5FU	36E5B09F-6BF6-4C4A-958E-6D567CCD6BB7	[Not Available]	0	90	200	1
+F1CB3D48-1415-408D-89D1-DFDCC5924963	TCGA-29-A5NZ	CFA92815-5221-46E2-B7A2-958C556BB390	[Not Available]	0	80	200	1
+E35B2813-427E-4E83-95F6-4F0281F42A59	TCGA-3P-A9WA	B9E88FA0-FB6D-43C1-B879-BFDC95DA9BE1	[Not Available]	0	70	720	1
+7EBC776E-BDE1-4563-ADB1-8BD441872733	TCGA-59-A5PD	9609E049-77C8-46EA-884E-32E18D7A9602	[Not Available]	0	80	200	1
+BC84C5C5-1785-4EDD-B732-8987F862063E	TCGA-5X-AA5U	E2D8B59B-B044-4AAD-9E1B-F88C3208DF3A	[Not Available]	20	80	500	1
+260723BF-9620-450D-BF31-F3A45543F9DB	TCGA-OY-A56P	38875E85-5516-4775-A4B1-9B2B7EF4D732	[Not Available]	5	70	472	1
+C7CF6755-8856-435B-A443-174B22A25B07	TCGA-OY-A56Q	D5CAD767-265F-480F-A3BF-185BD4A75D5E	[Not Available]	5	90	457	1
+8628F1B2-3763-4BA9-A375-083874BB18F2	TCGA-VG-A8LO	CCD3903E-EEE6-41F0-9A07-4351A00A7DC3	[Not Available]	20	60	290	1
+B8023162-5E82-40E6-AD8C-8ACF81821F01	TCGA-WR-A838	828B6893-62CD-4248-A31B-7DA875D657F1	[Not Available]	7.5	90	479	1

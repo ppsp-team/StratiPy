@@ -1,0 +1,60 @@
+ID	Disease	Item Type	Item Barcode	Item UUID	Classification	Category	Annotator	Date Created	Annotation
+644	OV	Patient	TCGA-30-1869	84f5876d-82b0-45ff-8f3d-a10653683454	Notification	Pathology outside specification	DCC	09/02/2010	[intgen.org]: Pathology Results off Spec	
+641	OV	Patient	TCGA-42-2593	3db7ecdd-315f-4475-a375-f6044a4b0070	Notification	Neoadjuvant therapy	DCC	09/02/2010	[intgen.org]: Subject Positive for Neo-Adjuvant Therapy	
+641	OV	Patient	TCGA-42-2593	3db7ecdd-315f-4475-a375-f6044a4b0070	Notification	Neoadjuvant therapy	bowenj	01/25/2013	Patient had received methotrexate for arthritis, not as part of cancer therapy.	
+647	OV	Patient	TCGA-42-2588	654d02ab-05b4-4863-99d9-04d087ff91b4	Notification	Pathology outside specification	DCC	09/02/2010	[intgen.org]: Pathology Results off Spec	
+646	OV	Patient	TCGA-42-2587	eef62876-7d17-496a-8971-2c7008d77014	Notification	Pathology outside specification	DCC	09/02/2010	[intgen.org]: Pathology Results off Spec	
+645	OV	Patient	TCGA-42-2582	7922df77-f09a-488c-a1be-58646ceb9b3e	Notification	Pathology outside specification	DCC	09/02/2010	[intgen.org]: Pathology Results off Spec	
+680	OV	Patient	TCGA-04-1335	ab3dbbbe-eed6-4a35-a505-1815225e86c9	Observation	Item may not meet study protocol	DCC	07/30/2010	[schaefc]: Pathology indicates Stage I disease	
+11916	OV	Patient	TCGA-09-2056	ea6405c4-0fe4-4f37-bef2-275072f91e39	Notification	History of unacceptable prior treatment related to a prior/other malignancy	snyderee	11/10/2012	Prior malignancy right breast cancer treated with chemo and radiation per path report.	
+5487	OV	Patient	TCGA-09-2056	ea6405c4-0fe4-4f37-bef2-275072f91e39	Notification	Prior malignancy	n/a	n/a	n/a	
+1043	OV	Patient	TCGA-09-2049	05eb8bd5-d31b-4595-921a-366e53ea5a8b	Notification	Molecular analysis outside specification	pyena	12/08/2010	[intgen.org]:Molecular analysis outside specification	
+619	OV	Patient	TCGA-13-2059	f4b56568-a74a-4a2e-89d9-11722ecf5948	Notification	Molecular analysis outside specification	DCC	09/02/2010	[intgen.org]: Molecular Results off Spec	
+657	OV	Patient	TCGA-24-2280	97ad0360-3be4-401a-a94c-7f2800a1b519	Notification	Prior malignancy	DCC	09/02/2010	[intgen.org]: Prior Malignancy	
+3392	OV	Patient	TCGA-24-2298	7e4e7914-ec23-4c55-98d6-3c5eecffa8e4	Notification	Prior malignancy	pyena	09/18/2011	Prior malignancy of breast carcinoma	
+3391	OV	Patient	TCGA-24-2293	bdd792e7-d75f-4aa3-b38e-f0708e112075	Notification	Prior malignancy	pyena	09/18/2011	Prior malignancy of Ovarian cancer	
+620	OV	Patient	TCGA-13-2065	8d1dcf21-efd3-4fbe-ad44-f43a19239383	Notification	Molecular analysis outside specification	DCC	09/02/2010	[intgen.org]: Molecular Results off Spec	
+1239	OV	Patient	TCGA-29-1710	4261267c-7042-4c6e-83ed-12fb401003fc	Notification	Item in special subset	shawk	01/28/2011	This is part of the ovarian triplet set.	
+1247	OV	Patient	TCGA-29-1707	7fd6ab8a-201e-431d-a886-6ab553b6ca36	Notification	Item in special subset	shawk	01/28/2011	This is part of the ovarian triplet set.	
+1242	OV	Patient	TCGA-29-1705	f9c835db-2ab6-4bf5-826f-48723493c0ec	Notification	Item in special subset	shawk	01/28/2011	This is part of the ovarian triplet set.	
+1238	OV	Patient	TCGA-13-0791	90118207-8f11-4784-ac1b-0deec2e7af3a	Notification	Item in special subset	shawk	01/28/2011	This is part of the ovarian triplet set.	
+1241	OV	Patient	TCGA-29-1770	5abb6d80-fc39-49a4-8db5-3db24543feb6	Notification	Item in special subset	shawk	01/28/2011	This is part of the ovarian triplet set.	
+3386	OV	Patient	TCGA-09-1675	0fc8777c-8f12-472f-a0ea-085139b35d1f	Notification	Prior malignancy	pyena	09/18/2011	Prior malignancy of metastatic breast cancer	
+682	OV	Patient	TCGA-09-1675	0fc8777c-8f12-472f-a0ea-085139b35d1f	Observation	Item may not meet study protocol	DCC	07/30/2010	[schaefc]: Pathology indicates Stage I disease	
+3389	OV	Patient	TCGA-29-1781	f6ebf3a7-31c6-4f4c-9a0b-74cf35bfedf6	Notification	Prior malignancy	pyena	09/18/2011	Prior malignancy of breast cancer	
+637	OV	Patient	TCGA-25-2390	01abf2cf-541c-4610-8ce8-318016db6e59	Notification	Neoadjuvant therapy	DCC	09/02/2010	[intgen.org]: Subject Positive for Neo-Adjuvant Therapy	
+688	OV	Patient	TCGA-61-1903	b3df9c0a-420c-4cc2-a3e0-56df1ed7e997	Observation	Item may not meet study protocol	DCC	07/30/2010	[schaefc]: Pathology indicates Stage I disease	
+1237	OV	Patient	TCGA-61-1916	b25b3379-df8f-4900-9bce-0f8df50f549b	Notification	Item in special subset	shawk	01/28/2011	This is part of the ovarian triplet set.	
+3388	OV	Patient	TCGA-29-1691	b4225c44-b9b6-46c5-aabf-7b0d9a9fe20b	Notification	Prior malignancy	pyena	09/18/2011	Prior malignancy of breast cancer	
+685	OV	Patient	TCGA-61-1727	99407c1d-40b5-4ded-ba29-1e40dfd65be4	Observation	Item may not meet study protocol	DCC	07/30/2010	[schaefc]: Pathology indicates Stage I disease	
+684	OV	Patient	TCGA-61-1722	47feba88-1ec9-4904-b0e2-3718f294badb	Observation	Item may not meet study protocol	DCC	07/30/2010	[schaefc]: Pathology indicates Stage I disease	
+642	OV	Patient	TCGA-61-1721	1c0318d9-0472-4840-add4-46bb9f914a30	Notification	Neoadjuvant therapy	DCC	09/02/2010	[intgen.org]: Subject Positive for Neo-Adjuvant Therapy	
+655	OV	Patient	TCGA-24-2029	bbbf1184-1e19-479a-b31f-daa692d52e02	Notification	Prior malignancy	DCC	09/02/2010	[intgen.org]: Prior Malignancy	
+11931	OV	Patient	TCGA-24-2036	c9226204-cb61-40b8-8a94-a7e71c14ea3a	Notification	History of unacceptable prior treatment related to a prior/other malignancy	snyderee	11/10/2012	Prior malignancy  breast cancer treated with systemic treatment per path report.	
+686	OV	Patient	TCGA-61-1730	107bd8af-13e6-4c6a-9bdc-83c08eaaff90	Observation	Item may not meet study protocol	DCC	07/30/2010	[schaefc]: Pathology indicates Stage I disease	
+687	OV	Patient	TCGA-61-1734	b5e64bdb-24f1-400d-aaf7-8fda8ab6fd3c	Observation	Item may not meet study protocol	DCC	07/30/2010	[schaefc]: Pathology indicates Stage I disease	
+681	OV	Patient	TCGA-04-1360	e0502c47-3234-4609-a8d5-730a9e6eb5b8	Observation	Item may not meet study protocol	DCC	07/30/2010	[schaefc]: Pathology indicates Stage I disease	
+823	OV	Patient	TCGA-04-1364	80f85c54-e12f-4afa-8fa5-5f3e083b6f95	Observation	General	DCC	10/28/2010	This subject was duplicated by TCGA-24-0981; 0981 was redacted and this one retained	
+3387	OV	Patient	TCGA-20-1687	9bf16a89-2fc7-4c08-93bc-3105eec5c3cc	Notification	Prior malignancy	pyena	09/18/2011	Prior malignancy of breast cancer	
+21218	OV	Patient	TCGA-13-0922	78821fb5-0669-42c7-b62b-b61d6b7d7ac6	Notification	Item is noncanonical	sunq3	07/17/2014	Incomplete distribution. Only Repli-G shipped.	
+1253	OV	Patient	TCGA-13-0913	3e8a51bf-7e1f-4eab-af83-3c60d04db1bf	Notification	Item in special subset	shawk	01/28/2011	This is part of the ovarian triplet set.	
+21217	OV	Patient	TCGA-13-0914	7f36eff2-aa69-4c4d-8101-8801c812a36b	Notification	Item is noncanonical	sunq3	07/17/2014	Incomplete distribution. Only Repli-G shipped.	
+654	OV	Patient	TCGA-24-1928	b45c543a-40d9-423a-a7fa-98e4b325b487	Notification	Prior malignancy	DCC	09/02/2010	[intgen.org]: Prior Malignancy	
+1240	OV	Patient	TCGA-61-2008	3ac45a71-c463-4f0f-b030-58c475a34418	Notification	Item in special subset	shawk	01/28/2011	This is part of the ovarian triplet set.	
+689	OV	Patient	TCGA-61-2018	13d6c31a-6899-4119-a5c2-90adcb5bd20c	Observation	Item may not meet study protocol	DCC	07/30/2010	[schaefc]: Pathology indicates Stage I disease	
+690	OV	Patient	TCGA-61-2096	6beaa1cb-a9f1-4127-898c-7aff2273788e	Observation	Item may not meet study protocol	DCC	07/30/2010	[schaefc]: Pathology indicates Stage I disease	
+1243	OV	Patient	TCGA-61-2095	778ce436-a825-4689-81c1-b7c965404163	Notification	Item in special subset	shawk	01/28/2011	This is part of the ovarian triplet set.	
+1252	OV	Patient	TCGA-13-1489	7248cd60-be22-44bc-bc58-f644db0940a2	Notification	Item in special subset	shawk	01/28/2011	This is part of the ovarian triplet set.	
+2391	OV	Sample	TCGA-61-2095-11A	43c556ed-873c-4a2d-9f33-68e2e7790ba1	Notification	Item in special subset	pyena	04/06/2011	[intgen.org]: Normal Tissue contained Tumor	
+1251	OV	Patient	TCGA-29-2414	a2319490-b85d-4219-a1b0-fa1ec432d5c8	Notification	Item in special subset	shawk	01/28/2011	This is part of the ovarian triplet set.	
+21219	OV	Patient	TCGA-29-2435	8fa35df3-f544-4c47-bdd1-e4d6fc6662be	Notification	Item is noncanonical	sunq3	07/17/2014	Incomplete distribution. Only Repli-G and proteomics shipped.	
+3394	OV	Patient	TCGA-29-2428	b0585c7a-7205-4dac-9d54-6da89674accb	Notification	Prior malignancy	pyena	09/18/2011	Prior malignancy of high grade endometrial carcinoma	
+3393	OV	Patient	TCGA-29-2425	40635bf3-d8ba-4833-b623-547e55e5d07e	Notification	Prior malignancy	pyena	09/18/2011	Prior malignancy of breast cancer	
+11939	OV	Patient	TCGA-36-2539	81d11171-5d9e-4950-98f8-b0ab0f2d7908	Notification	History of unacceptable prior treatment related to a prior/other malignancy	snyderee	11/10/2012	Prior malignancy of L breast cancer. No systemic chemotherapy or radiation. Prior malignancy  R breast cancer treated with taxoterene.	
+11724	OV	Patient	TCGA-36-2539	81d11171-5d9e-4950-98f8-b0ab0f2d7908	Notification	Prior malignancy	snyderee	10/31/2012	Prior malignancy of L breast cancer. No systemic chemotherapy or radiation. Prior malignancy  R breast cancer treated with taxoterene.	
+3396	OV	Patient	TCGA-36-2539	81d11171-5d9e-4950-98f8-b0ab0f2d7908	Notification	Prior malignancy	pyena	09/18/2011	Prior malignancy of breast ductal and lobular carcinoma	
+3395	OV	Patient	TCGA-36-2538	3ea880f4-7a78-4cb7-bfe4-54b3c30a812e	Notification	Prior malignancy	pyena	09/18/2011	Prior malignancy of ovarian cancer	
+693	OV	Sample	TCGA-04-1351-11A	91b4c678-b371-4571-a201-d0f00cc458c6	Observation	Normal class but appears diseased	DCC	07/30/2010	[schaefc]: Genomic data resembles tumor data	
+3385	OV	Patient	TCGA-23-1116	70fe08bd-a0b4-4a88-b82e-813b176f8e40	Notification	Prior malignancy	pyena	09/18/2011	Prior malignancy of breast cancer	
+1244	OV	Patient	TCGA-23-1023	9e18238f-ae85-4b75-ae87-d92da9731a40	Notification	Item in special subset	shawk	01/28/2011	This is part of the ovarian triplet set.	
+683	OV	Patient	TCGA-57-1992	419a486f-7fa5-4fbd-9e98-2f8f4c6d5081	Observation	Item may not meet study protocol	DCC	07/30/2010	[schaefc]: Pathology indicates Stage I disease	
