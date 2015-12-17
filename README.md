@@ -7,6 +7,7 @@ Patients stratification with Graph-regularized Non-negative Matrix Factorization
 - Stratification with consensus clustering
 - Comparison with NMF, Sparse-NMF, and hierarchical clustering
 - Measure of the impact of parameters (e.g. network smoothing)
+- Write tests
 
 ## Links
 - [Network Based Stratification (NBS)](http://chianti.ucsd.edu/~mhofree/wordpress/?page_id=26): Matlab code & data sets.
