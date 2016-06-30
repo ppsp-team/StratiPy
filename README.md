@@ -2,12 +2,12 @@
 Patients stratification with Graph-regularized Non-negative Matrix Factorization (GNMF) in Python.
 
 ## Roadmap
+- Clean the repository
+- Check compatibility with Python 2 & 3
+- Write tests
 - Generation of simulated patients datasets
-- Implementation and validation of a GNMF algorithm
-- Stratification with consensus clustering
 - Comparison with NMF, Sparse-NMF, and hierarchical clustering
 - Measure of the impact of parameters (e.g. network smoothing)
-- Write tests
 
 ## Links
 - [Network Based Stratification (NBS)](http://chianti.ucsd.edu/~mhofree/wordpress/?page_id=26): Matlab code & data sets.
