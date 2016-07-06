@@ -229,12 +229,12 @@ def gnmf(X, A, lambd=0, n_components=None, tol_nmf=1e-3, max_iter=100,
                 list_reconstruction_err_)
 
 
-def bootstrap(data_folder, mut_type, mut_propag, ppi_final,
+def bootstrap(result_folder, mut_type, mut_propag, ppi_final,
               alpha, tol, ngh_max, min_mutation, max_mutation,
               n_components, n_permutations,
               run_bootstrap=False, lambd=1, tol_nmf=1e-3):
 
-    boot_directory = data_folder+'bootstrap/'
+    boot_directory = result_folder+'bootstrap/'
     boot_mut_type_directory = boot_directory + mut_type + '/'
 
     if lambd > 0:
@@ -317,13 +317,13 @@ def concensus_clustering_simple(mat):
     return distance
 
 
-def consensus_clustering(data_folder, genes_clustering, patients_clustering,
+def consensus_clustering(result_folder, genes_clustering, patients_clustering,
                          mut_type,
                          alpha, tol, ngh_max, min_mutation, max_mutation,
                          n_components, n_permutations,
                          run_consensus=False, lambd=1, tol_nmf=1e-3):
         # TODO overwrite condition
-    consensus_directory = data_folder+'consensus_clustering/'
+    consensus_directory = result_folder+'consensus_clustering/'
     consensus_mut_type_directory = consensus_directory + mut_type + '/'
 
     if lambd > 0:
@@ -373,6 +373,7 @@ def consensus_clustering(data_folder, genes_clustering, patients_clustering,
                   .format(datetime.timedelta(seconds=end-start),
                           datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
         else:
+            #TODO condition wich no file exists
             newest_file = max(glob.iglob(
                 consensus_factorization_directory + '*.mat'), key=os.path.getctime)
             consensus_data = loadmat(newest_file)
