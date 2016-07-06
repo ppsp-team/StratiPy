@@ -13,7 +13,7 @@ import time
 import datetime
 
 # NOTE mutationProfileDiffusion -> propagation
-# mutationProfile -> M, PPIAdjacencyMatrix -> adj, dataFolder -> data_folder
+# mutationProfile -> M, PPIAdjacencyMatrix -> adj, dataFolder -> result_folder
 # PPI_influence_min -> ppi_influence_min, PPI_influence_max-> ppi_influence_max
 # PPI_influence()-> calcul_ppi_influence(), PPI_influence -> ppi_influence
 # influenceDistance->influence_distance
@@ -138,7 +138,7 @@ def compare_ij_ji(ppi, out_min=True, out_max=True):
         print('You have to choice Min or Max')  # TODO change error message
 
 
-def calcul_ppi_influence(M, adj, data_folder,
+def calcul_ppi_influence(M, adj, result_folder,
                          compute=False, overwrite=False, alpha=0.7, tol=10e-6):
     # TODO for 'maximum weight'
     """Compute network influence score
@@ -166,7 +166,7 @@ def calcul_ppi_influence(M, adj, data_folder,
     adj : sparse matrix
         Adjacency matrice.
 
-    data_folder : str
+    result_folder : str
         Path to create a new directory for save new files. If you want to creat
         in current directory, enter '/directory_name'. Absolute path is also
         supported.
@@ -193,7 +193,7 @@ def calcul_ppi_influence(M, adj, data_folder,
     ppi_influence : sparse matrix
         Smoothed PPI influence matrices based on minimum / maximum weight.
     """
-    ppi_influence_directory = data_folder+'ppi_influence/'
+    ppi_influence_directory = result_folder+'ppi_influence/'
     ppi_influence_file = ppi_influence_directory + 'ppi_influence_alpha={}_tol={}.mat'.format(alpha, tol)
     existance_same_param = os.path.exists(ppi_influence_file)
     # TODO overwrite condition
@@ -209,7 +209,7 @@ def calcul_ppi_influence(M, adj, data_folder,
             start = time.time()
             influence = propagation(M, adj, alpha, tol)
 
-            influence_distance_directory = data_folder+'influence_distance/'
+            influence_distance_directory = result_folder+'influence_distance/'
             os.makedirs(influence_distance_directory, exist_ok=True)  # NOTE For Python ≥ 3.2
             influence_distance_file = (
                 influence_distance_directory + 'influence_distance_alpha={}_tol={}.mat'.format(alpha, tol))
