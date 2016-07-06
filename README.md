@@ -9,11 +9,6 @@ The minimum required dependencies to run the software are:
   - matplotlib >= 0.98.4
   - scikit-learn >= 0.15
 
-## Roadmap
-- Validation of the module structure
-- Installation script with Python 2 & 3 compatibility
-- Full tests with simulated datasets
-
 ## References
 - Network-based stratification of tumor mutations ([Hofree et al. Nat. Meth. 2013](http://www.nature.com/nmeth/journal/v10/n11/full/nmeth.2651.html))
 - Consensus clustering: a resampling-based method for class discovery and visualization of gene expression microarray data ([Monti et al. Mach. Learn.2003](http://link.springer.com/article/10.1023%2FA%3A1023949509487))
