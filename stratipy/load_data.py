@@ -35,7 +35,6 @@ def load_patient_data(data_folder):
     print(' ==== mutation profiles  ')
     somatic = loadmat(data_folder+'somatic_data_UCEC.mat')
     mutation_profile = sp.csc_matrix(somatic['gene_indiv_mat'])
-    # NOTE mutation_profile in sparse
 
     # Entrez gene ID and gene symbols in mutation profiles
     print(' ==== Entrez gene ID and gene symbols in mutation profiles  ')

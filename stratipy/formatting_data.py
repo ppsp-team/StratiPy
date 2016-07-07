@@ -5,6 +5,7 @@ sys.path.append('stratipy')
 import scipy.sparse as sp
 import numpy as np
 from nbs import Ppi
+import warnings
 
 
 def check_sparsity(X):
@@ -18,7 +19,7 @@ def check_shape_matching(X, L, array_name, list_name):
         raise Exception("Numbers in {} shape and in {} don't match "
                         .format(array_name, list_name))
 
-#TODO check Entrez gene ID
+
 #TODO check ID order in list and network
 
 
@@ -30,6 +31,7 @@ def check_PPI_data(network, gene_id_ppi):
 def check_patient_data(mutation_profile, gene_id_patient):
     if mutation_profile.shape[1] != len(gene_id_patient):
         raise Exception("Column number of mutation profile does not correspond to patient's gene number")
+    #NOTE mutation_profile.shape[0] != len(patient_id) not verified because len(patient_id) could be bigger than mutation_profile.shape[0]. It depends on how many patients are annotated phenotypically.
 
 
 def classify_gene_index(network, mutation_profile, gene_id_ppi, gene_id_patient):
@@ -151,6 +153,9 @@ def all_genes_in_submatrices(network, idx_ppi, idx_mut, idx_ppi_only,
     """
     print(' ==== all_genes_in_submatrices ')
     AA = network[idx_ppi][:, idx_ppi]
+    if AA.shape[0] == 0:
+        warnings.warn("There are no common genes between PPI network and patients' mutation profile")
+        break
     AB = network[idx_ppi][:, idx_ppi_only]
     AC = sp.csc_matrix((len(idx_ppi), len(idx_mut_only)))
     BA = network[idx_ppi_only][:, idx_ppi]
