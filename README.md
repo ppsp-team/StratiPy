@@ -3,7 +3,7 @@ Patients stratification with Graph-regularized Non-negative Matrix Factorization
 
 ## Dependencies
 The minimum required dependencies to run the software are:
-  - Python >= 2.6
+  - Python >= 3.2
   - NumPy >= 1.6
   - SciPy >= 0.7.2
   - matplotlib >= 0.98.4
