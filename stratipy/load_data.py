@@ -54,7 +54,7 @@ def load_PPI_Hofree(data_folder):
     network = loadmat(data_folder+'adj_mat.mat')
     network = network['adj_mat']
 
-    return (network)
+    return network
 
 
 def coordinate(prot_list, all_list):
@@ -77,15 +77,15 @@ def load_PPI_TR(data_folder):
     gene_id_ppi = list(set(gene_id_ppi))
 
     # From ID list to coordinate list
-    print(' ==== coorinates ')
+    print(' ==== coordinates ')
     coo1 = coordinate(prot1.tolist(), gene_id_ppi)
     coo2 = coordinate(prot2.tolist(), gene_id_ppi)
 
     # Adjacency matrix
     print(' ==== Adjacency matrix ')
     n = len(gene_id_ppi)
-    weigh = np.ones(len(coo1))  # if interaction -> 1
-    network = sp.coo_matrix((weigh, (coo1, coo2)), shape=(n, n))
+    weight = np.ones(len(coo1))  # if interaction -> 1
+    network = sp.coo_matrix((weight, (coo1, coo2)), shape=(n, n))
     network = network + network.T  # symmetric matrix
 
-    return (network)
+    return network
