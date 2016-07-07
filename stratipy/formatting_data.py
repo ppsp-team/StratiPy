@@ -155,7 +155,6 @@ def all_genes_in_submatrices(network, idx_ppi, idx_mut, idx_ppi_only,
     AA = network[idx_ppi][:, idx_ppi]
     if AA.shape[0] == 0:
         warnings.warn("There are no common genes between PPI network and patients' mutation profile")
-        break
     AB = network[idx_ppi][:, idx_ppi_only]
     AC = sp.csc_matrix((len(idx_ppi), len(idx_mut_only)))
     BA = network[idx_ppi_only][:, idx_ppi]

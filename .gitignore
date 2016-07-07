@@ -62,11 +62,8 @@ target/
 
 # Large files
 Hofree-edgelist.csv
-
 StratificationResults.csv
+data/result_*
 
-data/influenceDistance.mat
-
-data/bootstrap.mat
-
-data/PPI_influence.mat
+# SLURM
+*.sh
