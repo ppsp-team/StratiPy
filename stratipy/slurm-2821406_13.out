@@ -1,7 +1,0 @@
-
-Starting array job 2821406 on Job array index 13
-/pasteur/homes/ykim/miniconda3/bin/python
-Traceback (most recent call last):
-  File "runHofree.py", line 101, in <module>
-    print(params[i])
-IndexError: list index out of range

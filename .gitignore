@@ -67,4 +67,4 @@ data/result_*
 
 # SLURM
 *.sh
-*.out
+slurm-*
