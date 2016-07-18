@@ -282,8 +282,12 @@ def bootstrap(result_folder, mut_type, mut_propag, ppi_final,
                 W, H, list_reconstruction_err_ = gnmf(mut_boot,
                                                       ppi_boot, lambd,
                                                       n_components, tol_nmf)
-                genes_clustering[genes_boot, perm] = np.argmax(H, axis=0)
-                patients_clustering[patients_boot, perm] = np.argmax(W, axis=1)
+                if n_components > 1:
+                    genes_clustering[genes_boot, perm] = np.argmax(H, axis=0)
+                    patients_clustering[patients_boot, perm] = np.argmax(W, axis=1)
+                else:
+                    genes_clustering[genes_boot, perm] = H
+                    patients_clustering[patients_boot, perm] = W
 
             savemat(boot_file, {'genes_clustering': genes_clustering,
                                 'patients_clustering': patients_clustering},
