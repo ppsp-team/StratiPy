@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
+import sys
 import numpy as np
 import numpy.linalg as LA
 import scipy.sparse as sp
@@ -255,6 +256,7 @@ def bootstrap(result_folder, mut_type, mut_propag, ppi_final,
         patients_clustering = bootstrap_data['patients_clustering']
         print('***** Same parameters file of bootstrap already exists ***** {}'
               .format(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
+
     else:
         if run_bootstrap:
             start = time.time()
@@ -270,6 +272,7 @@ def bootstrap(result_folder, mut_type, mut_propag, ppi_final,
                     print('Bootstrap : {} / {} permutations ----- {}'
                           .format(perm, n_permutations, datetime.datetime.now()
                                   .strftime("%Y-%m-%d %H:%M:%S")))
+
                 patients_boot = np.random.permutation(n_patients)[
                     0:int(n_patients*0.8)]
                 genes_boot = np.random.permutation(n_genes)[0:int(n_genes*0.8)]
@@ -290,6 +293,7 @@ def bootstrap(result_folder, mut_type, mut_propag, ppi_final,
                   .format(datetime.timedelta(seconds=end-start),
                           datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
 
+
         else:
             newest_file = max(glob.iglob(
                 boot_factorization_directory + '*.mat'), key=os.path.getctime)
@@ -309,6 +313,7 @@ def concensus_clustering_simple(mat):
             print('consensus clustering : {} / {} objects ----- {}'
                   .format(obj1, n_obj, datetime.datetime.now()
                           .strftime("%Y-%m-%d %H:%M:%S")))
+
         for obj2 in range(obj1+1, n_obj):
             I = (np.isnan(mat[[obj1, obj2]]).sum(axis=0) == 0).sum()
             M = (mat[obj1, ] == mat[obj2, ]).sum()
@@ -348,6 +353,7 @@ def consensus_clustering(result_folder, genes_clustering, patients_clustering,
         print('***** Same parameters file of consensus clustering already exists ***** {}'
               .format(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
 
+
     else:
         if run_consensus:
             start = time.time()
@@ -357,12 +363,14 @@ def consensus_clustering(result_folder, genes_clustering, patients_clustering,
                   .format(datetime.timedelta(seconds=end-start),
                           datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
 
+
             start = time.time()
             distance_patients = concensus_clustering_simple(patients_clustering)
             end = time.time()
             print("---------- distance_PATIENTS = {} ---------- {}"
                   .format(datetime.timedelta(seconds=end-start),
                           datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
+
 
             start = time.time()
             savemat(consensus_file, {'distance_genes': distance_genes,

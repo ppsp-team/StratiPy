@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
-import os
+import sys
 import importlib  # NOTE for python >= Python3.4
 import load_data
 import formatting_data
@@ -12,9 +12,9 @@ import time
 import datetime
 from sklearn.grid_search import ParameterGrid
 
+i = int(sys.argv[1])-1
 
 # TODO PPI type param
-
 param_grid = {'data_folder': ['../data/'],
               'result_folder': ['../data/result_Hofree/'],
               'compute': [True],
@@ -26,7 +26,7 @@ param_grid = {'data_folder': ['../data/'],
               'min_mutation': [10],
               'max_mutation': [2000],
               'qn': [None, 'mean', 'median'],
-              'n_components': [3],
+              'n_components': [1],
               'n_permutations': [1000],
               'run_bootstrap': [True],
               'run_consensus': [True],
@@ -36,16 +36,17 @@ param_grid = {'data_folder': ['../data/'],
 
 # 'lambd': range(0, 2)
 
-
+# NOTE sys.stdout.flush()
 def all_functions(params):
 
     if alpha == 0 and qn is not None:
-        print('### PASS ###')
+        print('############ PASS ############')
         pass
 
     else:
         # ------------ load_data.py ------------
         print("------------ load_data.py ------------")
+        sys.stdout.flush()
         (gene_id_ppi, patient_id, mutation_profile, gene_id_patient,
          gene_symbol_profile) = load_data.load_patient_data(data_folder)
 
@@ -53,6 +54,7 @@ def all_functions(params):
 
         # ------------ formatting_data.py ------------
         print("------------ formatting_data.py ------------")
+        sys.stdout.flush()
         (network, mutation_profile,
          idx_ppi, idx_mut, idx_ppi_only, idx_mut_only) = (
             formatting_data.classify_gene_index(
@@ -65,6 +67,7 @@ def all_functions(params):
 
         # ------------ filtering_diffusion.py ------------
         print("------------ filtering_diffusion.py ------------")
+        sys.stdout.flush()
         ppi_influence = (
             filtering_diffusion.calcul_ppi_influence(
                 sp.eye(ppi_filt.shape[0]), ppi_filt,
@@ -79,6 +82,7 @@ def all_functions(params):
 
         # ------------ clustering.py ------------
         print("------------ clustering.py ------------")
+        sys.stdout.flush()
         genes_clustering, patients_clustering = (clustering.bootstrap(
             result_folder, mut_type, mut_propag, ppi_final,
             alpha, tol, ngh_max, min_mutation, max_mutation,
@@ -90,20 +94,18 @@ def all_functions(params):
             alpha, tol, ngh_max, min_mutation, max_mutation,
             n_components, n_permutations, run_consensus, lambd, tol_nmf)
 
-start_all = time.time()
 
-for params in list(ParameterGrid(param_grid)):
-    start = time.time()
-    print(params)
-    for i in params.keys():
-        exec("%s = %s" % (i, 'params[i]'))
-    all_functions(params)
-    end = time.time()
-    print('---------- ONE STEP = {} ---------- {}'
-          .format(datetime.timedelta(seconds=end-start),
-                  datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
+start = time.time()
 
-end_all = time.time()
-print('---------- ALL = {} ---------- {}'
-      .format(datetime.timedelta(seconds = end_all - start_all),
+params = list(ParameterGrid(param_grid))
+print(params[i])
+
+for k in params[i].keys():
+    exec("%s = %s" % (k, 'params[i][k]'))
+
+all_functions(params[i])
+
+end = time.time()
+print('---------- ONE STEP = {} ---------- {}'
+      .format(datetime.timedelta(seconds=end-start),
               datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))

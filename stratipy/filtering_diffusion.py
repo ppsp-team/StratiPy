@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
+import sys
 import numpy as np
 import scipy.sparse as sp
 from scipy.sparse.linalg import norm
@@ -64,6 +65,7 @@ def propagation(M, adj, alpha=0.7, tol=10e-6):  # TODO equation, M, alpha
         Smoothed matrix.
     """
     print(' ==== propagation ==== ')
+
     n = adj.shape[0]
     adj = adj+sp.eye(n)
 
@@ -79,6 +81,7 @@ def propagation(M, adj, alpha=0.7, tol=10e-6):  # TODO equation, M, alpha
         i += 1
         print('Propagation iteration = {}  ----- {}'.format(
             i, datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
+
     return X2
 
 
@@ -204,6 +207,7 @@ def calcul_ppi_influence(M, adj, result_folder,
         # alpha = influence_data['alpha'][0][0]
         print('***** Same parameters file of PPI influence already exists ***** {}'
               .format(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
+        
     else:
         if compute:
             start = time.time()
@@ -236,6 +240,7 @@ def calcul_ppi_influence(M, adj, result_folder,
             print("---------- Influence distance = {} ---------- {}"
                   .format(datetime.timedelta(seconds=end-start),
                           datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
+
 
         else:
             newest_file = max(glob.iglob(ppi_influence_directory + '*.mat'), key=os.path.getctime)
@@ -346,8 +351,11 @@ def filter_ppi_patients(ppi_total, mut_total, ppi_filt, ppi_influence, ngh_max,
 
     print("Removing %i patients with less than %i or more than %i mutations" %
           (mut_total.shape[0]-mut_final.shape[0], min_mutation, max_mutation))
+
     print("New adjacency matrix:", ppi_final.shape)
+
     print("New mutation profile matrix:", mut_final.shape)
+
 
     return ppi_final, mut_final
 
@@ -411,6 +419,7 @@ def propagation_profile(mut_raw, adj, alpha, tol, qn):
                   .format(mut_type,
                           datetime.timedelta(seconds=end-start),
                           datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
+
             return mut_type, mut_propag
 
         else:
@@ -422,4 +431,5 @@ def propagation_profile(mut_raw, adj, alpha, tol, qn):
                   .format(mut_type,
                           datetime.timedelta(seconds=end-start),
                           datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
+
             return mut_type, mut_raw

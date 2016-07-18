@@ -1,0 +1,6 @@
+
+Starting array job 2821406 on Job array index 3
+/pasteur/homes/ykim/miniconda3/bin/python
+{'run_bootstrap': True, 'keep_singletons': False, 'alpha': 0, 'max_mutation': 2000, 'result_folder': '../data/result_Hofree/', 'run_consensus': True, 'compute': True, 'tol': 1e-05, 'qn': 'median', 'tol_nmf': 0.001, 'overwrite': False, 'n_components': 1, 'data_folder': '../data/', 'n_permutations': 1000, 'min_mutation': 10, 'ngh_max': 11, 'lambd': 0}
+############ PASS ############
+---------- ONE STEP = 0:00:00.000528 ---------- 2016-07-18 17:35:17
