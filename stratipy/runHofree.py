@@ -26,7 +26,8 @@ param_grid = {'data_folder': ['../data/'],
               'min_mutation': [10],
               'max_mutation': [2000],
               'qn': [None, 'mean', 'median'],
-              'n_components': range(1, 3),
+            #   'n_components': [4, 5],
+              'n_components': range(6, 21),
               'n_permutations': [1000],
               'run_bootstrap': [True],
               'run_consensus': [True],
@@ -46,7 +47,7 @@ def all_functions(params):
     else:
         # ------------ load_data.py ------------
         print("------------ load_data.py ------------")
-        sys.stdout.flush()
+        # sys.stdout.flush()
         (gene_id_ppi, patient_id, mutation_profile, gene_id_patient,
          gene_symbol_profile) = load_data.load_patient_data(data_folder)
 
@@ -54,7 +55,7 @@ def all_functions(params):
 
         # ------------ formatting_data.py ------------
         print("------------ formatting_data.py ------------")
-        sys.stdout.flush()
+        # sys.stdout.flush()
         (network, mutation_profile,
          idx_ppi, idx_mut, idx_ppi_only, idx_mut_only) = (
             formatting_data.classify_gene_index(
@@ -67,7 +68,7 @@ def all_functions(params):
 
         # ------------ filtering_diffusion.py ------------
         print("------------ filtering_diffusion.py ------------")
-        sys.stdout.flush()
+        # sys.stdout.flush()
         ppi_influence = (
             filtering_diffusion.calcul_ppi_influence(
                 sp.eye(ppi_filt.shape[0]), ppi_filt,

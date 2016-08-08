@@ -4,7 +4,7 @@ import sys
 sys.path.append('stratipy')
 import scipy.sparse as sp
 import numpy as np
-from nbs import Ppi
+from nbs_class import Ppi
 import warnings
 
 
@@ -16,8 +16,8 @@ def check_sparsity(X):
 
 def check_shape_matching(X, L, array_name, list_name):
     if X.shape[0] != len(L):
-        raise Exception("Numbers in {} shape and in {} don't match "
-                        .format(array_name, list_name))
+        raise Exception("Numbers in {} shape ({}) and in {} ({}) don't match "
+                        .format(array_name, X.shape(), list_name, len(L)))
 
 
 #TODO check ID order in list and network

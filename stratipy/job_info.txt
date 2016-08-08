@@ -1,0 +1,5 @@
+3 composants: 2819746
+sacct -o JobID,JobName,MaxRSS,AveRSS,Elapsed -j 2819746 -S 07/15 -E 07/18
+
+1 et 2 composants: 2821483
+sacct -o JobID,JobName,MaxRSS,AveRSS,Elapsed -j 2821483 -S 07/18 -E 07/19

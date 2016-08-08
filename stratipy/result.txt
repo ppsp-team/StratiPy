@@ -1,3 +1,12 @@
+       JobID  JobName  MaxVMSize  AveVMSize     MaxRSS  AveRSS   AllocCPUS    Elapsed      State     ReqMem  
+
+
+
+
+
+
+
+
 Starting array job 2811525 on Job array index 10
 /pasteur/homes/ykim/miniconda3/bin/python
 {'keep_singletons': False, 'n_permutations': 1000, 'data_folder': '../data/',
