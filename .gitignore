@@ -63,8 +63,20 @@ target/
 # Large files
 Hofree-edgelist.csv
 StratificationResults.csv
-data/result_*
+data/result*
+data/Faroe*
+data/PPI_Y2H*
+stratipy/out*
+
 
 # SLURM
 *.sh
 slurm-*
+
+# Memory Profiler test
+mprof*
+
+# memo
+NBS_ipython.py
+run*
+similarity_matrix.py

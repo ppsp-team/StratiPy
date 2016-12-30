@@ -29,8 +29,23 @@ import glob
 #    ->, ->, ->, ->, ->,
 
 
-# Reuse scikit-learn functions
+def sym_matrix_to_index(X):
+    # return 1D array of upper-triangle matrix
+    indices = np.triu_indices(X.shape[0], 1)  # don't take diaglnal elements
+    X = X[indices].astype(np.float32)
+    return X
 
+
+def index_to_sym_matrix(n, I):
+    # I = 1D array of upper-triangle matrix
+    a = np.zeros((n, n), dtype=np.float32)
+    a[np.triu_indices(n, 1)] = I
+    # symmetrization
+    a = a + a.T
+    return a
+
+
+# Reuse scikit-learn functions
 def check_non_negative(X, whom):
     X = X.data if sp.issparse(X) else X
     if (X < 0).any():
@@ -116,7 +131,11 @@ def _initialize_nmf(X, n_components, variant=None, eps=1e-6,
         raise ValueError("Invalid variant name")
 
     U, S, V = randomized_svd(X, n_components)
-    W, H = np.zeros(U.shape), np.zeros(V.shape)
+    # dtype modification
+    W, H = np.zeros(U.shape, dtype=np.float32), np.zeros(V.shape,
+                                                         dtype=np.float32)
+    print('NMF initialization : W', type(W), W.dtype, W.shape)
+    print('NMF initialization : H', type(H), H.dtype, H.shape)
 
     # The leading singular triplet is non-negative
     # so it can be used as is for initialization.
@@ -162,6 +181,9 @@ def _initialize_nmf(X, n_components, variant=None, eps=1e-6,
         avg = X.mean()
         W[W == 0] = abs(avg * random_state.randn(len(W[W == 0])) / 100)
         H[H == 0] = abs(avg * random_state.randn(len(H[H == 0])) / 100)
+
+    print('NMF initialization - final : W', type(W), W.dtype, W.shape)
+    print('NMF initialization - final : H', type(H), H.dtype, H.shape)
 
     return W, H
 
@@ -230,7 +252,8 @@ def gnmf(X, A, lambd=0, n_components=None, tol_nmf=1e-3, max_iter=100,
 
 
 def bootstrap(result_folder, mut_type, mut_propag, ppi_final,
-              alpha, tol, ngh_max, min_mutation, max_mutation,
+              influence_weight, simplification,
+              alpha, tol, keep_singletons, ngh_max, min_mutation, max_mutation,
               n_components, n_permutations,
               run_bootstrap=False, lambd=1, tol_nmf=1e-3):
 
@@ -244,9 +267,11 @@ def bootstrap(result_folder, mut_type, mut_propag, ppi_final,
 
     os.makedirs(boot_factorization_directory, exist_ok=True)
     boot_file = (boot_factorization_directory +
-                 'bootstrap_alpha={}_tol={}_ngh={}_minMut={}_maxMut={}_comp={}_permut={}_lambd={}_tolNMF={}.mat'
-                 .format(alpha, tol, ngh_max, min_mutation, max_mutation,
-                         n_components, n_permutations, lambd, tol_nmf))
+                 'bootstrap_weight={}_simp={}_alpha={}_tol={}_singletons={}_ngh={}_minMut={}_maxMut={}_comp={}_permut={}_lambd={}_tolNMF={}.mat'
+                 .format(influence_weight, simplification, alpha, tol,
+                         keep_singletons, ngh_max, min_mutation,
+                         max_mutation, n_components, n_permutations, lambd,
+                         tol_nmf))
     existance_same_param = os.path.exists(boot_file)
     # TODO overwrite condition
     if existance_same_param:
@@ -260,8 +285,10 @@ def bootstrap(result_folder, mut_type, mut_propag, ppi_final,
         if run_bootstrap:
             start = time.time()
             n_patients, n_genes = mut_propag.shape
-            genes_clustering = np.zeros([n_genes, n_permutations])*np.nan
-            patients_clustering = np.zeros([n_patients, n_permutations])*np.nan
+            genes_clustering = np.zeros([n_genes, n_permutations],
+                                        dtype=np.float32)*np.nan
+            patients_clustering = np.zeros([n_patients, n_permutations],
+                                           dtype=np.float32)*np.nan
 
             ppi_final = ppi_final.todense()
 
@@ -272,6 +299,7 @@ def bootstrap(result_folder, mut_type, mut_propag, ppi_final,
                           .format(perm, n_permutations, datetime.datetime.now()
                                   .strftime("%Y-%m-%d %H:%M:%S")))
 
+                # only 80% of patients and genes
                 patients_boot = np.random.permutation(n_patients)[
                     0:int(n_patients*0.8)]
                 genes_boot = np.random.permutation(n_genes)[0:int(n_genes*0.8)]
@@ -296,21 +324,21 @@ def bootstrap(result_folder, mut_type, mut_propag, ppi_final,
                   .format(datetime.timedelta(seconds=end-start),
                           datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
 
-
         else:
             newest_file = max(glob.iglob(
                 boot_factorization_directory + '*.mat'), key=os.path.getctime)
             bootstrap_data = loadmat(newest_file)
             genes_clustering = bootstrap_data['genes_clustering']
             patients_clustering = bootstrap_data['patients_clustering']
-
+    print('genes_clustering (bootstrap)', type(genes_clustering), genes_clustering.dtype)
+    print('patients_clustering (bootstrap)', type(patients_clustering), patients_clustering.dtype)
     return genes_clustering, patients_clustering
 
 
 def concensus_clustering_simple(mat):
     n_obj = mat.shape[0]
-    distance = np.ones([n_obj, n_obj])
-    EVERY_N = 100
+    distance = np.ones([n_obj, n_obj], dtype=np.float32)
+    EVERY_N = 1000
     for obj1 in range(n_obj):
         if (obj1 % EVERY_N) == 0:
             print('consensus clustering : {} / {} objects ----- {}'
@@ -320,14 +348,16 @@ def concensus_clustering_simple(mat):
         for obj2 in range(obj1+1, n_obj):
             I = (np.isnan(mat[[obj1, obj2]]).sum(axis=0) == 0).sum()
             M = (mat[obj1, ] == mat[obj2, ]).sum()
+            M.astype(np.float32)
             distance[obj1, obj2] = float(M)/I
             distance[obj2, obj1] = float(M)/I
-    return distance
+    return distance  # return np ndarray
 
 
 def consensus_clustering(result_folder, genes_clustering, patients_clustering,
-                         mut_type,
-                         alpha, tol, ngh_max, min_mutation, max_mutation,
+                         influence_weight, simplification,
+                         mut_type, alpha, tol, keep_singletons, ngh_max,
+                         min_mutation, max_mutation,
                          n_components, n_permutations,
                          run_consensus=False, lambd=1, tol_nmf=1e-3):
         # TODO overwrite condition
@@ -344,18 +374,23 @@ def consensus_clustering(result_folder, genes_clustering, patients_clustering,
     os.makedirs(consensus_factorization_directory, exist_ok=True)
 
     consensus_file = (consensus_factorization_directory +
-                      'consensus_alpha={}_tol={}_ngh={}_minMut={}_maxMut={}_comp={}_permut={}_lambd={}_tolNMF={}.mat'
-                      .format(alpha, tol, ngh_max, min_mutation, max_mutation,
+                      'consensus_weight={}_simp={}_alpha={}_tol={}_singletons={}_ngh={}_minMut={}_maxMut={}_comp={}_permut={}_lambd={}_tolNMF={}.mat'
+                      .format(influence_weight, simplification, alpha, tol,
+                              keep_singletons, ngh_max,
+                              min_mutation, max_mutation,
                               n_components, n_permutations, lambd, tol_nmf))
     existance_same_param = os.path.exists(consensus_file)
 
     if existance_same_param:
         consensus_data = loadmat(consensus_file)
-        distance_genes = consensus_data['distance_genes']
-        distance_patients = consensus_data['distance_patients']
+        n = consensus_data['original_matrix_size_genes'][0][0]
+        distance_genes_id = consensus_data['distance_genes_id']
+        distance_genes = index_to_sym_matrix(n, distance_genes_id)
+        n = consensus_data['original_matrix_size_patients'][0][0]
+        distance_patients_id = consensus_data['distance_patients_id']
+        distance_patients = index_to_sym_matrix(n, distance_patients_id)
         print('***** Same parameters file of consensus clustering already exists ***** {}'
               .format(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
-
 
     else:
         if run_consensus:
@@ -366,7 +401,6 @@ def consensus_clustering(result_folder, genes_clustering, patients_clustering,
                   .format(datetime.timedelta(seconds=end-start),
                           datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
 
-
             start = time.time()
             distance_patients = concensus_clustering_simple(patients_clustering)
             end = time.time()
@@ -374,10 +408,21 @@ def consensus_clustering(result_folder, genes_clustering, patients_clustering,
                   .format(datetime.timedelta(seconds=end-start),
                           datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
 
+            print(' ==== Convert DISTANCE matrices to triangle matrices ==== {}'
+                  .format(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
+            start_conv = time.time()
+            distance_genes_ind = sym_matrix_to_index(distance_genes)
+            distance_patients_ind = sym_matrix_to_index(distance_patients)
+            end_conv = time.time()
+            print("---------- conversion time = {} ---------- {}"
+                  .format(datetime.timedelta(seconds=end_conv - start_conv),
+                          datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
 
             start = time.time()
-            savemat(consensus_file, {'distance_genes': distance_genes,
-                                     'distance_patients': distance_patients},
+            savemat(consensus_file, {'distance_genes_id': distance_genes_ind,
+                                     'distance_patients_id': distance_patients_ind,
+                                     'original_matrix_size_genes': distance_genes.shape,
+                                     'original_matrix_size_patients': distance_patients.shape},
                     do_compression=True)
             end = time.time()
             print("---------- Save time = {} ---------- {}"
@@ -388,7 +433,7 @@ def consensus_clustering(result_folder, genes_clustering, patients_clustering,
             newest_file = max(glob.iglob(
                 consensus_factorization_directory + '*.mat'), key=os.path.getctime)
             consensus_data = loadmat(newest_file)
-            distance_genes = consensus_data['distance_genes']
+            distance_genes_id = consensus_data['distance_genes']
             distance_patients = consensus_data['distance_patients']
 
     return distance_genes, distance_patients

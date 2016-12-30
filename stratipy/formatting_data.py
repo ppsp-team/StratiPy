@@ -7,7 +7,6 @@ import numpy as np
 from nbs_class import Ppi
 import warnings
 
-
 def check_sparsity(X):
     if not sp.issparse(X):
         X = sp.csc_matrix(X)
@@ -34,6 +33,7 @@ def check_patient_data(mutation_profile, gene_id_patient):
     #NOTE mutation_profile.shape[0] != len(patient_id) not verified because len(patient_id) could be bigger than mutation_profile.shape[0]. It depends on how many patients are annotated phenotypically.
 
 
+@profile
 def classify_gene_index(network, mutation_profile, gene_id_ppi, gene_id_patient):
     """Gene index classification
 
@@ -91,9 +91,13 @@ def classify_gene_index(network, mutation_profile, gene_id_ppi, gene_id_patient)
 
     idx_ppi_only = [g for g in range(network.shape[1]) if not(g in idx_ppi)]
 
+    print('---network ', type(network), network.dtype)
+    print('mutation_profile', mutation_profile.dtype)
+
     return network, mutation_profile, idx_ppi, idx_mut, idx_ppi_only, idx_mut_only
 
 
+@profile
 def all_genes_in_submatrices(network, idx_ppi, idx_mut, idx_ppi_only,
                              idx_mut_only, mutation_profile):
     """Processing of sub-matrices for each case of genes
@@ -156,14 +160,16 @@ def all_genes_in_submatrices(network, idx_ppi, idx_mut, idx_ppi_only,
     if AA.shape[0] == 0:
         warnings.warn("There are no common genes between PPI network and patients' mutation profile")
     AB = network[idx_ppi][:, idx_ppi_only]
-    AC = sp.csc_matrix((len(idx_ppi), len(idx_mut_only)))
+    AC = sp.csc_matrix((len(idx_ppi), len(idx_mut_only))).astype(np.float32)
     BA = network[idx_ppi_only][:, idx_ppi]
     BB = network[idx_ppi_only][:, idx_ppi_only]
-    BC = sp.csc_matrix((len(idx_ppi_only), len(idx_mut_only)))
+    BC = sp.csc_matrix((len(idx_ppi_only), len(idx_mut_only))).astype(np.float32)
+
     # TODO condition: if mutOnly = 0
-    CA = sp.csc_matrix((len(idx_mut_only), len(idx_ppi)))
-    CB = sp.csc_matrix((len(idx_mut_only), len(idx_ppi_only)))
-    CC = sp.csc_matrix((len(idx_mut_only), len(idx_mut_only)))
+    CA = sp.csc_matrix((len(idx_mut_only), len(idx_ppi)), dtype=np.float32)
+    CB = sp.csc_matrix((len(idx_mut_only), len(idx_ppi_only)), dtype=np.float32)
+    CC = sp.csc_matrix((len(idx_mut_only), len(idx_mut_only)), dtype=np.float32)
+
     print(' ==== ABC  ')
     ppi_total = sp.bmat([[AA, AB, AC], [BA, BB, BC], [CA, CB, CC]],
                         format='csc')
@@ -172,7 +178,7 @@ def all_genes_in_submatrices(network, idx_ppi, idx_mut, idx_ppi_only,
     print(' ==== mut_total  ')
     mut_total = sp.bmat([[mutation_profile[:, idx_mut],
                           sp.csc_matrix((mutation_profile.shape[0],
-                                         len(idx_ppi_only))),
+                                         len(idx_ppi_only)), dtype=np.float32),
                           mutation_profile[:, idx_mut_only]]])
     # filter only genes in PPI
     print(' ==== filter only genes in PPI  ')

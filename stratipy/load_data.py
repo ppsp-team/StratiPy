@@ -6,6 +6,7 @@ import os
 from scipy.io import loadmat, savemat
 import scipy.sparse as sp
 import numpy as np
+import pandas as pd
 from numpy import genfromtxt
 from nbs_class import Ppi
 
@@ -20,6 +21,7 @@ from nbs_class import Ppi
 # nnnetFiltered -> ppi_filt, nnmut-> mut_filt
 
 
+@profile
 def load_TCGA_UCEC_patient_data(data_folder):
     # TODO patients' ID, phenotypes in dictionary of dictionary or ...?
     print(" ==== TCGA patients' ID  ")
@@ -29,7 +31,7 @@ def load_TCGA_UCEC_patient_data(data_folder):
     # mutation profiles
     print(' ==== TCGA mutation profiles  ')
     somatic = loadmat(data_folder+'somatic_data_UCEC.mat')
-    mutation_profile = sp.csc_matrix(somatic['gene_indiv_mat'])
+    mutation_profile = sp.csc_matrix(somatic['gene_indiv_mat'].astype(np.float32))
 
     # Entrez gene ID and gene symbols in mutation profiles
     print(' ==== TCGA Entrez gene ID and gene symbols in mutation profiles  ')
@@ -38,14 +40,40 @@ def load_TCGA_UCEC_patient_data(data_folder):
     # dictionnary = key:entrez gene ID, value:symbol
     # mutation_id_symb = dict(zip(gene_id_patient, gene_symbol_profile))
 
-    return (patient_id, mutation_profile, gene_id_patient, gene_symbol_profile)
+    print('mutation_profile', mutation_profile.dtype)
+    return patient_id, mutation_profile, gene_id_patient, gene_symbol_profile
 
 
+@profile
+def load_Faroe_Islands_data(data_folder):
+    # TODO patients' ID, phenotypes in dictionary of dictionary or ...?
+    print(" ==== Faroe Islands data ")
+    df = pd.read_csv(data_folder + "Faroe_LGD_10percents_binary.txt", sep="\t")
+    subjects = df.columns[1:]
+    # http://www.genenames.org/cgi-bin/download?col=gd_app_sym&col=md_eg_id&status_opt=2&where=&order_by=gd_app_sym_sort&format=text&limit=&hgnc_dbtag=on&submit=submit
+    hgnc = pd.read_csv(data_folder + "hgnc_2016-10-17.tsv", sep="\t")
+    hgnc.rename(columns={'Approved Symbol': 'gene',
+                         'Entrez Gene ID(supplied by NCBI)': 'EntrezID'},
+                inplace=True)
+    hgnc = hgnc.loc[~hgnc.loc[:, 'gene'].str.contains('withdrawn')]
+    mutations = df.merge(hgnc, on='gene', how='outer')
+
+    mutations = mutations.loc[np.isfinite(mutations.EntrezID)]
+    # mutations.loc[:, subjects] = mutations.loc[:, subjects].fillna(0)
+    mutations = mutations.dropna()
+    mutation_profile = sp.csc_matrix((mutations.loc[:, subjects].values.T).astype(np.float32))
+    mutations.EntrezID = mutations.EntrezID.astype(int)
+    gene_id_patient = mutations.EntrezID.tolist()
+
+    return mutation_profile, gene_id_patient
+
+
+@profile
 def load_PPI(data_folder, ppi_data, load_gene_id_ppi=True):
     print(' ==== load_PPI ')
     filename = 'PPI_' + ppi_data + '.mat'
     loadfile = loadmat(data_folder + filename)
-    network = loadfile['adj_mat']
+    network = loadfile['adj_mat'].astype(np.float32)
     if load_gene_id_ppi:
         print(' ==== load_gene_id_ppi ')
         gene_id_ppi = (loadfile['entrez_id'].flatten()).tolist()
@@ -54,6 +82,7 @@ def load_PPI(data_folder, ppi_data, load_gene_id_ppi=True):
         return network
 
 
+@profile
 def load_PPI_String(data_folder, ppi_data):
     # Entrez gene ID in PPI
     print(' ==== load_PPI_String and gene_id_ppi')
@@ -62,9 +91,11 @@ def load_PPI_String(data_folder, ppi_data):
     # NOTE nan values in gene_id_ppi (choice of gene ID type)
 
     network = load_PPI(data_folder, ppi_data, load_gene_id_ppi=False)
+    print('---network ', type(network), network.dtype)
     return gene_id_ppi, network
 
 
+@profile
 def coordinate(prot_list, all_list):
     coo_list = []
     for prot in prot_list:
@@ -73,6 +104,7 @@ def coordinate(prot_list, all_list):
     return coo_list
 
 
+@profile
 def load_PPI_Y2H(data_folder, ppi_data):
     print(' ==== load_PPI_Y2H ')
     PPI_file = data_folder + 'PPI_Y2H.mat'
