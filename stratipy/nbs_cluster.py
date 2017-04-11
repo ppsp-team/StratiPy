@@ -108,11 +108,6 @@ def all_functions(params):
 
         # ------------ filtering_diffusion.py ------------
         print("------------ filtering_diffusion.py ------------")
-        # ppi_influence = (
-        #     filtering_diffusion.calcul_ppi_influence(
-        #         sp.eye(ppi_filt.shape[0]), ppi_filt,
-        #         result_folder, compute, overwrite, alpha, tol))
-
         final_influence = (
             filtering_diffusion.calcul_final_influence(
                 sp.eye(ppi_filt.shape[0], dtype=np.float32), ppi_filt,

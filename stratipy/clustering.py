@@ -29,22 +29,6 @@ import glob
 #    ->, ->, ->, ->, ->,
 
 
-def sym_matrix_to_index(X):
-    # return 1D array of upper-triangle matrix
-    indices = np.triu_indices(X.shape[0], 1)  # don't take diaglnal elements
-    X = X[indices].astype(np.float32)
-    return X
-
-
-def index_to_sym_matrix(n, I):
-    # I = 1D array of upper-triangle matrix
-    a = np.zeros((n, n), dtype=np.float32)
-    a[np.triu_indices(n, 1)] = I
-    # symmetrization
-    a = a + a.T
-    return a
-
-
 # Reuse scikit-learn functions
 def check_non_negative(X, whom):
     X = X.data if sp.issparse(X) else X
@@ -383,15 +367,10 @@ def consensus_clustering(result_folder, genes_clustering, patients_clustering,
 
     if existance_same_param:
         consensus_data = loadmat(consensus_file)
-        n = consensus_data['original_matrix_size_genes'][0][0]
-        distance_genes_id = consensus_data['distance_genes_id']
-        distance_genes = index_to_sym_matrix(n, distance_genes_id)
-        n = consensus_data['original_matrix_size_patients'][0][0]
-        distance_patients_id = consensus_data['distance_patients_id']
-        distance_patients = index_to_sym_matrix(n, distance_patients_id)
+        distance_genes = consensus_data['distance_genes']
+        distance_patients = consensus_data['distance_patients']
         print('***** Same parameters file of consensus clustering already exists ***** {}'
               .format(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
-
     else:
         if run_consensus:
             start = time.time()
@@ -408,21 +387,10 @@ def consensus_clustering(result_folder, genes_clustering, patients_clustering,
                   .format(datetime.timedelta(seconds=end-start),
                           datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
 
-            print(' ==== Convert DISTANCE matrices to triangle matrices ==== {}'
-                  .format(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
-            start_conv = time.time()
-            distance_genes_ind = sym_matrix_to_index(distance_genes)
-            distance_patients_ind = sym_matrix_to_index(distance_patients)
-            end_conv = time.time()
-            print("---------- conversion time = {} ---------- {}"
-                  .format(datetime.timedelta(seconds=end_conv - start_conv),
-                          datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
 
             start = time.time()
-            savemat(consensus_file, {'distance_genes_id': distance_genes_ind,
-                                     'distance_patients_id': distance_patients_ind,
-                                     'original_matrix_size_genes': distance_genes.shape,
-                                     'original_matrix_size_patients': distance_patients.shape},
+            savemat(consensus_file, {'distance_genes': distance_genes,
+                                     'distance_patients': distance_patients},
                     do_compression=True)
             end = time.time()
             print("---------- Save time = {} ---------- {}"
@@ -433,7 +401,7 @@ def consensus_clustering(result_folder, genes_clustering, patients_clustering,
             newest_file = max(glob.iglob(
                 consensus_factorization_directory + '*.mat'), key=os.path.getctime)
             consensus_data = loadmat(newest_file)
-            distance_genes_id = consensus_data['distance_genes']
+            distance_genes = consensus_data['distance_genes']
             distance_patients = consensus_data['distance_patients']
 
     return distance_genes, distance_patients
