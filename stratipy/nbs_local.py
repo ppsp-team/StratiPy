@@ -17,8 +17,6 @@ from scipy.io import loadmat, savemat
 import os
 # if "from memory_profiler import profile", timestamps will not be recorded
 
-i = int(sys.argv[1])-1
-
 # TODO PPI type param
 param_grid = {'data_folder': ['../data/'],
               'patient_data': ['TCGA_UCEC'],
@@ -34,12 +32,12 @@ param_grid = {'data_folder': ['../data/'],
             #   'alpha': [0, 0.3, 0.5, 0.7, 1],
             #   'alpha': [0.7, 0.8, 0.9],
               'alpha': [0.7],
-              'tol': [10e-6],
+              'tol': [10e-3],
               'ngh_max': [11],
               'keep_singletons': [False],
             #   'min_mutation': [10],
               'min_mutation': [0],
-              'max_mutation': [2000],
+              'max_mutation': [20000],
             #   'qn': [None, 'mean', 'median'],
               'qn': [None],
               'n_components': [2],
@@ -191,17 +189,24 @@ def all_functions(params):
             ngh_max, min_mutation, max_mutation, n_components, n_permutations,
             lambd, tol_nmf, linkage_method)
 
+if (sys.version_info < (3, 2)):
+    raise "Must be using Python ≥ 3.2"
 start = time.time()
 
-params = list(ParameterGrid(param_grid))
-print(params[i])
+else:
+    start_all = time.time()
+    for params in list(ParameterGrid(param_grid)):
+        start = time.time()
+        print(params)
+        for i in params.keys():
+            exec("%s = %s" % (i, 'params[i]'))
+        all_functions(params)
+        end = time.time()
+        print('---------- ONE STEP = {} ---------- {}'
+              .format(datetime.timedelta(seconds=end-start),
+                      datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
 
-for k in params[i].keys():
-    exec("%s = %s" % (k, 'params[i][k]'))
-
-all_functions(params[i])
-
-end = time.time()
-print('---------- ONE STEP = {} ---------- {}'
-      .format(datetime.timedelta(seconds=end-start),
-              datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
+    end_all = time.time()
+    print('---------- ALL = {} ---------- {}'
+          .format(datetime.timedelta(seconds = end_all - start_all),
+                  datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))

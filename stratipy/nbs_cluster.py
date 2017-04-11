@@ -34,12 +34,12 @@ param_grid = {'data_folder': ['../data/'],
             #   'alpha': [0, 0.3, 0.5, 0.7, 1],
             #   'alpha': [0.7, 0.8, 0.9],
               'alpha': [0.7],
-              'tol': [10e-6],
+              'tol': [10e-3],
               'ngh_max': [11],
               'keep_singletons': [False],
             #   'min_mutation': [10],
               'min_mutation': [0],
-              'max_mutation': [2000],
+              'max_mutation': [20000],
             #   'qn': [None, 'mean', 'median'],
               'qn': [None],
               'n_components': [2],
@@ -190,6 +190,9 @@ def all_functions(params):
             influence_weight, simplification, alpha, tol,  keep_singletons,
             ngh_max, min_mutation, max_mutation, n_components, n_permutations,
             lambd, tol_nmf, linkage_method)
+
+if (sys.version_info < (3, 2)):
+    raise "Must be using Python ≥ 3.2"
 
 start = time.time()
 
