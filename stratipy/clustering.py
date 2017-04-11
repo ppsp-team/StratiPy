@@ -235,6 +235,19 @@ def gnmf(X, A, lambd=0, n_components=None, tol_nmf=1e-3, max_iter=100,
                 list_reconstruction_err_)
 
 
+def clustering_std_for_each_bootstrap(M):
+    list_std = []
+    for col in range(M.shape[1]):
+        # for each colum (each bootstrap permutation), nan values removed
+        one_col = M[:, col][~np.isnan(M[:, col])]
+        # count of patient/gene number for each cluster
+        occurences = [v for v in collections.Counter(one_col).values()]
+        # standard deviation of occurences
+        std = np.std(np.array(occurences))
+        list_std.append(std)
+    return np.array(list_std)
+
+
 def bootstrap(result_folder, mut_type, mut_propag, ppi_final,
               influence_weight, simplification,
               alpha, tol, keep_singletons, ngh_max, min_mutation, max_mutation,
@@ -300,8 +313,14 @@ def bootstrap(result_folder, mut_type, mut_propag, ppi_final,
                     genes_clustering[genes_boot, perm] = H
                     patients_clustering[patients_boot, perm] = W
 
+            # clustering std for each permutation of bootstrap
+            genes_clustering_std = clustering_std_for_each_bootstrap(genes_clustering)
+            patients_clustering_std = clustering_std_for_each_bootstrap(patients_clustering)
+
             savemat(boot_file, {'genes_clustering': genes_clustering,
-                                'patients_clustering': patients_clustering},
+                                'patients_clustering': patients_clustering,
+                                'genes_clustering_std': genes_clustering_std,
+                                'patients_clustering_std': patients_clustering_std},
                     do_compression=True)
             end = time.time()
             print("---------- Bootstrap = {} ---------- {}"
