@@ -102,7 +102,9 @@ def distance_patients_from_consensus_file(
             .format(alpha, tol, keep_singletons, ngh_max, min_mutation,
                     max_mutation, n_components, n_permutations, lambd, tol_nmf,
                     linkage_method))
-        plt.savefig('{}{}.png'.format(result_folder, plot_name),
+        plt.savefig('{}{}.pdf'.format(result_folder, plot_name),
+                    bbox_inches='tight')
+        plt.savefig('{}{}.svg'.format(result_folder, plot_name),
                     bbox_inches='tight')
 
         start = time.time()
