@@ -13,6 +13,7 @@ import time
 import datetime
 import os
 import glob
+import collections
 
 # NOTE some variable names changed:
 # patientsNum -> n_patients
