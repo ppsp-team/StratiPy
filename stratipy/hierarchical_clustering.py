@@ -51,7 +51,7 @@ def distance_patients_from_consensus_file(
         .format(influence_weight, simplification, alpha, tol, keep_singletons,
                 ngh_max, min_mutation, max_mutation, n_components,
                 n_permutations, lambd, tol_nmf, linkage_method))
-    existance_same_param = os.path.exists(hierarchical_file)
+    existance_same_param = os.path.exists(hierarchical_clustering_file)
 
     if existance_same_param:
         print("already exists")
@@ -108,7 +108,7 @@ def distance_patients_from_consensus_file(
                     bbox_inches='tight')
 
         start = time.time()
-        savemat(hierarchical_file,
+        savemat(hierarchical_clustering_file,
                 {'Z_linkage_matrix': Z,
                  'dendrogram_data_dictionary': P,
                  'dendrogram_index': idx,
