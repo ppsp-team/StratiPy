@@ -26,7 +26,7 @@ import datetime
 # filteredPatients -> filtered_patients
 
 
-@profile
+# @profile
 def propagation(M, adj, alpha=0.7, tol=10e-6):  # TODO equation, M, alpha
     """Network propagation iterative process
 
@@ -89,7 +89,7 @@ def propagation(M, adj, alpha=0.7, tol=10e-6):  # TODO equation, M, alpha
     return X2
 
 
-@profile
+# @profile
 def compare_ij_ji(ppi, out_min=True, out_max=True):
     """Helper function for calcul_ppi_influence
 
@@ -150,7 +150,7 @@ def compare_ij_ji(ppi, out_min=True, out_max=True):
         print('You have to choice Min or Max')  # TODO change error message
 
 
-@profile
+# @profile
 def calcul_final_influence(M, adj, result_folder, influence_weight='min',
                            simplification=True, compute=False, overwrite=False,
                            alpha=0.7, tol=10e-6):
@@ -322,7 +322,7 @@ def calcul_final_influence(M, adj, result_folder, influence_weight='min',
     return final_influence
 
 
-@profile
+# @profile
 def best_neighboors(ppi_filt, final_influence, ngh_max):
     """Helper function for filter_ppi_patients
 
@@ -360,7 +360,7 @@ def best_neighboors(ppi_filt, final_influence, ngh_max):
     return sp.csc_matrix(ppi_ngh)
 
 
-@profile
+# @profile
 def filter_ppi_patients(ppi_total, mut_total, ppi_filt, final_influence, ngh_max,
                         keep_singletons=False,
                         min_mutation=10, max_mutation=2000):
@@ -438,7 +438,7 @@ def filter_ppi_patients(ppi_total, mut_total, ppi_filt, final_influence, ngh_max
     return ppi_final, mut_final
 
 
-@profile
+# @profile
 def quantile_norm_mean(anarray):
     """Helper function for propagation_profile
 
@@ -459,7 +459,7 @@ def quantile_norm_mean(anarray):
     return AA.T
 
 
-@profile
+# @profile
 def quantile_norm_median(anarray):
     A = np.squeeze(np.asarray(anarray.T))
     AA = np.zeros_like(A)
@@ -469,7 +469,7 @@ def quantile_norm_median(anarray):
     return AA.T
 
 
-@profile
+# @profile
 def propagation_profile(mut_raw, adj, alpha, tol, qn):
         #  TODO error messages
         start = time.time()

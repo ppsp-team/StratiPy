@@ -15,16 +15,15 @@ import datetime
 from sklearn.grid_search import ParameterGrid
 from scipy.io import loadmat, savemat
 import os
+from memory_profiler import profile
 # if "from memory_profiler import profile", timestamps will not be recorded
 
 # TODO PPI type param
 param_grid = {'data_folder': ['../data/'],
-              'patient_data': ['TCGA_UCEC'],
-            #   'patient_data': ['Faroe'],
+            #   'patient_data': ['TCGA_UCEC'],
+              'patient_data': ['Faroe'],
             #   'patient_data': ['TCGA_UCEC', 'SIMONS'],
-            #   'ppi_data': ['STRING', 'Y2H'],
-              'ppi_data': ['STRING'],
-            #   'ppi_data': ['String', 'Y2H', '1_ppi', '2_ppi', '3_signal', '4_coexpr', '5_cancer', '6_homology'],
+              'ppi_data': ['STRING', 'Y2H'],
               'influence_weight': ['min'],
               'simplification': [True],
               'compute': [True],
@@ -37,17 +36,17 @@ param_grid = {'data_folder': ['../data/'],
               'keep_singletons': [False],
             #   'min_mutation': [10],
               'min_mutation': [0],
-              'max_mutation': [20000],
-            #   'qn': [None, 'mean', 'median'],
-              'qn': [None],
+              'max_mutation': [200000],
+              'qn': [None, 'mean', 'median'],
+            #   'qn': [None],
               'n_components': [2],
             #   'n_components': range(2, 10),
             #   'n_permutations': [1000],
-              'n_permutations': [10],
+              'n_permutations': [1000],
               'run_bootstrap': [True],
               'run_consensus': [True],
             #   'lambd': [0, 1, 200],
-              'lambd': [0],
+              'lambd': [0, 1],
               'tol_nmf': [1e-3],
               'linkage_method': ['ward']
             #   'linkage_method': ['single', 'complete', 'average', 'weighted', 'centroid', 'median', 'ward']
@@ -189,9 +188,9 @@ def all_functions(params):
             ngh_max, min_mutation, max_mutation, n_components, n_permutations,
             lambd, tol_nmf, linkage_method)
 
+
 if (sys.version_info < (3, 2)):
     raise "Must be using Python ≥ 3.2"
-start = time.time()
 
 else:
     start_all = time.time()

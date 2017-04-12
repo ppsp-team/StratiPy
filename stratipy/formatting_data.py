@@ -33,7 +33,7 @@ def check_patient_data(mutation_profile, gene_id_patient):
     #NOTE mutation_profile.shape[0] != len(patient_id) not verified because len(patient_id) could be bigger than mutation_profile.shape[0]. It depends on how many patients are annotated phenotypically.
 
 
-@profile
+# @profile
 def classify_gene_index(network, mutation_profile, gene_id_ppi, gene_id_patient):
     """Gene index classification
 
@@ -97,7 +97,7 @@ def classify_gene_index(network, mutation_profile, gene_id_ppi, gene_id_patient)
     return network, mutation_profile, idx_ppi, idx_mut, idx_ppi_only, idx_mut_only
 
 
-@profile
+# @profile
 def all_genes_in_submatrices(network, idx_ppi, idx_mut, idx_ppi_only,
                              idx_mut_only, mutation_profile):
     """Processing of sub-matrices for each case of genes

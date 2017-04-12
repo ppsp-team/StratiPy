@@ -118,8 +118,11 @@ def _initialize_nmf(X, n_components, variant=None, eps=1e-6,
     # dtype modification
     W, H = np.zeros(U.shape, dtype=np.float32), np.zeros(V.shape,
                                                          dtype=np.float32)
-    print('NMF initialization : W', type(W), W.dtype, W.shape)
-    print('NMF initialization : H', type(H), H.dtype, H.shape)
+    # print('NMF initialization : W', type(W), W.dtype, W.shape)
+    # print('NMF initialization : H', type(H), H.dtype, H.shape)
+    # NMF initialization : W <class 'numpy.ndarray'> float32 (228, 2)
+    # NMF initialization : H <class 'numpy.ndarray'> float32 (2, 9786)
+
 
     # The leading singular triplet is non-negative
     # so it can be used as is for initialization.
@@ -166,8 +169,10 @@ def _initialize_nmf(X, n_components, variant=None, eps=1e-6,
         W[W == 0] = abs(avg * random_state.randn(len(W[W == 0])) / 100)
         H[H == 0] = abs(avg * random_state.randn(len(H[H == 0])) / 100)
 
-    print('NMF initialization - final : W', type(W), W.dtype, W.shape)
-    print('NMF initialization - final : H', type(H), H.dtype, H.shape)
+    # print('NMF initialization - final : W', type(W), W.dtype, W.shape)
+    # print('NMF initialization - final : H', type(H), H.dtype, H.shape)
+    # NMF initialization - final : W <class 'numpy.ndarray'> float32 (228, 2)
+    # NMF initialization - final : H <class 'numpy.ndarray'> float32 (2, 9786)
 
     return W, H
 

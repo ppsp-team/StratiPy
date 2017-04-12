@@ -21,7 +21,7 @@ from nbs_class import Ppi
 # nnnetFiltered -> ppi_filt, nnmut-> mut_filt
 
 
-@profile
+# @profile
 def load_TCGA_UCEC_patient_data(data_folder):
     # TODO patients' ID, phenotypes in dictionary of dictionary or ...?
     print(" ==== TCGA patients' ID  ")
@@ -44,7 +44,7 @@ def load_TCGA_UCEC_patient_data(data_folder):
     return patient_id, mutation_profile, gene_id_patient, gene_symbol_profile
 
 
-@profile
+# @profile
 def load_Faroe_Islands_data(data_folder):
     # TODO patients' ID, phenotypes in dictionary of dictionary or ...?
     print(" ==== Faroe Islands data ")
@@ -68,7 +68,7 @@ def load_Faroe_Islands_data(data_folder):
     return mutation_profile, gene_id_patient
 
 
-@profile
+# @profile
 def load_PPI(data_folder, ppi_data, load_gene_id_ppi=True):
     print(' ==== load_PPI ')
     filename = 'PPI_' + ppi_data + '.mat'
@@ -82,7 +82,7 @@ def load_PPI(data_folder, ppi_data, load_gene_id_ppi=True):
         return network
 
 
-@profile
+# @profile
 def load_PPI_String(data_folder, ppi_data):
     # Entrez gene ID in PPI
     print(' ==== load_PPI_String and gene_id_ppi')
@@ -95,7 +95,7 @@ def load_PPI_String(data_folder, ppi_data):
     return gene_id_ppi, network
 
 
-@profile
+# @profile
 def coordinate(prot_list, all_list):
     coo_list = []
     for prot in prot_list:
@@ -104,7 +104,7 @@ def coordinate(prot_list, all_list):
     return coo_list
 
 
-@profile
+# @profile
 def load_PPI_Y2H(data_folder, ppi_data):
     print(' ==== load_PPI_Y2H ')
     PPI_file = data_folder + 'PPI_Y2H.mat'
