@@ -344,6 +344,7 @@ def best_neighboors(ppi_filt, final_influence, ngh_max):
     ppi_ngh : sparse matrix
         PPI with only best influencers.
     """
+    ngh_max = ngh_max + 1  # central protein included
     final_influence = final_influence.todense()
     print(type(final_influence))
     ppi_filt = ppi_filt.todense()
