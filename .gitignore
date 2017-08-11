@@ -22,6 +22,7 @@ var/
 *.egg-info/
 .installed.cfg
 *.egg
+.DS_Store
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -61,11 +62,21 @@ target/
 
 # Large files
 Hofree-edgelist.csv
-
 StratificationResults.csv
+data/result*
+data/Faroe*
+data/PPI_Y2H*
+stratipy/out*
 
-data/influenceDistance.mat
 
-data/bootstrap.mat
+# SLURM
+*.sh
+slurm-*
 
-data/PPI_influence.mat
+# Memory Profiler test
+mprof*
+
+# memo
+NBS_ipython.py
+run*
+similarity_matrix.py
