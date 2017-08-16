@@ -13,7 +13,7 @@ The minimum required dependencies to run the software are:
 ## Reproducibility
 
 To reproduce the figure 3 of our paper about reproducibility in bioinformatics, you have two options:
-1. Follow the Jupyter Notebook [reproducibility.ipynb](stratipy/reproducibility/reproducibility.ipynb)
+1. Follow the Jupyter Notebook [reproducibility.ipynb](reproducibility/reproducibility.ipynb)
 2. Build & run the [Docker](http://docker.com) container with:
 ```
 ~$ docker build -t nbs .
