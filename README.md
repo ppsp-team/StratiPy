@@ -15,8 +15,10 @@ The minimum required dependencies to run the software are:
 To reproduce the figure 3 of our paper about reproducibility in bioinformatics, you have two options:
 1. Follow the jupyter notebook Reproducbility.ipynb
 2. Build & run the [Docker](http://docker.com) container with:
-> ~$ docker build -t nbs .
-> ~$ docker run nbs
+```
+~$ docker build -t nbs .
+~$ docker run nbs
+```
 
 ## References
 - Network-based stratification of tumor mutations ([Hofree et al. Nat. Meth. 2013](http://www.nature.com/nmeth/journal/v10/n11/full/nmeth.2651.html))
