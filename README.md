@@ -8,6 +8,7 @@ The minimum required dependencies to run the software are:
   - SciPy >= 0.7.2
   - matplotlib >= 0.98.4
   - scikit-learn >= 0.15
+  - pandas >= 0.1
 
 ## References
 - Network-based stratification of tumor mutations ([Hofree et al. Nat. Meth. 2013](http://www.nature.com/nmeth/journal/v10/n11/full/nmeth.2651.html))
