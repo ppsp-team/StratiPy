@@ -10,13 +10,12 @@ The minimum required dependencies to run the software are:
   - scikit-learn >= 0.15
   - pandas >= 0.1
 
-## Docker reproducibility
-To reproduce the figure 3 of our paper about reproducibility in bioinformatics, you can try to build a [Docker](http://docker.com) container with the command:
+## Reproducibility
 
+To reproduce the figure 3 of our paper about reproducibility in bioinformatics, you have two options:
+1. Follow the jupyter notebook Reproducbility.ipynb
+2. Build & run the [Docker](http://docker.com) container with:
 > ~$ docker build -t nbs .
-
-And then:
-
 > ~$ docker run nbs
 
 ## References
