@@ -16,7 +16,7 @@ from sklearn.grid_search import ParameterGrid
 from scipy.io import loadmat, savemat
 import os
 from memory_profiler import profile
-    
+
 i = int(sys.argv[1])-1
 
 # TODO PPI type param
@@ -24,7 +24,8 @@ param_grid = {'data_folder': ['../data/'],
             #   'patient_data': ['TCGA_UCEC'],
               'patient_data': ['Faroe'],
             #   'patient_data': ['TCGA_UCEC', 'SIMONS'],
-              'ppi_data': ['STRING', 'Y2H'],
+            #   'ppi_data': ['STRING', 'Y2H'],
+              'ppi_data': ['Y2H'],
               'influence_weight': ['min'],
               'simplification': [True],
               'compute': [True],
@@ -32,22 +33,21 @@ param_grid = {'data_folder': ['../data/'],
             #   'alpha': [0, 0.3, 0.5, 0.7, 1],
             #   'alpha': [0.7, 0.8, 0.9],
               'alpha': [0.7],
-              'tol': [10e-3],
-              'ngh_max': [11],
+              'tol': [1e-3],
+              'ngh_max': [100],
               'keep_singletons': [False],
             #   'min_mutation': [10],
               'min_mutation': [0],
               'max_mutation': [200000],
               'qn': [None, 'mean', 'median'],
             #   'qn': [None],
-              'n_components': [2],
+              'n_components': [3],
             #   'n_components': range(2, 10),
-            #   'n_permutations': [1000],
-              'n_permutations': [1000],
+              'n_permutations': [500],
               'run_bootstrap': [True],
               'run_consensus': [True],
-            #   'lambd': [0, 1, 200],
-              'lambd': [0, 1],
+              'lambd': [0, 200, 1000],
+            #   'lambd': [0, 1],
               'tol_nmf': [1e-3],
               'linkage_method': ['ward']
             #   'linkage_method': ['single', 'complete', 'average', 'weighted', 'centroid', 'median', 'ward']
@@ -82,7 +82,9 @@ def all_functions(params):
                  data_folder)
 
         elif patient_data == 'Faroe':
-            mutation_profile, gene_id_patient = load_data.load_Faroe_Islands_data(
+            # mutation_profile, gene_id_patient = load_data.load_Faroe_Islands_data(
+            #     data_folder)
+            mutation_profile, gene_id_patient = load_data.load_Faroe_ctl_patients_data(
                 data_folder)
 
         if ppi_data == 'STRING':

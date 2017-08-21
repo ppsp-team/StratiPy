@@ -68,34 +68,34 @@ def load_Faroe_Islands_data(data_folder):
     return mutation_profile, gene_id_patient
 
 
-def load_Faroe_ctl_patients_data(data_folder):
-    print(" ==== Faroe Islands data CONTROLS + PATIENTS")
-    df = pd.read_csv(data_folder + "Faroe_LGD_10percents_binary.txt", sep="\t")
-    subjects = df.columns[1:]
+    def load_Faroe_ctl_patients_data(data_folder):
+        print(" ==== Faroe Islands data CONTROLS + PATIENTS")
+        df = pd.read_csv(data_folder + "Faroe_LGD_10percents_binary.txt", sep="\t")
+        subjects = df.columns[1:]
 
-    ped = pd.read_csv(data_folder + "pedFaroe_101016_PN.txt", "\t", header=None)
-    ped['ID'] = ped.iloc[:,1]
-    ped.set_index('ID', inplace=True)
+        ped = pd.read_csv(data_folder + "pedFaroe_101016_PN.txt", "\t", header=None)
+        ped['ID'] = ped.iloc[:,1]
+        ped.set_index('ID', inplace=True)
 
-    selection = pd.read_csv(data_folder + 'PatientsControls.txt', header=None)
+        selection = pd.read_csv(data_folder + 'PatientsControls.txt', header=None)
 
-    subjects = selection[0].tolist()
-    # http://www.genenames.org/cgi-bin/download?col=gd_app_sym&col=md_eg_id&status_opt=2&where=&order_by=gd_app_sym_sort&format=text&limit=&hgnc_dbtag=on&submit=submit
-    hgnc = pd.read_csv(data_folder + "hgnc_2016-10-17.tsv", sep="\t")
-    hgnc.rename(columns={'Approved Symbol': 'gene',
-                         'Entrez Gene ID(supplied by NCBI)': 'EntrezID'},
-                inplace=True)
-    hgnc = hgnc.loc[~hgnc.loc[:, 'gene'].str.contains('withdrawn')]
-    mutations = df.merge(hgnc, on='gene', how='outer')
+        subjects = selection[0].tolist()
+        # http://www.genenames.org/cgi-bin/download?col=gd_app_sym&col=md_eg_id&status_opt=2&where=&order_by=gd_app_sym_sort&format=text&limit=&hgnc_dbtag=on&submit=submit
+        hgnc = pd.read_csv(data_folder + "hgnc_2016-10-17.tsv", sep="\t")
+        hgnc.rename(columns={'Approved Symbol': 'gene',
+                             'Entrez Gene ID(supplied by NCBI)': 'EntrezID'},
+                    inplace=True)
+        hgnc = hgnc.loc[~hgnc.loc[:, 'gene'].str.contains('withdrawn')]
+        mutations = df.merge(hgnc, on='gene', how='outer')
 
-    mutations = mutations.loc[np.isfinite(mutations.EntrezID)]
-    # mutations.loc[:, subjects] = mutations.loc[:, subjects].fillna(0)
-    mutations = mutations.dropna()
-    mutation_profile = sp.csc_matrix((mutations.loc[:, subjects].values.T).astype(np.float32))
-    mutations.EntrezID = mutations.EntrezID.astype(int)
-    gene_id_patient = mutations.EntrezID.tolist()
+        mutations = mutations.loc[np.isfinite(mutations.EntrezID)]
+        # mutations.loc[:, subjects] = mutations.loc[:, subjects].fillna(0)
+        mutations = mutations.dropna()
+        mutation_profile = sp.csc_matrix((mutations.loc[:, subjects].values.T).astype(np.float32))
+        mutations.EntrezID = mutations.EntrezID.astype(int)
+        gene_id_patient = mutations.EntrezID.tolist()
 
-    return subjects, ped, mutation_profile, gene_id_patient
+        return subjects, ped, mutation_profile, gene_id_patient
 
 
 # @profile

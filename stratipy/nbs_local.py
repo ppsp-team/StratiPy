@@ -20,8 +20,10 @@ from memory_profiler import profile
 
 # TODO PPI type param
 param_grid = {'data_folder': ['../data/'],
-              'patient_data': ['TCGA_UCEC'],
-            #   'patient_data': ['Faroe'],
+            #   'patient_data': ['TCGA_UCEC'],
+              'patient_data': ['Faroe_ctl_patients'],
+            #   'patient_data': ['TCGA_UCEC', 'SIMONS'],
+            #   'ppi_data': ['STRING', 'Y2H'],
               'ppi_data': ['STRING'],
               'influence_weight': ['min'],
               'simplification': [True],
@@ -29,25 +31,24 @@ param_grid = {'data_folder': ['../data/'],
               'overwrite': [False],
             #   'alpha': [0, 0.3, 0.5, 0.7, 1],
             #   'alpha': [0.7, 0.8, 0.9],
-              'alpha': [0.7],
-              'tol': [10e-3],
-              'ngh_max': [11],
+              'alpha': [0],
+              'tol': [1e-3],
+              'ngh_max': [100],
               'keep_singletons': [False],
             #   'min_mutation': [10],
-              'min_mutation': [10],
-              'max_mutation': [2000],
-            #   'qn': [None, 'mean', 'median'],
-              'qn': ['median'],
-              'n_components': [2],
+              'min_mutation': [0],
+              'max_mutation': [200000],
+              'qn': [None],
+            #   'qn': [None],
+              'n_components': [3],
             #   'n_components': range(2, 10),
-            #   'n_permutations': [1000],
-              'n_permutations': [1000],
+              'n_permutations': [300],
               'run_bootstrap': [True],
               'run_consensus': [True],
-            #   'lambd': [0, 1, 200],
-              'lambd': [0, 1],
+              'lambd': [0],
+            #   'lambd': [0, 1],
               'tol_nmf': [1e-3],
-              'linkage_method': ['ward']
+              'linkage_method': ['average']
             #   'linkage_method': ['single', 'complete', 'average', 'weighted', 'centroid', 'median', 'ward']
               }
 
@@ -68,6 +69,7 @@ def all_functions(params):
         print("alpha =", alpha)
         print("QN =", qn)
         print("k =", n_components)
+        print("max neighbors =", ngh_max)
         print("lambda =", lambd)
         print("Patients data =", patient_data)
         print("PPI network =", ppi_data)
@@ -82,6 +84,11 @@ def all_functions(params):
         elif patient_data == 'Faroe':
             mutation_profile, gene_id_patient = load_data.load_Faroe_Islands_data(
                 data_folder)
+
+        elif patient_data == 'Faroe_ctl_patients':
+            # 'subjects' and 'ped' will be used to quality test of clustering
+            subjects, ped, mutation_profile, gene_id_patient = (
+                load_data.load_Faroe_ctl_patients_data(data_folder))
 
         if ppi_data == 'STRING':
             gene_id_ppi, network = load_data.load_PPI_String(
@@ -136,16 +143,16 @@ def all_functions(params):
 
         # ------------ hierarchical_clustering.py ------------
         print("------------ hierarchical_clustering.py ------------")
-        # if alpha > 0:
-        #     if qn == 'mean':
-        #         mut_type = 'mean_qn'
-        #     elif qn == 'median':
-        #         mut_type = 'median_qn'
-        #     else:
-        #         mut_type = 'diff'
-        # else:
-        #     mut_type = 'raw'
-        # print("mutation type =", mut_type)
+        if alpha > 0:
+            if qn == 'mean':
+                mut_type = 'mean_qn'
+            elif qn == 'median':
+                mut_type = 'median_qn'
+            else:
+                mut_type = 'diff'
+        else:
+            mut_type = 'raw'
+        print("mutation type =", mut_type)
         #
         # consensus_directory = result_folder+'consensus_clustering/'
         # consensus_mut_type_directory = consensus_directory + mut_type + '/'
@@ -174,12 +181,25 @@ def all_functions(params):
         # consensus_data = loadmat(consensus_file)
         # distance_patients = consensus_data['distance_patients']
 
+        # hierarchical_clustering.distance_patients_from_consensus_file(
+        #     result_folder, distance_patients, patient_data, ppi_data, mut_type,
+        #     influence_weight, simplification, alpha, tol,  keep_singletons,
+        #     ngh_max, min_mutation, max_mutation, n_components, n_permutations,
+        #     lambd, tol_nmf, linkage_method)
+
+        # selected Faroe data
         hierarchical_clustering.distance_patients_from_consensus_file(
-            result_folder, distance_patients, patient_data, ppi_data, mut_type,
+            subjects, ped, result_folder, distance_patients, patient_data, ppi_data, mut_type,
             influence_weight, simplification, alpha, tol,  keep_singletons,
             ngh_max, min_mutation, max_mutation, n_components, n_permutations,
             lambd, tol_nmf, linkage_method)
 
+        # only bar chart
+        # hierarchical_clustering.bar_chart_from_hierarchical_file(
+        #     subjects, ped, result_folder, mut_type,
+        #     influence_weight, simplification,
+        #     alpha, tol,  keep_singletons, ngh_max, min_mutation, max_mutation,
+        #     n_components, n_permutations, lambd, tol_nmf, linkage_method)
 
 if (sys.version_info < (3, 2)):
     raise "Must be using Python ≥ 3.2"
