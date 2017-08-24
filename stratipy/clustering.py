@@ -14,7 +14,6 @@ import datetime
 import os
 import glob
 import collections
-from memory_profiler import profile
 
 # NOTE some variable names changed:
 # patientsNum -> n_patients
@@ -178,6 +177,7 @@ def _initialize_nmf(X, n_components, variant=None, eps=1e-6,
 
     return W, H
 
+
 def gnmf(X, A, lambd=0, n_components=None, tol_nmf=1e-3, max_iter=100,
          verbose=False):
 
@@ -297,7 +297,6 @@ def bootstrap(result_folder, mut_type, mut_propag, ppi_final,
 
             EVERY_N = 100
             for perm in range(n_permutations):
-                perm_start = time.time()
                 if (perm % EVERY_N) == 0:
                     print('Bootstrap : {} / {} permutations ----- {}'
                           .format(perm, n_permutations, datetime.datetime.now()
@@ -319,12 +318,6 @@ def bootstrap(result_folder, mut_type, mut_propag, ppi_final,
                 else:
                     genes_clustering[genes_boot, perm] = H
                     patients_clustering[patients_boot, perm] = W
-
-                perm_end = time.time()
-                print('{}th iteration finished {} ---------- {}'
-                      .format(perm,
-                              datetime.timedelta(seconds=perm_end-perm_start),
-                              datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
 
             # clustering std for each permutation of bootstrap
             genes_clustering_std = clustering_std_for_each_bootstrap(genes_clustering)
@@ -370,7 +363,6 @@ def concensus_clustering_simple(mat):
     return distance  # return np ndarray
 
 
-@profile
 def consensus_clustering(result_folder, genes_clustering, patients_clustering,
                          influence_weight, simplification,
                          mut_type, alpha, tol, keep_singletons, ngh_max,

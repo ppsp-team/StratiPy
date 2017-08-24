@@ -15,7 +15,7 @@ import datetime
 from sklearn.grid_search import ParameterGrid
 from scipy.io import loadmat, savemat
 import os
-from memory_profiler import profile
+# if "from memory_profiler import profile", timestamps will not be recorded
 
 i = int(sys.argv[1])-1
 
@@ -24,8 +24,7 @@ param_grid = {'data_folder': ['../data/'],
             #   'patient_data': ['TCGA_UCEC'],
               'patient_data': ['Faroe'],
             #   'patient_data': ['TCGA_UCEC', 'SIMONS'],
-            #   'ppi_data': ['STRING', 'Y2H'],
-              'ppi_data': ['Y2H'],
+              'ppi_data': ['STRING', 'Y2H'],
               'influence_weight': ['min'],
               'simplification': [True],
               'compute': [True],
@@ -33,21 +32,22 @@ param_grid = {'data_folder': ['../data/'],
             #   'alpha': [0, 0.3, 0.5, 0.7, 1],
             #   'alpha': [0.7, 0.8, 0.9],
               'alpha': [0.7],
-              'tol': [1e-3],
-              'ngh_max': [100],
+              'tol': [10e-3],
+              'ngh_max': [11],
               'keep_singletons': [False],
             #   'min_mutation': [10],
               'min_mutation': [0],
               'max_mutation': [200000],
               'qn': [None, 'mean', 'median'],
             #   'qn': [None],
-              'n_components': [3],
+              'n_components': [2],
             #   'n_components': range(2, 10),
-              'n_permutations': [500],
+            #   'n_permutations': [1000],
+              'n_permutations': [1000],
               'run_bootstrap': [True],
               'run_consensus': [True],
-              'lambd': [0, 200, 1000],
-            #   'lambd': [0, 1],
+            #   'lambd': [0, 1, 200],
+              'lambd': [0, 1],
               'tol_nmf': [1e-3],
               'linkage_method': ['ward']
             #   'linkage_method': ['single', 'complete', 'average', 'weighted', 'centroid', 'median', 'ward']
@@ -71,7 +71,6 @@ def all_functions(params):
         print("QN =", qn)
         print("k =", n_components)
         print("lambda =", lambd)
-        print("Patients data =", patient_data)
         print("PPI network =", ppi_data)
 
         # ------------ load_data.py ------------
@@ -82,9 +81,7 @@ def all_functions(params):
                  data_folder)
 
         elif patient_data == 'Faroe':
-            # mutation_profile, gene_id_patient = load_data.load_Faroe_Islands_data(
-            #     data_folder)
-            mutation_profile, gene_id_patient = load_data.load_Faroe_ctl_patients_data(
+            mutation_profile, gene_id_patient = load_data.load_Faroe_Islands_data(
                 data_folder)
 
         if ppi_data == 'STRING':
@@ -168,17 +165,21 @@ def all_functions(params):
         # os.makedirs(hierarchical_factorization_directory, exist_ok=True)
         #
         # consensus_file = (consensus_factorization_directory +
-        #               'consensus_weight={}_simp={}_alpha={}_tol={}_singletons={}_ngh={}_minMut={}_maxMut={}_comp={}_permut={}_lambd={}_tolNMF={}.mat'
-        #               .format(influence_weight, simplification, alpha, tol,
-        #                       keep_singletons, ngh_max,
-        #                       min_mutation, max_mutation,
-        #                       n_components, n_permutations, lambd, tol_nmf))
+        #                   'consensus_alpha={}_tol={}_singletons={}_ngh={}_minMut={}_maxMut={}_comp={}_permut={}_lambd={}_tolNMF={}.mat'
+        #                   .format(alpha, tol, keep_singletons, ngh_max,
+        #                           min_mutation, max_mutation,
+        #                           n_components, n_permutations, lambd, tol_nmf))
         #
         # consensus_data = loadmat(consensus_file)
         # distance_patients = consensus_data['distance_patients']
-
+        #
+        # hierarchical_clustering.distance_matrix(
+        #     hierarchical_factorization_directory, distance_patients, ppi_data,
+        #     mut_type,
+        #     alpha, tol,  keep_singletons, ngh_max, min_mutation, max_mutation,
+        #     n_components, n_permutations, lambd, tol_nmf, linkage_method)
         hierarchical_clustering.distance_patients_from_consensus_file(
-            result_folder, distance_patients, patient_data, ppi_data, mut_type,
+            result_folder, distance_patients, ppi_data, mut_type,
             influence_weight, simplification, alpha, tol,  keep_singletons,
             ngh_max, min_mutation, max_mutation, n_components, n_permutations,
             lambd, tol_nmf, linkage_method)
