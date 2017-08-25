@@ -41,11 +41,11 @@ param_grid = {'data_folder': ['../data/'],
               'n_components': [2],
             #   'n_components': range(2, 10),
             #   'n_permutations': [1000],
-              'n_permutations': [1000],
+              'n_permutations': [100],
               'run_bootstrap': [True],
               'run_consensus': [True],
             #   'lambd': [0, 1, 200],
-              'lambd': [0, 1],
+              'lambd': [1],
               'tol_nmf': [1e-3],
               'linkage_method': ['ward']
             #   'linkage_method': ['single', 'complete', 'average', 'weighted', 'centroid', 'median', 'ward']
@@ -69,7 +69,6 @@ def all_functions(params):
         print("QN =", qn)
         print("k =", n_components)
         print("lambda =", lambd)
-        print("Patients data =", patient_data)
         print("PPI network =", ppi_data)
 
         # ------------ load_data.py ------------
@@ -105,6 +104,10 @@ def all_functions(params):
 
         # ------------ filtering_diffusion.py ------------
         print("------------ filtering_diffusion.py ------------")
+        # ppi_influence = (
+        #     filtering_diffusion.calcul_ppi_influence(
+        #         sp.eye(ppi_filt.shape[0]), ppi_filt,
+        #         result_folder, compute, overwrite, alpha, tol))
 
         final_influence = (
             filtering_diffusion.calcul_final_influence(
@@ -165,17 +168,21 @@ def all_functions(params):
         # os.makedirs(hierarchical_factorization_directory, exist_ok=True)
         #
         # consensus_file = (consensus_factorization_directory +
-        #               'consensus_weight={}_simp={}_alpha={}_tol={}_singletons={}_ngh={}_minMut={}_maxMut={}_comp={}_permut={}_lambd={}_tolNMF={}.mat'
-        #               .format(influence_weight, simplification, alpha, tol,
-        #                       keep_singletons, ngh_max,
-        #                       min_mutation, max_mutation,
-        #                       n_components, n_permutations, lambd, tol_nmf))
+        #                   'consensus_alpha={}_tol={}_singletons={}_ngh={}_minMut={}_maxMut={}_comp={}_permut={}_lambd={}_tolNMF={}.mat'
+        #                   .format(alpha, tol, keep_singletons, ngh_max,
+        #                           min_mutation, max_mutation,
+        #                           n_components, n_permutations, lambd, tol_nmf))
         #
         # consensus_data = loadmat(consensus_file)
         # distance_patients = consensus_data['distance_patients']
-
+        #
+        # hierarchical_clustering.distance_matrix(
+        #     hierarchical_factorization_directory, distance_patients, ppi_data,
+        #     mut_type,
+        #     alpha, tol,  keep_singletons, ngh_max, min_mutation, max_mutation,
+        #     n_components, n_permutations, lambd, tol_nmf, linkage_method)
         hierarchical_clustering.distance_patients_from_consensus_file(
-            result_folder, distance_patients, patient_data, ppi_data, mut_type,
+            result_folder, distance_patients, ppi_data, mut_type,
             influence_weight, simplification, alpha, tol,  keep_singletons,
             ngh_max, min_mutation, max_mutation, n_components, n_permutations,
             lambd, tol_nmf, linkage_method)

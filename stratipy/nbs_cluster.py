@@ -15,8 +15,8 @@ import datetime
 from sklearn.grid_search import ParameterGrid
 from scipy.io import loadmat, savemat
 import os
-from memory_profiler import profile
-    
+# if "from memory_profiler import profile", timestamps will not be recorded
+
 i = int(sys.argv[1])-1
 
 # TODO PPI type param
@@ -71,7 +71,6 @@ def all_functions(params):
         print("QN =", qn)
         print("k =", n_components)
         print("lambda =", lambd)
-        print("Patients data =", patient_data)
         print("PPI network =", ppi_data)
 
         # ------------ load_data.py ------------
@@ -166,17 +165,21 @@ def all_functions(params):
         # os.makedirs(hierarchical_factorization_directory, exist_ok=True)
         #
         # consensus_file = (consensus_factorization_directory +
-        #               'consensus_weight={}_simp={}_alpha={}_tol={}_singletons={}_ngh={}_minMut={}_maxMut={}_comp={}_permut={}_lambd={}_tolNMF={}.mat'
-        #               .format(influence_weight, simplification, alpha, tol,
-        #                       keep_singletons, ngh_max,
-        #                       min_mutation, max_mutation,
-        #                       n_components, n_permutations, lambd, tol_nmf))
+        #                   'consensus_alpha={}_tol={}_singletons={}_ngh={}_minMut={}_maxMut={}_comp={}_permut={}_lambd={}_tolNMF={}.mat'
+        #                   .format(alpha, tol, keep_singletons, ngh_max,
+        #                           min_mutation, max_mutation,
+        #                           n_components, n_permutations, lambd, tol_nmf))
         #
         # consensus_data = loadmat(consensus_file)
         # distance_patients = consensus_data['distance_patients']
-
+        #
+        # hierarchical_clustering.distance_matrix(
+        #     hierarchical_factorization_directory, distance_patients, ppi_data,
+        #     mut_type,
+        #     alpha, tol,  keep_singletons, ngh_max, min_mutation, max_mutation,
+        #     n_components, n_permutations, lambd, tol_nmf, linkage_method)
         hierarchical_clustering.distance_patients_from_consensus_file(
-            result_folder, distance_patients, patient_data, ppi_data, mut_type,
+            result_folder, distance_patients, ppi_data, mut_type,
             influence_weight, simplification, alpha, tol,  keep_singletons,
             ngh_max, min_mutation, max_mutation, n_components, n_permutations,
             lambd, tol_nmf, linkage_method)

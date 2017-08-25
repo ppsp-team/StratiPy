@@ -12,6 +12,7 @@ import time
 import datetime
 import os
 import glob
+# import pylab
 import matplotlib
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
@@ -19,7 +20,7 @@ plt.switch_backend('agg')
 
 
 def distance_patients_from_consensus_file(
-    result_folder, distance_patients, patient_data, ppi_data, mut_type,
+    result_folder, distance_patients, ppi_data, mut_type,
     influence_weight, simplification,
     alpha, tol,  keep_singletons, ngh_max, min_mutation, max_mutation,
     n_components, n_permutations, lambd, tol_nmf, linkage_method):
@@ -81,7 +82,7 @@ def distance_patients_from_consensus_file(
         # Plot colorbar.
         ax_color = fig.add_axes([0.62, 0.1, 0.02, 0.6])
         ax_color.set_xticks([])
-        plt.colorbar(im, cax=ax_color)
+        plt.colorbar(im, cax=axcolor)
 
         # forms flat clusters from Z
         clust_nb = fcluster(Z, n_components, criterion='maxclust') # given k -> maxclust
@@ -90,21 +91,20 @@ def distance_patients_from_consensus_file(
         print('cophenetic correlation distance = ', coph_dist)
 
         ax_dendro.set_title(
-            'patients = {}\nnetwork = {}\nalpha = {}\nmutation type = {}\ninfluence weight = {}\nsimplification = {}\ncomponent number = {}\nlambda = {}\nmethod = {}\ncophenetic corr = {}\n'
-            .format(patient_data, ppi_data, alpha, mut_type,
+            'network = {}\nalpha = {}\nmutation type = {}\ninfluence weight = {}\nsimplification = {}\ncomponent number = {}\nlambda = {}\nmethod = {}\ncophenetic corr = {}\n'
+            .format(ppi_data, alpha, mut_type,
                     influence_weight, simplification,
                     n_components, lambd, linkage_method, format(coph_dist,
-                                                                '.2f')),
-            horizontalalignment='left', x=0.7)
+                                                                '.2f')))
 
         plot_name = "similarity_matrix_Patients" + (
             '_alpha={}_tol={}_singletons={}_ngh={}_minMut={}_maxMut={}_comp={}_permut={}_lambd={}_tolNMF={}_method={}'
             .format(alpha, tol, keep_singletons, ngh_max, min_mutation,
                     max_mutation, n_components, n_permutations, lambd, tol_nmf,
                     linkage_method))
-        plt.savefig('{}{}.pdf'.format(hierarchical_factorization_directory, plot_name),
+        plt.savefig('{}{}.pdf'.format(result_folder, plot_name),
                     bbox_inches='tight')
-        plt.savefig('{}{}.svg'.format(hierarchical_factorization_directory, plot_name),
+        plt.savefig('{}{}.svg'.format(result_folder, plot_name),
                     bbox_inches='tight')
 
         start = time.time()
