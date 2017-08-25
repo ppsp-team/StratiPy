@@ -7,7 +7,7 @@ The minimum required dependencies to run the software are:
   - NumPy >= 1.6
   - SciPy >= 0.7.2
   - matplotlib >= 0.98.4
-  - scikit-learn >= 0.15
+  - scikit-learn >= 0.19
   - pandas >= 0.1
 
 ## Reproducibility

@@ -12,7 +12,7 @@ import scipy.sparse as sp
 import numpy as np
 import time
 import datetime
-from sklearn.grid_search import ParameterGrid
+from sklearn.model_selection import ParameterGrid
 from scipy.io import loadmat, savemat
 import os
 from memory_profiler import profile

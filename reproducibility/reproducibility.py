@@ -9,9 +9,7 @@ from scipy.io import loadmat, savemat
 import numpy as np
 import time
 import datetime
-
-from sklearn.grid_search import ParameterGrid
-
+from sklearn.model_selection import ParameterGrid
 
 """Tuning parameters' list for Network Based Stratification (NBS)
 
