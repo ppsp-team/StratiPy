@@ -112,6 +112,12 @@ def compare_ij_ji(ppi, out_min=True, out_max=True):
     -------
     ppi_min, ppi_max : sparse matrix
         Symmertric matrix with minimum and/or maximum weight.
+
+    Remarks
+    -------
+    This implements the algorithm described in Vandin, Upfal, Raphael:
+    Algorithms for Detecting Significantly Mutated Pathways in Cancer
+    - Journal of Computational Biology, 2010, doi: 10.1089/cmb.2010.0265
     """
     # TODO matrice type of ppi
     n = ppi.shape[0]

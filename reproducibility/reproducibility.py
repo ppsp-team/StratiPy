@@ -19,13 +19,24 @@ from sklearn.model_selection import ParameterGrid
 Parameters
 ----------
 
-data_folder: str
-    Path of data folder including mutation profiles, Protein-Protein Interaction
-    (PPI) networks and result forders.
+data_folder : str
+    Path of data folder including mutation profiles, Protein-Protein
+    Interaction (PPI) networks and result forders.
 
-influence_weight :
+patient_data : str
+    Raw mutation profile data. Here we work on uterine endometrial carcinoma
+    (uterine cancer) with 248 patients' somatic mutation data: TCGA_UCEC.
+
+ppi_data : str
+    Protein-Protein Interaction network data. Here we utilize STRING PPI
+    network database.
+
+influence_weight : str, 'min' or 'max', default: min
+    Choice of influence weight of propagation on the network. For further
+    details, see "compare_ij_ji" function in "filtering_diffusion.py".
 
 simplification : boolean, default: True
+    Simplification of diffused network matrice after propagation.
 
 compute : boolean, default: False
     If True, new network influence score will be computed.
@@ -39,18 +50,51 @@ overwrite : boolean, default: False
 alpha : float, default: 0.7
     Diffusion (propagation) factor with 0 <= alpha <= 1.
     For alpha = 0 : no diffusion.
-    For alpha = 1 :
+    For alpha = 1 : complete diffusion.
 
-tol : float, default: 10e-6
-    Convergence threshold.
-ngh_max : int
-    Number of best influencers in PPI.
+tol : float, default: 10e-3
+    Convergence threshold during diffusion.
+
+ngh_max : int, default: 11
+    Number of best influencers in PPI network. 11 is given in the original work.
+
 keep_singletons : boolean, default: False
     If True, proteins not annotated in PPI (genes founded only in patients'
     mutation profiles) will be also considered.
     If False, only annotated proteins in PPI will be considered.
-    min_mutation, max_mutation : int
-        Numbers of lowest mutations and highest mutations per patient.
+
+min_mutation, max_mutation : int
+    Numbers of lowest mutations and highest mutations per patient. In the
+    original work, authors remove patients with fewer than 10 mutations.
+
+qn : str, default: 'mean'
+    Type of quantile normalization (QN) after diffusion:
+    'None': no normalization.
+    'mean': QN based on the mean of the ranked values.
+    'median': QN based on the median of the ranked values.
+
+n_components : int, default: 3
+    Number of subgroups (clusters) wanted.
+
+n_permutations : int, default: 100
+    Permutation number of bootstrap.
+
+run_bootstrap : boolean, default: False
+    If True, bootstrap of NMF or GNMF will be launched.
+
+run_consensus : boolean, default: False
+    If True, consensus clustering on bootstrap result will be launched. Then,
+    the similarity matrix is constructed; each pair of patients was observed to
+    share the same membership among all replicates.
+
+lambd : int, default: 1
+    Graph regulator factor for GNMF algorithm.
+
+tol_nmf : float, default: 1e-3
+    Convergence threshold of NMF and GNMF.
+
+linkage_method : str
+    Linkage method of hierarchical clustering.
 """
 
 param_grid = {'data_folder': ['../data/'],
