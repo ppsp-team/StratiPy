@@ -134,7 +134,8 @@ def all_functions(params):
 
     else:
         result_folder = 'reproducibility_data/' + 'result_' + patient_data + '_' + ppi_data + '/'
-        print("\n ==== lambda =", lambd)
+        print("\nGraph regulator factor (lambda) =", lambd)
+        print("Permutation number of bootstrap =", n_permutations)
 
         # ------------ load_data.py ------------
         print("\n------------ load_data.py ------------ {}"
