@@ -437,7 +437,7 @@ def filter_ppi_patients(ppi_total, mut_total, ppi_filt, final_influence, ngh_max
     mut_final = mut_final[np.array([min_mutation < k < max_mutation for k in
                                     Patient(mut_final).mut_per_patient])]
 
-    print("Removing %i patients with less than %i or more than %i mutations" %
+    print(" Removing %i patients with less than %i or more than %i mutations" %
           (mut_total.shape[0]-mut_final.shape[0], min_mutation, max_mutation))
     # print("New adjacency matrix:", ppi_final.shape)
     # print("New mutation profile matrix:", mut_final.shape)
