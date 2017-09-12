@@ -14,6 +14,7 @@ import datetime
 import os
 import glob
 import collections
+from tqdm import tqdm, trange
 
 # NOTE some variable names changed:
 # patientsNum -> n_patients
@@ -295,13 +296,9 @@ def bootstrap(result_folder, mut_type, mut_propag, ppi_final,
 
             ppi_final = ppi_final.todense()
 
-            EVERY_N = 100
-            for perm in range(n_permutations):
-                if (perm % EVERY_N) == 0:
-                    print('Bootstrap : {} / {} permutations ----- {}'
-                          .format(perm, n_permutations, datetime.datetime.now()
-                                  .strftime("%Y-%m-%d %H:%M:%S")))
 
+            tqdm_bar = trange(n_permutations, desc='Bootstrap')
+            for perm in tqdm_bar:
                 # only 80% of patients and genes
                 patients_boot = np.random.permutation(n_patients)[
                     0:int(n_patients*0.8)]
