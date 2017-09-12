@@ -91,8 +91,8 @@ def classify_gene_index(network, mutation_profile, gene_id_ppi, gene_id_patient)
 
     idx_ppi_only = [g for g in range(network.shape[1]) if not(g in idx_ppi)]
 
-    print('---network ', type(network), network.dtype)
-    print('mutation_profile', mutation_profile.dtype)
+    # print('---network ', type(network), network.dtype)
+    # print('mutation_profile', mutation_profile.dtype)
 
     return network, mutation_profile, idx_ppi, idx_mut, idx_ppi_only, idx_mut_only
 

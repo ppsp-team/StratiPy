@@ -3,7 +3,8 @@
 import sys
 import os
 # import os.path
-from stratipy import (load_data, formatting_data, filtering_diffusion, clustering, hierarchical_clustering)
+sys.path.append('../stratipy')
+import load_data, formatting_data, filtering_diffusion, clustering, hierarchical_clustering
 import scipy.sparse as sp
 from scipy.io import loadmat, savemat
 import numpy as np
@@ -112,7 +113,8 @@ param_grid = {'data_folder': ['../data/'],
               'max_mutation': [200000],
               'qn': ['mean'],
               'n_components': [3],
-              'n_permutations': [100, 1000],
+              'n_permutations': [100],
+            #   'n_permutations': [100, 1000],
               'run_bootstrap': [True],
               'run_consensus': [True],
               'lambd': [1, 1800],
@@ -122,7 +124,8 @@ param_grid = {'data_folder': ['../data/'],
 
 # NOTE sys.stdout.flush()
 
-@profile
+
+# @profile
 def all_functions(params):
 
     if alpha == 0 and qn is not None:
@@ -131,15 +134,11 @@ def all_functions(params):
 
     else:
         result_folder = 'reproducibility_data/' + 'result_' + patient_data + '_' + ppi_data + '/'
-        print(result_folder)
-        print("alpha =", alpha)
-        print("QN =", qn)
-        print("k =", n_components)
-        print("lambda =", lambd)
-        print("PPI network =", ppi_data)
+        print("\n ==== lambda =", lambd)
 
         # ------------ load_data.py ------------
-        print("------------ load_data.py ------------")
+        print("\n------------ load_data.py ------------ {}"
+              .format(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
         (patient_id, mutation_profile, gene_id_patient,
          gene_symbol_profile) = load_data.load_TCGA_UCEC_patient_data(
              data_folder)
@@ -147,7 +146,8 @@ def all_functions(params):
         gene_id_ppi, network = load_data.load_PPI_String(data_folder, ppi_data)
 
         # ------------ formatting_data.py ------------
-        print("------------ formatting_data.py ------------")
+        print("\n------------ formatting_data.py ------------ {}"
+              .format(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
         (network, mutation_profile,
          idx_ppi, idx_mut, idx_ppi_only, idx_mut_only) = (
             formatting_data.classify_gene_index(
@@ -159,7 +159,8 @@ def all_functions(params):
                 mutation_profile))
 
         # ------------ filtering_diffusion.py ------------
-        print("------------ filtering_diffusion.py ------------")
+        print("\n------------ filtering_diffusion.py ------------ {}"
+              .format(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
         final_influence = (
             filtering_diffusion.calcul_final_influence(
                 sp.eye(ppi_filt.shape[0], dtype=np.float32), ppi_filt,
@@ -174,7 +175,8 @@ def all_functions(params):
             mut_final, ppi_filt, alpha, tol, qn)
 
         # ------------ clustering.py ------------
-        print("------------ clustering.py ------------")
+        print("\n------------ clustering.py ------------ {}"
+              .format(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
         genes_clustering, patients_clustering = (clustering.bootstrap(
             result_folder, mut_type, mut_propag, ppi_final,
             influence_weight, simplification,
@@ -189,7 +191,8 @@ def all_functions(params):
             n_components, n_permutations, run_consensus, lambd, tol_nmf)
 
         # ------------ hierarchical_clustering.py ------------
-        print("------------ hierarchical_clustering.py ------------")
+        print("\n------------ hierarchical_clustering.py ------------ {}"
+              .format(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
         # hierarchical_clustering.distance_matrix(
         #     hierarchical_factorization_directory, distance_patients, ppi_data,
         #     mut_type,
@@ -209,16 +212,16 @@ else:
     start_all = time.time()
     for params in list(ParameterGrid(param_grid)):
         start = time.time()
-        print(params)
+        # print(params)
         for i in params.keys():
             exec("%s = %s" % (i, 'params[i]'))
         all_functions(params)
         end = time.time()
-        print('---------- ONE STEP = {} ---------- {}'
+        print('\n---------- ONE STEP = {} ---------- {}'
               .format(datetime.timedelta(seconds=end-start),
                       datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
 
     end_all = time.time()
-    print('---------- ALL = {} ---------- {}'
+    print('\n---------- ALL = {} ---------- {}'
           .format(datetime.timedelta(seconds = end_all - start_all),
                   datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))

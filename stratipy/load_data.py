@@ -40,7 +40,7 @@ def load_TCGA_UCEC_patient_data(data_folder):
     # dictionnary = key:entrez gene ID, value:symbol
     # mutation_id_symb = dict(zip(gene_id_patient, gene_symbol_profile))
 
-    print('mutation_profile', mutation_profile.dtype)
+    # print('mutation_profile', mutation_profile.dtype)
     return patient_id, mutation_profile, gene_id_patient, gene_symbol_profile
 
 
@@ -91,7 +91,7 @@ def load_PPI_String(data_folder, ppi_data):
     # NOTE nan values in gene_id_ppi (choice of gene ID type)
 
     network = load_PPI(data_folder, ppi_data, load_gene_id_ppi=False)
-    print('---network ', type(network), network.dtype)
+    # print('---network ', type(network), network.dtype)
     return gene_id_ppi, network
 
 
