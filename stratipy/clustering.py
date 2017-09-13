@@ -282,20 +282,18 @@ def bootstrap(result_folder, mut_type, mut_propag, ppi_final,
         bootstrap_data = loadmat(boot_file)
         genes_clustering = bootstrap_data['genes_clustering']
         patients_clustering = bootstrap_data['patients_clustering']
-        print('***** Same parameters file of bootstrap already exists ***** {}'
+        print(' ***** Same parameters file of bootstrap already exists ***** {}'
               .format(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
 
     else:
         if run_bootstrap:
-            start = time.time()
+            # start = time.time()
             n_patients, n_genes = mut_propag.shape
             genes_clustering = np.zeros([n_genes, n_permutations],
                                         dtype=np.float32)*np.nan
             patients_clustering = np.zeros([n_patients, n_permutations],
                                            dtype=np.float32)*np.nan
-
             ppi_final = ppi_final.todense()
-
 
             tqdm_bar = trange(n_permutations, desc='Bootstrap')
             for perm in tqdm_bar:
@@ -325,10 +323,10 @@ def bootstrap(result_folder, mut_type, mut_propag, ppi_final,
                                 'genes_clustering_std': genes_clustering_std,
                                 'patients_clustering_std': patients_clustering_std},
                     do_compression=True)
-            end = time.time()
-            print("---------- Bootstrap = {} ---------- {}"
-                  .format(datetime.timedelta(seconds=end-start),
-                          datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
+            # end = time.time()
+            # print("---------- Bootstrap = {} ---------- {}"
+            #       .format(datetime.timedelta(seconds=end-start),
+            #               datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
 
         else:
             newest_file = max(glob.iglob(
@@ -336,21 +334,17 @@ def bootstrap(result_folder, mut_type, mut_propag, ppi_final,
             bootstrap_data = loadmat(newest_file)
             genes_clustering = bootstrap_data['genes_clustering']
             patients_clustering = bootstrap_data['patients_clustering']
-    print('genes_clustering (bootstrap)', type(genes_clustering), genes_clustering.dtype)
-    print('patients_clustering (bootstrap)', type(patients_clustering), patients_clustering.dtype)
+    # print('genes_clustering (bootstrap)', type(genes_clustering), genes_clustering.dtype)
+    # print('patients_clustering (bootstrap)', type(patients_clustering), patients_clustering.dtype)
     return genes_clustering, patients_clustering
 
 
 def concensus_clustering_simple(mat):
     n_obj = mat.shape[0]
     distance = np.ones([n_obj, n_obj], dtype=np.float32)
-    EVERY_N = 1000
-    for obj1 in range(n_obj):
-        if (obj1 % EVERY_N) == 0:
-            print('consensus clustering : {} / {} objects ----- {}'
-                  .format(obj1, n_obj, datetime.datetime.now()
-                          .strftime("%Y-%m-%d %H:%M:%S")))
 
+    tqdm_bar = trange(n_obj, desc='Consensus clustering')
+    for obj1 in tqdm_bar:
         for obj2 in range(obj1+1, n_obj):
             I = (np.isnan(mat[[obj1, obj2]]).sum(axis=0) == 0).sum()
             M = (mat[obj1, ] == mat[obj2, ]).sum()
@@ -391,33 +385,35 @@ def consensus_clustering(result_folder, genes_clustering, patients_clustering,
         consensus_data = loadmat(consensus_file)
         distance_genes = consensus_data['distance_genes']
         distance_patients = consensus_data['distance_patients']
-        print('***** Same parameters file of consensus clustering already exists ***** {}'
+        print(' ***** Same parameters file of consensus clustering already exists ***** {}'
               .format(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
     else:
         if run_consensus:
-            start = time.time()
+            # start = time.time()
+            print(" ==== Between genes ")
             distance_genes = concensus_clustering_simple(genes_clustering)
-            end = time.time()
-            print("---------- distance_GENES = {} ---------- {}"
-                  .format(datetime.timedelta(seconds=end-start),
-                          datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
+            # end = time.time()
+            # print("---------- distance_GENES = {} ---------- {}"
+            #       .format(datetime.timedelta(seconds=end-start),
+            #               datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
 
-            start = time.time()
+            print(" ==== Between individuals ")
+            # start = time.time()
             distance_patients = concensus_clustering_simple(patients_clustering)
-            end = time.time()
-            print("---------- distance_PATIENTS = {} ---------- {}"
-                  .format(datetime.timedelta(seconds=end-start),
-                          datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
+            # end = time.time()
+            # print("---------- distance_PATIENTS = {} ---------- {}"
+            #       .format(datetime.timedelta(seconds=end-start),
+            #               datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
 
 
-            start = time.time()
+            # start = time.time()
             savemat(consensus_file, {'distance_genes': distance_genes,
                                      'distance_patients': distance_patients},
                     do_compression=True)
-            end = time.time()
-            print("---------- Save time = {} ---------- {}"
-                  .format(datetime.timedelta(seconds=end-start),
-                          datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
+            # end = time.time()
+            # print("---------- Save time = {} ---------- {}"
+            #       .format(datetime.timedelta(seconds=end-start),
+            #               datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
         else:
             #TODO condition wich no file exists
             newest_file = max(glob.iglob(
