@@ -129,11 +129,12 @@ param_grid = {'data_folder': ['../data/'],
 def all_functions(params):
 
     if alpha == 0 and qn is not None:
-        print('############ PASS ############')
+        print('######################## PASS ########################')
         pass
 
     else:
         result_folder = 'reproducibility_data/' + 'result_' + patient_data + '_' + ppi_data + '/'
+        print('\n######################## START ########################')
         print("\nGraph regulator factor (lambda) =", lambd)
         print("Permutation number of bootstrap =", n_permutations)
 
@@ -218,7 +219,7 @@ else:
             exec("%s = %s" % (i, 'params[i]'))
         all_functions(params)
         end = time.time()
-        print('\n---------- ONE STEP = {} ---------- {}'
+        print('\n---------- ONE STEP = {} ---------- {}\n\n'
               .format(datetime.timedelta(seconds=end-start),
                       datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
 

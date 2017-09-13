@@ -83,7 +83,7 @@ def propagation(M, adj, alpha=0.7, tol=10e-6):  # TODO equation, M, alpha
         X1 = X2
         X2 = alpha * X1.dot(A) + (1-alpha) * M
         i += 1
-        print('Propagation iteration = {}  ----- {}'.format(
+        print(' Propagation iteration = {}  ----- {}'.format(
             i, datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
     return X2
 
@@ -237,9 +237,8 @@ def calcul_final_influence(M, adj, result_folder, influence_weight='min',
             final_influence = final_influence_data['final_influence_min']
         else:
             final_influence = final_influence_data['final_influence_max']
-        print('final influence matrix', type(final_influence), final_influence.shape)
-        print('***** Same parameters file of FINAL INFLUENCE already exists ***** {}'
-              .format(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
+        # print('final influence matrix', type(final_influence), final_influence.shape)
+        print(' **** Same parameters file of FINAL INFLUENCE already exists')
 
     else:
         if compute:
@@ -250,8 +249,7 @@ def calcul_final_influence(M, adj, result_folder, influence_weight='min',
             if existance_same_influence:
                 influence_data = loadmat(influence_distance_file)
                 influence = influence_data['influence_distance']
-                print('***** Same parameters file of INFLUENCE DISTANCE already exists ***** {}'
-                      .format(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
+                print(' **** Same parameters file of INFLUENCE DISTANCE already exists')
             else:
                 print(' ==== Diffusion over PPI network (it can take approximately 10 min) ==== ')
                 influence = propagation(M, adj, alpha, tol)

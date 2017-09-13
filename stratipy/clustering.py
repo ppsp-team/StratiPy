@@ -282,8 +282,7 @@ def bootstrap(result_folder, mut_type, mut_propag, ppi_final,
         bootstrap_data = loadmat(boot_file)
         genes_clustering = bootstrap_data['genes_clustering']
         patients_clustering = bootstrap_data['patients_clustering']
-        print(' ***** Same parameters file of bootstrap already exists ***** {}'
-              .format(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
+        print(' **** Same parameters file of bootstrap already exists')
 
     else:
         if run_bootstrap:
@@ -385,8 +384,7 @@ def consensus_clustering(result_folder, genes_clustering, patients_clustering,
         consensus_data = loadmat(consensus_file)
         distance_genes = consensus_data['distance_genes']
         distance_patients = consensus_data['distance_patients']
-        print(' ***** Same parameters file of consensus clustering already exists ***** {}'
-              .format(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
+        print(' **** Same parameters file of consensus clustering already exists')
     else:
         if run_consensus:
             # start = time.time()
