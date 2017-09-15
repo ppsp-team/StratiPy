@@ -174,7 +174,7 @@ def all_functions(params):
             keep_singletons, min_mutation, max_mutation)
 
         mut_type, mut_propag = filtering_diffusion.propagation_profile(
-            mut_final, ppi_filt, alpha, tol, qn)
+            mut_final, ppi_filt, result_folder, alpha, tol, qn)
 
         # ------------ clustering.py ------------
         print("\n------------ clustering.py ------------ {}"

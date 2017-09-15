@@ -218,12 +218,12 @@ def calcul_final_influence(M, adj, result_folder, influence_weight='min',
     influence_distance_directory = result_folder + 'influence_distance/'
     influence_distance_file = (
         influence_distance_directory +
-        'influence_distance_alpha={}_tol={}.mat'.format(alpha, tol))
+        'influence_distance_PPI_alpha={}_tol={}.mat'.format(alpha, tol))
     #######
     final_influence_directory = result_folder + 'final_influence/'
     final_influence_file = (
         final_influence_directory +
-        'final_influence_simp={}_alpha={}_tol={}.mat'.format(
+        'final_influence_PPI_simp={}_alpha={}_tol={}.mat'.format(
             simplification, alpha, tol))
     #######
 
@@ -249,7 +249,7 @@ def calcul_final_influence(M, adj, result_folder, influence_weight='min',
             if existance_same_influence:
                 influence_data = loadmat(influence_distance_file)
                 influence = influence_data['influence_distance']
-                print(' **** Same parameters file of INFLUENCE DISTANCE already exists')
+                print(' **** Same parameters file of INFLUENCE DISTANCE on PPI network already exists')
             else:
                 print(' ==== Diffusion over PPI network (it can take approximately 10 min) ==== ')
                 influence = propagation(M, adj, alpha, tol)
@@ -475,39 +475,41 @@ def quantile_norm_median(anarray):
 
 
 # @profile
-def propagation_profile(mut_raw, adj, alpha, tol, qn):
-        #  TODO error messages
-        start = time.time()
-        if alpha > 0:
-            # TODO verification of same parameter file
+def propagation_profile(mut_raw, adj, result_folder, alpha, tol, qn):
+    #  TODO error messages
+    if qn == None:
+        if alpha == 0:
+            mut_type = 'raw'
+            mut_propag = mut_raw.todense()
+        else:
+            mut_type = 'diff'
+    else:
+        mut_type = qn + '_qn'
+
+    final_influence_mutation_directory = result_folder + 'final_influence/'
+    final_influence_mutation_file = (
+        final_influence_mutation_directory +
+        'final_influence_mutation_profile_{}_alpha={}_tol={}.mat'.format(
+            mut_type, alpha, tol))
+
+    if alpha != 0:
+        existance_same_param = os.path.exists(final_influence_mutation_file)
+        if existance_same_param:
+            final_influence_data = loadmat(final_influence_mutation_file)
+            mut_propag = final_influence_data['mut_propag']
+            print(' **** Same parameters file of FINAL INFLUENCE on Mutation Profile already exists')
+
+        else:
             print(' ==== Diffusion over mutation profile ==== ')
             mut_propag = propagation(mut_raw, adj, alpha, tol).todense()
             mut_propag[np.isnan(mut_propag)] = 0
             if qn == 'mean':
-                mut_type = 'mean_qn'
                 mut_propag = quantile_norm_mean(mut_propag)
             elif qn == 'median':
-                mut_type = 'median_qn'
                 mut_propag = quantile_norm_median(mut_propag)
-            else:
-                mut_type = 'diff'
 
-            end = time.time()
-            # print("---------- Propagation on {} mutation profile = {} ---------- {}"
-            #       .format(mut_type,
-            #               datetime.timedelta(seconds=end-start),
-            #               datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
+            savemat(final_influence_mutation_file,
+                    {'mut_propag': mut_propag,
+                     'alpha': alpha}, do_compression=True)
 
-            return mut_type, mut_propag
-
-        else:
-            mut_type = 'raw'
-            mut_raw = mut_raw.todense()
-
-            end = time.time()
-            # print("---------- Propagation on {} mutation profile = {} ---------- {}"
-            #       .format(mut_type,
-            #               datetime.timedelta(seconds=end-start),
-            #               datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
-
-            return mut_type, mut_raw
+        return mut_type, mut_propag
