@@ -481,6 +481,7 @@ def propagation_profile(mut_raw, adj, result_folder, alpha, tol, qn):
         if alpha == 0:
             mut_type = 'raw'
             mut_propag = mut_raw.todense()
+            return mut_type, mut_propag
         else:
             mut_type = 'diff'
     else:
@@ -511,5 +512,4 @@ def propagation_profile(mut_raw, adj, result_folder, alpha, tol, qn):
             savemat(final_influence_mutation_file,
                     {'mut_propag': mut_propag,
                      'alpha': alpha}, do_compression=True)
-
         return mut_type, mut_propag
