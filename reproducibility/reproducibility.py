@@ -5,6 +5,7 @@ import os
 # import os.path
 sys.path.append('../stratipy')
 import load_data, formatting_data, filtering_diffusion, clustering, hierarchical_clustering
+import confusion_matrices
 import scipy.sparse as sp
 from scipy.io import loadmat, savemat
 import numpy as np
@@ -111,7 +112,7 @@ param_grid = {'data_folder': ['../data/'],
               'keep_singletons': [False],
               'min_mutation': [10],
               'max_mutation': [200000],
-              'qn': ['mean'],
+              'qn': ["mean"],
               'n_components': [3],
               'n_permutations': [100],
             #   'n_permutations': [100, 1000],
@@ -134,11 +135,10 @@ def all_functions(params):
 
     else:
         result_folder = 'reproducibility_data/' + 'result_' + patient_data + '_' + ppi_data + '/'
-        print('\n######################## START ########################')
+        print('\n######################## Starting StratiPy ########################')
         print("\nGraph regulator factor (lambda) =", lambd)
         print("Permutation number of bootstrap =", n_permutations)
 
-        # ------------ load_data.py ------------
         print("\n------------ load_data.py ------------ {}"
               .format(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
         (patient_id, mutation_profile, gene_id_patient,
@@ -147,7 +147,6 @@ def all_functions(params):
 
         gene_id_ppi, network = load_data.load_PPI_String(data_folder, ppi_data)
 
-        # ------------ formatting_data.py ------------
         print("\n------------ formatting_data.py ------------ {}"
               .format(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
         (network, mutation_profile,
@@ -160,7 +159,6 @@ def all_functions(params):
                 network, idx_ppi, idx_mut, idx_ppi_only, idx_mut_only,
                 mutation_profile))
 
-        # ------------ filtering_diffusion.py ------------
         print("\n------------ filtering_diffusion.py ------------ {}"
               .format(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
         final_influence = (
@@ -195,11 +193,6 @@ def all_functions(params):
         # ------------ hierarchical_clustering.py ------------
         print("\n------------ hierarchical_clustering.py ------------ {}"
               .format(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
-        # hierarchical_clustering.distance_matrix(
-        #     hierarchical_factorization_directory, distance_patients, ppi_data,
-        #     mut_type,
-        #     alpha, tol,  keep_singletons, ngh_max, min_mutation, max_mutation,
-        #     n_components, n_permutations, lambd, tol_nmf, linkage_method)
         hierarchical_clustering.distance_patients_from_consensus_file(
             result_folder, distance_patients, ppi_data, mut_type,
             influence_weight, simplification, alpha, tol,  keep_singletons,
@@ -219,11 +212,22 @@ else:
             exec("%s = %s" % (i, 'params[i]'))
         all_functions(params)
         end = time.time()
-        print('\n---------- ONE STEP = {} ---------- {}\n\n'
+        print('\n---------- ONE STEP of StratiPy = {} ---------- {}\n\n'
               .format(datetime.timedelta(seconds=end-start),
                       datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
 
     end_all = time.time()
-    print('\n---------- ALL = {} ---------- {}'
+    print('\n---------- ALL = {} ---------- {}\n\n'
           .format(datetime.timedelta(seconds = end_all - start_all),
                   datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
+
+
+
+print('\n\n######################## Starting Confusion Matrices ########################')
+
+result_folder = 'reproducibility_data/'
+
+print("\n------------ confusion_matrices.py ------------ {}"
+      .format(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
+
+confusion_matrices.reproducibility_confusion_matrices('lambda=1', 'lambda=1800')
