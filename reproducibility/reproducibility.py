@@ -3,9 +3,9 @@
 import sys
 import os
 # import os.path
+import confusion_matrices
 sys.path.append('../stratipy')
 import load_data, formatting_data, filtering_diffusion, clustering, hierarchical_clustering
-import confusion_matrices
 import scipy.sparse as sp
 from scipy.io import loadmat, savemat
 import numpy as np
