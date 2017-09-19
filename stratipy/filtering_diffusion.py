@@ -1,13 +1,10 @@
-#!/usr/bin/env python
-# coding: utf-8
 import sys
 import numpy as np
 import scipy.sparse as sp
 from scipy.sparse.linalg import norm
 from scipy.io import loadmat, savemat
-from nbs_class import Ppi, Patient
+from stratipy.nbs_class import Ppi, Patient
 from subprocess import call
-# import h5py
 import os
 import glob
 import time

@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
 from scipy.cluster.hierarchy import linkage, dendrogram, fcluster, cophenet
 from scipy.spatial.distance import pdist
 import sys
@@ -12,7 +10,6 @@ import time
 import datetime
 import os
 import glob
-# import pylab
 import matplotlib
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm

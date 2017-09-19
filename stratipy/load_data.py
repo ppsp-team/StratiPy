@@ -1,14 +1,11 @@
-#!/usr/bin/env python
-# coding: utf-8
 import sys
-sys.path.append('stratipy')
 import os
 from scipy.io import loadmat, savemat
 import scipy.sparse as sp
 import numpy as np
 import pandas as pd
 from numpy import genfromtxt
-from nbs_class import Ppi
+from stratipy.nbs_class import Ppi
 
 # NOTE some variable names changed:
 # dataFolder -> data_folder

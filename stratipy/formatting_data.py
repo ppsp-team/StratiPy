@@ -1,10 +1,7 @@
-#!/usr/bin/env python
-# coding: utf-8
 import sys
-sys.path.append('stratipy')
 import scipy.sparse as sp
 import numpy as np
-from nbs_class import Ppi
+from stratipy.nbs_class import Ppi
 import warnings
 
 def check_sparsity(X):
