@@ -7,4 +7,4 @@ ADD ./stratipy /stratipy
 ADD ./data /data
 ADD ./reproducibility /reproducibility
 WORKDIR /reproducibility
-CMD ["python", "reproducibility/reproducibility.py"]
+CMD ["python", "reproducibility.py"]
