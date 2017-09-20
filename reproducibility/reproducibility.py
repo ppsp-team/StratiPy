@@ -2,9 +2,8 @@
 # coding: utf-8
 import sys
 import os
-# import os.path
-import reproducibility.confusion_matrices
-sys.path.append(os.path.abspath('../../stratipy'))
+import confusion_matrices
+sys.path.append(os.path.dirname(os.path.abspath('.')))
 from stratipy import load_data, formatting_data, filtering_diffusion, clustering, hierarchical_clustering
 import scipy.sparse as sp
 from scipy.io import loadmat, savemat
