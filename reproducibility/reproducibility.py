@@ -3,7 +3,7 @@
 import sys
 import os
 # import os.path
-import confusion_matrices
+import reproducibility.confusion_matrices
 sys.path.append(os.path.abspath('../../stratipy'))
 from stratipy import load_data, formatting_data, filtering_diffusion, clustering, hierarchical_clustering
 import scipy.sparse as sp
@@ -230,4 +230,4 @@ result_folder = 'reproducibility_data/'
 print("\n------------ confusion_matrices.py ------------ {}"
       .format(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
 
-confusion_matrices.reproducibility_confusion_matrices('lambda=1', 'lambda=1800')
+reproducibility.confusion_matrices.reproducibility_confusion_matrices('lambda=1', 'lambda=1800')
