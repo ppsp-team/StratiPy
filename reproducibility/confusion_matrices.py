@@ -19,7 +19,7 @@ def replace_list_element(l, before, after):
     return l
 
 
-def loading_hierarchical_clustering_data():
+def loading_hierarchical_clustering_data(result_folder_repro):
     print(" ==== loading Hierarchical clustering data ")
     result_folder_repro = 'reproducibility_data/'
 
@@ -60,7 +60,7 @@ def loading_hierarchical_clustering_data():
     return conf_lamb1, conf_lamb1800
 
 
-def plot_confusion_matrix(M, plot_title, param_value):
+def plot_confusion_matrix(result_folder_repro, M, plot_title, param_value):
     norm_conf = []
     for i in M:
         a = 0
@@ -97,15 +97,18 @@ def plot_confusion_matrix(M, plot_title, param_value):
     plt.xlabel('Subgroups')
     plt.title(plot_title + '\n\n' + param_value, fontsize=14, y=1.3)
 
-    plt.savefig('confusion_matrix_' + param_value + '.pdf', bbox_inches='tight')
+    plot_name = 'confusion_matrix_' + param_value
+    plt.savefig('{}{}.pdf'.format(result_folder_repro, plot_name),
+                bbox_inches='tight')
 
 
-def reproducibility_confusion_matrices(param_val1, param_val2):
-    conf_lamb1, conf_lamb1800 = loading_hierarchical_clustering_data()
+def reproducibility_confusion_matrices(result_folder_repro, param_val1, param_val2):
+    conf_lamb1, conf_lamb1800 = loading_hierarchical_clustering_data(
+        result_folder_repro)
     print(" ==== plotting and saving Confusion matrices ")
-    plot_confusion_matrix(conf_lamb1,
+    plot_confusion_matrix(result_folder_repro, conf_lamb1,
                            'Confusion matrix\nwith reported tuning parameter value',
                            param_val1)
-    plot_confusion_matrix(conf_lamb1800,
+    plot_confusion_matrix(result_folder_repro, conf_lamb1800,
                            'Confusion matrix\nwith actually used tuning parameter value',
                            param_val2)
