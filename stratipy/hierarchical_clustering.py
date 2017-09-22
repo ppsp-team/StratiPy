@@ -60,7 +60,8 @@ def distance_patients_from_consensus_file(
         # Plot setting
         matplotlib.rcParams.update({'font.size': 14})
         fig = plt.figure(figsize=(20, 20))
-        fig.suptitle('Hierarchical clustering\n\nPatients', fontsize=30, x=0.13, y=0.95)
+        fig.suptitle(
+            'Hierarchical clustering\n\nPatients', fontsize=30, x=0.13, y=0.95)
 
         # Compute and plot dendrogram
         ax_dendro = fig.add_axes([0, 0.71, 0.6, 0.15])
@@ -82,7 +83,8 @@ def distance_patients_from_consensus_file(
         plt.colorbar(im, cax=ax_color)
 
         # forms flat clusters from Z
-        clust_nb = fcluster(Z, n_components, criterion='maxclust') # given k -> maxclust
+        # given k -> maxclust
+        clust_nb = fcluster(Z, n_components, criterion='maxclust')
         # cophenetic correlation distance
         coph_dist, coph_matrix = cophenet(Z, pdist(distance_patients))
         print(' cophenetic correlation distance = ', coph_dist)
@@ -99,10 +101,10 @@ def distance_patients_from_consensus_file(
             .format(alpha, tol, keep_singletons, ngh_max, min_mutation,
                     max_mutation, n_components, n_permutations, lambd, tol_nmf,
                     linkage_method))
-        plt.savefig('{}{}.pdf'.format(hierarchical_factorization_directory, plot_name),
-                    bbox_inches='tight')
-        plt.savefig('{}{}.svg'.format(hierarchical_factorization_directory, plot_name),
-                    bbox_inches='tight')
+        plt.savefig('{}{}.pdf'.format(hierarchical_factorization_directory,
+                                      plot_name), bbox_inches='tight')
+        plt.savefig('{}{}.svg'.format(hierarchical_factorization_directory,
+                                      plot_name), bbox_inches='tight')
 
         # start = time.time()
         savemat(hierarchical_clustering_file,
