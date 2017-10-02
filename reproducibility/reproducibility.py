@@ -2,8 +2,9 @@
 # coding: utf-8
 import sys
 import time
-import confusion_matrices
+from confusion_matrices import get_cluster_idx, repro_confusion_matrix
 from nbs_functions import all_functions
+from confusion_matrices import get_cluster_idx, repro_confusion_matrix
 from sklearn.model_selection import ParameterGrid
 import datetime
 
@@ -119,13 +120,10 @@ param_grid = {'data_folder': ['../data/'],
               }
 
 start_all = time.time()
+
 for params in list(ParameterGrid(param_grid)):
-    start = time.time()
     all_functions(**params)
-    end = time.time()
-    print('\n---------- ONE STEP of StratiPy = {} ---------- {}\n\n'
-          .format(datetime.timedelta(seconds=end-start),
-                  datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
+
 end_all = time.time()
 print('\n---------- ALL = {} ---------- {}\n\n'
       .format(datetime.timedelta(seconds=end_all - start_all),
@@ -137,5 +135,21 @@ print('\n\n######################## Starting Confusion Matrices ################
 print("\n------------ confusion_matrices.py ------------ {}"
       .format(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
 
-confusion_matrices.reproducibility_confusion_matrices('reproducibility_data/',
-                                                      'lambda=1', 'lambda=1800')
+result_folder_repro = 'reproducibility_data/'
+
+nbs_100 = get_cluster_idx(result_folder_repro, method='nbs',
+                          n_permutations=100)
+stp_100_lamb1 = get_cluster_idx(result_folder_repro, method='stratipy',
+                                n_permutations=100, lambd=1)
+stp_100_lamb1800 = get_cluster_idx(result_folder_repro, method='stratipy',
+                                   n_permutations=100, lambd=1800)
+
+repro_confusion_matrix(result_folder_repro, nbs_100, stp_100_lamb1,
+                       'Confusion matrix\nwith reported tuning parameter value',
+                       'lambda=1')
+repro_confusion_matrix(result_folder_repro, nbs_100, stp_100_lamb1800,
+                       'Confusion matrix\nwith actually used tuning parameter value',
+                       'lambda=1800')
+#
+# confusion_matrices.reproducibility_confusion_matrices('reproducibility_data/',
+#                                                       'lambda=1', 'lambda=1800')

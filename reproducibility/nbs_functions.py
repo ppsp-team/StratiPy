@@ -20,6 +20,7 @@ def all_functions(data_folder, patient_data, ppi_data, influence_weight, simplif
         raise "Must be using Python ≥ 3.2"
 
     else:
+        start = time.time()
         if alpha == 0 and qn is not None:
             print('######################## PASS ########################')
             pass
@@ -96,3 +97,8 @@ def all_functions(data_folder, patient_data, ppi_data, influence_weight, simplif
                 influence_weight, simplification, alpha, tol,  keep_singletons,
                 ngh_max, min_mutation, max_mutation, n_components,
                 n_permutations, lambd, tol_nmf, linkage_method)
+
+            end = time.time()
+            print('\n------------ END: One Step of StratiPy = {} ------------ {}\n\n'
+                  .format(datetime.timedelta(seconds=end-start),
+                          datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
