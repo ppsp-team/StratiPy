@@ -19,7 +19,8 @@ def replace_list_element(l, before, after):
     return l
 
 
-def get_cluster_idx(result_folder_repro, method, n_permutations, **kwargs):
+def get_cluster_idx(result_folder_repro, method, n_permutations, replace=False,
+                    **kwargs):
     # NBS (Hofree) data
     if method == "nbs":
         data = loadmat(result_folder_repro + 'results_NBS_Hofree_{}.mat'
@@ -33,6 +34,9 @@ def get_cluster_idx(result_folder_repro, method, n_permutations, **kwargs):
                     .format(n_permutations, lambd))
         data = loadmat(result_folder_repro + filename)
         cluster_idx = list(data['flat_cluster_number'][0])
+        replace = True
+
+    if replace:
         # Cooridnate Stratipy's cluster index with Hofree's cluster index
         # clust(Hofree) 2(1) <-> clust(Stratipy) 1(2)
         cluster_idx = replace_list_element(cluster_idx, 2, 0) # 2 -> 0
@@ -41,7 +45,7 @@ def get_cluster_idx(result_folder_repro, method, n_permutations, **kwargs):
 
     return cluster_idx
 
-# 
+#
 # def loading_hierarchical_clustering_data_lamb1_1800(result_folder_repro):
 #     print(" ==== loading Hierarchical clustering data ")
 #     # # Hofree's result --- 100 permutations of bootstrap
@@ -118,7 +122,7 @@ def plot_confusion_matrix(result_folder_repro, M, plot_title, param_value):
     plt.xlabel('Subgroups')
     plt.title(plot_title + '\n\n' + param_value, fontsize=14, y=1.3)
 
-    plot_name = 'confusion_matrix_' + param_value
+    plot_name = 'confusion_matrix_' + param_value.replace(" ", "")
     plt.savefig('{}{}.pdf'.format(result_folder_repro, plot_name),
                 bbox_inches='tight')
 

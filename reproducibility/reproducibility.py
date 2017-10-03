@@ -146,10 +146,10 @@ stp_100_lamb1800 = get_cluster_idx(result_folder_repro, method='stratipy',
 
 repro_confusion_matrix(result_folder_repro, nbs_100, stp_100_lamb1,
                        'Confusion matrix\nwith reported tuning parameter value',
-                       'lambda=1')
+                       'lambda = 1')
 repro_confusion_matrix(result_folder_repro, nbs_100, stp_100_lamb1800,
                        'Confusion matrix\nwith actually used tuning parameter value',
-                       'lambda=1800')
+                       'lambda = 1800')
 #
 # confusion_matrices.reproducibility_confusion_matrices('reproducibility_data/',
 #                                                       'lambda=1', 'lambda=1800')
