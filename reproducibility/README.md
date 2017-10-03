@@ -3,9 +3,13 @@ To reproduce the figure 3 of our paper about reproducibility in bioinformatics (
 1. Follow the Jupyter Notebook [reproducibility.ipynb](reproducibility.ipynb)
 2. Build & run the [Docker](http://docker.com) container with:
 ```
-~$ docker build -t nbs .
-~$ docker run nbs
+~$ docker build -t repro .
+~$ docker run repro
 ```
+**For Windows or Mac users:** total runtime memory of Docker is fixed to 2 GB by default. In order to launch this project, you have to increase this limit (approximately 5 GB):
+- [Windows setting](https://docs.docker.com/docker-for-windows/#advanced)
+- [Mac setting](https://docs.docker.com/docker-for-mac/#cpus)
+
 
 ## Output
 You will obtain confusion matrices which compare the original (achieved by the original MATLAB code) and replicated results.
