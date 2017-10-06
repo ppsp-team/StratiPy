@@ -125,7 +125,7 @@ for params in list(ParameterGrid(param_grid)):
     all_functions(**params)
 
 end_all = time.time()
-print('\n---------- ALL = {} ---------- {}\n\n'
+print('\n---------- ALL = {} ---------- {}'
       .format(datetime.timedelta(seconds=end_all - start_all),
               datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
 
@@ -150,6 +150,5 @@ repro_confusion_matrix(result_folder_repro, nbs_100, stp_100_lamb1,
 repro_confusion_matrix(result_folder_repro, nbs_100, stp_100_lamb1800,
                        'Confusion matrix\nwith actually used tuning parameter value',
                        'lambda = 1800')
-#
-# confusion_matrices.reproducibility_confusion_matrices('reproducibility_data/',
-#                                                       'lambda=1', 'lambda=1800')
+
+print('\n######################## FINISHED ########################')
