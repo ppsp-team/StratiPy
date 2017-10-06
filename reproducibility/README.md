@@ -3,10 +3,11 @@ To reproduce the figure 3 of our paper about reproducibility in bioinformatics (
 1. Follow the Jupyter Notebook [reproducibility.ipynb](reproducibility.ipynb)
 2. Build & run the [Docker](http://docker.com) container with:
 ```
+~$ mkdir <your_output_folder>
 ~$ docker build -t repro .
-~$ docker run repro
+~$ docker run -v /absolute/path/of/<your_output_folder>:/reproducibility/reproducibility_data repro
 ```
-**For Windows or Mac users:** total runtime memory of Docker is fixed to 2 GB by default. In order to launch this project, you have to increase this limit (approximately 5 GB):
+**For Windows or Mac users:** total runtime memory of Docker is fixed to 2 GB by default. In order to launch this project, you have to increase this limit (approximately 7 GB):
 - [Windows setting](https://docs.docker.com/docker-for-windows/#advanced)
 - [Mac setting](https://docs.docker.com/docker-for-mac/#cpus)
 
@@ -30,7 +31,7 @@ Details about each parameter are explained in docstring of [reproducibility.py](
     - 4 types of cancer data provided by [TCGA](https://cancergenome.nih.gov/). Here we only work on uterine endometrial carcinoma (uterine cancer) with 248 patients' somatic mutation data.
     - 3 types of Protein-Protein Interaction (PPI) networks. Here we only utilize [STRING database](https://string-db.org/).
 - [data](../data/) folder includes input and output data such as mutation profiles, PPI networks, similarity matrices, etc...
-- In this case study, the code will take general input data from [data](../data/) folder but output will be placed in the specific [reproducibility data](reproducibility_data/). Original MATLAB results (100 and 1000 permutations of bootstrap) are also in reproducibility data folder.
+- In this case study, the code will take general input data from [data](../data/) folder but output will be placed in the specific [reproducibility data](reproducibility_data/) in Jupyter Notebook case. When you launch with Docker, you will create a linked output folder. Original MATLAB results (100 and 1000 permutations of bootstrap) are also in reproducibility data folder.
 - Result's filename will be constituted by parameters' value. If there is same filename, the code will not create new file. If you want to create a new one, you have to remove previous file from the specific [reproducibility data](reproducibility_data/).
 
 
