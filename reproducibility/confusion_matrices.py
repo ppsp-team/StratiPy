@@ -23,7 +23,7 @@ def get_cluster_idx(result_folder_repro, method, n_permutations, replace=False,
                     **kwargs):
     # NBS (Hofree) data
     if method == "nbs":
-        data = loadmat(result_folder_repro + 'results_NBS_Hofree_{}.mat'
+        data = loadmat('../data/results_NBS_Hofree_{}.mat'
                        .format(n_permutations))
         cluster_idx = data['NBS_cc_label'].squeeze().tolist()
 
