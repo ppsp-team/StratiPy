@@ -26,7 +26,7 @@ def all_functions(data_folder, patient_data, ppi_data, influence_weight, simplif
             pass
 
         else:
-            result_folder = 'reproducibility_data/' + 'result_' + patient_data + '_' + ppi_data + '/'
+            result_folder = 'reproducibility_output/' + 'result_' + patient_data + '_' + ppi_data + '/'
             print('\n######################## Starting StratiPy ########################')
             print("\nGraph regulator factor (lambda) =", lambd)
             print("Permutation number of bootstrap =", n_permutations)
