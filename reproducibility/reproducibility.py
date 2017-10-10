@@ -135,7 +135,7 @@ print('\n\n######################## Starting Confusion Matrices ################
 print("\n------------ confusion_matrices.py ------------ {}"
       .format(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
 
-result_folder_repro = 'reproducibility_data/'
+result_folder_repro = 'reproducibility_output/'
 
 nbs_100 = get_cluster_idx(result_folder_repro, method='nbs',
                           n_permutations=100)
