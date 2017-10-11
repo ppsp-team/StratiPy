@@ -11,6 +11,9 @@ import time, datetime
 
 # NOTE sys.stdout.flush()
 
+# Reproducibility
+np.random.seed(42)
+
 # @profile
 def all_functions(data_folder, patient_data, ppi_data, influence_weight, simplification,
                  compute, overwrite, alpha, tol, ngh_max, keep_singletons, min_mutation,
