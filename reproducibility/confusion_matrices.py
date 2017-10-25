@@ -19,8 +19,8 @@ def replace_list_element(l, before, after):
     return l
 
 
-def get_cluster_idx(result_folder_repro, method, n_permutations, replace=False,
-                    **kwargs):
+def get_cluster_idx(result_folder_repro, method, n_permutations, replace_1by2=False,
+                    replace_1by2_2by3_3by1=False, **kwargs):
     # NBS (Hofree) data
     if method == "nbs":
         data = loadmat('../data/results_NBS_Hofree_{}.mat'
@@ -28,20 +28,25 @@ def get_cluster_idx(result_folder_repro, method, n_permutations, replace=False,
         cluster_idx = data['NBS_cc_label'].squeeze().tolist()
 
     # StratiPy data
-    else:
+    elif method == "stratipy":
         lambd = kwargs['lambd']
         filename = ('result_TCGA_UCEC_STRING/hierarchical_clustering/mean_qn/gnmf/hierarchical_clustering_Patients_weight=min_simp=True_alpha=0.7_tol=0.01_singletons=False_ngh=11_minMut=10_maxMut=200000_comp=3_permut={}_lambd={}_tolNMF=0.001_method=average.mat'
                     .format(n_permutations, lambd))
         data = loadmat(result_folder_repro + filename)
         cluster_idx = list(data['flat_cluster_number'][0])
-        replace = True
 
-    if replace:
-        # Cooridnate Stratipy's cluster index with Hofree's cluster index
+    # Cooridnate Stratipy's cluster index with Hofree's cluster index
+    if replace_1by2:
         # clust(Hofree) 2(1) <-> clust(Stratipy) 1(2)
         cluster_idx = replace_list_element(cluster_idx, 2, 0) # 2 -> 0
         cluster_idx = replace_list_element(cluster_idx, 1, 2) # 1 -> 2
-        cluster_idx = replace_list_element(cluster_idx, 0, 1) # 0 -> 2
+        cluster_idx = replace_list_element(cluster_idx, 0, 1) # 0 -> 1
+
+    elif replace_1by2_2by3_3by1:
+        cluster_idx = replace_list_element(cluster_idx, 3, 0)
+        cluster_idx = replace_list_element(cluster_idx, 2, 3)
+        cluster_idx = replace_list_element(cluster_idx, 1, 2)
+        cluster_idx = replace_list_element(cluster_idx, 0, 1)
 
     return cluster_idx
 
@@ -80,7 +85,7 @@ def plot_confusion_matrix(result_folder_repro, M, plot_title, param_value):
     ax.xaxis.set_label_position('top')
     plt.yticks(range(height), alphabet[:height])
 
-    plt.xlabel('Subgroups')
+    plt.xlabel('Subgroups\n')
     plt.title(plot_title + '\n\n' + param_value, fontsize=14, y=1.3)
 
     plot_name = 'confusion_matrix_' + param_value.replace(" ", "")

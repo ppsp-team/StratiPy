@@ -140,9 +140,9 @@ result_folder_repro = 'reproducibility_output/'
 nbs_100 = get_cluster_idx(result_folder_repro, method='nbs',
                           n_permutations=100)
 stp_100_lamb1 = get_cluster_idx(result_folder_repro, method='stratipy',
-                                n_permutations=100, lambd=1)
+                                n_permutations=100, replace_1by2=True, lambd=1)
 stp_100_lamb1800 = get_cluster_idx(result_folder_repro, method='stratipy',
-                                   n_permutations=100, lambd=1800)
+                                   n_permutations=100, replace_1by2_2by3_3by1=True, lambd=1800)
 
 repro_confusion_matrix(result_folder_repro, nbs_100, stp_100_lamb1,
                        'Confusion matrix\nwith reported tuning parameter value',
