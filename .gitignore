@@ -76,7 +76,6 @@ slurm-*
 # Memory Profiler test
 mprof*
 
-# memo
-NBS_ipython.py
-run*
-similarity_matrix.py
+
+# DS_Store
+*.DS_Store

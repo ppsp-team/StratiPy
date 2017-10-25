@@ -1,13 +1,10 @@
-#!/usr/bin/env python
-# coding: utf-8
 import sys
 import numpy as np
 import scipy.sparse as sp
 from scipy.sparse.linalg import norm
 from scipy.io import loadmat, savemat
-from nbs_class import Ppi, Patient
+from stratipy.nbs_class import Ppi, Patient
 from subprocess import call
-# import h5py
 import os
 import glob
 import time
@@ -65,7 +62,6 @@ def propagation(M, adj, alpha=0.7, tol=10e-6):  # TODO equation, M, alpha
     X2 : sparse matrix
         Smoothed matrix.
     """
-    print(' ==== propagation ==== ')
 
     n = adj.shape[0]
     # diagonal = 1 -> degree
@@ -84,7 +80,7 @@ def propagation(M, adj, alpha=0.7, tol=10e-6):  # TODO equation, M, alpha
         X1 = X2
         X2 = alpha * X1.dot(A) + (1-alpha) * M
         i += 1
-        print('Propagation iteration = {}  ----- {}'.format(
+        print(' Propagation iteration = {}  ----- {}'.format(
             i, datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
     return X2
 
@@ -112,6 +108,12 @@ def compare_ij_ji(ppi, out_min=True, out_max=True):
     -------
     ppi_min, ppi_max : sparse matrix
         Symmertric matrix with minimum and/or maximum weight.
+
+    Remarks
+    -------
+    This implements the algorithm described in Vandin, Upfal, Raphael:
+    Algorithms for Detecting Significantly Mutated Pathways in Cancer
+    - Journal of Computational Biology, 2010, doi: 10.1089/cmb.2010.0265
     """
     # TODO matrice type of ppi
     n = ppi.shape[0]
@@ -131,8 +133,8 @@ def compare_ij_ji(ppi, out_min=True, out_max=True):
             sp.coo_matrix.max(sp.vstack([ppi_1d, ppi_1d_transp]), axis=0))
                    ).reshape((n, n)).astype(np.float32)
 
-        print('ppi_min', type(ppi_min), ppi_min.dtype, ppi_min.shape)
-        print('ppi_max', type(ppi_max), ppi_max.dtype, ppi_max.shape)
+        # print('ppi_min', type(ppi_min), ppi_min.dtype, ppi_min.shape)
+        # print('ppi_max', type(ppi_max), ppi_max.dtype, ppi_max.shape)
         return ppi_min, ppi_max
 
     elif out_min:
@@ -213,12 +215,12 @@ def calcul_final_influence(M, adj, result_folder, influence_weight='min',
     influence_distance_directory = result_folder + 'influence_distance/'
     influence_distance_file = (
         influence_distance_directory +
-        'influence_distance_alpha={}_tol={}.mat'.format(alpha, tol))
+        'influence_distance_PPI_alpha={}_tol={}.mat'.format(alpha, tol))
     #######
     final_influence_directory = result_folder + 'final_influence/'
     final_influence_file = (
         final_influence_directory +
-        'final_influence_simp={}_alpha={}_tol={}.mat'.format(
+        'final_influence_PPI_simp={}_alpha={}_tol={}.mat'.format(
             simplification, alpha, tol))
     #######
 
@@ -232,9 +234,8 @@ def calcul_final_influence(M, adj, result_folder, influence_weight='min',
             final_influence = final_influence_data['final_influence_min']
         else:
             final_influence = final_influence_data['final_influence_max']
-        print('final influence matrix', type(final_influence), final_influence.shape)
-        print('***** Same parameters file of FINAL INFLUENCE already exists ***** {}'
-              .format(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
+        # print('final influence matrix', type(final_influence), final_influence.shape)
+        print(' **** Same parameters file of FINAL INFLUENCE already exists')
 
     else:
         if compute:
@@ -245,25 +246,25 @@ def calcul_final_influence(M, adj, result_folder, influence_weight='min',
             if existance_same_influence:
                 influence_data = loadmat(influence_distance_file)
                 influence = influence_data['influence_distance']
-                print('***** Same parameters file of INFLUENCE DISTANCE already exists ***** {}'
-                      .format(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
+                print(' **** Same parameters file of INFLUENCE DISTANCE on PPI network already exists')
             else:
+                print(' ==== Diffusion over PPI network (it can take approximately 10 min) ==== ')
                 influence = propagation(M, adj, alpha, tol)
-                print('influence', type(influence), influence.dtype)
+                # print('influence', type(influence), influence.dtype)
 
                 # save influence distance before simplification with parameters' values in filename
                 os.makedirs(influence_distance_directory, exist_ok=True)  # NOTE For Python ≥ 3.2
-                print(' ==== Start to save INFLUENCE DISTANCE ==== {}'
+                print(' Start to save INFLUENCE DISTANCE (before filtering) ----- {}'
                       .format(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
-                start_save = time.time()
+                # start_save = time.time()
                 savemat(influence_distance_file,
                         {'influence_distance': influence,
                          'alpha': alpha},
                         do_compression=True)
-                end_save = time.time()
-                print("---------- save time = {} ---------- {}"
-                      .format(datetime.timedelta(seconds=end_save - start_save),
-                              datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
+                # end_save = time.time()
+                # print("---------- save time = {} ---------- {}"
+                #       .format(datetime.timedelta(seconds=end_save - start_save),
+                #               datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
 
             # simplification: multiply by PPI adjacency matrix
             if simplification:
@@ -274,28 +275,28 @@ def calcul_final_influence(M, adj, result_folder, influence_weight='min',
                 pass
 
             # compare influence[i,j] and influence[j,i] => min/max => final influence
-            start_ij = time.time()
+            # start_ij = time.time()
             final_influence_min, final_influence_max = compare_ij_ji(
                 influence, out_min=True, out_max=True)
-            end_ij = time.time()
-            print("---------- compare ij/ji = {} ---------- {}"
-                  .format(datetime.timedelta(seconds=end_ij - start_ij),
-                          datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
+            # end_ij = time.time()
+            # print("---------- compare ij/ji = {} ---------- {}"
+            #       .format(datetime.timedelta(seconds=end_ij - start_ij),
+            #               datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
 
             # save final influence with parameters' values in filename
             os.makedirs(final_influence_directory, exist_ok=True)
 
-            print(' ==== Start to save FINAL INFLUENCE ==== {}'
+            print(' Start to save FINAL INFLUENCE (after filtering) ----- {}'
                   .format(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
-            start_save = time.time()
+            # start_save = time.time()
             savemat(final_influence_file,
                     {'final_influence_min': final_influence_min,
                      'final_influence_max': final_influence_max,
                      'alpha': alpha}, do_compression=True)
-            end_save = time.time()
-            print("---------- save time = {} ---------- {}"
-                  .format(datetime.timedelta(seconds=end_save - start_save),
-                          datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
+            # end_save = time.time()
+            # print("---------- save time = {} ---------- {}"
+            #       .format(datetime.timedelta(seconds=end_save - start_save),
+            #               datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
 
             if influence_weight == 'min':
                 final_influence = final_influence_min
@@ -303,9 +304,9 @@ def calcul_final_influence(M, adj, result_folder, influence_weight='min',
                 final_influence = final_influence_max
 
             end = time.time()
-            print("---------- Influence = {} ---------- {}"
-                  .format(datetime.timedelta(seconds=end-start),
-                          datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
+            # print("---------- Influence = {} ---------- {}"
+            #       .format(datetime.timedelta(seconds=end-start),
+            #               datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
 
         # take most recent file
         else:
@@ -346,17 +347,17 @@ def best_neighboors(ppi_filt, final_influence, ngh_max):
     """
     ngh_max = ngh_max + 1  # central protein included
     final_influence = final_influence.todense()
-    print(type(final_influence))
+    # print(type(final_influence))
     ppi_filt = ppi_filt.todense()
     ppi_ngh = np.zeros(ppi_filt.shape, dtype=np.float32)
-    print('ppi_ngh', ppi_ngh.shape)
+    # print('ppi_ngh', ppi_ngh.shape)
     for i in range(ppi_filt.shape[0]):
         best_influencers = np.argpartition(-final_influence[i, :], ngh_max)[:ngh_max]
         #NOTE different result if same value exists several times
         # best_influencers2 = np.argpartition(final_influence[i, :], -ngh_max)[-ngh_max:]
         ppi_ngh[i, best_influencers] = ppi_filt[i, best_influencers]
     ppi_ngh = np.max(np.dstack((ppi_ngh, ppi_ngh.T)), axis=2)
-    print('ppi_ngh ', ppi_ngh.dtype)
+    # print('ppi_ngh ', ppi_ngh.dtype)
     # too stringent if np.min
     return sp.csc_matrix(ppi_ngh)
 
@@ -409,7 +410,7 @@ def filter_ppi_patients(ppi_total, mut_total, ppi_filt, final_influence, ngh_max
     # final_influence = index_to_sym_matrix(n, final_influence)
 
     ppi_ngh = best_neighboors(ppi_filt, final_influence, ngh_max)
-    print('ppi_ngh ', ppi_ngh.dtype)
+    # print('ppi_ngh ', ppi_ngh.dtype)
     deg0 = Ppi(ppi_total).deg == 0  # True if protein degree = 0
 
     if keep_singletons:
@@ -431,10 +432,10 @@ def filter_ppi_patients(ppi_total, mut_total, ppi_filt, final_influence, ngh_max
     mut_final = mut_final[np.array([min_mutation < k < max_mutation for k in
                                     Patient(mut_final).mut_per_patient])]
 
-    print("Removing %i patients with less than %i or more than %i mutations" %
+    print(" Removing %i patients with less than %i or more than %i mutations" %
           (mut_total.shape[0]-mut_final.shape[0], min_mutation, max_mutation))
-    print("New adjacency matrix:", ppi_final.shape)
-    print("New mutation profile matrix:", mut_final.shape)
+    # print("New adjacency matrix:", ppi_final.shape)
+    # print("New mutation profile matrix:", mut_final.shape)
 
     return ppi_final, mut_final
 
@@ -471,38 +472,41 @@ def quantile_norm_median(anarray):
 
 
 # @profile
-def propagation_profile(mut_raw, adj, alpha, tol, qn):
-        #  TODO error messages
-        start = time.time()
-        if alpha > 0:
-            # TODO verification of same parameter file
+def propagation_profile(mut_raw, adj, result_folder, alpha, tol, qn):
+    #  TODO error messages
+    if qn == None:
+        if alpha == 0:
+            mut_type = 'raw'
+            mut_propag = mut_raw.todense()
+            return mut_type, mut_propag
+        else:
+            mut_type = 'diff'
+    else:
+        mut_type = qn + '_qn'
+
+    final_influence_mutation_directory = result_folder + 'final_influence/'
+    final_influence_mutation_file = (
+        final_influence_mutation_directory +
+        'final_influence_mutation_profile_{}_alpha={}_tol={}.mat'.format(
+            mut_type, alpha, tol))
+
+    if alpha != 0:
+        existance_same_param = os.path.exists(final_influence_mutation_file)
+        if existance_same_param:
+            final_influence_data = loadmat(final_influence_mutation_file)
+            mut_propag = final_influence_data['mut_propag']
+            print(' **** Same parameters file of FINAL INFLUENCE on Mutation Profile already exists')
+
+        else:
+            print(' ==== Diffusion over mutation profile ==== ')
             mut_propag = propagation(mut_raw, adj, alpha, tol).todense()
             mut_propag[np.isnan(mut_propag)] = 0
             if qn == 'mean':
-                mut_type = 'mean_qn'
                 mut_propag = quantile_norm_mean(mut_propag)
             elif qn == 'median':
-                mut_type = 'median_qn'
                 mut_propag = quantile_norm_median(mut_propag)
-            else:
-                mut_type = 'diff'
 
-            end = time.time()
-            print("---------- Propagation on {} mutation profile = {} ---------- {}"
-                  .format(mut_type,
-                          datetime.timedelta(seconds=end-start),
-                          datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
-
-            return mut_type, mut_propag
-
-        else:
-            mut_type = 'raw'
-            mut_raw = mut_raw.todense()
-
-            end = time.time()
-            print("---------- Propagation on {} mutation profile = {} ---------- {}"
-                  .format(mut_type,
-                          datetime.timedelta(seconds=end-start),
-                          datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
-
-            return mut_type, mut_raw
+            savemat(final_influence_mutation_file,
+                    {'mut_propag': mut_propag,
+                     'alpha': alpha}, do_compression=True)
+        return mut_type, mut_propag

@@ -6,6 +6,5 @@ RUN pip install -r /tmp/requirements.txt
 ADD ./stratipy /stratipy
 ADD ./data /data
 ADD ./reproducibility /reproducibility
-ADD ./reproducibility/reproducibility.py /reproducibility.py
-WORKDIR /
-CMD ["python", "reproducibility.py"]
+WORKDIR /reproducibility
+CMD ["python", "-u", "reproducibility.py"]

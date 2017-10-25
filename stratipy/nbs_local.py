@@ -1,22 +1,18 @@
 #!/usr/bin/env python
 # coding: utf-8
 import sys
-import os.path
+import os
 import importlib  # NOTE for python >= Python3.4
-import load_data
-import formatting_data
-import filtering_diffusion
-import clustering
-import hierarchical_clustering
 import scipy.sparse as sp
 import numpy as np
 import time
 import datetime
-from sklearn.grid_search import ParameterGrid
+from sklearn.model_selection import ParameterGrid
 from scipy.io import loadmat, savemat
-import os
 from memory_profiler import profile
 # if "from memory_profiler import profile", timestamps will not be recorded
+sys.path.append(os.path.abspath('../../stratipy'))
+from stratipy import load_data, formatting_data, filtering_diffusion, clustering, hierarchical_clustering
 
 # TODO PPI type param
 param_grid = {'data_folder': ['../data/'],
