@@ -119,15 +119,15 @@ param_grid = {'data_folder': ['../data/'],
               'linkage_method': ['average']
               }
 
-start_all = time.time()
-
-for params in list(ParameterGrid(param_grid)):
-    all_functions(**params)
-
-end_all = time.time()
-print('\n---------- ALL = {} ---------- {}'
-      .format(datetime.timedelta(seconds=end_all - start_all),
-              datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
+# start_all = time.time()
+#
+# for params in list(ParameterGrid(param_grid)):
+#     all_functions(**params)
+#
+# end_all = time.time()
+# print('\n---------- ALL = {} ---------- {}'
+#       .format(datetime.timedelta(seconds=end_all - start_all),
+#               datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
 
 
 print('\n\n######################## Starting Confusion Matrices ########################')
@@ -145,10 +145,10 @@ stp_100_lamb1800 = get_cluster_idx(result_folder_repro, method='stratipy',
                                    n_permutations=100, replace_1by2_2by3_3by1=True, lambd=1800)
 
 repro_confusion_matrix(result_folder_repro, nbs_100, stp_100_lamb1,
-                       'Confusion matrix\nwith reported tuning parameter value',
-                       'lambda = 1')
+                       'Confusion matrix with reported\ntuning parameter value',
+                       lambd=1)
 repro_confusion_matrix(result_folder_repro, nbs_100, stp_100_lamb1800,
-                       'Confusion matrix\nwith actually used tuning parameter value',
-                       'lambda = 1800')
+                       'Confusion matrix with actually used\ntuning parameter value',
+                       lambd=1800)
 
 print('\n######################## FINISHED ########################')
