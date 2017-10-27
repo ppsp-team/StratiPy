@@ -119,15 +119,15 @@ param_grid = {'data_folder': ['../data/'],
               'linkage_method': ['average']
               }
 
-# start_all = time.time()
-#
-# for params in list(ParameterGrid(param_grid)):
-#     all_functions(**params)
-#
-# end_all = time.time()
-# print('\n---------- ALL = {} ---------- {}'
-#       .format(datetime.timedelta(seconds=end_all - start_all),
-#               datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
+start_all = time.time()
+
+for params in list(ParameterGrid(param_grid)):
+    all_functions(**params)
+
+end_all = time.time()
+print('\n---------- ALL = {} ---------- {}'
+      .format(datetime.timedelta(seconds=end_all - start_all),
+              datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
 
 
 print('\n\n######################## Starting Confusion Matrices ########################')
