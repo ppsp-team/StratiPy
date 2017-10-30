@@ -10,14 +10,20 @@ The minimum required dependencies to run the software are:
   - scikit-learn >= 0.19
   - pandas >= 0.1
 
+If you want to launch Reproducibility project, you will also need:
+  - ipython>=1.1.0
+  - jupyter
+  - tqdm>=4.15.0
+
+
 ## Reproducibility
 To reproduce the figure 3 of our paper about reproducibility in bioinformatics, you have two options:
 1. Follow the Jupyter Notebook [reproducibility.ipynb](reproducibility/reproducibility.ipynb)
 2. Build & run the [Docker](http://docker.com) container with:
 ```
-~$ mkdir <your_output_folder>
+~$ mkdir <your_output_folder_outside_stratipy_folder>
 ~$ docker build -t repro .
-~$ docker run -v /absolute/path/of/<your_output_folder>:/reproducibility/reproducibility_output repro
+~$ docker run -v /absolute/path/of/<your_output_folder_outside_stratipy_folder>:/reproducibility/reproducibility_output repro
 ```
 **For Windows or Mac users:** total runtime memory of Docker is fixed to 2 GB by default. In order to launch this project, you have to increase this limit (approximately 7 GB):
 - [Windows setting](https://docs.docker.com/docker-for-windows/#advanced)
@@ -29,11 +35,13 @@ To reproduce the figure 3 of our paper about reproducibility in bioinformatics, 
 - Consensus clustering: a resampling-based method for class discovery and visualization of gene expression microarray data ([Monti et al. Mach. Learn.2003](http://link.springer.com/article/10.1023%2FA%3A1023949509487))
 - Experimenting with reproducibility in bioinformatics ([Kim et al. BioRxiv 2017](http://www.biorxiv.org/content/early/2017/06/20/143503))
 
+
 ## Additional links
 - [Network Based Stratification (NBS)](http://chianti.ucsd.edu/~mhofree/wordpress/?page_id=26): Matlab code & data sets.
 - [NMF on Manifold (Graph), Deng Cai](http://www.cad.zju.edu.cn/home/dengcai/Data/GNMF.html): Matlab code & data sets.
 - [NMF Toolbox](https://sites.google.com/site/nmftool/): Matlab code.
 - [nimfa library](http://nimfa.biolab.si/): Python code.
+
 
 ## Licensing
 Stratipy is **BSD-licenced** (3 clause):
