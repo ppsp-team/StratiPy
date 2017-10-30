@@ -3,9 +3,9 @@ To reproduce the figure 3 of our paper about reproducibility in bioinformatics (
 1. Follow the Jupyter Notebook [reproducibility.ipynb](reproducibility.ipynb)
 2. Build & run the [Docker](http://docker.com) container with:
 ```
-~$ mkdir <your_output_folder>
+~$ mkdir <your_output_folder_outside_stratipy_folder>
 ~$ docker build -t repro .
-~$ docker run -v /absolute/path/of/<your_output_folder>:/reproducibility/reproducibility_output repro
+~$ docker run -v /absolute/path/of/<your_output_folder_outside_stratipy_folder>:/reproducibility/reproducibility_output repro
 ```
 **For Windows or Mac users:** total runtime memory of Docker is fixed to 2 GB by default. In order to launch this project, you have to increase this limit (approximately 7 GB):
 - [Windows setting](https://docs.docker.com/docker-for-windows/#advanced)
