@@ -9,11 +9,11 @@ The minimum required dependencies to run the software are:
   - matplotlib >= 0.98.4
   - scikit-learn >= 0.19
   - pandas >= 0.1
+  - tqdm>=4.15.0
 
-If you want to launch Reproducibility project, you will also need:
+If you want to launch Reproducibility project by Jupyter Notebook, you will also need:
   - ipython>=1.1.0
   - jupyter
-  - tqdm>=4.15.0
 
 
 ## Reproducibility
