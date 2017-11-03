@@ -1,4 +1,4 @@
-# StratiPy <img src="https://img.shields.io/badge/version-0.7.0-green.svg">
+# StratiPy <img src="https://img.shields.io/badge/version-0.7.0-green.svg"> <img src="https://travis-ci.org/GHFC/StratiPy.svg?branch=master">
 Patients stratification with Graph-regularized Non-negative Matrix Factorization (GNMF) in Python.
 
 ## Dependencies
