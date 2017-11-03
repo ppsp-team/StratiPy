@@ -1,4 +1,4 @@
-# StratiPy <img src="https://img.shields.io/badge/version-0.7.0-blue.svg"> <a href="https://travis-ci.org/GHFC/StratiPy"><img src="https://travis-ci.org/GHFC/StratiPy.svg?branch=master"></a>[![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
+# StratiPy <img src="https://img.shields.io/badge/version-0.7.0-blue.svg"> <a href="https://travis-ci.org/GHFC/StratiPy"><img src="https://travis-ci.org/GHFC/StratiPy.svg?branch=master"></a> [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 Patients stratification with Graph-regularized Non-negative Matrix Factorization (GNMF) in Python.
 
 ## Dependencies
