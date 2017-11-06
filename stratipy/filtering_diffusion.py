@@ -132,9 +132,6 @@ def compare_ij_ji(ppi, out_min=True, out_max=True):
         ppi_max = (sp.coo_matrix.tolil(
             sp.coo_matrix.max(sp.vstack([ppi_1d, ppi_1d_transp]), axis=0))
                    ).reshape((n, n)).astype(np.float32)
-
-        # print('ppi_min', type(ppi_min), ppi_min.dtype, ppi_min.shape)
-        # print('ppi_max', type(ppi_max), ppi_max.dtype, ppi_max.shape)
         return ppi_min, ppi_max
 
     elif out_min:
