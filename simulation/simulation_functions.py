@@ -8,6 +8,7 @@ import numpy as np
 import datetime
 import glob
 import pickle
+from itertools import repeat
 sys.path.append(os.path.dirname(os.path.abspath('.')))
 
 
@@ -96,6 +97,21 @@ def save_dataset(PPI, position, patients, phenotypes, pathwaysNum, genesNum,
     # with open(newest_file, 'rb') as handle:
     #     b = pickle.load(handle)
     #     print('load data = ', b)
+
+
+def nodes_position(PPI):
+    colors=[]
+    for color in ['r', 'b', 'g', 'k', 'm', 'y']:
+        colors.extend(repeat(color, genesNum))
+
+    pos = nx.spring_layout(PPI, k=0.07, iterations=70)
+    nx.draw_networkx(PPI, pos=pos, node_size=100, label=False,
+                     node_color=colors)
+    # plt.figure(1, figsize=(5,5))
+
+    file = open('input/ppi_node_position.txt', 'wb')
+    pickle.dump(pos, file)
+    file.close()
 
 
 def plot_network_patient(mut_type, alpha, tol, PPI, position, patients,

@@ -12,16 +12,16 @@ import pickle
 output_folder = "output/"
 
 # Pathways parameters
-# pathwaysNum = 6
-# genesNum = 12
-# connProbability = 0.4
-# connNeighboors = 4
-# connBetweenPathways = 2
+pathwaysNum = 6
+genesNum = 12
+connProbability = 0.4
+connNeighboors = 4
+connBetweenPathways = 2
 marker_shapes = ['o', 'p', '<', 'd', 's', '*']
 
 # Simulate patients with a specific mutation profile
-# patientsNum = 10
-# mutationProb = 0.2
+patientsNum = 10
+mutationProb = 0.2
 
 # load PPI nodes' fixed positions
 with open('input/ppi_node_position.txt', 'rb') as handle:
