@@ -247,21 +247,15 @@ def calcul_final_influence(M, adj, result_folder, influence_weight='min',
             else:
                 print(' ==== Diffusion over PPI network (it can take approximately 10 min) ==== ')
                 influence = propagation(M, adj, alpha, tol)
-                # print('influence', type(influence), influence.dtype)
 
                 # save influence distance before simplification with parameters' values in filename
                 os.makedirs(influence_distance_directory, exist_ok=True)  # NOTE For Python ≥ 3.2
                 print(' Start to save INFLUENCE DISTANCE (before filtering) ----- {}'
                       .format(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
-                # start_save = time.time()
                 savemat(influence_distance_file,
                         {'influence_distance': influence,
                          'alpha': alpha},
                         do_compression=True)
-                # end_save = time.time()
-                # print("---------- save time = {} ---------- {}"
-                #       .format(datetime.timedelta(seconds=end_save - start_save),
-                #               datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
 
             # simplification: multiply by PPI adjacency matrix
             if simplification:
@@ -271,29 +265,18 @@ def calcul_final_influence(M, adj, result_folder, influence_weight='min',
                 print("---------- No simplification ----------")
                 pass
 
-            # compare influence[i,j] and influence[j,i] => min/max => final influence
-            # start_ij = time.time()
             final_influence_min, final_influence_max = compare_ij_ji(
                 influence, out_min=True, out_max=True)
-            # end_ij = time.time()
-            # print("---------- compare ij/ji = {} ---------- {}"
-            #       .format(datetime.timedelta(seconds=end_ij - start_ij),
-            #               datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
 
             # save final influence with parameters' values in filename
             os.makedirs(final_influence_directory, exist_ok=True)
 
             print(' Start to save FINAL INFLUENCE (after filtering) ----- {}'
                   .format(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
-            # start_save = time.time()
             savemat(final_influence_file,
                     {'final_influence_min': final_influence_min,
                      'final_influence_max': final_influence_max,
                      'alpha': alpha}, do_compression=True)
-            # end_save = time.time()
-            # print("---------- save time = {} ---------- {}"
-            #       .format(datetime.timedelta(seconds=end_save - start_save),
-            #               datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
 
             if influence_weight == 'min':
                 final_influence = final_influence_min
@@ -301,9 +284,6 @@ def calcul_final_influence(M, adj, result_folder, influence_weight='min',
                 final_influence = final_influence_max
 
             end = time.time()
-            # print("---------- Influence = {} ---------- {}"
-            #       .format(datetime.timedelta(seconds=end-start),
-            #               datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
 
         # take most recent file
         else:
@@ -344,17 +324,14 @@ def best_neighboors(ppi_filt, final_influence, ngh_max):
     """
     ngh_max = ngh_max + 1  # central protein included
     final_influence = final_influence.todense()
-    # print(type(final_influence))
     ppi_filt = ppi_filt.todense()
     ppi_ngh = np.zeros(ppi_filt.shape, dtype=np.float32)
-    # print('ppi_ngh', ppi_ngh.shape)
     for i in range(ppi_filt.shape[0]):
         best_influencers = np.argpartition(-final_influence[i, :], ngh_max)[:ngh_max]
         #NOTE different result if same value exists several times
         # best_influencers2 = np.argpartition(final_influence[i, :], -ngh_max)[-ngh_max:]
         ppi_ngh[i, best_influencers] = ppi_filt[i, best_influencers]
     ppi_ngh = np.max(np.dstack((ppi_ngh, ppi_ngh.T)), axis=2)
-    # print('ppi_ngh ', ppi_ngh.dtype)
     # too stringent if np.min
     return sp.csc_matrix(ppi_ngh)
 
@@ -407,7 +384,6 @@ def filter_ppi_patients(ppi_total, mut_total, ppi_filt, final_influence, ngh_max
     # final_influence = index_to_sym_matrix(n, final_influence)
 
     ppi_ngh = best_neighboors(ppi_filt, final_influence, ngh_max)
-    # print('ppi_ngh ', ppi_ngh.dtype)
     deg0 = Ppi(ppi_total).deg == 0  # True if protein degree = 0
 
     if keep_singletons:
@@ -431,8 +407,6 @@ def filter_ppi_patients(ppi_total, mut_total, ppi_filt, final_influence, ngh_max
 
     print(" Removing %i patients with less than %i or more than %i mutations" %
           (mut_total.shape[0]-mut_final.shape[0], min_mutation, max_mutation))
-    # print("New adjacency matrix:", ppi_final.shape)
-    # print("New mutation profile matrix:", mut_final.shape)
 
     return ppi_final, mut_final
 
