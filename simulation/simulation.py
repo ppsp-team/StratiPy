@@ -2,12 +2,17 @@
 # coding: utf-8
 import sys
 import time
-from simulation_functions import generate_network, addBetweenPathwaysConnection, generate_all_mutation_profile, plot_network_patient, save_dataset
-from simulated_nbs_functions import all_functions
+from simulation_functions import patient_data, generate_network, addBetweenPathwaysConnection, generate_all_mutation_profile, plot_network_patient, save_dataset
+from simulation_nbs_functions import all_functions
 import datetime
 from sklearn.model_selection import ParameterGrid
 import networkx as nx
+import numpy as np
+import scipy.sparse as sp
 import pickle
+
+if (sys.version_info < (3, 2)):
+    raise "Must be using Python ≥ 3.2"
 
 output_folder = "output/"
 
@@ -20,71 +25,94 @@ connBetweenPathways = 2
 marker_shapes = ['o', 'p', '<', 'd', 's', '*']
 
 # Simulate patients with a specific mutation profile
-patientsNum = 10
+patientsNum = 100
 mutationProb = 0.2
 
 # load PPI nodes' fixed positions
+# with open('input/ppi_node_position.txt', 'rb') as handle:
+#     position = pickle.load(handle)
+
 with open('input/ppi_node_position.txt', 'rb') as handle:
     position = pickle.load(handle)
 
-PPI = generate_network(pathwaysNum, genesNum, connNeighboors,
-                       connProbability, marker_shapes)
+with open('input/{}_patients.txt'.format(patientsNum), 'rb') as handle:
+    load_data = pickle.load(handle)
+    patients = load_data['patients']
+    phenotypes = load_data['phenotypes']
+
+
+print(patients)
+print(phenotypes)
+
+print("\n------------ generate simulated data ------------ {}"
+      .format(datetime.datetime.now()
+              .strftime("%Y-%m-%d %H:%M:%S")))
+PPI = generate_network(
+    pathwaysNum, genesNum, connNeighboors, connProbability, marker_shapes)
 
 for BetweenPathwaysConnection in range(0, pathwaysNum*connBetweenPathways):
     PPI = addBetweenPathwaysConnection(PPI, pathwaysNum, genesNum)
 
-patients, phenotypes = generate_all_mutation_profile(patientsNum, PPI,
-                                                     genesNum, pathwaysNum,
-                                                     mutationProb)
-
+# patients, phenotypes = generate_all_mutation_profile(
+#     patientsNum, PPI, genesNum, pathwaysNum, mutationProb)
+#
+# patient_data(patientsNum, patients, phenotypes)
+#
 save_dataset(PPI, position, patients, phenotypes, pathwaysNum, genesNum,
-                 connProbability, connNeighboors, connBetweenPathways,
-                 patientsNum, mutationProb, output_folder, new_data=True)
+             connProbability, connNeighboors, connBetweenPathways, patientsNum,
+             mutationProb, output_folder, new_data=True)
 
-plot_network_patient(PPI, position, patients, patientsNum, phenotypes,
-                     marker_shapes, output_folder, plot_name="Raw")
+# plot_network_patient("raw", alpha, tol, PPI, position, patients, patientsNum,
+#                      phenotypes, marker_shapes, output_folder)
+
+print("\n------------ loading & formatting data ------------ {}"
+      .format(datetime.datetime.now()
+              .strftime("%Y-%m-%d %H:%M:%S")))
+ppi_filt = nx.to_scipy_sparse_matrix(PPI, dtype=np.float32)
+ppi_final = ppi_filt
+mut_final = sp.csr_matrix(patients, dtype=np.float32)
 
 
 # simulated NBS parameters
 param_grid = {'output_folder': ['output/'],
               'ppi_data': ['simulation'],
-              'patients': [patients],
-              'patientsNum': [10],
-              'mutationProb': [0.2],
-              'phenotypes': [phenotypes],
-              'marker_shapes': [marker_shapes],
-              'pathwaysNum': [6],
-              'genesNum': [12],
-              'connNeighboors': [4],
-              'connProbability': [0.4],
-              'connBetweenPathways': [2],
-              'position': [position],
+              'ppi_filt': [ppi_filt],
+              'mut_final': [mut_final],
               'influence_weight': ['min'],
               'simplification': [True],
               'compute': [True],
               'overwrite': [False],
-              'alpha': [0.7],
+              'alpha': [0, 0.7],
               'tol': [10e-3],
-              'ngh_max': [11],
+              'ngh_max': [3],
               'keep_singletons': [False],
               'min_mutation': [0],
               'max_mutation': [100],
-              'qn': ["mean"],
-              'n_components': [3],
+              'qn': [None, "mean", "median"],
+              'n_components': range(2, 12),
               'n_permutations': [1000],
               'run_bootstrap': [True],
               'run_consensus': [True],
-              'lambd': [1],
+              'lambd': [0, 200, 1800],
               'tol_nmf': [1e-3],
               'linkage_method': ['average']
               }
 
 for params in list(ParameterGrid(param_grid)):
+    # load PPI nodes' fixed positions
+    start_all = time.time()
+
+    for i in params.keys():
+        exec("%s = %s" % (i, 'params[i]'))
     all_functions(**params)
 
+    end_all = time.time()
+    print('---------- ALL = {} ---------- {}'
+          .format(datetime.timedelta(seconds = end_all - start_all),
+                  datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
 
-plot_network_patient(PPI, position, mut_propag, patientsNum, phenotypes,
-                     marker_shapes, output_folder, plot_name="Diffused")
+# plot_network_patient(PPI, position, mut_propag, patientsNum, phenotypes,
+#                      marker_shapes, output_folder, plot_name="Diffused")
 
 
 # from scipy.io import loadmat

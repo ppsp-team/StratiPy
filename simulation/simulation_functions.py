@@ -98,8 +98,16 @@ def save_dataset(PPI, position, patients, phenotypes, pathwaysNum, genesNum,
     #     b = pickle.load(handle)
     #     print('load data = ', b)
 
+def patient_data(patientsNum, patients, phenotypes):
+    file = open('input/{}_patients.txt'.format(patientsNum), 'wb')
+    data = {'patients': patients,
+            'phenotypes': phenotypes}
+    pickle.dump(data, file)
+    file.close()
+
 
 def nodes_position(PPI):
+    # colors list only for visualization
     colors=[]
     for color in ['r', 'b', 'g', 'k', 'm', 'y']:
         colors.extend(repeat(color, genesNum))
@@ -115,8 +123,8 @@ def nodes_position(PPI):
 
 
 def plot_network_patient(mut_type, alpha, tol, PPI, position, patients,
-                         patientsNum, phenotypes, marker_shapes, result_folder):
-    plot_directory = result_folder + 'final_influence/plots/'
+                         patientsNum, phenotypes, marker_shapes, output_folder):
+    plot_directory = output_folder + 'plots/' + mut_type + '/'
     os.makedirs(plot_directory, exist_ok=True)
     plot_file = (
         plot_directory +
