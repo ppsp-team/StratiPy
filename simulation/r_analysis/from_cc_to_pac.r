@@ -16,26 +16,26 @@
 
 setwd(dir="github/stratipy/simulation/r_analysis/")
 # install.packages("R.matlab")
-
-# file.path() dosen't work on Windows
-#file.path('..', 'output', 'nbs', 'consensus_clustering', 'diff', 'gnmf', 'consensus_weight=min_simp=True_alpha=0.7_tol=0.01_singletons=False_ngh=3_minMut=0_maxMut=100_comp=2_permut=1000_lambd=200_tolNMF=0.001.mat')
-
-filename <- "../output/nbs/consensus_clustering/diff/gnmf/consensus_weight=min_simp=True_alpha=0.7_tol=0.01_singletons=False_ngh=3_minMut=0_maxMut=100_comp=2_permut=1000_lambd=200_tolNMF=0.001.mat"
 library(R.matlab)
-data <- readMat(filename)
-
-cm <- data$distance.patients 
-
 # install.packages("diceR")
 library(diceR)
 
+# PAC threashold
 x1 <- 0.05
 x2 <- 0.95
-PAC(cm, lower=x1, upper=x2)
-
 ###########################################################
 
-base_file <- "../output/nbs/consensus_clustering"
+#  to change!
+sub_nb <- 10
+pat_nb <- 300
+
+subset_name <- paste0(sub_nb, "sub_", pat_nb, "pat")
+plot_title <- paste0(sub_nb, " sub-networks with ", pat_nb, " patients")
+output_dir <- paste0(subset_name, "/plot")
+dir.create(subset_name)
+dir.create(output_dir)
+base_file <- paste0("../output/nbs_", subset_name, "/consensus_clustering")
+
 mut_type <- c("raw", "diff", "mean_qn", "median_qn")
 nmf_type <- c("nmf", "gnmf")
 influence_weight <- "min"
@@ -43,12 +43,12 @@ simplification <- "True"
 alpha <- c(0, 0.7)
 tol <- 10e-3
 keep_singletons <- "False"
-ngh_max <- 3
+ngh_max <- c(5, 10)
 min_mutation <- 0
 max_mutation <- 100
-n_components <- 2:11
+n_components <- 2:12
 n_permutations <- 1000
-lambd <- c(0, 200, 1800)
+lambd <- c(0, 200)
 tol_nmf <- 1e-3
 
 a_greek <- intToUtf8(0x03B1)
@@ -123,8 +123,8 @@ for (i0 in mut_type){
                             if (file.exists(filename)){
                               ia <- paste0(a_greek, "=", i4)
                               il <- paste0(l_greek, "=", i12)
-                              # ingh <- paste0(i7, "ngh")
-                              type_name <- paste(toupper(i1), i0, ia, il)
+                              ingh <- paste0(i7, "ngh")
+                              type_name <- paste(toupper(i1), i0, ia, il, ingh)
                               
                               # PCA function and save as a file
                               data <- readMat(filename)
@@ -161,8 +161,7 @@ for (i in numeric_col) df[, i] <- as.numeric(df[, i])
 for (i in int_col) df[, i] <- as.integer(df[, i])
 
 # save data frame as csv file
-# write.csv(df, file="all_param_pca.csv", row.names=FALSE, sep="\t")
-
+write.table(df, file=paste0(subset_name, "/all_param_pca.csv"), row.names=FALSE, sep="\t")
 # a <- read.csv(file="test.csv")
 # b <- df[, c("n_components", "pac")]
 
@@ -171,7 +170,7 @@ for (i in int_col) df[, i] <- as.integer(df[, i])
 ###########################################################
 library(ggplot2)
 # install.packages('svglite')
-require("ggplot2")
+# require("ggplot2")
 # plot saving function
 # savePlot <- function(myPlot) {
 #   pdf("myPlot.pdf")
@@ -185,10 +184,12 @@ ggplot(data=df, aes(x=n_components, y=pac, group=type)) +
   geom_point(aes(color=type)) +
   scale_x_continuous(breaks=n_components) +
   labs(x="Component number", y="PAC") +
+  ylim(0, 1) +
+  ggtitle(plot_title) +
   theme_bw() +
   theme(legend.title=element_blank(), panel.grid.minor.x = element_blank())
 
-ggsave("all_data.png", plot = last_plot(), path = "plot",
+ggsave("all_data.png", plot = last_plot(), path = output_dir,
        width = 7, height = 6, dpi = 300)
 
 # get some rows for plot
@@ -209,7 +210,7 @@ ggsave("all_data.png", plot = last_plot(), path = "plot",
 
 nmf_df <- subset(df, nmf_type=="nmf")
 gnmf200_df <- subset(df, nmf_type=="gnmf" & lambd==200)
-gnmf1800_df <- subset(df, nmf_type=="gnmf"& lambd==1800)
+# gnmf1800_df <- subset(df, nmf_type=="gnmf"& lambd==1800)
 
 # NMF plot
 ggplot(data=nmf_df, aes(x=n_components, y=pac, group=type)) +
@@ -217,10 +218,12 @@ ggplot(data=nmf_df, aes(x=n_components, y=pac, group=type)) +
   geom_point(aes(color=type)) +
   scale_x_continuous(breaks=n_components) +
   labs(x="Component number", y="PAC") +
+  ylim(0, 1) +
+  ggtitle(plot_title) +
   theme_bw() +
   theme(legend.title=element_blank(), panel.grid.minor.x = element_blank())
 
-ggsave("nmf.png", plot = last_plot(), path = "plot",
+ggsave("nmf.png", plot = last_plot(), path = output_dir,
        width = 7, height = 6, dpi = 300)
 
 # GNMF (lambd=200) plot
@@ -229,23 +232,27 @@ ggplot(data=gnmf200_df, aes(x=n_components, y=pac, group=type)) +
   geom_point(aes(color=type)) +
   scale_x_continuous(breaks=n_components) +
   labs(x="Component number", y="PAC") +
+  ylim(0, 1) +
+  ggtitle(plot_title) +
   theme_bw() +
   theme(legend.title=element_blank(), panel.grid.minor.x = element_blank())
 
-ggsave("gnmf_200.png", plot = last_plot(), path = "plot",
+ggsave("gnmf_200.png", plot = last_plot(), path = output_dir,
        width = 7, height = 6, dpi = 300)
 
 # GNMF (lambd=1800) plot
-ggplot(data=gnmf1800_df, aes(x=n_components, y=pac, group=type)) +
-  geom_line(aes(color=type)) +
-  geom_point(aes(color=type)) +
-  scale_x_continuous(breaks=n_components) +
-  labs(x="Component number", y="PAC") +
-  theme_bw() +
-  theme(legend.title=element_blank(), panel.grid.minor.x = element_blank())
-
-ggsave("gnmf_1800.png", plot = last_plot(), path = "plot",
-       width = 7, height = 6, dpi = 300)
+# ggplot(data=gnmf1800_df, aes(x=n_components, y=pac, group=type)) +
+#   geom_line(aes(color=type)) +
+#   geom_point(aes(color=type)) +
+#   scale_x_continuous(breaks=n_components) +
+#   labs(x="Component number", y="PAC") +
+#   ylim(0, 1) +
+#   ggtitle(plot_title) +
+#   theme_bw() +
+#   theme(legend.title=element_blank(), panel.grid.minor.x = element_blank())
+# 
+# ggsave("gnmf_1800.png", plot = last_plot(), path = output_dir,
+#        width = 7, height = 6, dpi = 300)
 
 
 ###########################################################

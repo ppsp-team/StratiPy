@@ -12,13 +12,28 @@ from itertools import repeat
 sys.path.append(os.path.dirname(os.path.abspath('.')))
 
 
-def generate_network(pathwaysNum, genesNum, connNeighboors, connProbability,
-                     marker_shapes):
+# def generate_network(pathwaysNum, genesNum, connNeighboors, connProbability,
+#                      marker_shapes):
+#     pathways = []
+#     for n in range(0, pathwaysNum):
+#         pathway = nx.connected_watts_strogatz_graph(genesNum, connNeighboors,
+#                                                     connProbability)
+#         [pathway.add_node(x, shape=marker_shapes[n]) for x in range(genesNum)]
+#         # Pathways are initialized as independant Watts-Strogatz networks
+#         mapping = dict(
+#             zip(pathway.nodes(), [x+genesNum*n for x in pathway.nodes()]))
+#         pathway = nx.relabel_nodes(pathway, mapping)
+#         pathways.append(pathway)
+#     PPI = nx.union_all(pathways)
+#     return PPI
+
+
+def generate_network(pathwaysNum, genesNum, connNeighboors, connProbability):
     pathways = []
     for n in range(0, pathwaysNum):
         pathway = nx.connected_watts_strogatz_graph(genesNum, connNeighboors,
                                                     connProbability)
-        [pathway.add_node(x, shape=marker_shapes[n]) for x in range(genesNum)]
+        [pathway.add_node(x) for x in range(genesNum)]
         # Pathways are initialized as independant Watts-Strogatz networks
         mapping = dict(
             zip(pathway.nodes(), [x+genesNum*n for x in pathway.nodes()]))
@@ -70,6 +85,57 @@ def generate_all_mutation_profile(patientsNum, PPI, genesNum, pathwaysNum,
     return patients, phenotypes
 
 
+def patients_data(patientsNum, PPI, genesNum, pathwaysNum, mutationProb):
+    all_genes = pathwaysNum * genesNum
+    data_file = 'input/{}patients_{}sub_{}genes.txt'.format(
+        patientsNum, pathwaysNum, all_genes)
+    existance_file = os.path.exists(data_file)
+
+    if existance_file:
+        with open(data_file, 'rb') as handle:
+            load_data = pickle.load(handle)
+            patients = load_data['patients']
+            phenotypes = load_data['phenotypes']
+    else:
+        print("Save new mutation profile")
+        patients, phenotypes = generate_all_mutation_profile(
+            patientsNum, PPI, genesNum, pathwaysNum, mutationProb)
+        file = open(data_file, 'wb')
+        data = {'patients': patients,
+                'phenotypes': phenotypes}
+        pickle.dump(data, file)
+        file.close()
+
+    return patients, phenotypes
+
+
+def nodes_position(PPI, pathwaysNum, genesNum):
+    # colors list only for visualization
+    # colors=[]
+    # for color in ['r', 'b', 'g', 'k', 'm', 'y']:
+    #     colors.extend(repeat(color, genesNum))
+
+    all_genes = pathwaysNum * genesNum
+    data_file = 'input/ppi_{}sub_{}genes.txt'.format(
+        pathwaysNum, all_genes)
+    existance_file = os.path.exists(data_file)
+
+    if existance_file:
+        with open(data_file, 'rb') as handle:
+            pos = pickle.load(handle)
+    else:
+        print("Save new PPI node position")
+        pos = nx.spring_layout(PPI, k=0.07, iterations=70)
+        file = open(data_file, 'wb')
+        pickle.dump(pos, file)
+        file.close()
+
+    # nx.draw_networkx(PPI, pos=pos, node_size=100, label=False,
+    #                  node_color=colors)
+    # plt.figure(1, figsize=(5,5))
+    return pos
+
+
 def save_dataset(PPI, position, patients, phenotypes, pathwaysNum, genesNum,
                  connProbability, connNeighboors, connBetweenPathways,
                  patientsNum, mutationProb, output_folder, new_data=False):
@@ -97,29 +163,6 @@ def save_dataset(PPI, position, patients, phenotypes, pathwaysNum, genesNum,
     # with open(newest_file, 'rb') as handle:
     #     b = pickle.load(handle)
     #     print('load data = ', b)
-
-def patient_data(patientsNum, patients, phenotypes):
-    file = open('input/{}_patients.txt'.format(patientsNum), 'wb')
-    data = {'patients': patients,
-            'phenotypes': phenotypes}
-    pickle.dump(data, file)
-    file.close()
-
-
-def nodes_position(PPI):
-    # colors list only for visualization
-    colors=[]
-    for color in ['r', 'b', 'g', 'k', 'm', 'y']:
-        colors.extend(repeat(color, genesNum))
-
-    pos = nx.spring_layout(PPI, k=0.07, iterations=70)
-    nx.draw_networkx(PPI, pos=pos, node_size=100, label=False,
-                     node_color=colors)
-    # plt.figure(1, figsize=(5,5))
-
-    file = open('input/ppi_node_position.txt', 'wb')
-    pickle.dump(pos, file)
-    file.close()
 
 
 def plot_network_patient(mut_type, alpha, tol, PPI, position, patients,

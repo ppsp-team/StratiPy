@@ -151,7 +151,7 @@ def plot_confusion_matrix(output_folder, M, pathwaysNum, mut_type, influence_wei
 
         ax_right = fig.add_axes([0.92, 0.1, 0.4, 0.2])
         ax_right.set_title(
-            'components = {}\npathways = {}\n\nalpha = {}\nQN = {}\n\nlambda = {}\n\ncophenetic corr = {}'
+            'components = {}\npathways = {}\n\nalpha = {}\ntype = {}\n\nlambda = {}\n\ncophenetic corr = {}'
             .format(n_components, pathwaysNum, alpha, mut_type, lambd,
                     format(coph_dist, '.2f')), loc='left')
         ax_right.axis('off')
