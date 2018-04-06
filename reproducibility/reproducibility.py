@@ -4,7 +4,6 @@ import sys
 import time
 from confusion_matrices import get_cluster_idx, repro_confusion_matrix
 from nbs_functions import all_functions
-from confusion_matrices import get_cluster_idx, repro_confusion_matrix
 from sklearn.model_selection import ParameterGrid
 import datetime
 
