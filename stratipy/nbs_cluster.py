@@ -85,8 +85,8 @@ def all_functions(params):
             gene_id_ppi, network = load_data.load_PPI_String(
                 data_folder, ppi_data)
 
-        elif ppi_data == 'Y2H':
-            gene_id_ppi, network = load_data.load_PPI_Y2H(
+        else:
+            gene_id_ppi, network = load_data.load_PPI_Y2H_or_APID(
                 data_folder, ppi_data)
 
         # ------------ formatting_data.py ------------

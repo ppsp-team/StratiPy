@@ -101,40 +101,91 @@ def coordinate(prot_list, all_list):
     return coo_list
 
 
-# @profile
-def load_PPI_Y2H(data_folder, ppi_data):
-    print(' ==== load_PPI_Y2H ')
-    PPI_file = data_folder + 'PPI_Y2H.mat'
+# def load_PPI_Y2H(data_folder, ppi_data):
+#     print(' ==== load_PPI_Y2H ')
+#     PPI_file = data_folder + 'PPI_Y2H.mat'
+#     existance_file = os.path.exists(PPI_file)
+#
+#     if existance_file:
+#         print('***** PPI_Y2H file already exists *****')
+#         gene_id_ppi, network = load_PPI(
+#             data_folder, ppi_data, load_gene_id_ppi=True)
+#
+#     else:
+#         print('PPI_Y2H file is calculating.....')
+#         data = genfromtxt(data_folder+'PPI_Y2H_raw.tsv',
+#                           delimiter='\t', dtype=int)
+#         # List of all proteins with Entrez gene ID
+#         prot1 = data[1:, 0]
+#         prot2 = data[1:, 1]
+#         edge_list = np.vstack((prot1, prot2)).T
+#         gene_id_ppi = (edge_list.flatten()).tolist()
+#         gene_id_ppi = list(set(gene_id_ppi))
+#
+#         # From ID list to coordinate list
+#         print(' ==== coordinates ')
+#         coo1 = coordinate(prot1.tolist(), gene_id_ppi)
+#         coo2 = coordinate(prot2.tolist(), gene_id_ppi)
+#
+#         # Adjacency matrix
+#         print(' ==== Adjacency matrix ')
+#         n = len(gene_id_ppi)
+#         weight = np.ones(len(coo1))  # if interaction -> 1
+#         network = sp.coo_matrix((weight, (coo1, coo2)), shape=(n, n))
+#         network = network + network.T  # symmetric matrix
+#         len(gene_id_ppi)
+#         savemat(PPI_file, {'adj_mat': network, 'entrez_id': gene_id_ppi},
+#                 do_compression=True)
+#     return gene_id_ppi, network
+
+
+def create_adjacency_matrix(prot1, prot2):
+    # prot1 and prot2 are two columns including Entrez gene ID, from PPI data
+    edge_list = np.vstack((prot1, prot2)).T
+    gene_id_ppi = (edge_list.flatten()).tolist()
+    gene_id_ppi = list(set(gene_id_ppi))
+
+    # From ID list to coordinate list
+    print(' ==== coordinates ')
+    coo1 = coordinate(prot1.tolist(), gene_id_ppi)
+    coo2 = coordinate(prot2.tolist(), gene_id_ppi)
+
+    # Adjacency matrix
+    print(' ==== Adjacency matrix ')
+    n = len(gene_id_ppi)
+    weight = np.ones(len(coo1))  # if interaction -> 1
+    network = sp.coo_matrix((weight, (coo1, coo2)), shape=(n, n))
+    network = network + network.T  # symmetric matrix
+    savemat(PPI_file, {'adj_mat': network, 'entrez_id': gene_id_ppi},
+            do_compression=True)
+    return gene_id_ppi, network
+
+
+def load_PPI_Y2H_or_APID(data_folder, ppi_data):
+    print(' ==== load_PPI_{}'.format(ppi_data))
+    PPI_file = data_folder + 'PPI_' + ppi_data + '.mat'
     existance_file = os.path.exists(PPI_file)
 
     if existance_file:
-        print('***** PPI_Y2H file already exists *****')
+        print('***** PPI_{} file already exists *****'.format(ppi_data))
         gene_id_ppi, network = load_PPI(
             data_folder, ppi_data, load_gene_id_ppi=True)
 
     else:
-        print('PPI_Y2H file is calculating.....')
-        data = genfromtxt(data_folder+'PPI_Y2H_raw.tsv',
+        print('PPI_{} file is calculating.....'.format(ppi_data))
+        if ppi_data == "Y2H":
+            data = genfromtxt(data_folder+'PPI_Y2H_raw.tsv',
                           delimiter='\t', dtype=int)
-        # List of all proteins with Entrez gene ID
-        prot1 = data[1:, 0]
-        prot2 = data[1:, 1]
-        edge_list = np.vstack((prot1, prot2)).T
-        gene_id_ppi = (edge_list.flatten()).tolist()
-        gene_id_ppi = list(set(gene_id_ppi))
+            # List of all proteins with Entrez gene ID
+            prot1 = data[1:, 0]
+            prot2 = data[1:, 1]
+        else:
+            newest_file = max(glob.iglob(data_folder + 'PPI_APID*.csv'),
+                              key=os.path.getctime)
+            data = pd.read_csv(newest_file, sep="\t")
+            prot1 = data.EntrezGene_1
+            prot2 = data.EntrezGene_2
 
-        # From ID list to coordinate list
-        print(' ==== coordinates ')
-        coo1 = coordinate(prot1.tolist(), gene_id_ppi)
-        coo2 = coordinate(prot2.tolist(), gene_id_ppi)
+        gene_id_ppi, network = create_adjacency_matrix(prot1, prot2)
 
-        # Adjacency matrix
-        print(' ==== Adjacency matrix ')
-        n = len(gene_id_ppi)
-        weight = np.ones(len(coo1))  # if interaction -> 1
-        network = sp.coo_matrix((weight, (coo1, coo2)), shape=(n, n))
-        network = network + network.T  # symmetric matrix
-        len(gene_id_ppi)
-        savemat(PPI_file, {'adj_mat': network, 'entrez_id': gene_id_ppi},
-                do_compression=True)
     return gene_id_ppi, network
