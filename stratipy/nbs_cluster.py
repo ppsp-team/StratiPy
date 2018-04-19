@@ -20,6 +20,7 @@ i = int(sys.argv[1])-1
 param_grid = {'data_folder': ['../data/'],
             #   'patient_data': ['TCGA_UCEC'],
               'patient_data': ['Faroe'],
+              'ssc_type': ['LoF', 'missense'],
             #   'patient_data': ['TCGA_UCEC', 'SIMONS'],
               'ppi_data': ['STRING', 'Y2H'],
               'influence_weight': ['min'],
@@ -80,6 +81,10 @@ def all_functions(params):
         elif patient_data == 'Faroe':
             mutation_profile, gene_id_patient = load_data.load_Faroe_Islands_data(
                 data_folder)
+
+        elif patient_data == 'SSC':
+            mutation_profile, gene_id_patient, patient_id = (
+                load_data.load_SSC_mutation_profile(ssc_type, data_folder))
 
         if ppi_data == 'STRING':
             gene_id_ppi, network = load_data.load_PPI_String(

@@ -28,7 +28,8 @@ def load_TCGA_UCEC_patient_data(data_folder):
     # mutation profiles
     print(' ==== TCGA mutation profiles  ')
     somatic = loadmat(data_folder+'somatic_data_UCEC.mat')
-    mutation_profile = sp.csc_matrix(somatic['gene_indiv_mat'].astype(np.float32))
+    mutation_profile = sp.csc_matrix(somatic['gene_indiv_mat']
+                                     .astype(np.float32))
 
     # Entrez gene ID and gene symbols in mutation profiles
     print(' ==== TCGA Entrez gene ID and gene symbols in mutation profiles  ')
@@ -58,11 +59,84 @@ def load_Faroe_Islands_data(data_folder):
     mutations = mutations.loc[np.isfinite(mutations.EntrezID)]
     # mutations.loc[:, subjects] = mutations.loc[:, subjects].fillna(0)
     mutations = mutations.dropna()
-    mutation_profile = sp.csc_matrix((mutations.loc[:, subjects].values.T).astype(np.float32))
+    mutation_profile = sp.csc_matrix((mutations.loc[:, subjects].values.T)
+                                     .astype(np.float32))
     mutations.EntrezID = mutations.EntrezID.astype(int)
     gene_id_patient = mutations.EntrezID.tolist()
 
     return mutation_profile, gene_id_patient
+
+
+def get_indiv_list(indiv_from_df):
+    # create individual ID list
+    alist = []
+    for i in indiv_from_df:
+        for j in i:
+            alist.append(j)
+    # set and keep unique ID (sort)
+    alist = sorted(set(alist))
+    return alist
+
+
+def mutation_profile_coordinate(df, indiv_list):
+    coord_gene = []
+    coord_indiv = []
+
+    for i in trange(df.shape[0], desc="mutation profile coordinates"):
+        # for each row (each gene), we get list of individuals' ID
+        individuals_per_gene = coordinate(df.iloc[i, 1], indiv_list)
+        # for each element of coordinate listes x/y:
+        for j in individuals_per_gene:
+            # gene is saved as gene's INDEX (not EntrezGene) in dataframe
+            coord_gene.append(i)
+            # individual is saved as his/her INDEX (not ID) in indiv_list
+            coord_indiv.append(j)
+
+    return coord_indiv, coord_gene
+
+
+def load_SSC_mutation_profile(ssc_type, data_folder):
+    print(' ==== load_SSC_{}_mutation_profile'.format(ssc_type))
+    mutation_profile_file = (data_folder + "SSC_{}_mutation_profile.mat"
+                             .format(ssc_type))
+    existance_file = os.path.exists(mutation_profile_file)
+
+    if existance_file:
+        print('***** SSC_{}_mutation_profile file already exists *****'
+              .format(ssc_type))
+        loadfile = loadmat(mutation_profile_file)
+        mutation_profile = loadfile['mutation_profile']
+        gene_id = loadfile['gene_id']
+        indiv = loadfile['indiv']
+
+    else:
+        print('SSC_{}_mutation_profile file is calculating.....'
+              .format(ssc_type))
+        df = pd.read_csv(data_folder + 'SSC_EntrezGene_{}.csv'
+                         .format(ssc_type), sep='\t')
+        # individuals' ID list for each row is transformed in string of list
+        # we thus reformate to list
+        df.individuals = df.individuals.apply(eval)
+
+        # create gene ID (EntrezGene ID) list
+        gene_id = [int(i) for i in df.entrez_id.tolist()]
+
+        # create individual ID list
+        indiv = get_indiv_list(df.individuals)
+
+        # calculate coordinates genes x individuals -> sparse matrix
+        coord_indiv, coord_gene = mutation_profile_coordinate(df, indiv)
+        # mutation weight = 1
+        weight = np.ones(len(coord_gene))
+        mutation_profile = sp.coo_matrix((weight, (coord_indiv, coord_gene)),
+                                         shape=(len(indiv), len(gene_id)),
+                                         dtype=np.float32)
+
+        savemat(mutation_profile_file, {'mutation_profile': mutation_profile,
+                                        'gene_id': gene_id,
+                                        'indiv': indiv}, do_compression=True)
+
+    return mutation_profile, gene_id, indiv
 
 
 # @profile
@@ -175,7 +249,7 @@ def load_PPI_Y2H_or_APID(data_folder, ppi_data):
         print('PPI_{} file is calculating.....'.format(ppi_data))
         if ppi_data == "Y2H":
             data = genfromtxt(data_folder+'PPI_Y2H_raw.tsv',
-                          delimiter='\t', dtype=int)
+                              delimiter='\t', dtype=int)
             # List of all proteins with Entrez gene ID
             prot1 = data[1:, 0]
             prot2 = data[1:, 1]
