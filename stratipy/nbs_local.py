@@ -16,10 +16,12 @@ from stratipy import load_data, formatting_data, filtering_diffusion, clustering
 
 # TODO PPI type param
 param_grid = {'data_folder': ['../data/'],
-              'patient_data': ['TCGA_UCEC'],
+              'patient_data': ['SSC'],
             #   'patient_data': ['Faroe'],
               'ssc_type': ['LoF', 'missense'],
-              'ppi_data': ['STRING'],
+              'ssc_subgroups': ['SSC1', 'SSC2'],
+            #   'ssc_subgroups': ['SSC', 'SSC1', 'SSC2'],
+              'ppi_data': ['APID'],
               'influence_weight': ['min'],
               'simplification': [True],
               'compute': [True],
@@ -31,14 +33,14 @@ param_grid = {'data_folder': ['../data/'],
               'ngh_max': [11],
               'keep_singletons': [False],
             #   'min_mutation': [10],
-              'min_mutation': [10],
+              'min_mutation': [0],
               'max_mutation': [2000],
             #   'qn': [None, 'mean', 'median'],
               'qn': ['median'],
               'n_components': [2],
             #   'n_components': range(2, 10),
             #   'n_permutations': [1000],
-              'n_permutations': [100],
+              'n_permutations': [5],
               'run_bootstrap': [True],
               'run_consensus': [True],
             #   'lambd': [0, 1, 200],
@@ -81,7 +83,8 @@ def all_functions(params):
 
         elif patient_data == 'SSC':
             mutation_profile, gene_id_patient, patient_id = (
-                load_data.load_SSC_mutation_profile(ssc_type, data_folder))
+                load_data.load_specific_SSC_mutation_profile(
+                    data_folder, ssc_type, ssc_subgroups))
 
         if ppi_data == 'STRING':
             gene_id_ppi, network = load_data.load_PPI_String(

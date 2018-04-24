@@ -95,32 +95,32 @@ def mutation_profile_coordinate(df, indiv_list):
     return coord_indiv, coord_gene
 
 
-def load_SSC_mutation_profile(ssc_type, data_folder):
-    print(' ==== load_SSC_{}_mutation_profile'.format(ssc_type))
-    mutation_profile_file = (data_folder + "SSC_{}_mutation_profile.mat"
-                             .format(ssc_type))
-    existance_file = os.path.exists(mutation_profile_file)
+def load_overall_SSC_mutation_profile(data_folder, ssc_type):
+    print(' ==== load overall_{}_mutation_profile'.format(ssc_type))
+    overall_mutation_profile_file = (
+        data_folder + "SSC_{}_mutation_profile.mat".format(ssc_type))
+    existance_file = os.path.exists(overall_mutation_profile_file)
 
     if existance_file:
-        print('***** SSC_{}_mutation_profile file already exists *****'
+        print('***** overall_{}_mutation_profile file already exists *****'
               .format(ssc_type))
-        loadfile = loadmat(mutation_profile_file)
+        loadfile = loadmat(overall_mutation_profile_file)
         mutation_profile = loadfile['mutation_profile']
-        gene_id = loadfile['gene_id']
-        indiv = loadfile['indiv']
+        gene_id = (loadfile['gene_id'].flatten()).tolist()
+        indiv = (loadfile['indiv'].flatten()).tolist()
 
     else:
-        print('SSC_{}_mutation_profile file is calculating.....'
+        print('overall_{}_mutation_profile file is calculating.....'
               .format(ssc_type))
+
         df = pd.read_csv(data_folder + 'SSC_EntrezGene_{}.csv'
                          .format(ssc_type), sep='\t')
-        # individuals' ID list for each row is transformed in string of list
-        # we thus reformate to list
-        df.individuals = df.individuals.apply(eval)
-
         # create gene ID (EntrezGene ID) list
         gene_id = [int(i) for i in df.entrez_id.tolist()]
 
+        # individuals' ID list for each row is transformed in string of list
+        # we thus reformate to list
+        df.individuals = df.individuals.apply(eval)
         # create individual ID list
         indiv = get_indiv_list(df.individuals)
 
@@ -128,9 +128,56 @@ def load_SSC_mutation_profile(ssc_type, data_folder):
         coord_indiv, coord_gene = mutation_profile_coordinate(df, indiv)
         # mutation weight = 1
         weight = np.ones(len(coord_gene))
+        # coo matrix then to csr matrix
         mutation_profile = sp.coo_matrix((weight, (coord_indiv, coord_gene)),
                                          shape=(len(indiv), len(gene_id)),
-                                         dtype=np.float32)
+                                         dtype=np.float32).tocsr()
+
+        savemat(mutation_profile_file, {'mutation_profile': mutation_profile,
+                                        'gene_id': gene_id,
+                                        'indiv': indiv}, do_compression=True)
+
+    return mutation_profile, gene_id, indiv
+
+
+def load_specific_SSC_mutation_profile(data_folder, ssc_type, ssc_subgroups):
+    print(' ==== load_{}_{}_mutation_profile'.format(ssc_subgroups, ssc_type))
+    mutation_profile_file = (data_folder + "{}_{}_mutation_profile.mat"
+                             .format(ssc_subgroups, ssc_type))
+    existance_file = os.path.exists(mutation_profile_file)
+
+    if existance_file:
+        print('***** {}_{}_mutation_profile file already exists *****'
+              .format(ssc_subgroups, ssc_type))
+        loadfile = loadmat(mutation_profile_file)
+        mutation_profile = loadfile['mutation_profile']
+        gene_id = (loadfile['gene_id'].flatten()).tolist()
+        indiv = (loadfile['indiv'].flatten()).tolist()
+
+    else:
+        mutation_profile, gene_id, indiv = (
+            load_overall_SSC_mutation_profile(data_folder, ssc_type))
+
+        # if SSC 1 or 2
+        if ssc_subgroups != "SSC":
+            print('{}_{}_mutation_profile file is calculating.....'.format(
+                ssc_subgroups, ssc_type))
+
+            df_ssc = pd.read_csv(data_folder + '{}_indiv_sex_iq.csv'
+                                 .format(ssc_subgroups), sep='\t')
+            ind_ssc_raw = df_ssc.individual.tolist()
+#             ind_ssc_raw = df_ssc.individual.apply(eval).tolist()
+            # looking for corresponding individual ID in overall data (indiv)
+            # then append their index in a list (ind_ssc)
+            ind_ssc = []
+            [ind_ssc.append(indiv.index(i)) for i in ind_ssc_raw if i in indiv]
+            print("After filtering by {} mutation in {} data: {} to {} individuals ({} removed)"
+                  .format(ssc_type, ssc_subgroups, len(ind_ssc_raw),
+                          len(ind_ssc), len(ind_ssc_raw) - len(ind_ssc)))
+            indiv = [indiv[i] for i in ind_ssc]
+
+            # slice overall mutation profile by SSC subgroup individuals
+            mutation_profile = mutation_profile[ind_ssc, :]
 
         savemat(mutation_profile_file, {'mutation_profile': mutation_profile,
                                         'gene_id': gene_id,
