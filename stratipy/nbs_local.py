@@ -9,10 +9,13 @@ import time
 import datetime
 from sklearn.model_selection import ParameterGrid
 from scipy.io import loadmat, savemat
-from memory_profiler import profile
+# from memory_profiler import profile
 # if "from memory_profiler import profile", timestamps will not be recorded
 sys.path.append(os.path.abspath('../../stratipy'))
 from stratipy import load_data, formatting_data, filtering_diffusion, clustering, hierarchical_clustering
+
+# importlib.reload(load_data)
+# print(dir(load_data))
 
 # TODO PPI type param
 param_grid = {'data_folder': ['../data/'],
@@ -40,12 +43,13 @@ param_grid = {'data_folder': ['../data/'],
               'n_components': [2],
             #   'n_components': range(2, 10),
             #   'n_permutations': [1000],
-              'n_permutations': [5],
+              'n_permutations': [100],
               'run_bootstrap': [True],
               'run_consensus': [True],
             #   'lambd': [0, 1, 200],
-              'lambd': [1],
+              'lambd': [0],
               'tol_nmf': [1e-3],
+              'compute_gene_clustering': [False],
               'linkage_method': ['ward']
             #   'linkage_method': ['single', 'complete', 'average', 'weighted', 'centroid', 'median', 'ward']
               }
@@ -54,7 +58,7 @@ param_grid = {'data_folder': ['../data/'],
 
 # NOTE sys.stdout.flush()
 
-@profile
+# @profile
 def all_functions(params):
 
     if alpha == 0 and qn is not None:
@@ -62,7 +66,12 @@ def all_functions(params):
         pass
 
     else:
-        result_folder = data_folder + 'result_' + patient_data + '_' + ppi_data + '/'
+        if patient_data == 'SSC':
+            result_folder = (data_folder + 'result_' + ssc_subgroups + '_' +
+                             ssc_type + '_' + ppi_data + '/')
+        else:
+            result_folder = (data_folder + 'result_' + patient_data + '_' +
+                             ppi_data + '/')
         print(result_folder)
         print("alpha =", alpha)
         print("QN =", qn)
@@ -78,8 +87,8 @@ def all_functions(params):
                  data_folder)
 
         elif patient_data == 'Faroe':
-            mutation_profile, gene_id_patient = load_data.load_Faroe_Islands_data(
-                data_folder)
+            mutation_profile, gene_id_patient = (
+                load_data.load_Faroe_Islands_data(data_folder))
 
         elif patient_data == 'SSC':
             mutation_profile, gene_id_patient, patient_id = (
@@ -124,7 +133,7 @@ def all_functions(params):
             keep_singletons, min_mutation, max_mutation)
 
         mut_type, mut_propag = filtering_diffusion.propagation_profile(
-            mut_final, ppi_filt, alpha, tol, qn)
+            mut_final, ppi_filt, result_folder, alpha, tol, qn)
 
         # ------------ clustering.py ------------
         print("------------ clustering.py ------------")
@@ -133,13 +142,14 @@ def all_functions(params):
             influence_weight, simplification,
             alpha, tol, keep_singletons, ngh_max, min_mutation, max_mutation,
             n_components, n_permutations,
-            run_bootstrap, lambd, tol_nmf))
+            run_bootstrap, lambd, tol_nmf, compute_gene_clustering))
 
         distance_genes, distance_patients = clustering.consensus_clustering(
             result_folder, genes_clustering, patients_clustering,
             influence_weight, simplification, mut_type,
             alpha, tol, keep_singletons, ngh_max, min_mutation, max_mutation,
-            n_components, n_permutations, run_consensus, lambd, tol_nmf)
+            n_components, n_permutations, run_consensus, lambd, tol_nmf,
+            compute_gene_clustering)
 
         # ------------ hierarchical_clustering.py ------------
         print("------------ hierarchical_clustering.py ------------")
@@ -210,5 +220,5 @@ else:
 
     end_all = time.time()
     print('---------- ALL = {} ---------- {}'
-          .format(datetime.timedelta(seconds = end_all - start_all),
+          .format(datetime.timedelta(seconds=end_all - start_all),
                   datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
