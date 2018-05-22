@@ -22,7 +22,8 @@ param_grid = {'data_folder': ['../data/'],
             #   'patient_data': ['Faroe'],
               'ssc_type': ['LoF', 'missense'],
               'ssc_subgroups': ['SSC1', 'SSC2'],
-            #   'ssc_subgroups': ['SSC', 'SSC1', 'SSC2'],
+              # 'ssc_subgroups': ['SSC', 'SSC1', 'SSC2'],
+              'gene_data': ['pli', 'sfari', 'brain1SD', 'brain2SD'],
               'ppi_data': ['APID'],
               'influence_weight': ['min'],
               'simplification': [True],
@@ -49,7 +50,7 @@ param_grid = {'data_folder': ['../data/'],
               'lambd': [0],
               'tol_nmf': [1e-3],
               'compute_gene_clustering': [False],
-              'linkage_method': ['ward']
+              'linkage_method': ['average']
             #   'linkage_method': ['single', 'complete', 'average', 'weighted', 'centroid', 'median', 'ward']
               }
 
@@ -67,8 +68,13 @@ def all_functions(params):
 
     else:
         if patient_data == 'SSC':
-            result_folder = (data_folder + 'result_' + ssc_subgroups + '_' +
-                             ssc_type + '_' + ppi_data + '/')
+            if gene_data == None:
+                result_folder = (data_folder + 'result_' + ssc_subgroups + '_' +
+                                 ssc_type + '_' + ppi_data + '/')
+
+            else:
+                result_folder = (data_folder + 'result_' + ssc_subgroups + '_' +
+                                 ssc_type + '_' + gene_data + '_' +  ppi_data + '/')
         else:
             result_folder = (data_folder + 'result_' + patient_data + '_' +
                              ppi_data + '/')
@@ -93,7 +99,7 @@ def all_functions(params):
         elif patient_data == 'SSC':
             mutation_profile, gene_id_patient, patient_id = (
                 load_data.load_specific_SSC_mutation_profile(
-                    data_folder, ssc_type, ssc_subgroups))
+                    data_folder, ssc_type, ssc_subgroups, gene_data))
 
         if ppi_data == 'STRING':
             gene_id_ppi, network = load_data.load_PPI_String(

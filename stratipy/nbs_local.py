@@ -23,7 +23,9 @@ param_grid = {'data_folder': ['../data/'],
             #   'patient_data': ['Faroe'],
               'ssc_type': ['LoF', 'missense'],
               'ssc_subgroups': ['SSC1', 'SSC2'],
-            #   'ssc_subgroups': ['SSC', 'SSC1', 'SSC2'],
+              # 'ssc_subgroups': ['SSC', 'SSC1', 'SSC2'],
+              'gene_data': ['all', 'pli', 'sfari', 'brain1SD', 'brain2SD'],
+              # 'gene_data': ['all'],
               'ppi_data': ['APID'],
               'influence_weight': ['min'],
               'simplification': [True],
@@ -31,7 +33,7 @@ param_grid = {'data_folder': ['../data/'],
               'overwrite': [False],
             #   'alpha': [0, 0.3, 0.5, 0.7, 1],
             #   'alpha': [0.7, 0.8, 0.9],
-              'alpha': [0.7],
+              'alpha': [0, 0.7],
               'tol': [10e-3],
               'ngh_max': [11],
               'keep_singletons': [False],
@@ -39,7 +41,7 @@ param_grid = {'data_folder': ['../data/'],
               'min_mutation': [0],
               'max_mutation': [2000],
             #   'qn': [None, 'mean', 'median'],
-              'qn': ['median'],
+              'qn': [None, 'median'],
               'n_components': [2],
             #   'n_components': range(2, 10),
             #   'n_permutations': [1000],
@@ -50,7 +52,7 @@ param_grid = {'data_folder': ['../data/'],
               'lambd': [0],
               'tol_nmf': [1e-3],
               'compute_gene_clustering': [False],
-              'linkage_method': ['ward']
+              'linkage_method': ['average']
             #   'linkage_method': ['single', 'complete', 'average', 'weighted', 'centroid', 'median', 'ward']
               }
 
@@ -67,8 +69,13 @@ def all_functions(params):
 
     else:
         if patient_data == 'SSC':
-            result_folder = (data_folder + 'result_' + ssc_subgroups + '_' +
-                             ssc_type + '_' + ppi_data + '/')
+            if gene_data == 'all':
+                result_folder = (data_folder + 'result_' + ssc_subgroups + '_' +
+                                 ssc_type + '_' + ppi_data + '/')
+
+            else:
+                result_folder = (data_folder + 'result_' + ssc_subgroups + '_' +
+                                 ssc_type + '_' + gene_data + '_' +  ppi_data + '/')
         else:
             result_folder = (data_folder + 'result_' + patient_data + '_' +
                              ppi_data + '/')
@@ -93,7 +100,7 @@ def all_functions(params):
         elif patient_data == 'SSC':
             mutation_profile, gene_id_patient, patient_id = (
                 load_data.load_specific_SSC_mutation_profile(
-                    data_folder, ssc_type, ssc_subgroups))
+                    data_folder, ssc_type, ssc_subgroups, gene_data))
 
         if ppi_data == 'STRING':
             gene_id_ppi, network = load_data.load_PPI_String(
@@ -182,25 +189,32 @@ def all_functions(params):
         # os.makedirs(hierarchical_factorization_directory, exist_ok=True)
         #
         # consensus_file = (consensus_factorization_directory +
-        #                   'consensus_alpha={}_tol={}_singletons={}_ngh={}_minMut={}_maxMut={}_comp={}_permut={}_lambd={}_tolNMF={}.mat'
-        #                   .format(alpha, tol, keep_singletons, ngh_max,
-        #                           min_mutation, max_mutation,
-        #                           n_components, n_permutations, lambd, tol_nmf))
+        #               'consensus_weight={}_simp={}_alpha={}_tol={}_singletons={}_ngh={}_minMut={}_maxMut={}_comp={}_permut={}_lambd={}_tolNMF={}.mat'
+        #               .format(influence_weight, simplification, alpha, tol,
+        #                       keep_singletons, ngh_max,
+        #                       min_mutation, max_mutation,
+        #                       n_components, n_permutations, lambd, tol_nmf))
         #
         # consensus_data = loadmat(consensus_file)
         # distance_patients = consensus_data['distance_patients']
         #
-        # hierarchical_clustering.distance_matrix(
-        #     hierarchical_factorization_directory, distance_patients, ppi_data,
-        #     mut_type,
-        #     alpha, tol,  keep_singletons, ngh_max, min_mutation, max_mutation,
-        #     n_components, n_permutations, lambd, tol_nmf, linkage_method)
+        # hierarchical_clustering.distance_patients_from_consensus_file(
+        #     result_folder, distance_patients, ppi_data, mut_type,
+        #     influence_weight, simplification, alpha, tol,  keep_singletons,
+        #     ngh_max, min_mutation, max_mutation, n_components, n_permutations,
+        #     lambd, tol_nmf, linkage_method, patient_data, data_folder, ssc_subgroups, ssc_type, gene_data)
         hierarchical_clustering.distance_patients_from_consensus_file(
             result_folder, distance_patients, ppi_data, mut_type,
             influence_weight, simplification, alpha, tol,  keep_singletons,
             ngh_max, min_mutation, max_mutation, n_components, n_permutations,
-            lambd, tol_nmf, linkage_method)
+            lambd, tol_nmf, linkage_method, patient_data, data_folder, ssc_subgroups, ssc_type, gene_data)
 
+        hierarchical_clustering.analysis_from_clusters(
+            data_folder, patient_data, ssc_type, ssc_subgroups, ppi_data, gene_data,
+            result_folder, mut_type, influence_weight,
+            simplification, alpha, tol, keep_singletons,
+            ngh_max, min_mutation, max_mutation, n_components,
+            n_permutations, lambd, tol_nmf, linkage_method)
 
 if (sys.version_info < (3, 2)):
     raise "Must be using Python ≥ 3.2"

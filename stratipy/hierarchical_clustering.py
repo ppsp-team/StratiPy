@@ -10,17 +10,22 @@ import time
 import datetime
 import os
 import glob
+import pandas as pd
+from scipy.stats import fisher_exact, ks_2samp
+from statistics import median
 import matplotlib
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
 plt.switch_backend('agg')
 
 
+# TODO formatting for not SSC data
 def distance_patients_from_consensus_file(
     result_folder, distance_patients, ppi_data, mut_type,
     influence_weight, simplification,
     alpha, tol,  keep_singletons, ngh_max, min_mutation, max_mutation,
-    n_components, n_permutations, lambd, tol_nmf, linkage_method):
+    n_components, n_permutations, lambd, tol_nmf, linkage_method,
+    patient_data, data_folder, ssc_subgroups, ssc_type, gene_data):
 
     consensus_directory = result_folder+'consensus_clustering/'
     consensus_mut_type_directory = consensus_directory + mut_type + '/'
@@ -115,27 +120,45 @@ def distance_patients_from_consensus_file(
                  'cophenetic_correlation_distance': coph_dist,
                  'cophenetic_correlation_matrix': coph_matrix},
                 do_compression=True)
-        # end = time.time()
+        # # end = time.time()
         # print("---------- Save time = {} ---------- {}"
         #       .format(datetime.timedelta(seconds=end-start),
         #               datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
 
+        fig = plt.figure(figsize=(3, 3))
+        im = plt.imshow(D, interpolation='nearest', cmap=cm.viridis)
+        plt.axis('off')
+        if patient_data == 'SSC':
+            fig_directory = (data_folder + 'figures/similarity/' +
+                             ssc_subgroups + '_' + ssc_type + '_' + gene_data +
+                             '_' + ppi_data + '/')
+        else:
+            fig_directory = (data_folder + 'figures/similarity/' +
+                             patient_data + '_' + ppi_data + '/')
+        os.makedirs(fig_directory, exist_ok=True)
+        fig_name = ('{}_{}_ngh={}_comp={}_permut={}_lambd={}'.format(
+            mut_type, alpha, ngh_max, n_components, n_permutations, lambd))
+        plt.savefig('{}{}.png'.format(fig_directory, fig_name),
+                    bbox_inches='tight')
 
-def get_individual_lists_from_clusters(data_folder, ssc_type, ssc_subgroups, result_folder,
-                                      influence_weight, simplification, alpha, tol, keep_singletons,
-                                       ngh_max, min_mutation, max_mutation, n_components,
-                                       n_permutations, lambd, tol_nmf, linkage_method):
+
+def analysis_from_clusters(data_folder, patient_data, ssc_type, ssc_subgroups,
+                           ppi_data, gene_data,
+                           result_folder, mut_type, influence_weight,
+                           simplification, alpha, tol, keep_singletons,
+                           ngh_max, min_mutation, max_mutation, n_components,
+                           n_permutations, lambd, tol_nmf, linkage_method):
     mutation_profile_file = (data_folder + "{}_{}_mutation_profile.mat"
                              .format(ssc_subgroups, ssc_type))
     loadfile = loadmat(mutation_profile_file)
     indiv = (loadfile['indiv'].flatten()).tolist()
 
     hierarchical_clustering_file = (
-    result_folder+'hierarchical_clustering/' + mut_type + '/' + 'nmf/' +
-    'hierarchical_clustering_Patients_weight={}_simp={}_alpha={}_tol={}_singletons={}_ngh={}_minMut={}_maxMut={}_comp={}_permut={}_lambd={}_tolNMF={}_method={}.mat'
-    .format(influence_weight, simplification, alpha, tol, keep_singletons,
-            ngh_max, min_mutation, max_mutation, n_components,
-            n_permutations, lambd, tol_nmf, linkage_method))
+        result_folder+'hierarchical_clustering/' + mut_type + '/' + 'nmf/' +
+        'hierarchical_clustering_Patients_weight={}_simp={}_alpha={}_tol={}_singletons={}_ngh={}_minMut={}_maxMut={}_comp={}_permut={}_lambd={}_tolNMF={}_method={}.mat'
+        .format(influence_weight, simplification, alpha, tol, keep_singletons,
+                ngh_max, min_mutation, max_mutation, n_components,
+                n_permutations, lambd, tol_nmf, linkage_method))
 
     h = loadmat(hierarchical_clustering_file)
     clust_nb = np.squeeze(h['flat_cluster_number']) # cluster index for each individual
@@ -143,32 +166,46 @@ def get_individual_lists_from_clusters(data_folder, ssc_type, ssc_subgroups, res
 
     # load individual data including sex and IQ
     df_ssc = pd.read_csv(data_folder + '{}_indiv_sex_iq.csv'
-                                 .format(ssc_subgroups), sep='\t')
+                         .format(ssc_subgroups), sep='\t')
     ind_ssc_raw = df_ssc['individual'].tolist()
     df_ssc_iq = df_ssc[df_ssc['iq'].notnull()]
     ind_ssc_iq = df_ssc_iq['individual'].tolist()
+    max_iq_value = int(df_ssc_iq['iq'].max())
 
     # load distance_CEU data
     df_dist = pd.read_csv(data_folder + 'SSC_distanceCEU.csv', sep="\t")
     ind_dist = df_dist.individual.tolist()
 
+    # load mutation profile data
+    overall_mutation_profile_file = (
+        data_folder + "SSC_{}_mutation_profile.mat".format(ssc_type))
+    loadfile = loadmat(overall_mutation_profile_file)
+    mutation_profile = loadfile['mutation_profile']
+    indiv = (loadfile['indiv'].flatten()).tolist()
+
+    mutation_profile_file = (data_folder + "{}_{}_mutation_profile.mat"
+                             .format(ssc_subgroups, ssc_type))
+
     clusters = list(set(clust_nb))
-    # total_cluster_list = []
+    total_cluster_list = []
     siblings_cluster_list = []
     probands_cluster_list = []
     female_cluster_list = []
     male_cluster_list = []
     iq_cluster_list = []
     distCEU_list = []
+    mutation_nb_cluster_list = []
+    ind_cluster_list = []
 
     for i, cluster in enumerate(clusters):
-        idCluster = [i for i,c in enumerate(clust_nb) if c==cluster]
+        idCluster = [i for i, c in enumerate(clust_nb) if c == cluster]
         subjs = [indiv[i] for i in idx[idCluster]]
-    #     total_cluster_list.append(len(subjs))
+        total_cluster_list.append(len(subjs))
+        ind_cluster_list.append(subjs)
 
-        sib_indiv = [i for i in subjs if i[-2:-1]=='s'] # individuals' ID list
+        sib_indiv = [i for i in subjs if i[-2:-1] == 's'] # individuals' ID list
         siblings_cluster_list.append(len(sib_indiv))
-        prob_indiv = [i for i in subjs if i[-2:-1]=='p'] # individuals' ID list
+        prob_indiv = [i for i in subjs if i[-2:-1] == 'p'] # individuals' ID list
         probands_cluster_list.append(len(prob_indiv))
 
         # sex count in each cluster
@@ -178,33 +215,63 @@ def get_individual_lists_from_clusters(data_folder, ssc_type, ssc_subgroups, res
 
         # get IQ list for each cluster
         iq_list = [df_ssc_iq['iq'].iloc[ind_ssc_iq.index(i)] for i in subjs if i in ind_ssc_iq]
-        iq_list = [int(i) for i in a] # element type: np.float -> int
+        iq_list = [int(i) for i in iq_list] # element type: np.float -> int
         # create frequency (count individuals for each IQ) list
-        iq_count_list = [0]*int(max(iq_list)+1)
-        for i in iq_list:
-            iq_count_list[i] = iq_list.count(i)
-        iq_cluster_list.append(iq_count_list)
+#         iq_count_list = [0]*(max_iq_value+1)
+#         for j in iq_list:
+#             iq_count_list[j] = iq_list.count(j)
+#         iq_cluster_list.append(iq_count_list)
+        iq_cluster_list.append(iq_list)
 
         # get distance CEU for each cluster
         distCEU_list.append([df_dist['distanceCEU'].iloc[ind_dist.index(i)] for i in subjs if i in ind_dist])
 
-    # Fisher's exact test between probands/siblings
-    prob_sib = [probands_cluster_list, siblings_cluster_list]
-    print("Probands / Siblings (Fisher's exact):", fisher_exact(prob_sib))
+        # mutation number median for each cluster
+        mutation_nb_list = [int(mutation_profile[indiv.index(i), :].sum(axis=1)) for i in subjs]
+        mutation_nb_cluster_list.append(mutation_nb_list)
 
-    # sex
-    male_female = [male_cluster_list, female_cluster_list]
-    print("Males / Females (Fisher's exact):", fisher_exact(male_female))
+    if patient_data == 'SSC':
+        file_directory = (data_folder + 'text/clusters_stat/' +
+                         ssc_subgroups + '_' + ssc_type + '_' + gene_data +
+                         '_' + ppi_data + '/')
+    else:
+        file_directory = (data_folder + 'text/clusters_stat/' +
+                         patient_data + '_' + ppi_data + '/')
+    os.makedirs(file_directory, exist_ok=True)
 
-    # concatenate IQ lists and remove zero columns (chi square test could not apply)
-    iq_array = np.array(iq_cluster_list)
-    iq_array = np.delete(iq_array, (iq_array==0).any(0), axis=1)
-    print("IQ (Chi 2): ", chisquare(iq_array[0],iq_array[1]))
+    text_file = file_directory + (
+        '{}_{}_ngh={}_comp={}_permut={}_lambd={}.txt'
+        .format(mut_type, alpha, ngh_max, n_components, n_permutations, lambd))
+    print(text_file)
+    # create text output file
+    with open(text_file, 'w+') as f:
+        # Individual numbers in clusters
+        print("individuals: {} ({}%) / {} ({}%) \n"
+          .format(total_cluster_list[0], round(total_cluster_list[0]*100/len(idx), 1),
+                 total_cluster_list[1], round(total_cluster_list[1]*100/len(idx), 1)), file=f)
 
-    # Distance_CEU distribution between 2 samples
-    print("Distance_CEU (Kolmogorov-Smirnov):", ks_2samp(distCEU_list[0], distCEU_list[1]))
+        # Fisher's exact test between probands/siblings
+        prob_sib = [probands_cluster_list, siblings_cluster_list]
+        print("Probands / Siblings (Fisher's exact):\n {} \n".format(fisher_exact(prob_sib)[1]), file=f)
 
-    return siblings_cluster_list, probands_cluster_list, female_cluster_list, male_cluster_list
+        # Fisher's exact test between sex
+        male_female = [male_cluster_list, female_cluster_list]
+        print("Males / Females (Fisher's exact):\n {} \n".format(fisher_exact(male_female)[1]), file=f)
+
+        # Distance_CEU distribution between 2 samples
+        print("Distance_CEU (Kolmogorov-Smirnov):\n {} \n".format(ks_2samp(distCEU_list[0], distCEU_list[1])[1]), file=f)
+
+        # IQ
+        iq_array = np.array(iq_cluster_list)
+        print("Probands' IQ median: {} / {}".format(median(iq_array[0]), median(iq_array[1])), file=f)
+        print(" {} \n".format(ks_2samp(iq_array[0], iq_array[1])[1]), file=f)
+
+        # Mutation number median
+        print("Mutation number median: {} / {}".format(median(mutation_nb_cluster_list[0]),
+                                                                         median(mutation_nb_cluster_list[1])), file=f)
+        print(" {} \n".format(ks_2samp(mutation_nb_cluster_list[0], mutation_nb_cluster_list[1])[1]), file=f)
+
+    # return ind_cluster_list, iq_array, siblings_cluster_list, probands_cluster_list, female_cluster_list, male_cluster_list
 
 
 def stacked_bar_plot(n_components, siblings_cluster_list, probands_cluster_list, odd, p_val,
