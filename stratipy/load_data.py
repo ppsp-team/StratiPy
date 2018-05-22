@@ -133,22 +133,25 @@ def load_overall_SSC_mutation_profile(data_folder, ssc_type):
                                          shape=(len(indiv), len(gene_id)),
                                          dtype=np.float32).tocsr()
 
-        savemat(mutation_profile_file, {'mutation_profile': mutation_profile,
-                                        'gene_id': gene_id,
-                                        'indiv': indiv}, do_compression=True)
+        savemat(overall_mutation_profile_file,
+                {'mutation_profile': mutation_profile,
+                 'gene_id': gene_id,
+                 'indiv': indiv}, do_compression=True)
 
     return mutation_profile, gene_id, indiv
 
 
-def load_specific_SSC_mutation_profile(data_folder, ssc_type, ssc_subgroups):
-    print(' ==== load_{}_{}_mutation_profile'.format(ssc_subgroups, ssc_type))
-    mutation_profile_file = (data_folder + "{}_{}_mutation_profile.mat"
-                             .format(ssc_subgroups, ssc_type))
+def load_specific_SSC_mutation_profile(data_folder, ssc_type, ssc_subgroups,
+                                       gene_data):
+    print(' ==== load_{}_{}_{}_mutation_profile'
+          .format(ssc_subgroups, ssc_type, gene_data))
+    mutation_profile_file = (data_folder + "{}_{}_{}_mutation_profile.mat"
+                             .format(ssc_subgroups, ssc_type, gene_data))
     existance_file = os.path.exists(mutation_profile_file)
 
     if existance_file:
-        print('***** {}_{}_mutation_profile file already exists *****'
-              .format(ssc_subgroups, ssc_type))
+        print('***** {}_{}_{}_mutation_profile file already exists *****'
+              .format(ssc_subgroups, ssc_type, gene_data))
         loadfile = loadmat(mutation_profile_file)
         mutation_profile = loadfile['mutation_profile']
         gene_id = (loadfile['gene_id'].flatten()).tolist()
@@ -178,6 +181,29 @@ def load_specific_SSC_mutation_profile(data_folder, ssc_type, ssc_subgroups):
 
             # slice overall mutation profile by SSC subgroup individuals
             mutation_profile = mutation_profile[ind_ssc, :]
+
+        if gene_data != 'all':
+            print('genes filtering according to:', gene_data)
+            df_gene = pd.read_csv(data_folder + 'EntrezGene_{}.csv'
+                                  .format(gene_data), sep='\t')
+            specific_gene_id = [int(i) for i in df_gene.entrez_id.tolist()]
+
+            # looking for corresponding EntrezGene ID in overall data (gene_id)
+            # then append their index in a list (gene_filtered)
+            gene_filtered = []
+            [gene_filtered.append(
+                gene_id.index(i)) for i in specific_gene_id if i in gene_id]
+            print("After filtering by {} data: {} to {} genes ({} removed)"
+                  .format(gene_data, len(gene_id),
+                          len(gene_filtered),
+                          len(gene_id) - len(gene_filtered)))
+
+            print(gene_id[:10])
+            gene_id = [gene_id[i] for i in gene_filtered]
+
+            # slice overall mutation profile by filtered gene
+            print(gene_filtered[:10])
+            mutation_profile = mutation_profile[:, gene_filtered]
 
         savemat(mutation_profile_file, {'mutation_profile': mutation_profile,
                                         'gene_id': gene_id,
