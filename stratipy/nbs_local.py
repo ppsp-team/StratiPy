@@ -2,17 +2,17 @@
 # coding: utf-8
 import sys
 import os
+sys.path.append(os.path.abspath('../../stratipy'))
+from stratipy import load_data, formatting_data, filtering_diffusion, clustering, hierarchical_clustering
 import importlib  # NOTE for python >= Python3.4
 import scipy.sparse as sp
 import numpy as np
 import time
-import datetime
+from datetime import datetime
 from sklearn.model_selection import ParameterGrid
 from scipy.io import loadmat, savemat
 # from memory_profiler import profile
 # if "from memory_profiler import profile", timestamps will not be recorded
-sys.path.append(os.path.abspath('../../stratipy'))
-from stratipy import load_data, formatting_data, filtering_diffusion, clustering, hierarchical_clustering
 
 # importlib.reload(load_data)
 # print(dir(load_data))
@@ -21,7 +21,8 @@ from stratipy import load_data, formatting_data, filtering_diffusion, clustering
 param_grid = {'data_folder': ['../data/'],
               'patient_data': ['SSC'],
             #   'patient_data': ['Faroe'],
-              'ssc_type': ['LoF', 'missense'],
+              # 'ssc_mutation_data': ['LoF', 'missense'],
+              'ssc_mutation_data': ['LoF_mis30'],
               'ssc_subgroups': ['SSC1', 'SSC2'],
               # 'ssc_subgroups': ['SSC', 'SSC1', 'SSC2'],
               'gene_data': ['all', 'pli', 'sfari', 'brain1SD', 'brain2SD'],
@@ -69,25 +70,21 @@ def all_functions(params):
 
     else:
         if patient_data == 'SSC':
-            if gene_data == 'all':
-                result_folder = (data_folder + 'result_' + ssc_subgroups + '_' +
-                                 ssc_type + '_' + ppi_data + '/')
-
-            else:
-                result_folder = (data_folder + 'result_' + ssc_subgroups + '_' +
-                                 ssc_type + '_' + gene_data + '_' +  ppi_data + '/')
+            result_folder = (data_folder + 'result_' + ssc_mutation_data + '_' +
+                                 ssc_subgroups + '_' + gene_data + '_' +  ppi_data + '/')
         else:
             result_folder = (data_folder + 'result_' + patient_data + '_' +
                              ppi_data + '/')
-        print(result_folder)
-        print("alpha =", alpha)
-        print("QN =", qn)
-        print("k =", n_components)
-        print("lambda =", lambd)
-        print("PPI network =", ppi_data)
+        print(result_folder, flush=True)
+        print("alpha =", alpha, flush=True)
+        print("QN =", qn, flush=True)
+        print("k =", n_components, flush=True)
+        print("lambda =", lambd, flush=True)
+        print("PPI network =", ppi_data, flush=True)
 
         # ------------ load_data.py ------------
-        print("------------ load_data.py ------------")
+        print("------------ load_data.py ------------ {}"
+              .format(datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
         if patient_data == 'TCGA_UCEC':
             (patient_id, mutation_profile, gene_id_patient,
              gene_symbol_profile) = load_data.load_TCGA_UCEC_patient_data(
@@ -100,7 +97,7 @@ def all_functions(params):
         elif patient_data == 'SSC':
             mutation_profile, gene_id_patient, patient_id = (
                 load_data.load_specific_SSC_mutation_profile(
-                    data_folder, ssc_type, ssc_subgroups, gene_data))
+                    data_folder, ssc_mutation_data, ssc_subgroups, gene_data))
 
         if ppi_data == 'STRING':
             gene_id_ppi, network = load_data.load_PPI_String(
@@ -111,7 +108,8 @@ def all_functions(params):
                 data_folder, ppi_data)
 
         # ------------ formatting_data.py ------------
-        print("------------ formatting_data.py ------------")
+        print("------------ formatting_data.py ------------ {}"
+              .format(datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
         (network, mutation_profile,
          idx_ppi, idx_mut, idx_ppi_only, idx_mut_only) = (
             formatting_data.classify_gene_index(
@@ -123,7 +121,8 @@ def all_functions(params):
                 mutation_profile))
 
         # ------------ filtering_diffusion.py ------------
-        print("------------ filtering_diffusion.py ------------")
+        print("------------ filtering_diffusion.py ------------ {}"
+              .format(datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
         # ppi_influence = (
         #     filtering_diffusion.calcul_ppi_influence(
         #         sp.eye(ppi_filt.shape[0]), ppi_filt,
@@ -143,7 +142,8 @@ def all_functions(params):
             mut_final, ppi_filt, result_folder, alpha, tol, qn)
 
         # ------------ clustering.py ------------
-        print("------------ clustering.py ------------")
+        print("------------ clustering.py ------------ {}"
+              .format(datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
         genes_clustering, patients_clustering = (clustering.bootstrap(
             result_folder, mut_type, mut_propag, ppi_final,
             influence_weight, simplification,
@@ -159,7 +159,8 @@ def all_functions(params):
             compute_gene_clustering)
 
         # ------------ hierarchical_clustering.py ------------
-        print("------------ hierarchical_clustering.py ------------")
+        print("------------ hierarchical_clustering.py ------------ {}"
+              .format(datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
         # if alpha > 0:
         #     if qn == 'mean':
         #         mut_type = 'mean_qn'
@@ -202,15 +203,15 @@ def all_functions(params):
         #     result_folder, distance_patients, ppi_data, mut_type,
         #     influence_weight, simplification, alpha, tol,  keep_singletons,
         #     ngh_max, min_mutation, max_mutation, n_components, n_permutations,
-        #     lambd, tol_nmf, linkage_method, patient_data, data_folder, ssc_subgroups, ssc_type, gene_data)
+        #     lambd, tol_nmf, linkage_method, patient_data, data_folder, ssc_subgroups, ssc_mutation_data, gene_data)
         hierarchical_clustering.distance_patients_from_consensus_file(
             result_folder, distance_patients, ppi_data, mut_type,
             influence_weight, simplification, alpha, tol,  keep_singletons,
             ngh_max, min_mutation, max_mutation, n_components, n_permutations,
-            lambd, tol_nmf, linkage_method, patient_data, data_folder, ssc_subgroups, ssc_type, gene_data)
+            lambd, tol_nmf, linkage_method, patient_data, data_folder, ssc_subgroups, ssc_mutation_data, gene_data)
 
         hierarchical_clustering.analysis_from_clusters(
-            data_folder, patient_data, ssc_type, ssc_subgroups, ppi_data, gene_data,
+            data_folder, patient_data, ssc_mutation_data, ssc_subgroups, ppi_data, gene_data,
             result_folder, mut_type, influence_weight,
             simplification, alpha, tol, keep_singletons,
             ngh_max, min_mutation, max_mutation, n_components,
