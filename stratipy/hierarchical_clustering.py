@@ -25,7 +25,7 @@ def distance_patients_from_consensus_file(
     influence_weight, simplification,
     alpha, tol,  keep_singletons, ngh_max, min_mutation, max_mutation,
     n_components, n_permutations, lambd, tol_nmf, linkage_method,
-    patient_data, data_folder, ssc_subgroups, ssc_type, gene_data):
+    patient_data, data_folder, ssc_subgroups, ssc_mutation_data, gene_data):
 
     consensus_directory = result_folder+'consensus_clustering/'
     consensus_mut_type_directory = consensus_directory + mut_type + '/'
@@ -130,31 +130,34 @@ def distance_patients_from_consensus_file(
         plt.axis('off')
         if patient_data == 'SSC':
             fig_directory = (data_folder + 'figures/similarity/' +
-                             ssc_subgroups + '_' + ssc_type + '_' + gene_data +
+                             ssc_mutation_data + '_' + ssc_subgroups + '_' + gene_data +
                              '_' + ppi_data + '/')
         else:
             fig_directory = (data_folder + 'figures/similarity/' +
                              patient_data + '_' + ppi_data + '/')
         os.makedirs(fig_directory, exist_ok=True)
-        fig_name = ('{}_{}_ngh={}_comp={}_permut={}_lambd={}'.format(
-            mut_type, alpha, ngh_max, n_components, n_permutations, lambd))
+        fig_name = ('{}_{}_k={}_ngh={}_permut={}_lambd={}'.format(
+            mut_type, alpha, n_components, ngh_max, n_permutations, lambd))
         plt.savefig('{}{}.png'.format(fig_directory, fig_name),
                     bbox_inches='tight')
 
 
-def analysis_from_clusters(data_folder, patient_data, ssc_type, ssc_subgroups,
+def analysis_from_clusters(data_folder, patient_data, ssc_mutation_data, ssc_subgroups,
                            ppi_data, gene_data,
                            result_folder, mut_type, influence_weight,
                            simplification, alpha, tol, keep_singletons,
                            ngh_max, min_mutation, max_mutation, n_components,
                            n_permutations, lambd, tol_nmf, linkage_method):
-    mutation_profile_file = (data_folder + "{}_{}_mutation_profile.mat"
-                             .format(ssc_subgroups, ssc_type))
-    loadfile = loadmat(mutation_profile_file)
-    indiv = (loadfile['indiv'].flatten()).tolist()
+    hierarchical_mut_type_directory = result_folder+'hierarchical_clustering/' + mut_type + '/'
+    if lambd > 0:
+        hierarchical_factorization_directory = (
+            hierarchical_mut_type_directory + 'gnmf/')
+    else:
+        hierarchical_factorization_directory = (
+            hierarchical_mut_type_directory + 'nmf/')
 
     hierarchical_clustering_file = (
-        result_folder+'hierarchical_clustering/' + mut_type + '/' + 'nmf/' +
+        hierarchical_factorization_directory +
         'hierarchical_clustering_Patients_weight={}_simp={}_alpha={}_tol={}_singletons={}_ngh={}_minMut={}_maxMut={}_comp={}_permut={}_lambd={}_tolNMF={}_method={}.mat'
         .format(influence_weight, simplification, alpha, tol, keep_singletons,
                 ngh_max, min_mutation, max_mutation, n_components,
@@ -178,13 +181,10 @@ def analysis_from_clusters(data_folder, patient_data, ssc_type, ssc_subgroups,
 
     # load mutation profile data
     overall_mutation_profile_file = (
-        data_folder + "SSC_{}_mutation_profile.mat".format(ssc_type))
+        data_folder + "{}_overall_mutation_profile.mat".format(ssc_mutation_data))
     loadfile = loadmat(overall_mutation_profile_file)
     mutation_profile = loadfile['mutation_profile']
     indiv = (loadfile['indiv'].flatten()).tolist()
-
-    mutation_profile_file = (data_folder + "{}_{}_mutation_profile.mat"
-                             .format(ssc_subgroups, ssc_type))
 
     clusters = list(set(clust_nb))
     total_cluster_list = []
@@ -232,7 +232,7 @@ def analysis_from_clusters(data_folder, patient_data, ssc_type, ssc_subgroups,
 
     if patient_data == 'SSC':
         file_directory = (data_folder + 'text/clusters_stat/' +
-                         ssc_subgroups + '_' + ssc_type + '_' + gene_data +
+                         ssc_mutation_data + '_' + ssc_subgroups + '_' + gene_data +
                          '_' + ppi_data + '/')
     else:
         file_directory = (data_folder + 'text/clusters_stat/' +
@@ -240,36 +240,47 @@ def analysis_from_clusters(data_folder, patient_data, ssc_type, ssc_subgroups,
     os.makedirs(file_directory, exist_ok=True)
 
     text_file = file_directory + (
-        '{}_{}_ngh={}_comp={}_permut={}_lambd={}.txt'
-        .format(mut_type, alpha, ngh_max, n_components, n_permutations, lambd))
+        '{}_{}_k={}_ngh={}_permut={}_lambd={}.txt'
+        .format(mut_type, alpha, n_components, ngh_max, n_permutations, lambd))
     print(text_file)
     # create text output file
     with open(text_file, 'w+') as f:
         # Individual numbers in clusters
-        print("individuals: {} ({}%) / {} ({}%) \n"
+        print("individuals: \n{} ({}%) / {} ({}%)"
           .format(total_cluster_list[0], round(total_cluster_list[0]*100/len(idx), 1),
                  total_cluster_list[1], round(total_cluster_list[1]*100/len(idx), 1)), file=f)
 
+        p_val_threshold = 0.05
         # Fisher's exact test between probands/siblings
         prob_sib = [probands_cluster_list, siblings_cluster_list]
-        print("Probands / Siblings (Fisher's exact):\n {} \n".format(fisher_exact(prob_sib)[1]), file=f)
+        p = fisher_exact(prob_sib)[1]
+        if p <= p_val_threshold:
+            print("\nProbands / Siblings (Fisher's exact):\n{}".format(p), file=f)
 
         # Fisher's exact test between sex
         male_female = [male_cluster_list, female_cluster_list]
-        print("Males / Females (Fisher's exact):\n {} \n".format(fisher_exact(male_female)[1]), file=f)
+        p = fisher_exact(male_female)[1]
+        if p <= p_val_threshold:
+            print("\nMales / Females (Fisher's exact):\n{}".format(p), file=f)
 
         # Distance_CEU distribution between 2 samples
-        print("Distance_CEU (Kolmogorov-Smirnov):\n {} \n".format(ks_2samp(distCEU_list[0], distCEU_list[1])[1]), file=f)
+        p = ks_2samp(distCEU_list[0], distCEU_list[1])[1]
+        if p <= p_val_threshold:
+            print("\nDistance_CEU (Kolmogorov-Smirnov):\n{}".format(p), file=f)
 
         # IQ
         iq_array = np.array(iq_cluster_list)
-        print("Probands' IQ median: {} / {}".format(median(iq_array[0]), median(iq_array[1])), file=f)
-        print(" {} \n".format(ks_2samp(iq_array[0], iq_array[1])[1]), file=f)
+        p = ks_2samp(iq_array[0], iq_array[1])[1]
+        if p <= p_val_threshold:
+            print("\nProbands' IQ median: \n{} / {}".format(median(iq_array[0]), median(iq_array[1])), file=f)
+            print("{}".format(p), file=f)
 
         # Mutation number median
-        print("Mutation number median: {} / {}".format(median(mutation_nb_cluster_list[0]),
+        p = ks_2samp(mutation_nb_cluster_list[0], mutation_nb_cluster_list[1])[1]
+        if p <= p_val_threshold:
+            print("\nMutation number median: \n{} / {}".format(median(mutation_nb_cluster_list[0]),
                                                                          median(mutation_nb_cluster_list[1])), file=f)
-        print(" {} \n".format(ks_2samp(mutation_nb_cluster_list[0], mutation_nb_cluster_list[1])[1]), file=f)
+            print("{}".format(p), file=f)
 
     # return ind_cluster_list, iq_array, siblings_cluster_list, probands_cluster_list, female_cluster_list, male_cluster_list
 
