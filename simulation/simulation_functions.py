@@ -12,20 +12,21 @@ from itertools import repeat
 sys.path.append(os.path.dirname(os.path.abspath('.')))
 
 
-# def generate_network(pathwaysNum, genesNum, connNeighboors, connProbability,
-#                      marker_shapes):
-#     pathways = []
-#     for n in range(0, pathwaysNum):
-#         pathway = nx.connected_watts_strogatz_graph(genesNum, connNeighboors,
-#                                                     connProbability)
-#         [pathway.add_node(x, shape=marker_shapes[n]) for x in range(genesNum)]
-#         # Pathways are initialized as independant Watts-Strogatz networks
-#         mapping = dict(
-#             zip(pathway.nodes(), [x+genesNum*n for x in pathway.nodes()]))
-#         pathway = nx.relabel_nodes(pathway, mapping)
-#         pathways.append(pathway)
-#     PPI = nx.union_all(pathways)
-#     return PPI
+def generate_network_shapes(pathwaysNum, genesNum, connNeighboors, connProbability,
+                     marker_shapes):
+    print('--- generate_network ---')
+    pathways = []
+    for n in range(0, pathwaysNum):
+        pathway = nx.connected_watts_strogatz_graph(genesNum, connNeighboors,
+                                                    connProbability)
+        [pathway.add_node(x, shape=marker_shapes[n]) for x in range(genesNum)]
+        # Pathways are initialized as independant Watts-Strogatz networks
+        mapping = dict(
+            zip(pathway.nodes(), [x+genesNum*n for x in pathway.nodes()]))
+        pathway = nx.relabel_nodes(pathway, mapping)
+        pathways.append(pathway)
+    PPI = nx.union_all(pathways)
+    return PPI
 
 
 def generate_network(pathwaysNum, genesNum, connNeighboors, connProbability):
@@ -180,15 +181,18 @@ def plot_network_patient(mut_type, alpha, tol, PPI, position, patients,
 
     # draw networks with several pathways
     for pn in range(0, patientsNum):
+        vmax_value = max(patients[pn])
         fig.add_subplot(patientsNum/2, 2, pn+1)
         frame = fig.gca()
         # draw nodes (pathway by pathway)
+        # if vmax=vmax_value, we need to change colorbar scale
         for aShape in marker_shapes:
             nodeList = set([sNode[0] for sNode in filter(
                 lambda x: x[1]["shape"] == aShape, PPI.nodes(data=True))])
             pathway_nodes = nx.draw_networkx_nodes(
                 PPI, pos=position, node_shape=aShape, nodelist=nodeList,
                 node_size=100, node_color=patients[pn, list(nodeList)],
+                vmin=0, vmax=1,
                 cmap=plt.cm.viridis, alpha=0.85, linewidths=0.5,
                 with_labels=False)
             pathway_nodes.set_edgecolor('black')

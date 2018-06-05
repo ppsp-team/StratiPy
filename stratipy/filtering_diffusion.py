@@ -339,7 +339,7 @@ def best_neighboors(ppi_filt, final_influence, ngh_max):
 # @profile
 def filter_ppi_patients(ppi_total, mut_total, ppi_filt, final_influence, ngh_max,
                         keep_singletons=False,
-                        min_mutation=10, max_mutation=2000):
+                        min_mutation=0, max_mutation=2000):
     """Keeping only the connections with the best influencers and Filtering some
     patients based on mutation number
 
