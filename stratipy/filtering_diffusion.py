@@ -327,9 +327,9 @@ def best_neighboors(ppi_filt, final_influence, ngh_max):
     ppi_filt = ppi_filt.todense()
     ppi_ngh = np.zeros(ppi_filt.shape, dtype=np.float32)
     for i in range(ppi_filt.shape[0]):
-        best_influencers = np.argpartition(-final_influence[i, :], ngh_max)[:ngh_max]
+        best_influencers = np.argpartition(-final_influence[i, :], ngh_max)
+        best_influencers = np.asarray(best_influencers).squeeze()[:ngh_max]
         #NOTE different result if same value exists several times
-        # best_influencers2 = np.argpartition(final_influence[i, :], -ngh_max)[-ngh_max:]
         ppi_ngh[i, best_influencers] = ppi_filt[i, best_influencers]
     ppi_ngh = np.max(np.dstack((ppi_ngh, ppi_ngh.T)), axis=2)
     # too stringent if np.min
