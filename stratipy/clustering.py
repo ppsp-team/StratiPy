@@ -257,7 +257,8 @@ def bootstrap(result_folder, mut_type, mut_propag, ppi_final,
               influence_weight, simplification,
               alpha, tol, keep_singletons, ngh_max, min_mutation, max_mutation,
               n_components, n_permutations,
-              run_bootstrap=False, lambd=1, tol_nmf=1e-3):
+              run_bootstrap=False, lambd=1, tol_nmf=1e-3,
+              compute_gene_clustering=False):
 
     boot_directory = result_folder+'bootstrap/'
     boot_mut_type_directory = boot_directory + mut_type + '/'
@@ -305,14 +306,20 @@ def bootstrap(result_folder, mut_type, mut_propag, ppi_final,
                                                       ppi_boot, lambd,
                                                       n_components, tol_nmf)
                 if n_components > 1:
-                    genes_clustering[genes_boot, perm] = np.argmax(H, axis=0)
+                    if compute_gene_clustering:
+                        genes_clustering[genes_boot, perm] = np.argmax(H, axis=0)
                     patients_clustering[patients_boot, perm] = np.argmax(W, axis=1)
                 else:
-                    genes_clustering[genes_boot, perm] = H
+                    if compute_gene_clustering:
+                        genes_clustering[genes_boot, perm] = H
                     patients_clustering[patients_boot, perm] = W
 
             # clustering std for each permutation of bootstrap
-            genes_clustering_std = clustering_std_for_each_bootstrap(genes_clustering)
+            if compute_gene_clustering:
+                genes_clustering_std = clustering_std_for_each_bootstrap(
+                    genes_clustering)
+            else:
+                genes_clustering_std = float('NaN')
             patients_clustering_std = clustering_std_for_each_bootstrap(patients_clustering)
 
             savemat(boot_file, {'genes_clustering': genes_clustering,
@@ -356,7 +363,8 @@ def consensus_clustering(result_folder, genes_clustering, patients_clustering,
                          mut_type, alpha, tol, keep_singletons, ngh_max,
                          min_mutation, max_mutation,
                          n_components, n_permutations,
-                         run_consensus=False, lambd=1, tol_nmf=1e-3):
+                         run_consensus=False, lambd=1, tol_nmf=1e-3,
+                         compute_gene_clustering=False):
         # TODO overwrite condition
     consensus_directory = result_folder+'consensus_clustering/'
     consensus_mut_type_directory = consensus_directory + mut_type + '/'
@@ -387,7 +395,10 @@ def consensus_clustering(result_folder, genes_clustering, patients_clustering,
         if run_consensus:
             # start = time.time()
             print(" ==== Between genes ")
-            distance_genes = concensus_clustering_simple(genes_clustering)
+            if compute_gene_clustering:
+                distance_genes = concensus_clustering_simple(genes_clustering)
+            else:
+                distance_genes = float('NaN')
             # end = time.time()
             # print("---------- distance_GENES = {} ---------- {}"
             #       .format(datetime.timedelta(seconds=end-start),

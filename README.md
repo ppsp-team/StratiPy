@@ -44,12 +44,12 @@ To reproduce the figure 3 of [our paper about reproducibility in bioinformatics]
 
 
 ## Licensing
-Stratipy is **BSD-licenced** (3 clause):
+StratiPy is **BSD-licenced** (3 clause):
 
     This software is OSI Certified Open Source Software.
     OSI Certified is a certification mark of the Open Source Initiative.
 
-    Copyright (c) 2014, authors of Stratipy
+    Copyright (c) 2014, authors of StratiPy
     All rights reserved.
 
     Redistribution and use in source and binary forms, with or without
@@ -62,7 +62,7 @@ Stratipy is **BSD-licenced** (3 clause):
       this list of conditions and the following disclaimer in the documentation
       and/or other materials provided with the distribution.
 
-    * Neither the names of Stratipy authors nor the names of any
+    * Neither the names of StratiPy authors nor the names of any
       contributors may be used to endorse or promote products derived from
       this software without specific prior written permission.
 

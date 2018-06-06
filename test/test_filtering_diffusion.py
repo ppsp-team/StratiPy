@@ -17,8 +17,6 @@ def sparse_random_matrix(n, d, unify_max_val):
 
 def test_propagation():
     n = 100
-    # M = sp.rand(n, n, density=0.2)
-    # M.data[:] = 1
     M = sparse_random_matrix(n, 0.2, unify_max_val=True)
     adj = np.random.randint(0,2,size=(n,n))
     adj = sp.csr_matrix((adj + adj.T)/2)

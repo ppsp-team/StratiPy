@@ -11,17 +11,20 @@ import time
 import datetime
 from sklearn.model_selection import ParameterGrid
 from scipy.io import loadmat, savemat
-from memory_profiler import profile
+# from memory_profiler import profile
 # if "from memory_profiler import profile", timestamps will not be recorded
 
 i = int(sys.argv[1])-1
 
 # TODO PPI type param
 param_grid = {'data_folder': ['../data/'],
-            #   'patient_data': ['TCGA_UCEC'],
-              'patient_data': ['Faroe'],
-            #   'patient_data': ['TCGA_UCEC', 'SIMONS'],
-              'ppi_data': ['STRING', 'Y2H'],
+              'patient_data': ['SSC'],
+            #   'patient_data': ['Faroe'],
+              'ssc_type': ['LoF', 'missense'],
+              'ssc_subgroups': ['SSC1', 'SSC2'],
+              # 'ssc_subgroups': ['SSC', 'SSC1', 'SSC2'],
+              'gene_data': ['pli', 'sfari', 'brain1SD', 'brain2SD'],
+              'ppi_data': ['APID'],
               'influence_weight': ['min'],
               'simplification': [True],
               'compute': [True],
@@ -34,27 +37,29 @@ param_grid = {'data_folder': ['../data/'],
               'keep_singletons': [False],
             #   'min_mutation': [10],
               'min_mutation': [0],
-              'max_mutation': [200000],
-              'qn': [None, 'mean', 'median'],
-            #   'qn': [None],
+              'max_mutation': [2000],
+            #   'qn': [None, 'mean', 'median'],
+              'qn': ['median'],
               'n_components': [2],
             #   'n_components': range(2, 10),
             #   'n_permutations': [1000],
-              'n_permutations': [1000],
+              'n_permutations': [100],
               'run_bootstrap': [True],
               'run_consensus': [True],
             #   'lambd': [0, 1, 200],
-              'lambd': [0, 1],
+              'lambd': [0],
               'tol_nmf': [1e-3],
-              'linkage_method': ['ward']
+              'compute_gene_clustering': [False],
+              'linkage_method': ['average']
             #   'linkage_method': ['single', 'complete', 'average', 'weighted', 'centroid', 'median', 'ward']
               }
+
 
 # 'lambd': range(0, 2)
 
 # NOTE sys.stdout.flush()
 
-@profile
+# @profile
 def all_functions(params):
 
     if alpha == 0 and qn is not None:
@@ -62,7 +67,17 @@ def all_functions(params):
         pass
 
     else:
-        result_folder = data_folder + 'result_' + patient_data + '_' + ppi_data + '/'
+        if patient_data == 'SSC':
+            if gene_data == None:
+                result_folder = (data_folder + 'result_' + ssc_subgroups + '_' +
+                                 ssc_type + '_' + ppi_data + '/')
+
+            else:
+                result_folder = (data_folder + 'result_' + ssc_subgroups + '_' +
+                                 ssc_type + '_' + gene_data + '_' +  ppi_data + '/')
+        else:
+            result_folder = (data_folder + 'result_' + patient_data + '_' +
+                             ppi_data + '/')
         print(result_folder)
         print("alpha =", alpha)
         print("QN =", qn)
@@ -78,15 +93,20 @@ def all_functions(params):
                  data_folder)
 
         elif patient_data == 'Faroe':
-            mutation_profile, gene_id_patient = load_data.load_Faroe_Islands_data(
-                data_folder)
+            mutation_profile, gene_id_patient = (
+                load_data.load_Faroe_Islands_data(data_folder))
+
+        elif patient_data == 'SSC':
+            mutation_profile, gene_id_patient, patient_id = (
+                load_data.load_specific_SSC_mutation_profile(
+                    data_folder, ssc_type, ssc_subgroups, gene_data))
 
         if ppi_data == 'STRING':
             gene_id_ppi, network = load_data.load_PPI_String(
                 data_folder, ppi_data)
 
-        elif ppi_data == 'Y2H':
-            gene_id_ppi, network = load_data.load_PPI_Y2H(
+        else:
+            gene_id_ppi, network = load_data.load_PPI_Y2H_or_APID(
                 data_folder, ppi_data)
 
         # ------------ formatting_data.py ------------
@@ -103,6 +123,11 @@ def all_functions(params):
 
         # ------------ filtering_diffusion.py ------------
         print("------------ filtering_diffusion.py ------------")
+        # ppi_influence = (
+        #     filtering_diffusion.calcul_ppi_influence(
+        #         sp.eye(ppi_filt.shape[0]), ppi_filt,
+        #         result_folder, compute, overwrite, alpha, tol))
+
         final_influence = (
             filtering_diffusion.calcul_final_influence(
                 sp.eye(ppi_filt.shape[0], dtype=np.float32), ppi_filt,
@@ -114,7 +139,7 @@ def all_functions(params):
             keep_singletons, min_mutation, max_mutation)
 
         mut_type, mut_propag = filtering_diffusion.propagation_profile(
-            mut_final, ppi_filt, alpha, tol, qn)
+            mut_final, ppi_filt, result_folder, alpha, tol, qn)
 
         # ------------ clustering.py ------------
         print("------------ clustering.py ------------")
@@ -123,13 +148,14 @@ def all_functions(params):
             influence_weight, simplification,
             alpha, tol, keep_singletons, ngh_max, min_mutation, max_mutation,
             n_components, n_permutations,
-            run_bootstrap, lambd, tol_nmf))
+            run_bootstrap, lambd, tol_nmf, compute_gene_clustering))
 
         distance_genes, distance_patients = clustering.consensus_clustering(
             result_folder, genes_clustering, patients_clustering,
             influence_weight, simplification, mut_type,
             alpha, tol, keep_singletons, ngh_max, min_mutation, max_mutation,
-            n_components, n_permutations, run_consensus, lambd, tol_nmf)
+            n_components, n_permutations, run_consensus, lambd, tol_nmf,
+            compute_gene_clustering)
 
         # ------------ hierarchical_clustering.py ------------
         print("------------ hierarchical_clustering.py ------------")
@@ -180,6 +206,7 @@ def all_functions(params):
             influence_weight, simplification, alpha, tol,  keep_singletons,
             ngh_max, min_mutation, max_mutation, n_components, n_permutations,
             lambd, tol_nmf, linkage_method)
+
 
 if (sys.version_info < (3, 2)):
     raise "Must be using Python ≥ 3.2"
