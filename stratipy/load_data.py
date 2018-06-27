@@ -227,7 +227,7 @@ def load_PPI(data_folder, ppi_data, load_gene_id_ppi=True):
 
 
 # @profile
-def load_PPI_String(data_folder, ppi_data):
+def load_Hofree_PPI_String(data_folder, ppi_data):
     # Entrez gene ID in PPI
     print(' ==== load_PPI_String and gene_id_ppi')
     entrez_to_idmat = loadmat(data_folder+'entrez_to_idmat.mat')
@@ -246,44 +246,6 @@ def coordinate(prot_list, all_list):
         i = all_list.index(prot)
         coo_list.append(i)
     return coo_list
-
-
-# def load_PPI_Y2H(data_folder, ppi_data):
-#     print(' ==== load_PPI_Y2H ')
-#     PPI_file = data_folder + 'PPI_Y2H.mat'
-#     existance_file = os.path.exists(PPI_file)
-#
-#     if existance_file:
-#         print('***** PPI_Y2H file already exists *****')
-#         gene_id_ppi, network = load_PPI(
-#             data_folder, ppi_data, load_gene_id_ppi=True)
-#
-#     else:
-#         print('PPI_Y2H file is calculating.....')
-#         data = genfromtxt(data_folder+'PPI_Y2H_raw.tsv',
-#                           delimiter='\t', dtype=int)
-#         # List of all proteins with Entrez gene ID
-#         prot1 = data[1:, 0]
-#         prot2 = data[1:, 1]
-#         edge_list = np.vstack((prot1, prot2)).T
-#         gene_id_ppi = (edge_list.flatten()).tolist()
-#         gene_id_ppi = list(set(gene_id_ppi))
-#
-#         # From ID list to coordinate list
-#         print(' ==== coordinates ')
-#         coo1 = coordinate(prot1.tolist(), gene_id_ppi)
-#         coo2 = coordinate(prot2.tolist(), gene_id_ppi)
-#
-#         # Adjacency matrix
-#         print(' ==== Adjacency matrix ')
-#         n = len(gene_id_ppi)
-#         weight = np.ones(len(coo1))  # if interaction -> 1
-#         network = sp.coo_matrix((weight, (coo1, coo2)), shape=(n, n))
-#         network = network + network.T  # symmetric matrix
-#         len(gene_id_ppi)
-#         savemat(PPI_file, {'adj_mat': network, 'entrez_id': gene_id_ppi},
-#                 do_compression=True)
-#     return gene_id_ppi, network
 
 
 def create_adjacency_matrix(prot1, prot2, PPI_file):
@@ -308,7 +270,7 @@ def create_adjacency_matrix(prot1, prot2, PPI_file):
     return gene_id_ppi, network
 
 
-def load_PPI_Y2H_or_APID(data_folder, ppi_data):
+def load_PPI_network(data_folder, ppi_data):
     print(' ==== load_PPI_{}'.format(ppi_data))
     PPI_file = data_folder + 'PPI_' + ppi_data + '.mat'
     existance_file = os.path.exists(PPI_file)

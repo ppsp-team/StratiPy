@@ -100,11 +100,11 @@ def all_functions(params):
                     data_folder, ssc_mutation_data, ssc_subgroups, gene_data))
 
         if ppi_data == 'STRING':
-            gene_id_ppi, network = load_data.load_PPI_String(
+            gene_id_ppi, network = load_data.load_Hofree_PPI_String(
                 data_folder, ppi_data)
 
         else:
-            gene_id_ppi, network = load_data.load_PPI_Y2H_or_APID(
+            gene_id_ppi, network = load_data.load_PPI_network(
                 data_folder, ppi_data)
 
         # ------------ formatting_data.py ------------
