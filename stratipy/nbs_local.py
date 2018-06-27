@@ -27,7 +27,7 @@ param_grid = {'data_folder': ['../data/'],
               # 'ssc_subgroups': ['SSC', 'SSC1', 'SSC2'],
               'gene_data': ['all', 'pli', 'sfari', 'brain1SD', 'brain2SD'],
               # 'gene_data': ['all'],
-              'ppi_data': ['APID'],
+              'ppi_data': ['APID'], #'Hofree_STRING'
               'influence_weight': ['min'],
               'simplification': [True],
               'compute': [True],
@@ -99,7 +99,7 @@ def all_functions(params):
                 load_data.load_specific_SSC_mutation_profile(
                     data_folder, ssc_mutation_data, ssc_subgroups, gene_data))
 
-        if ppi_data == 'STRING':
+        if ppi_data == 'Hofree_STRING':
             gene_id_ppi, network = load_data.load_Hofree_PPI_String(
                 data_folder, ppi_data)
 
