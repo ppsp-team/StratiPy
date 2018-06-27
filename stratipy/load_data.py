@@ -286,7 +286,7 @@ def coordinate(prot_list, all_list):
 #     return gene_id_ppi, network
 
 
-def create_adjacency_matrix(prot1, prot2):
+def create_adjacency_matrix(prot1, prot2, PPI_file):
     # prot1 and prot2 are two columns including Entrez gene ID, from PPI data
     edge_list = np.vstack((prot1, prot2)).T
     gene_id_ppi = (edge_list.flatten()).tolist()
@@ -333,6 +333,6 @@ def load_PPI_Y2H_or_APID(data_folder, ppi_data):
             prot1 = data.EntrezGene_1
             prot2 = data.EntrezGene_2
 
-        gene_id_ppi, network = create_adjacency_matrix(prot1, prot2)
+        gene_id_ppi, network = create_adjacency_matrix(prot1, prot2, PPI_file)
 
     return gene_id_ppi, network
