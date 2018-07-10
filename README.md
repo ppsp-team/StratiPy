@@ -17,7 +17,7 @@ If you want to launch Reproducibility project by Jupyter Notebook, you will also
 
 
 ## Reproducibility
-To reproduce the figure 3 of [our paper about reproducibility in bioinformatics](https://www.biorxiv.org/content/early/2017/10/31/143503), you have two options:
+To reproduce the confusion matrix figure of [our paper about reproducibility in bioinformatics](https://www.biorxiv.org/content/early/2017/10/31/143503), you have two options:
 1. Follow the Jupyter Notebook [reproducibility.ipynb](reproducibility/reproducibility.ipynb)
 2. Build & run the [Docker](http://docker.com) container with:
 ```
