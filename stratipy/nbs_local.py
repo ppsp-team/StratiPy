@@ -161,61 +161,29 @@ def all_functions(params):
         # ------------ hierarchical_clustering.py ------------
         print("------------ hierarchical_clustering.py ------------ {}"
               .format(datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
-        # if alpha > 0:
-        #     if qn == 'mean':
-        #         mut_type = 'mean_qn'
-        #     elif qn == 'median':
-        #         mut_type = 'median_qn'
-        #     else:
-        #         mut_type = 'diff'
-        # else:
-        #     mut_type = 'raw'
-        # print("mutation type =", mut_type)
-        #
-        # consensus_directory = result_folder+'consensus_clustering/'
-        # consensus_mut_type_directory = consensus_directory + mut_type + '/'
-        #
-        # hierarchical_directory = result_folder+'hierarchical_clustering/'
-        # os.makedirs(hierarchical_directory, exist_ok=True)
-        # hierarchical_mut_type_directory = hierarchical_directory + mut_type + '/'
-        # os.makedirs(hierarchical_mut_type_directory, exist_ok=True)
-        #
-        # if lambd > 0:
-        #     consensus_factorization_directory = (consensus_mut_type_directory + 'gnmf/')
-        #     hierarchical_factorization_directory = (hierarchical_mut_type_directory + 'gnmf/')
-        #
-        # else:
-        #     consensus_factorization_directory = (consensus_mut_type_directory + 'nmf/')
-        #     hierarchical_factorization_directory = (hierarchical_mut_type_directory + 'nmf/')
-        # os.makedirs(hierarchical_factorization_directory, exist_ok=True)
-        #
-        # consensus_file = (consensus_factorization_directory +
-        #               'consensus_weight={}_simp={}_alpha={}_tol={}_singletons={}_ngh={}_minMut={}_maxMut={}_comp={}_permut={}_lambd={}_tolNMF={}.mat'
-        #               .format(influence_weight, simplification, alpha, tol,
-        #                       keep_singletons, ngh_max,
-        #                       min_mutation, max_mutation,
-        #                       n_components, n_permutations, lambd, tol_nmf))
-        #
-        # consensus_data = loadmat(consensus_file)
-        # distance_patients = consensus_data['distance_patients']
-        #
-        # hierarchical_clustering.distance_patients_from_consensus_file(
-        #     result_folder, distance_patients, ppi_data, mut_type,
-        #     influence_weight, simplification, alpha, tol,  keep_singletons,
-        #     ngh_max, min_mutation, max_mutation, n_components, n_permutations,
-        #     lambd, tol_nmf, linkage_method, patient_data, data_folder, ssc_subgroups, ssc_mutation_data, gene_data)
+
         hierarchical_clustering.distance_patients_from_consensus_file(
             result_folder, distance_patients, ppi_data, mut_type,
             influence_weight, simplification, alpha, tol,  keep_singletons,
             ngh_max, min_mutation, max_mutation, n_components, n_permutations,
             lambd, tol_nmf, linkage_method, patient_data, data_folder, ssc_subgroups, ssc_mutation_data, gene_data)
 
-        hierarchical_clustering.analysis_from_clusters(
-            data_folder, patient_data, ssc_mutation_data, ssc_subgroups, ppi_data, gene_data,
-            result_folder, mut_type, influence_weight,
-            simplification, alpha, tol, keep_singletons,
-            ngh_max, min_mutation, max_mutation, n_components,
-            n_permutations, lambd, tol_nmf, linkage_method)
+        (total_cluster_list, probands_cluster_list, siblings_cluster_list,
+                male_cluster_list, female_cluster_list, iq_cluster_list,
+                distCEU_list, mutation_nb_cluster_list,
+                text_file) = hierarchical_clustering.get_lists_from_clusters(
+                    data_folder, patient_data, ssc_mutation_data,
+                    ssc_subgroups, ppi_data, gene_data, result_folder,
+                    mut_type, influence_weight, simplification, alpha, tol,
+                    keep_singletons, ngh_max, min_mutation, max_mutation,
+                    n_components, n_permutations, lambd, tol_nmf,
+                    linkage_method)
+
+        hierarchical_clustering.bio_statistics(
+            n_components, total_cluster_list, probands_cluster_list,
+            siblings_cluster_list, male_cluster_list, female_cluster_list,
+            iq_cluster_list, distCEU_list, mutation_nb_cluster_list, text_file)
+
 
 if (sys.version_info < (3, 2)):
     raise "Must be using Python ≥ 3.2"

@@ -142,9 +142,191 @@ def distance_patients_from_consensus_file(
                     bbox_inches='tight')
 
 
-def analysis_from_clusters(data_folder, patient_data, ssc_mutation_data, ssc_subgroups,
-                           ppi_data, gene_data,
-                           result_folder, mut_type, influence_weight,
+def round_elements_keeping_sum(float_list, benchmark_list):
+    """Helper function for chi2test
+
+    Round a list of float numbers maintaining the sum. Adjustment of the
+    difference will be made on the biggest element in the list.
+
+    Parameters
+    ----------
+    float_list : list (float)
+        List containing decimal numbers to round off.
+
+    benchmark_list: list
+        Sum of all its elements will be a benchmark for the other.
+
+    Returns
+    -------
+    round_list : list (int)
+        Rounded list
+    """
+    round_list = [round(x) for x in float_list]
+    # difference between sums of lists
+    diff = sum(benchmark_list)-sum(round_list)
+    # difference adjustment
+    if diff != 0:
+        # on the biggest element
+        round_list[round_list.index(max(round_list))] += diff
+    return round_list
+
+
+def chi2test(list1, total_list):
+    rate = sum(list1)/sum(total_list)
+    expected_list1 = [x*rate for x in total_list]
+    expected_list1 = round_elements_keeping_sum(expected_list1, list1)
+    p_val = chisquare(list1, f_exp=expected_list1)[1]
+    return p_val
+
+
+def get_lists_from_clusters(data_folder, patient_data, ssc_mutation_data,
+                            ssc_subgroups, ppi_data, gene_data, result_folder,
+                            mut_type, influence_weight, simplification, alpha,
+                            tol, keep_singletons, ngh_max, min_mutation,
+                            max_mutation, n_components, n_permutations, lambd,
+                            tol_nmf, linkage_method):
+
+    hierarchical_clustering_file = (
+    result_folder+'hierarchical_clustering/' + mut_type + '/' + 'nmf/' +
+    'hierarchical_clustering_Patients_weight={}_simp={}_alpha={}_tol={}_singletons={}_ngh={}_minMut={}_maxMut={}_comp={}_permut={}_lambd={}_tolNMF={}_method={}.mat'
+    .format(influence_weight, simplification, alpha, tol, keep_singletons,
+            ngh_max, min_mutation, max_mutation, n_components,
+            n_permutations, lambd, tol_nmf, linkage_method))
+
+    h = loadmat(hierarchical_clustering_file)
+    clust_nb = np.squeeze(h['flat_cluster_number']) # cluster index for each individual
+    idx = np.squeeze(h['dendrogram_index']) # individuals' index
+
+    # load individual data including sex and IQ
+    df_ssc = pd.read_csv(data_folder + '{}_indiv_sex_iq.csv'
+                         .format(ssc_subgroups), sep='\t')
+    ind_ssc_raw = df_ssc['individual'].tolist()
+    df_ssc_iq = df_ssc[df_ssc['iq'].notnull()]
+    ind_ssc_iq = df_ssc_iq['individual'].tolist()
+    max_iq_value = int(df_ssc_iq['iq'].max())
+
+    # load distance_CEU data
+    df_dist = pd.read_csv(data_folder + 'SSC_distanceCEU.csv', sep="\t")
+    ind_dist = df_dist.individual.tolist()
+
+    # NOTE to do for other data
+    mutation_profile_file = (
+        data_folder + "{}_{}_{}_mutation_profile.mat"
+        .format(ssc_mutation_data, ssc_subgroups, gene_data))
+    loadfile = loadmat(mutation_profile_file)
+    mutation_profile = loadfile['mutation_profile']
+
+    clusters = list(set(clust_nb))
+    total_cluster_list = []
+    siblings_cluster_list = []
+    probands_cluster_list = []
+    female_cluster_list = []
+    male_cluster_list = []
+    iq_cluster_list = []
+    distCEU_list = []
+    mutation_nb_cluster_list = []
+    ind_cluster_list = []
+
+    for i, cluster in enumerate(clusters):
+        idCluster = [i for i, c in enumerate(clust_nb) if c == cluster]
+        subjs = [ind_ssc_raw[i] for i in idx[idCluster]]
+        total_cluster_list.append(len(subjs))
+        ind_cluster_list.append(subjs)
+
+        # get probands/siblings count in each cluster
+        sib_indiv = [i for i in subjs if i[-2:-1] == 's']  # individuals' ID list
+        siblings_cluster_list.append(len(sib_indiv))
+        prob_indiv = [i for i in subjs if i[-2:-1] == 'p']  # individuals' ID list
+        probands_cluster_list.append(len(prob_indiv))
+
+        # sex count in each cluster
+        sex_list = [df_ssc['sex'].iloc[ind_ssc_raw.index(i)] for i in subjs if i in ind_ssc_raw]
+        female_cluster_list.append(sex_list.count('female'))
+        male_cluster_list.append(sex_list.count('male'))
+
+        # get IQ list for each cluster
+        iq_list = [df_ssc_iq['iq'].iloc[ind_ssc_iq.index(i)] for i in subjs if i in ind_ssc_iq]
+        iq_list = [int(i) for i in iq_list]  # element type: np.float -> int
+        iq_cluster_list.append(iq_list)
+
+        # get distance CEU for each cluster
+        distCEU_list.append([df_dist['distanceCEU'].iloc[ind_dist.index(i)] for i in subjs if i in ind_dist])
+
+        # mutation number median for each cluster
+        mutation_nb_list = [int(mutation_profile[ind_ssc_raw.index(i), :].sum(axis=1)) for i in subjs]
+        mutation_nb_cluster_list.append(mutation_nb_list)
+
+    # create text output file
+    if patient_data == 'SSC':
+        file_directory = (data_folder + 'text/clusters_stat/' +
+                     ssc_mutation_data + '_' + ssc_subgroups + '_' + gene_data +
+                     '_' + ppi_data + '/')
+    else:
+        file_directory = (data_folder + 'text/clusters_stat/' +
+                         patient_data + '_' + ppi_data + '/')
+    os.makedirs(file_directory, exist_ok=True)
+
+    text_file = file_directory + (
+        '{}_{}_k={}_ngh={}_permut={}_lambd={}.txt'
+        .format(mut_type, alpha, n_components, ngh_max, n_permutations, lambd))
+
+    return (total_cluster_list, probands_cluster_list, siblings_cluster_list,
+            male_cluster_list, female_cluster_list, iq_cluster_list,
+            distCEU_list, mutation_nb_cluster_list, text_file)
+
+
+def bio_statistics(n_components, total_cluster_list, probands_cluster_list,
+                   siblings_cluster_list, male_cluster_list,
+                   female_cluster_list, iq_cluster_list, distCEU_list,
+                   mutation_nb_cluster_list, text_file):
+    p_val_threshold = 0.05
+
+    if n_components <= 2:
+        # Fisher's exact test between probands/siblings
+        p_prob_sib = fisher_exact([probands_cluster_list,
+                                   siblings_cluster_list])[1]
+
+        # Fisher's exact test between sex
+        p_sex = fisher_exact([male_cluster_list, female_cluster_list])[1]
+
+        # IQ
+        p_iq = ks_2samp(iq_cluster_list[0], iq_cluster_list[1])[1]
+
+        # Distance_CEU distribution between 2 samples
+        p_ancestral = ks_2samp(distCEU_list[0], distCEU_list[1])[1]
+
+        # Mutation number median
+        p_mutations = ks_2samp(mutation_nb_cluster_list[0],
+                               mutation_nb_cluster_list[1])[1]
+
+    else:
+        p_prob_sib = chi2test(probands_cluster_list, total_cluster_list)
+
+        p_sex = chi2test(male_cluster_list, total_cluster_list)
+
+        p_iq = kruskal(*iq_cluster_list)[1]
+
+        p_ancestral = kruskal(*distCEU_list)[1]
+
+        p_mutations = kruskal(*mutation_nb_cluster_list)[1]
+
+    all_p_dict = {"p_prob_sib": p_prob_sib,
+                  "p_sex": p_sex,
+                  "p_iq": p_iq,
+                  "p_ancestral": p_ancestral,
+                  "p_mutations": p_mutations}
+    signif_p_dict = {k: v for k, v in all_p_dict.items()
+                     if v <= p_val_threshold}
+    # create output only for significant p-values
+    if bool(signif_p_dict):
+        with open(text_file, 'w+') as f:
+            for x in signif_p_dict:
+                print("{} \n{} \n".format(x, all_p_dict[x]), file=f)
+
+
+def analysis_from_clusters(data_folder, patient_data, ssc_mutation_data,
+                           ssc_subgroups, ppi_data, gene_data, result_folder,
+                           mut_type, influence_weight,
                            simplification, alpha, tol, keep_singletons,
                            ngh_max, min_mutation, max_mutation, n_components,
                            n_permutations, lambd, tol_nmf, linkage_method):
