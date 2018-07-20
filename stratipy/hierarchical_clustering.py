@@ -11,7 +11,7 @@ import datetime
 import os
 import glob
 import pandas as pd
-from scipy.stats import fisher_exact, ks_2samp
+from scipy.stats import fisher_exact, ks_2samp, chisquare, kruskal
 from statistics import median
 import matplotlib
 import matplotlib.pyplot as plt
