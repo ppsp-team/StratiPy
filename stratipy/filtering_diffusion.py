@@ -402,7 +402,7 @@ def filter_ppi_patients(ppi_total, mut_total, ppi_filt, final_influence, ngh_max
     # mut_final = mut_final[filtered_patients == False, :]
 
     # to avoid worse comparison '== False'
-    mut_final = mut_final[np.array([min_mutation < k < max_mutation for k in
+    mut_final = mut_final[np.array([min_mutation <= k <= max_mutation for k in
                                     Patient(mut_final).mut_per_patient])]
 
     print(" Removing %i patients with less than %i or more than %i mutations" %

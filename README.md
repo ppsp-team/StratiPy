@@ -17,7 +17,7 @@ If you want to launch Reproducibility project by Jupyter Notebook, you will also
 
 
 ## Reproducibility
-To reproduce the confusion matrix figure of [our paper about reproducibility in bioinformatics](https://www.biorxiv.org/content/early/2017/10/31/143503), you have two options:
+To reproduce the confusion matrix figure of [our paper about reproducibility in bioinformatics](https://doi.org/10.1093/gigascience/giy077), you have two options:
 1. Follow the Jupyter Notebook [reproducibility.ipynb](reproducibility/reproducibility.ipynb)
 2. Build & run the [Docker](http://docker.com) container with:
 ```
@@ -33,7 +33,7 @@ To reproduce the confusion matrix figure of [our paper about reproducibility in 
 ## References
 - Network-based stratification of tumor mutations ([Hofree et al. Nat. Meth. 2013](http://www.nature.com/nmeth/journal/v10/n11/full/nmeth.2651.html))
 - Consensus clustering: a resampling-based method for class discovery and visualization of gene expression microarray data ([Monti et al. Mach. Learn.2003](http://link.springer.com/article/10.1023%2FA%3A1023949509487))
-- Experimenting with reproducibility in bioinformatics ([Kim et al. BioRxiv 2017](https://www.biorxiv.org/content/early/2017/10/31/143503))
+- Experimenting with reproducibility: a case study of robustness in bioinformatics ([Kim et al. GigaScience 2018](https://doi.org/10.1093/gigascience/giy077))
 
 
 ## Additional links
