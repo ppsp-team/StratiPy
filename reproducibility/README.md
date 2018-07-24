@@ -1,5 +1,5 @@
 # Reproducibility
-To reproduce the confusion matrix figure of our paper about reproducibility in bioinformatics ([Kim et al. BioRxiv 2017](http://www.biorxiv.org/content/early/2017/06/20/143503)), you have two options:
+To reproduce the confusion matrix figure of our paper about reproducibility in bioinformatics ([Kim et al. GigaScience 2018](https://doi.org/10.1093/gigascience/giy077)), you have two options:
 1. Follow the Jupyter Notebook [reproducibility.ipynb](reproducibility.ipynb)
 2. Build & run the [Docker](http://docker.com) container with:
 ```
