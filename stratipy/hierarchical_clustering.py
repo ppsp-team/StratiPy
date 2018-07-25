@@ -186,12 +186,20 @@ def get_lists_from_clusters(data_folder, patient_data, ssc_mutation_data,
                             max_mutation, n_components, n_permutations, lambd,
                             tol_nmf, linkage_method):
 
+    hierarchical_mut_type_directory = result_folder+'hierarchical_clustering/' + mut_type + '/'
+    if lambd > 0:
+        hierarchical_factorization_directory = (
+            hierarchical_mut_type_directory + 'gnmf/')
+    else:
+        hierarchical_factorization_directory = (
+            hierarchical_mut_type_directory + 'nmf/')
+
     hierarchical_clustering_file = (
-    result_folder+'hierarchical_clustering/' + mut_type + '/' + 'nmf/' +
-    'hierarchical_clustering_Patients_weight={}_simp={}_alpha={}_tol={}_singletons={}_ngh={}_minMut={}_maxMut={}_comp={}_permut={}_lambd={}_tolNMF={}_method={}.mat'
-    .format(influence_weight, simplification, alpha, tol, keep_singletons,
-            ngh_max, min_mutation, max_mutation, n_components,
-            n_permutations, lambd, tol_nmf, linkage_method))
+        hierarchical_factorization_directory +
+        'hierarchical_clustering_Patients_weight={}_simp={}_alpha={}_tol={}_singletons={}_ngh={}_minMut={}_maxMut={}_comp={}_permut={}_lambd={}_tolNMF={}_method={}.mat'
+        .format(influence_weight, simplification, alpha, tol, keep_singletons,
+                ngh_max, min_mutation, max_mutation, n_components,
+                n_permutations, lambd, tol_nmf, linkage_method))
 
     h = loadmat(hierarchical_clustering_file)
     clust_nb = np.squeeze(h['flat_cluster_number']) # cluster index for each individual

@@ -285,7 +285,7 @@ def bootstrap(result_folder, mut_type, mut_propag, ppi_final,
 
     else:
         if run_bootstrap:
-            # start = time.time()
+            start = time.time()
             n_patients, n_genes = mut_propag.shape
             genes_clustering = np.zeros([n_genes, n_permutations],
                                         dtype=np.float32)*np.nan
@@ -327,10 +327,10 @@ def bootstrap(result_folder, mut_type, mut_propag, ppi_final,
                                 'genes_clustering_std': genes_clustering_std,
                                 'patients_clustering_std': patients_clustering_std},
                     do_compression=True)
-            # end = time.time()
-            # print("---------- Bootstrap = {} ---------- {}"
-            #       .format(datetime.timedelta(seconds=end-start),
-            #               datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
+            end = time.time()
+            print("---------- Bootstrap = {} ---------- {}"
+                  .format(datetime.timedelta(seconds=end-start),
+                          datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
 
         else:
             newest_file = max(glob.iglob(
@@ -347,8 +347,9 @@ def concensus_clustering_simple(mat):
     n_obj = mat.shape[0]
     distance = np.ones([n_obj, n_obj], dtype=np.float32)
 
-    tqdm_bar = trange(n_obj, desc='Consensus clustering')
-    for obj1 in tqdm_bar:
+    # tqdm_bar = trange(n_obj, desc='Consensus clustering')
+    # for obj1 in tqdm_bar:
+    for obj1 in range(n_obj):
         for obj2 in range(obj1+1, n_obj):
             I = (np.isnan(mat[[obj1, obj2]]).sum(axis=0) == 0).sum()
             M = (mat[obj1, ] == mat[obj2, ]).sum()
@@ -393,24 +394,24 @@ def consensus_clustering(result_folder, genes_clustering, patients_clustering,
         print(' **** Same parameters file of consensus clustering already exists')
     else:
         if run_consensus:
-            # start = time.time()
+            start = time.time()
             print(" ==== Between genes ")
             if compute_gene_clustering:
                 distance_genes = concensus_clustering_simple(genes_clustering)
             else:
                 distance_genes = float('NaN')
-            # end = time.time()
-            # print("---------- distance_GENES = {} ---------- {}"
-            #       .format(datetime.timedelta(seconds=end-start),
-            #               datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
+            end = time.time()
+            print(" ==== distance_Genese = {} ---------- {}"
+                  .format(datetime.timedelta(seconds=end-start),
+                          datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
 
             print(" ==== Between individuals ")
-            # start = time.time()
+            start = time.time()
             distance_patients = concensus_clustering_simple(patients_clustering)
-            # end = time.time()
-            # print("---------- distance_PATIENTS = {} ---------- {}"
-            #       .format(datetime.timedelta(seconds=end-start),
-            #               datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
+            end = time.time()
+            print(" ==== distance_Individuals = {} ---------- {}"
+                  .format(datetime.timedelta(seconds=end-start),
+                          datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
 
 
             # start = time.time()
