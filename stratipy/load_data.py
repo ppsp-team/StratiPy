@@ -215,15 +215,21 @@ def load_specific_SSC_mutation_profile(data_folder, ssc_mutation_data, ssc_subgr
 # @profile
 def load_PPI(data_folder, ppi_data, load_gene_id_ppi=True):
     print(' ==== load_PPI ')
-    filename = 'PPI_' + ppi_data + '.mat'
+    if ppi_data == 'STRING':
+        filename = 'PPI_STRING_v10_5.mat'
+    else:
+        filename = 'PPI_' + ppi_data + '.mat'
     loadfile = loadmat(data_folder + filename)
     network = loadfile['adj_mat'].astype(np.float32)
+
     if load_gene_id_ppi:
         print(' ==== load_gene_id_ppi ')
         gene_id_ppi = (loadfile['entrez_id'].flatten()).tolist()
         return gene_id_ppi, network
     else:
         return network
+
+    return gene_id_ppi, network
 
 
 # @profile
