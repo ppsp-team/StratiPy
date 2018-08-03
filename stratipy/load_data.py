@@ -271,6 +271,7 @@ def create_adjacency_matrix(prot1, prot2, PPI_file):
     weight = np.ones(len(coo1))  # if interaction -> 1
     network = sp.coo_matrix((weight, (coo1, coo2)), shape=(n, n))
     network = network + network.T  # symmetric matrix
+    network = network.astype(bool).astype(int)  # to binary values
     savemat(PPI_file, {'adj_mat': network, 'entrez_id': gene_id_ppi},
             do_compression=True)
     return gene_id_ppi, network
