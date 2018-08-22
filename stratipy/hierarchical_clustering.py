@@ -92,7 +92,7 @@ def distance_patients_from_consensus_file(
         clust_nb = fcluster(Z, n_components, criterion='maxclust')
         # cophenetic correlation distance
         coph_dist, coph_matrix = cophenet(Z, pdist(distance_patients))
-        print(' cophenetic correlation distance = ', coph_dist)
+        print(' ==== cophenetic correlation distance = ', coph_dist)
 
         ax_dendro.set_title(
             'network = {}\nalpha = {}\nmutation type = {}\ninfluence weight = {}\nsimplification = {}\ncomponent number = {}\nlambda = {}\nmethod = {}\ncophenetic corr = {}\n'
@@ -140,6 +140,82 @@ def distance_patients_from_consensus_file(
             mut_type, alpha, n_components, ngh_max, n_permutations, lambd))
         plt.savefig('{}{}.png'.format(fig_directory, fig_name),
                     bbox_inches='tight')
+
+
+def distances_from_consensus_file(
+    result_folder, distance_genes, distance_patients, ppi_data, mut_type,
+    influence_weight, simplification,
+    alpha, tol,  keep_singletons, ngh_max, min_mutation, max_mutation,
+    n_components, n_permutations, lambd, tol_nmf, linkage_method,
+    patient_data, data_folder, ssc_subgroups, ssc_mutation_data, gene_data):
+
+    consensus_directory = result_folder+'consensus_clustering/'
+    consensus_mut_type_directory = consensus_directory + mut_type + '/'
+
+    hierarchical_directory = result_folder+'hierarchical_clustering/'
+    os.makedirs(hierarchical_directory, exist_ok=True)
+    hierarchical_mut_type_directory = hierarchical_directory + mut_type + '/'
+    os.makedirs(hierarchical_mut_type_directory, exist_ok=True)
+
+    if lambd > 0:
+        consensus_factorization_directory = (
+            consensus_mut_type_directory + 'gnmf/')
+        hierarchical_factorization_directory = (
+            hierarchical_mut_type_directory + 'gnmf/')
+    else:
+        consensus_factorization_directory = (
+            consensus_mut_type_directory + 'nmf/')
+        hierarchical_factorization_directory = (
+            hierarchical_mut_type_directory + 'nmf/')
+    os.makedirs(hierarchical_factorization_directory, exist_ok=True)
+
+    hierarchical_clustering_file = (
+        hierarchical_factorization_directory +
+        'hierarchical_clustering_Patients_weight={}_simp={}_alpha={}_tol={}_singletons={}_ngh={}_minMut={}_maxMut={}_comp={}_permut={}_lambd={}_tolNMF={}_method={}.mat'
+        .format(influence_weight, simplification, alpha, tol, keep_singletons,
+                ngh_max, min_mutation, max_mutation, n_components,
+                n_permutations, lambd, tol_nmf, linkage_method))
+    existance_same_param = os.path.exists(hierarchical_clustering_file)
+
+    if existance_same_param:
+        print(' **** Same parameters file of hierarchical clustering already exists')
+    else:
+        # hierarchical clustering on distance matrix (here: distance_patients)
+        Z = linkage(distance_patients, method=linkage_method)
+        start = time.time()
+        Z_genes = linkage(distance_genes, method=linkage_method)
+        end = time.time()
+        print("---------- Linkage based on Gene distance = {} ---------- {}"
+              .format(datetime.timedelta(seconds=end-start),
+                      datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
+
+        P = dendrogram(Z, count_sort='ascending', no_labels=True)
+        start = time.time()
+        P_genes = dendrogram(Z_genes, count_sort='ascending', no_labels=True)
+        end = time.time()
+        print("---------- Dendrogram based on Gene distance = {} ---------- {}"
+              .format(datetime.timedelta(seconds=end-start),
+                      datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
+
+        idx = np.array(P['leaves'])
+        idx_genes = np.array(P_genes['leaves'])
+
+        # forms flat clusters from Z
+        # given k -> maxclust
+        clust_nb = fcluster(Z, n_components, criterion='maxclust')
+        clust_nb_genes = fcluster(Z_genes, n_components, criterion='maxclust')
+
+        # start = time.time()
+        savemat(hierarchical_clustering_file,
+                {'Z_linkage_matrix_individuals': Z,
+                 'dendrogram_data_dictionary_individuals': P,
+                 'dendrogram_index_individuals': idx,
+                 'flat_cluster_number_individuals': clust_nb,
+                 'Z_linkage_matrix_genes': Z_genes,
+                 'dendrogram_data_dictionary_genes': P_genes,
+                 'dendrogram_index_genes': idx_genes,
+                 'flat_cluster_number_genes': clust_nb_genes},
+                do_compression=True)
 
 
 def round_elements_keeping_sum(float_list, benchmark_list):
@@ -202,8 +278,8 @@ def get_lists_from_clusters(data_folder, patient_data, ssc_mutation_data,
                 n_permutations, lambd, tol_nmf, linkage_method))
 
     h = loadmat(hierarchical_clustering_file)
-    clust_nb = np.squeeze(h['flat_cluster_number']) # cluster index for each individual
-    idx = np.squeeze(h['dendrogram_index']) # individuals' index
+    clust_nb = np.squeeze(h['flat_cluster_number_individuals']) # cluster index for each individual
+    idx = np.squeeze(h['dendrogram_index_individuals']) # individuals' index
 
     # load individual data including sex and IQ
     df_ssc = pd.read_csv(data_folder + '{}_indiv_sex_iq.csv'
@@ -354,8 +430,8 @@ def analysis_from_clusters(data_folder, patient_data, ssc_mutation_data,
                 n_permutations, lambd, tol_nmf, linkage_method))
 
     h = loadmat(hierarchical_clustering_file)
-    clust_nb = np.squeeze(h['flat_cluster_number']) # cluster index for each individual
-    idx = np.squeeze(h['dendrogram_index']) # individuals' index
+    clust_nb = np.squeeze(h['flat_cluster_number_individuals']) # cluster index for each individual
+    idx = np.squeeze(h['dendrogram_index_individuals']) # individuals' index
 
     # load individual data including sex and IQ
     df_ssc = pd.read_csv(data_folder + '{}_indiv_sex_iq.csv'
@@ -421,12 +497,12 @@ def analysis_from_clusters(data_folder, patient_data, ssc_mutation_data,
         mutation_nb_cluster_list.append(mutation_nb_list)
 
     if patient_data == 'SSC':
-        file_directory = (data_folder + 'text/clusters_stat/' +
-                         ssc_mutation_data + '_' + ssc_subgroups + '_' + gene_data +
-                         '_' + ppi_data + '/')
+        file_directory = (data_folder + 'text/clusters_stat/{}_{}_{}_{}/'.
+                          format(ssc_mutation_data, ssc_subgroups, gene_data,
+                                 ppi_data))
     else:
-        file_directory = (data_folder + 'text/clusters_stat/' +
-                         patient_data + '_' + ppi_data + '/')
+        file_directory = (data_folder + 'text/clusters_stat/{}_{}/'.
+                          format(patient_data, ppi_data))
     os.makedirs(file_directory, exist_ok=True)
 
     text_file = file_directory + (
@@ -473,6 +549,76 @@ def analysis_from_clusters(data_folder, patient_data, ssc_mutation_data,
             print("{}".format(p), file=f)
 
     # return ind_cluster_list, iq_array, siblings_cluster_list, probands_cluster_list, female_cluster_list, male_cluster_list
+
+
+def get_entrezgene_from_cluster(data_folder, result_folder, ssc_mutation_data,
+                                patient_data, ssc_subgroups, alpha, n_components,
+                                ngh_max, n_permutations, lambd, influence_weight,
+                                simplification, tol, keep_singletons, min_mutation,
+                                max_mutation, tol_nmf, linkage_method,
+                                gene_data, ppi_data, gene_id_ppi, idx_ppi,
+                                idx_ppi_only, mut_type):
+    hierarchical_mut_type_directory = result_folder+'hierarchical_clustering/' + mut_type + '/'
+    if lambd > 0:
+        hierarchical_factorization_directory = (
+            hierarchical_mut_type_directory + 'gnmf/')
+    else:
+        hierarchical_factorization_directory = (
+            hierarchical_mut_type_directory + 'nmf/')
+
+    hierarchical_clustering_file = (
+        hierarchical_factorization_directory +
+        'hierarchical_clustering_Patients_weight={}_simp={}_alpha={}_tol={}_singletons={}_ngh={}_minMut={}_maxMut={}_comp={}_permut={}_lambd={}_tolNMF={}_method={}.mat'
+        .format(influence_weight, simplification, alpha, tol, keep_singletons,
+                ngh_max, min_mutation, max_mutation, n_components,
+                n_permutations, lambd, tol_nmf, linkage_method))
+
+    h = loadmat(hierarchical_clustering_file)
+    clust_nb_genes = np.squeeze(h['flat_cluster_number_genes'])  # cluster index for each gene
+    idx_genes = np.squeeze(h['dendrogram_index_genes'])  # gene's index
+
+    # EntrezGene ID to int
+    entrez_ppi = [int(i) for i in gene_id_ppi]
+    # EntrezGene indexes in PPI after formatting
+    idx_filtred = idx_ppi + idx_ppi_only
+
+    # EntrezGene ID
+    df_id_ref = pd.DataFrame({'ref_idx': list(range(len(entrez_ppi))),
+                              'entrez_id': entrez_ppi})
+    # Indexes after formatting
+    df_filtered = pd.DataFrame({'filt_idx': list(range(len(idx_filtred))),
+                               'idx_in_ppi': idx_filtred})
+
+    # Dendrogram results: clusters
+    df_dendro = pd.DataFrame({'dendro_idx': idx_genes.tolist(),
+                                 'cluster': clust_nb_genes.tolist()})
+
+    # link EntrezGene and Indexes in PPI
+    df1 = df_filtered.merge(df_id_ref, how='inner', left_on='idx_in_ppi', right_on='ref_idx')
+    # link EntrezGene and Cluster number
+    df2 = df1.merge(df_dendro, how='inner', left_on='filt_idx', right_on='dendro_idx')
+
+    # create text output file
+    if patient_data == 'SSC':
+        file_directory = (data_folder + 'text/clusters_EntrezGene/{}_{}_{}_{}/k={}/'.
+                          format(ssc_mutation_data, ssc_subgroups, gene_data,
+                                 ppi_data, n_components))
+    else:
+        file_directory = (data_folder + 'text/clusters_EntrezGene/{}_{}/k={}/'.
+                          format(patient_data, ppi_data, n_components))
+    os.makedirs(file_directory, exist_ok=True)
+
+    text_file = file_directory + (
+        '{}_{}_ngh={}_permut={}_lambd={}'
+        .format(mut_type, alpha, ngh_max, n_permutations, lambd))
+
+    # Slice dataframe by cluster then save EntrezGene ID in .txt file
+    for k in range(n_components):
+        cluster = k+1
+        with open(text_file + '_cluster={}.txt'.format(cluster), 'w') as f:
+            entrez_list = df2[df2['cluster'] == cluster]['entrez_id'].tolist()
+            for i in entrez_list:
+                f.write("{}\n".format(i))
 
 
 def stacked_bar_plot(n_components, siblings_cluster_list, probands_cluster_list, odd, p_val,
