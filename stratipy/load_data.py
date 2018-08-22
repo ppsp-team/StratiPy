@@ -6,6 +6,7 @@ import numpy as np
 import pandas as pd
 from numpy import genfromtxt
 from stratipy.nbs_class import Ppi
+from tqdm import trange
 
 # NOTE some variable names changed:
 # dataFolder -> data_folder

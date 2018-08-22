@@ -218,6 +218,25 @@ def distances_from_consensus_file(
                 do_compression=True)
 
 
+        D = distance_patients[idx, :][:, idx]
+
+        fig = plt.figure(figsize=(3, 3))
+        im = plt.imshow(D, interpolation='nearest', cmap=cm.viridis)
+        plt.axis('off')
+        if patient_data == 'SSC':
+            fig_directory = (data_folder + 'figures/similarity/' +
+                             ssc_mutation_data + '_' + ssc_subgroups + '_' + gene_data +
+                             '_' + ppi_data + '/')
+        else:
+            fig_directory = (data_folder + 'figures/similarity/' +
+                             patient_data + '_' + ppi_data + '/')
+        os.makedirs(fig_directory, exist_ok=True)
+        fig_name = ('{}_{}_k={}_ngh={}_permut={}_lambd={}'.format(
+            mut_type, alpha, n_components, ngh_max, n_permutations, lambd))
+        plt.savefig('{}{}.png'.format(fig_directory, fig_name),
+                    bbox_inches='tight')
+
+
 def round_elements_keeping_sum(float_list, benchmark_list):
     """Helper function for chi2test
 
