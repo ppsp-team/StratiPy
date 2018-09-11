@@ -489,3 +489,21 @@ def propagation_profile(mut_raw, adj, result_folder, alpha, tol, qn, mut_type):
                  'alpha': alpha}, do_compression=True)
 
     return mut_propag
+
+
+def filtering(ppi_filt, result_folder, influence_weight, simplification,
+              compute, overwrite, alpha, tol, ppi_total, mut_total, ngh_max,
+              keep_singletons, min_mutation, max_mutation, qn, mut_type):
+    final_influence = (calcul_final_influence(
+        sp.eye(ppi_filt.shape[0], dtype=np.float32), ppi_filt, result_folder,
+        influence_weight, simplification, compute, overwrite, alpha, tol))
+
+    ppi_final, mut_final = filter_ppi_patients(
+        result_folder, influence_weight, simplification, alpha, tol, ppi_total, mut_total,
+        ppi_filt, final_influence, ngh_max, keep_singletons, min_mutation,
+        max_mutation)
+
+    mut_propag = propagation_profile(
+        mut_final, ppi_filt, result_folder, alpha, tol, qn, mut_type)
+
+    return ppi_final, mut_propag
