@@ -337,9 +337,9 @@ def best_neighboors(ppi_filt, final_influence, ngh_max):
 
 
 # @profile
-def filter_ppi_patients(ppi_total, mut_total, ppi_filt, final_influence, ngh_max,
-                        keep_singletons=False,
-                        min_mutation=0, max_mutation=2000):
+def filter_ppi_patients(result_folder, influence_weight, simplification, alpha, tol, ppi_total,
+                        mut_total, ppi_filt, final_influence, ngh_max,
+                        keep_singletons=False, min_mutation=0, max_mutation=2000):
     """Keeping only the connections with the best influencers and Filtering some
     patients based on mutation number
 
@@ -380,26 +380,39 @@ def filter_ppi_patients(ppi_total, mut_total, ppi_filt, final_influence, ngh_max
     ppi_final, mut_final : sparse matrix
         PPI and mutation profiles after filtering.
     """
-    # n = final_influence.shape[0]
-    # final_influence = index_to_sym_matrix(n, final_influence)
+    ppi_final_directory = result_folder + 'final_influence/'
+    ppi_final_file = (
+        ppi_final_directory +
+        'PPI_final_weight={}_simp={}_alpha={}_tol={}_singletons={}_ngh={}_minMut={}_maxMut={}.mat'
+        .format(influence_weight, simplification, alpha, tol, keep_singletons,
+                ngh_max, min_mutation, max_mutation))
 
-    ppi_ngh = best_neighboors(ppi_filt, final_influence, ngh_max)
-    deg0 = Ppi(ppi_total).deg == 0  # True if protein degree = 0
-
-    if keep_singletons:
-        ppi_final = sp.bmat([
-            [ppi_ngh, sp.csc_matrix((ppi_ngh.shape[0], sum(deg0)))],
-            [sp.csc_matrix((sum(deg0), ppi_ngh.shape[0])),
-             sp.csc_matrix((sum(deg0), sum(deg0)))]
-            ])  # -> COO matrix
-        # mut_final=sp.bmat([[mut_total[:,deg0==False],mut_total[:,deg0==True]]])
-        mut_final = mut_total
+    existance_same_param = os.path.exists(ppi_final_file)
+    if existance_same_param:
+        ppi_final_data = loadmat(ppi_final_file)
+        ppi_final = ppi_final_data['ppi_final']
+        print(' **** Same parameters file of PPI FINAL already exists')
+        if keep_singletons:
+            mut_final = mut_total
+        else:
+            mut_final = mut_total[:, Ppi(ppi_total).deg > 0]
     else:
-        ppi_final = ppi_ngh
-        mut_final = mut_total[:, Ppi(ppi_total).deg > 0]
+        ppi_ngh = best_neighboors(ppi_filt, final_influence, ngh_max)
+        deg0 = Ppi(ppi_total).deg == 0  # True if protein degree = 0
 
-    # filtered_patients = np.array([k < min_mutation or k > max_mutation for k in Patient(mut_final).mut_per_patient])
-    # mut_final = mut_final[filtered_patients == False, :]
+        if keep_singletons:
+            ppi_final = sp.bmat([
+                [ppi_ngh, sp.csc_matrix((ppi_ngh.shape[0], sum(deg0)))],
+                [sp.csc_matrix((sum(deg0), ppi_ngh.shape[0])),
+                 sp.csc_matrix((sum(deg0), sum(deg0)))]
+                ])  # -> COO matrix
+            # mut_final=sp.bmat([[mut_total[:,deg0==False],mut_total[:,deg0==True]]])
+            mut_final = mut_total
+        else:
+            ppi_final = ppi_ngh
+            mut_final = mut_total[:, Ppi(ppi_total).deg > 0]
+
+        savemat(ppi_final_file, {'ppi_final': ppi_final}, do_compression=True)
 
     # to avoid worse comparison '== False'
     mut_final = mut_final[np.array([min_mutation <= k <= max_mutation for k in
@@ -442,31 +455,25 @@ def quantile_norm_median(anarray):
     return AA.T
 
 
-# @profile
-def propagation_profile(mut_raw, adj, result_folder, alpha, tol, qn):
-    #  TODO error messages
-    if qn == None:
-        if alpha == 0:
-            mut_type = 'raw'
-            mut_propag = mut_raw.todense()
-            return mut_type, mut_propag
-        else:
-            mut_type = 'diff'
-    else:
-        mut_type = qn + '_qn'
 
+def propagation_profile(mut_raw, adj, result_folder, alpha, tol, qn, mut_type):
+    #  TODO error messages
     final_influence_mutation_directory = result_folder + 'final_influence/'
     final_influence_mutation_file = (
         final_influence_mutation_directory +
         'final_influence_mutation_profile_{}_alpha={}_tol={}.mat'.format(
             mut_type, alpha, tol))
 
-    if alpha != 0:
-        existance_same_param = os.path.exists(final_influence_mutation_file)
-        if existance_same_param:
-            final_influence_data = loadmat(final_influence_mutation_file)
-            mut_propag = final_influence_data['mut_propag']
-            print(' **** Same parameters file of FINAL INFLUENCE on Mutation Profile already exists')
+    existance_same_param = os.path.exists(final_influence_mutation_file)
+    if existance_same_param:
+        final_influence_data = loadmat(final_influence_mutation_file)
+        mut_propag = final_influence_data['mut_propag']
+        print(' **** Same parameters file of FINAL INFLUENCE on Mutation Profile already exists')
+
+    else:
+        if mut_type == 'raw':
+            mut_propag = mut_raw.todense()
+            return mut_propag
 
         else:
             print(' ==== Diffusion over mutation profile ==== ')
@@ -477,7 +484,8 @@ def propagation_profile(mut_raw, adj, result_folder, alpha, tol, qn):
             elif qn == 'median':
                 mut_propag = quantile_norm_median(mut_propag)
 
-            savemat(final_influence_mutation_file,
-                    {'mut_propag': mut_propag,
-                     'alpha': alpha}, do_compression=True)
-        return mut_type, mut_propag
+        savemat(final_influence_mutation_file,
+                {'mut_propag': mut_propag,
+                 'alpha': alpha}, do_compression=True)
+
+    return mut_propag
