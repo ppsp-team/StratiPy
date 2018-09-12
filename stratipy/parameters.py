@@ -2,6 +2,7 @@
 # coding: utf-8
 import sys
 import os
+sys.path.append(os.path.abspath('../../stratipy_cluster'))
 from sklearn.model_selection import ParameterGrid
 
 
@@ -23,8 +24,8 @@ param_grid = {'data_folder': ['../data/'],
               'compute': [True],
               'overwrite': [False],
             #   'alpha': [0, 0.3, 0.5, 0.7, 1],
-              # 'alpha': [0],
-              'alpha': [0, 0.7],
+              'alpha': [0.7],
+              # 'alpha': [0, 0.7],
               'tol': [10e-3],
               'ngh_max': [11],
               'keep_singletons': [False],
@@ -32,19 +33,21 @@ param_grid = {'data_folder': ['../data/'],
               'max_mutation': [2000],
               # 'qn': [None],
               'qn': [None, 'mean', 'median'],
-              # 'n_components': [2],
-              'n_components': range(2, 11),
+              'n_components': [2],
+              # 'n_components': range(2, 11),
             #   'n_permutations': [1000],
               'n_permutations': [300],
-              'sub_perm': [10]
-              'run_bootstrap': [True],
+              'sub_perm': [5],
+              'run_bootstrap': ['split'],
+              # 'run_bootstrap': ['full', 'split', None],
               'run_consensus': [True],
               # 'lambd': [0],
               # 'lambd': [200],
               'lambd': [0, 200],
               'tol_nmf': [1e-3],
               'compute_gene_clustering': [True],
-              'linkage_method': ['average']
+              'linkage_method': ['average'],
+              'p_val_threshold': [0.05]
               }
 
 
@@ -74,16 +77,16 @@ def get_params(i):
     n_components = d.get('n_components')
     n_permutations = d.get('n_permutations')
     sub_perm = d.get('sub_perm')
-    sub_perm = d.get('sub_perm')
     run_bootstrap = d.get('run_bootstrap')
     run_consensus = d.get('run_consensus')
     lambd = d.get('lambd')
     tol_nmf = d.get('tol_nmf')
     compute_gene_clustering = d.get('compute_gene_clustering')
     linkage_method = d.get('linkage_method')
+    p_val_threshold = d.get('p_val_threshold')
 
-    quotient, remainder = divmod(n_permutations, sub_perm)
-    if remainder != 0:
+    n_sub_perm, rest = divmod(n_permutations, sub_perm)
+    if rest != 0:
         print('Total permutation number of bootstrap must be divisible by sub-permutation number.')
 
     return (data_folder, patient_data, ssc_mutation_data, ssc_subgroups,
@@ -91,4 +94,4 @@ def get_params(i):
             overwrite, alpha, tol, ngh_max, keep_singletons, min_mutation,
             max_mutation, qn, n_components, n_permutations, sub_perm, sub_perm,
             run_bootstrap, run_consensus, lambd, tol_nmf,
-            compute_gene_clustering, linkage_method)
+            compute_gene_clustering, linkage_method, p_val_threshold)
