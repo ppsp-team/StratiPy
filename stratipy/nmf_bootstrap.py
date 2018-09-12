@@ -274,34 +274,39 @@ def full_bootstrap(mut_propag, n_permutations, ppi_final, lambd, n_components,
     return genes_clustering, patients_clustering
 
 
-def sub_bootstrap(sub_perm, mut_propag, ppi_final, boot_file, lambd,
-                                      n_components, tol_nmf):
+def sub_bootstrap(boot_factorization_directory, boot_filename, sub_perm,
+                  mut_propag, ppi_final, lambd, n_components, tol_nmf):
     slurm_arr_task_id = int(sys.argv[3])
     print("Sub-bootstrap / Slurm array task ID:", slurm_arr_task_id)
-    sub_boot_file = ('sub{}_'.format(slurm_arr_task_id) + boot_file)
+    sub_boot_file = (boot_factorization_directory + 'sub{}_'
+                     .format(slurm_arr_task_id) + boot_filename)
+    existance_same_param = os.path.exists(sub_boot_file)
 
-    n_patients, n_genes = mut_propag.shape
-    genes_clustering = np.zeros([n_genes, sub_perm], dtype=np.float32)*np.nan
-    patients_clustering = np.zeros([n_patients, sub_perm],
-                                      dtype=np.float32)*np.nan
-    ppi_final = ppi_final.todense()
+    if existance_same_param:
+        print(' **** Same parameters file of Sub-bootstrap already exists')
+    else:
+        n_patients, n_genes = mut_propag.shape
+        genes_clustering = np.zeros([n_genes, sub_perm], dtype=np.float32)*np.nan
+        patients_clustering = np.zeros([n_patients, sub_perm],
+                                          dtype=np.float32)*np.nan
+        ppi_final = ppi_final.todense()
 
-    tqdm_bar = trange(sub_perm, desc='Sub-permutations of Bootstrap')
-    for sub in tqdm_bar:
-        patients_boot = np.random.permutation(n_patients)[
-            0:int(n_patients*0.8)]
-        genes_boot = np.random.permutation(n_genes)[0:int(n_genes*0.8)]
-        mut_boot = mut_propag[patients_boot, :][:, genes_boot]
-        ppi_boot = ppi_final[genes_boot, :][:, genes_boot]
-        # NMF or GNMF
-        W, H, list_reconstruction_err_ = gnmf(mut_boot, ppi_boot, lambd,
-                                              n_components, tol_nmf)
-        genes_clustering[genes_boot, sub] = np.argmax(H, axis=0)
-        patients_clustering[patients_boot, sub] = np.argmax(W, axis=1)
+        tqdm_bar = trange(sub_perm, desc='Sub-permutations of Bootstrap')
+        for sub in tqdm_bar:
+            patients_boot = np.random.permutation(n_patients)[
+                0:int(n_patients*0.8)]
+            genes_boot = np.random.permutation(n_genes)[0:int(n_genes*0.8)]
+            mut_boot = mut_propag[patients_boot, :][:, genes_boot]
+            ppi_boot = ppi_final[genes_boot, :][:, genes_boot]
+            # NMF or GNMF
+            W, H, list_reconstruction_err_ = gnmf(mut_boot, ppi_boot, lambd,
+                                                  n_components, tol_nmf)
+            genes_clustering[genes_boot, sub] = np.argmax(H, axis=0)
+            patients_clustering[patients_boot, sub] = np.argmax(W, axis=1)
 
-    savemat(sub_boot_file, {'genes_clustering': genes_clustering,
-                            'patients_clustering': patients_clustering},
-            do_compression=True)
+        savemat(sub_boot_file, {'genes_clustering': genes_clustering,
+                                'patients_clustering': patients_clustering},
+                do_compression=True)
 
 
 def clustering_std_for_each_bootstrap(M):
@@ -329,13 +334,14 @@ def bootstrap_file(result_folder, mut_type, influence_weight, simplification,
         boot_factorization_directory = boot_mut_type_directory + 'nmf/'
 
     os.makedirs(boot_factorization_directory, exist_ok=True)
-    boot_file = (boot_factorization_directory +
-                 'bootstrap_weight={}_simp={}_alpha={}_tol={}_singletons={}_ngh={}_minMut={}_maxMut={}_comp={}_permut={}_lambd={}_tolNMF={}.mat'
-                 .format(influence_weight, simplification, alpha, tol,
+    boot_filename = ('bootstrap_weight={}_simp={}_alpha={}_tol={}_singletons={}_ngh={}_minMut={}_maxMut={}_comp={}_permut={}_lambd={}_tolNMF={}.mat'
+                     .format(influence_weight, simplification, alpha, tol,
                          keep_singletons, ngh_max, min_mutation,
                          max_mutation, n_components, n_permutations, lambd,
                          tol_nmf))
-    return boot_file
+    boot_file = boot_factorization_directory + boot_filename
+
+    return boot_factorization_directory, boot_filename, boot_file
 
 
 def bootstrap(result_folder, mut_type, mut_propag, ppi_final,
@@ -344,10 +350,10 @@ def bootstrap(result_folder, mut_type, mut_propag, ppi_final,
               n_components, n_permutations,
               run_bootstrap, lambd, tol_nmf,
               compute_gene_clustering, sub_perm):
-    boot_file = bootstrap_file(result_folder, mut_type, influence_weight,
-                               simplification, alpha, tol, keep_singletons,
-                               ngh_max, min_mutation, max_mutation,
-                               n_components, n_permutations, lambd, tol_nmf)
+    boot_factorization_directory, boot_filename, boot_file = bootstrap_file(
+        result_folder, mut_type, influence_weight, simplification, alpha, tol,
+        keep_singletons, ngh_max, min_mutation, max_mutation, n_components,
+        n_permutations, lambd, tol_nmf)
     existance_same_param = os.path.exists(boot_file)
     # TODO overwrite condition
     if existance_same_param:
@@ -380,10 +386,12 @@ def bootstrap(result_folder, mut_type, mut_propag, ppi_final,
                                 'patients_clustering_std': patients_clustering_std},
                     do_compression=True)
 
+            return genes_clustering, patients_clustering
+
         elif run_bootstrap == 'split':
             start = time.time()
-            sub_bootstrap(sub_perm, mut_propag, ppi_final, boot_file, lambd,
-                                                  n_components, tol_nmf)
+            sub_bootstrap(boot_factorization_directory, boot_filename, sub_perm,
+                          mut_propag, ppi_final, lambd, n_components, tol_nmf)
             end = time.time()
             print("---------- Sub-Bootstrap = {} ---------- {}"
                   .format(datetime.timedelta(seconds=end-start),
@@ -396,128 +404,3 @@ def bootstrap(result_folder, mut_type, mut_propag, ppi_final,
         #     genes_clustering = bootstrap_data['genes_clustering']
         #     patients_clustering = bootstrap_data['patients_clustering']
         #     return genes_clustering, patients_clustering
-
-
-def merge_sub_bootstrap(result_folder, mut_type, influence_weight,
-                        simplification, alpha, tol, keep_singletons, ngh_max,
-                        min_mutation, max_mutation, n_components,
-                        n_permutations, lambd, tol_nmf, compute_gene_clustering):
-    boot_file = bootstrap_file(result_folder, mut_type, influence_weight,
-                               simplification, alpha, tol, keep_singletons,
-                               ngh_max, min_mutation, max_mutation,
-                               n_components, n_permutations, lambd, tol_nmf)
-    subfiles_list = glob.glob('sub*_' + boot_file)
-    genes_clustering = []
-    patients_clustering = []
-    for file_path in subfiles_list:
-        genes_clustering.append(loadmat(file_path)['genes_clustering'])
-        patients_clustering.append(loadmat(file_path)['patients_clustering'])
-    genes_clustering = np.hstack(genes_clustering)
-    patients_clustering = np.hstack(patients_clustering)
-
-    # clustering std for each permutation of bootstrap
-    if compute_gene_clustering:
-        genes_clustering_std = clustering_std_for_each_bootstrap(
-            genes_clustering)
-    else:
-        genes_clustering_std = float('NaN')
-    patients_clustering_std = clustering_std_for_each_bootstrap(
-        patients_clustering)
-
-    savemat(boot_file, {'genes_clustering': genes_clustering,
-                        'patients_clustering': patients_clustering,
-                        'genes_clustering_std': genes_clustering_std,
-                        'patients_clustering_std': patients_clustering_std},
-            do_compression=True)
-
-    return genes_clustering, patients_clustering
-
-
-def concensus_clustering_simple(mat):
-    n_obj = mat.shape[0]
-    distance = np.ones([n_obj, n_obj], dtype=np.float32)
-
-    # tqdm_bar = trange(n_obj, desc='Consensus clustering')
-    # for obj1 in tqdm_bar:
-    for obj1 in range(n_obj):
-        for obj2 in range(obj1+1, n_obj):
-            I = (np.isnan(mat[[obj1, obj2]]).sum(axis=0) == 0).sum()
-            M = (mat[obj1, ] == mat[obj2, ]).sum()
-            M.astype(np.float32)
-            distance[obj1, obj2] = float(M)/I
-            distance[obj2, obj1] = float(M)/I
-    return distance  # return np ndarray
-
-
-def consensus_clustering(result_folder, genes_clustering, patients_clustering,
-                         influence_weight, simplification,
-                         mut_type, alpha, tol, keep_singletons, ngh_max,
-                         min_mutation, max_mutation,
-                         n_components, n_permutations,
-                         run_consensus=False, lambd=1, tol_nmf=1e-3,
-                         compute_gene_clustering=False):
-        # TODO overwrite condition
-    consensus_directory = result_folder+'consensus_clustering/'
-    consensus_mut_type_directory = consensus_directory + mut_type + '/'
-
-    if lambd > 0:
-        consensus_factorization_directory = (
-            consensus_mut_type_directory + 'gnmf/')
-    else:
-        consensus_factorization_directory = (
-            consensus_mut_type_directory + 'nmf/')
-
-    os.makedirs(consensus_factorization_directory, exist_ok=True)
-
-    consensus_file = (consensus_factorization_directory +
-                      'consensus_weight={}_simp={}_alpha={}_tol={}_singletons={}_ngh={}_minMut={}_maxMut={}_comp={}_permut={}_lambd={}_tolNMF={}.mat'
-                      .format(influence_weight, simplification, alpha, tol,
-                              keep_singletons, ngh_max,
-                              min_mutation, max_mutation,
-                              n_components, n_permutations, lambd, tol_nmf))
-    existance_same_param = os.path.exists(consensus_file)
-
-    if existance_same_param:
-        consensus_data = loadmat(consensus_file)
-        distance_genes = consensus_data['distance_genes']
-        distance_patients = consensus_data['distance_patients']
-        print(' **** Same parameters file of consensus clustering already exists')
-    else:
-        if run_consensus:
-            start = time.time()
-            print(" ==== Between genes ")
-            if compute_gene_clustering:
-                distance_genes = concensus_clustering_simple(genes_clustering)
-            else:
-                distance_genes = float('NaN')
-            end = time.time()
-            print(" ==== distance_Genese = {} ---------- {}"
-                  .format(datetime.timedelta(seconds=end-start),
-                          datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
-
-            print(" ==== Between patients ")
-            start = time.time()
-            distance_patients = concensus_clustering_simple(patients_clustering)
-            end = time.time()
-            print(" ==== distance_patients = {} ---------- {}"
-                  .format(datetime.timedelta(seconds=end-start),
-                          datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
-
-
-            # start = time.time()
-            savemat(consensus_file, {'distance_genes': distance_genes,
-                                     'distance_patients': distance_patients},
-                    do_compression=True)
-            # end = time.time()
-            # print("---------- Save time = {} ---------- {}"
-            #       .format(datetime.timedelta(seconds=end-start),
-            #               datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
-        else:
-            #TODO condition wich no file exists
-            newest_file = max(glob.iglob(
-                consensus_factorization_directory + '*.mat'), key=os.path.getctime)
-            consensus_data = loadmat(newest_file)
-            distance_genes = consensus_data['distance_genes']
-            distance_patients = consensus_data['distance_patients']
-
-    return distance_genes, distance_patients

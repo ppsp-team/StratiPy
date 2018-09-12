@@ -455,7 +455,6 @@ def quantile_norm_median(anarray):
     return AA.T
 
 
-
 def propagation_profile(mut_raw, adj, result_folder, alpha, tol, qn, mut_type):
     #  TODO error messages
     final_influence_mutation_directory = result_folder + 'final_influence/'
