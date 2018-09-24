@@ -383,9 +383,9 @@ def filter_ppi_patients(result_folder, influence_weight, simplification, alpha, 
     ppi_final_directory = result_folder + 'final_influence/'
     ppi_final_file = (
         ppi_final_directory +
-        'PPI_final_weight={}_simp={}_alpha={}_tol={}_singletons={}_ngh={}_minMut={}_maxMut={}.mat'
+        'PPI_final_weight={}_simp={}_alpha={}_tol={}_singletons={}_ngh={}.mat'
         .format(influence_weight, simplification, alpha, tol, keep_singletons,
-                ngh_max, min_mutation, max_mutation))
+                ngh_max))
 
     existance_same_param = os.path.exists(ppi_final_file)
     if existance_same_param:
@@ -462,7 +462,6 @@ def propagation_profile(mut_raw, adj, result_folder, alpha, tol, qn, mut_type):
         final_influence_mutation_directory +
         'final_influence_mutation_profile_{}_alpha={}_tol={}.mat'.format(
             mut_type, alpha, tol))
-
     existance_same_param = os.path.exists(final_influence_mutation_file)
     if existance_same_param:
         final_influence_data = loadmat(final_influence_mutation_file)
@@ -472,7 +471,6 @@ def propagation_profile(mut_raw, adj, result_folder, alpha, tol, qn, mut_type):
     else:
         if mut_type == 'raw':
             mut_propag = mut_raw.todense()
-            return mut_propag
 
         else:
             print(' ==== Diffusion over mutation profile ==== ')
@@ -484,8 +482,8 @@ def propagation_profile(mut_raw, adj, result_folder, alpha, tol, qn, mut_type):
                 mut_propag = quantile_norm_median(mut_propag)
 
         savemat(final_influence_mutation_file,
-                {'mut_propag': mut_propag,
-                 'alpha': alpha}, do_compression=True)
+                    {'mut_propag': mut_propag,
+                     'alpha': alpha}, do_compression=True)
 
     return mut_propag
 
@@ -498,9 +496,9 @@ def filtering(ppi_filt, result_folder, influence_weight, simplification,
         influence_weight, simplification, compute, overwrite, alpha, tol))
 
     ppi_final, mut_final = filter_ppi_patients(
-        result_folder, influence_weight, simplification, alpha, tol, ppi_total, mut_total,
-        ppi_filt, final_influence, ngh_max, keep_singletons, min_mutation,
-        max_mutation)
+        result_folder, influence_weight, simplification, alpha, tol, ppi_total,
+        mut_total, ppi_filt, final_influence, ngh_max, keep_singletons,
+        min_mutation, max_mutation)
 
     mut_propag = propagation_profile(
         mut_final, ppi_filt, result_folder, alpha, tol, qn, mut_type)
