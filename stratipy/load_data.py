@@ -7,6 +7,7 @@ import pandas as pd
 from numpy import genfromtxt
 from stratipy.nbs_class import Ppi
 from tqdm import trange
+import glob
 
 # NOTE some variable names changed:
 # dataFolder -> data_folder
@@ -175,7 +176,7 @@ def load_specific_SSC_mutation_profile(data_folder, ssc_mutation_data, ssc_subgr
             # then append their index in a list (ind_ssc)
             ind_ssc = []
             [ind_ssc.append(indiv.index(i)) for i in ind_ssc_raw if i in indiv]
-            print("After filtering by {} mutation in {} data: {} to {} individuals ({} removed)"
+            print("After filtering by {} mutation in {} data: {} to {} individuals ({} removed from metadata)"
                   .format(ssc_mutation_data, ssc_subgroups, len(ind_ssc_raw),
                           len(ind_ssc), len(ind_ssc_raw) - len(ind_ssc)))
             indiv = [indiv[i] for i in ind_ssc]
@@ -199,11 +200,11 @@ def load_specific_SSC_mutation_profile(data_folder, ssc_mutation_data, ssc_subgr
                           len(gene_filtered),
                           len(gene_id) - len(gene_filtered)))
 
-            print(gene_id[:10])
+            # print(gene_id[:10])
             gene_id = [gene_id[i] for i in gene_filtered]
 
             # slice overall mutation profile by filtered gene
-            print(gene_filtered[:10])
+            # print(gene_filtered[:10])
             mutation_profile = mutation_profile[:, gene_filtered]
 
         savemat(mutation_profile_file, {'mutation_profile': mutation_profile,
