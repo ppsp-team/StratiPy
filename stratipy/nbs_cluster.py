@@ -68,25 +68,21 @@ def all_functions(params):
 
     else:
         if patient_data == 'SSC':
-            if gene_data == None:
-                result_folder = (data_folder + 'result_' + ssc_subgroups + '_' +
-                                 ssc_type + '_' + ppi_data + '/')
-
-            else:
-                result_folder = (data_folder + 'result_' + ssc_subgroups + '_' +
-                                 ssc_type + '_' + gene_data + '_' +  ppi_data + '/')
+            result_folder = (data_folder + 'result_' + ssc_mutation_data + '_' +
+                                 ssc_subgroups + '_' + gene_data + '_' +  ppi_data + '/')
         else:
             result_folder = (data_folder + 'result_' + patient_data + '_' +
                              ppi_data + '/')
-        print(result_folder)
-        print("alpha =", alpha)
-        print("QN =", qn)
-        print("k =", n_components)
-        print("lambda =", lambd)
-        print("PPI network =", ppi_data)
+        print(result_folder, flush=True)
+        print("alpha =", alpha, flush=True)
+        print("QN =", qn, flush=True)
+        print("k =", n_components, flush=True)
+        print("lambda =", lambd, flush=True)
+        print("PPI network =", ppi_data, flush=True)
 
         # ------------ load_data.py ------------
-        print("------------ load_data.py ------------")
+        print("------------ load_data.py ------------ {}"
+              .format(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')), flush=True)
         if patient_data == 'TCGA_UCEC':
             (patient_id, mutation_profile, gene_id_patient,
              gene_symbol_profile) = load_data.load_TCGA_UCEC_patient_data(
@@ -99,18 +95,19 @@ def all_functions(params):
         elif patient_data == 'SSC':
             mutation_profile, gene_id_patient, patient_id = (
                 load_data.load_specific_SSC_mutation_profile(
-                    data_folder, ssc_type, ssc_subgroups, gene_data))
+                    data_folder, ssc_mutation_data, ssc_subgroups, gene_data))
 
-        if ppi_data == 'STRING':
-            gene_id_ppi, network = load_data.load_PPI_String(
+        if ppi_data == 'Hofree_STRING':
+            gene_id_ppi, network = load_data.load_Hofree_PPI_String(
                 data_folder, ppi_data)
 
         else:
-            gene_id_ppi, network = load_data.load_PPI_Y2H_or_APID(
+            gene_id_ppi, network = load_data.load_PPI_network(
                 data_folder, ppi_data)
 
         # ------------ formatting_data.py ------------
-        print("------------ formatting_data.py ------------")
+        print("------------ formatting_data.py ------------ {}"
+              .format(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')), flush=True)
         (network, mutation_profile,
          idx_ppi, idx_mut, idx_ppi_only, idx_mut_only) = (
             formatting_data.classify_gene_index(
@@ -122,12 +119,8 @@ def all_functions(params):
                 mutation_profile))
 
         # ------------ filtering_diffusion.py ------------
-        print("------------ filtering_diffusion.py ------------")
-        # ppi_influence = (
-        #     filtering_diffusion.calcul_ppi_influence(
-        #         sp.eye(ppi_filt.shape[0]), ppi_filt,
-        #         result_folder, compute, overwrite, alpha, tol))
-
+        print("------------ filtering_diffusion.py ------------ {}"
+              .format(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')), flush=True)
         final_influence = (
             filtering_diffusion.calcul_final_influence(
                 sp.eye(ppi_filt.shape[0], dtype=np.float32), ppi_filt,
@@ -142,7 +135,8 @@ def all_functions(params):
             mut_final, ppi_filt, result_folder, alpha, tol, qn)
 
         # ------------ clustering.py ------------
-        print("------------ clustering.py ------------")
+        print("------------ clustering.py ------------ {}"
+              .format(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')), flush=True)
         genes_clustering, patients_clustering = (clustering.bootstrap(
             result_folder, mut_type, mut_propag, ppi_final,
             influence_weight, simplification,
@@ -158,7 +152,8 @@ def all_functions(params):
             compute_gene_clustering)
 
         # ------------ hierarchical_clustering.py ------------
-        print("------------ hierarchical_clustering.py ------------")
+        print("------------ hierarchical_clustering.py ------------ {}"
+              .format(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')), flush=True)
         # if alpha > 0:
         #     if qn == 'mean':
         #         mut_type = 'mean_qn'
@@ -188,24 +183,48 @@ def all_functions(params):
         # os.makedirs(hierarchical_factorization_directory, exist_ok=True)
         #
         # consensus_file = (consensus_factorization_directory +
-        #                   'consensus_alpha={}_tol={}_singletons={}_ngh={}_minMut={}_maxMut={}_comp={}_permut={}_lambd={}_tolNMF={}.mat'
-        #                   .format(alpha, tol, keep_singletons, ngh_max,
-        #                           min_mutation, max_mutation,
-        #                           n_components, n_permutations, lambd, tol_nmf))
+        #               'consensus_weight={}_simp={}_alpha={}_tol={}_singletons={}_ngh={}_minMut={}_maxMut={}_comp={}_permut={}_lambd={}_tolNMF={}.mat'
+        #               .format(influence_weight, simplification, alpha, tol,
+        #                       keep_singletons, ngh_max,
+        #                       min_mutation, max_mutation,
+        #                       n_components, n_permutations, lambd, tol_nmf))
         #
         # consensus_data = loadmat(consensus_file)
+        # distance_genes = consensus_data['distance_genes']
         # distance_patients = consensus_data['distance_patients']
-        #
-        # hierarchical_clustering.distance_matrix(
-        #     hierarchical_factorization_directory, distance_patients, ppi_data,
-        #     mut_type,
-        #     alpha, tol,  keep_singletons, ngh_max, min_mutation, max_mutation,
-        #     n_components, n_permutations, lambd, tol_nmf, linkage_method)
-        hierarchical_clustering.distance_patients_from_consensus_file(
-            result_folder, distance_patients, ppi_data, mut_type,
-            influence_weight, simplification, alpha, tol,  keep_singletons,
-            ngh_max, min_mutation, max_mutation, n_components, n_permutations,
-            lambd, tol_nmf, linkage_method)
+
+
+        hierarchical_clustering.distances_from_consensus_file(
+            result_folder, distance_genes, distance_patients, ppi_data, mut_type,
+            influence_weight, simplification,
+            alpha, tol,  keep_singletons, ngh_max, min_mutation, max_mutation,
+            n_components, n_permutations, lambd, tol_nmf, linkage_method,
+            patient_data, data_folder, ssc_subgroups, ssc_mutation_data, gene_data)
+
+        (total_cluster_list, probands_cluster_list, siblings_cluster_list,
+                male_cluster_list, female_cluster_list, iq_cluster_list,
+                distCEU_list, mutation_nb_cluster_list,
+                text_file) = hierarchical_clustering.get_lists_from_clusters(
+                    data_folder, patient_data, ssc_mutation_data,
+                    ssc_subgroups, ppi_data, gene_data, result_folder,
+                    mut_type, influence_weight, simplification, alpha, tol,
+                    keep_singletons, ngh_max, min_mutation, max_mutation,
+                    n_components, n_permutations, lambd, tol_nmf,
+                    linkage_method)
+
+        hierarchical_clustering.bio_statistics(
+            n_components, total_cluster_list, probands_cluster_list,
+            siblings_cluster_list, male_cluster_list, female_cluster_list,
+            iq_cluster_list, distCEU_list, mutation_nb_cluster_list, text_file)
+
+        hierarchical_clustering.get_entrezgene_from_cluster(
+            data_folder, result_folder, ssc_mutation_data, patient_data,
+            ssc_subgroups, alpha, n_components, ngh_max, n_permutations, lambd,
+            influence_weight, simplification, tol, keep_singletons, min_mutation,
+            max_mutation, tol_nmf, linkage_method, gene_data, ppi_data,
+            gene_id_ppi, idx_ppi, idx_ppi_only, mut_type)
+
+
 
 
 if (sys.version_info < (3, 2)):
@@ -222,6 +241,6 @@ for k in params[i].keys():
 all_functions(params[i])
 
 end = time.time()
-print('---------- ONE STEP = {} ---------- {}'
+print('\n------------ ONE STEP = {} ------------ {}'
       .format(datetime.timedelta(seconds=end-start),
               datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))

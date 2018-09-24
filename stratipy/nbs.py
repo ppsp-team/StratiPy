@@ -102,9 +102,9 @@ def parallel_bootstrap(result_folder, mut_type, influence_weight,
 
     ppi_final_file = (
         final_influence_mutation_directory +
-        'PPI_final_weight={}_simp={}_alpha={}_tol={}_singletons={}_ngh={}_minMut={}_maxMut={}.mat'
+        'PPI_final_weight={}_simp={}_alpha={}_tol={}_singletons={}_ngh={}.mat'
         .format(influence_weight, simplification, alpha, tol, keep_singletons,
-                ngh_max, min_mutation, max_mutation))
+                ngh_max))
     ppi_final_data = loadmat(ppi_final_file)
     ppi_final = ppi_final_data['ppi_final']
 
@@ -157,7 +157,7 @@ def post_bootstrap(result_folder, mut_type, influence_weight, simplification,
         ssc_subgroups, ppi_data, gene_data, mut_type, influence_weight,
         simplification, alpha, tol, keep_singletons, ngh_max, min_mutation,
         max_mutation, n_components, n_permutations, lambd, tol_nmf,
-        linkage_method, p_val_threshold, gene_id_ppi)
+        linkage_method, p_val_threshold, gene_id_ppi, idx_ppi, idx_ppi_only)
 
 
 ###############################################################################
