@@ -41,7 +41,7 @@ def hierarchical_file(result_folder, mut_type, influence_weight,
 
     hierarchical_clustering_file = (
         hierarchical_factorization_directory +
-        'hierarchical_clustering_Patients_weight={}_simp={}_alpha={}_tol={}_singletons={}_ngh={}_minMut={}_maxMut={}_comp={}_permut={}_lambd={}_tolNMF={}_method={}.mat'
+        'hierarchical_clustering_weight={}_simp={}_alpha={}_tol={}_singletons={}_ngh={}_minMut={}_maxMut={}_comp={}_permut={}_lambd={}_tolNMF={}_method={}.mat'
         .format(influence_weight, simplification, alpha, tol, keep_singletons,
                 ngh_max, min_mutation, max_mutation, n_components,
                 n_permutations, lambd, tol_nmf, linkage_method))
@@ -66,21 +66,24 @@ def linkage_dendrogram(hierarchical_clustering_file, distance_genes,
     else:
         # hierarchical clustering on distance matrix (here: distance_patients)
         Z_patients = linkage(distance_patients, method=linkage_method)
-        start = time.time()
         Z_genes = linkage(distance_genes, method=linkage_method)
-        end = time.time()
-        print("---------- Linkage based on Gene distance = {} ---------- {}"
-              .format(datetime.timedelta(seconds=end-start),
-                      datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
 
+        start = time.time()
         P_patients = dendrogram(
             Z_patients, count_sort='ascending', no_labels=True)
+        end = time.time()
+        print("---------- Dendrogram based on Individual distance = {} ---------- {}"
+              .format(datetime.timedelta(seconds=end-start),
+                      datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")),
+              flush=True)
+
         start = time.time()
         P_genes = dendrogram(Z_genes, count_sort='ascending', no_labels=True)
         end = time.time()
         print("---------- Dendrogram based on Gene distance = {} ---------- {}"
               .format(datetime.timedelta(seconds=end-start),
-                      datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
+                      datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")),
+              flush=True)
 
         idx_patients = np.array(P_patients['leaves'])
         idx_genes = np.array(P_genes['leaves'])
