@@ -55,7 +55,8 @@ def merge_sub_bootstrap(boot_factorization_directory, boot_filename, boot_file,
     genes_clustering = np.hstack(genes_clustering)
     patients_clustering = np.hstack(patients_clustering)
 
-    if genes_clustering.shape[1] or patients_clustering.shape[1] != n_permutations:
+    if (genes_clustering.shape[1] != n_permutations or
+        patients_clustering.shape[1] != n_permutations):
         print('Bootstrap permutation error:  {} were requested but {} (gene clustering) and {} (individual clustering) obtained'
               .format(n_permutations, genes_clustering.shape[1],
                       patients_clustering.shape[1]))
@@ -98,17 +99,15 @@ def simple_consensus(mat):
 def run_save_consensus(consensus_file, genes_clustering, patients_clustering,
                        compute_gene_clustering=False):
     start = time.time()
-    print(" ==== Between genes ")
     if compute_gene_clustering:
         distance_genes = simple_consensus(genes_clustering)
     else:
         distance_genes = float('NaN')
     end = time.time()
-    print(" ==== distance_Genese = {} ---------- {}"
+    print(" ==== distance_Genes = {} ---------- {}"
           .format(datetime.timedelta(seconds=end-start),
                   datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
 
-    print(" ==== Between patients ")
     start = time.time()
     distance_patients = simple_consensus(patients_clustering)
     end = time.time()
