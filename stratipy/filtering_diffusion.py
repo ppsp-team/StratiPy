@@ -455,7 +455,7 @@ def quantile_norm_median(anarray):
     return AA.T
 
 
-def propagation_profile(mut_raw, adj, result_folder, alpha, tol, qn, mut_type):
+def propagation_profile(mut_raw, adj, result_folder, alpha, tol, mut_type):
     #  TODO error messages
     final_influence_mutation_directory = result_folder + 'final_influence/'
     final_influence_mutation_file = (
@@ -471,12 +471,11 @@ def propagation_profile(mut_raw, adj, result_folder, alpha, tol, qn, mut_type):
     else:
         if mut_type == 'raw':
             mut_propag = mut_raw.todense()
-
         else:
             print(' ==== Diffusion over mutation profile ==== ')
             mut_propag = propagation(mut_raw, adj, alpha, tol).todense()
             mut_propag[np.isnan(mut_propag)] = 0
-            if qn == 'mean':
+            if mut_type == 'mean_qn':
                 mut_propag = quantile_norm_mean(mut_propag)
             elif qn == 'median':
                 mut_propag = quantile_norm_median(mut_propag)
@@ -490,7 +489,7 @@ def propagation_profile(mut_raw, adj, result_folder, alpha, tol, qn, mut_type):
 
 def filtering(ppi_filt, result_folder, influence_weight, simplification,
               compute, overwrite, alpha, tol, ppi_total, mut_total, ngh_max,
-              keep_singletons, min_mutation, max_mutation, qn, mut_type):
+              keep_singletons, min_mutation, max_mutation, mut_type):
     final_influence = (calcul_final_influence(
         sp.eye(ppi_filt.shape[0], dtype=np.float32), ppi_filt, result_folder,
         influence_weight, simplification, compute, overwrite, alpha, tol))
@@ -501,6 +500,6 @@ def filtering(ppi_filt, result_folder, influence_weight, simplification,
         min_mutation, max_mutation)
 
     mut_propag = propagation_profile(
-        mut_final, ppi_filt, result_folder, alpha, tol, qn, mut_type)
+        mut_final, ppi_filt, result_folder, alpha, tol, mut_type)
 
     return ppi_final, mut_propag

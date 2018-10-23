@@ -15,20 +15,6 @@ import glob
 import collections
 from tqdm import tqdm, trange
 
-# NOTE some variable names changed:
-# patientsNum -> n_patients
-# genesNum -> n_genes
-# patientsSelected -> patients_boot
-# genesSelected -> genes_boot
-# subselectionFiltered -> mut_boot
-# subPPI -> ppi_boot
-# permutationsNum -> n_permutations
-# runBootstrap -> run_bootstrap
-# subselectionDiffused -> mut_diff_boot
-# subselectionQDiffused -> mut_mean_qn_boot
-# subselectionQDiffusedMed -> mut_median_qn_boot
-#    ->, ->, ->, ->, ->,
-
 
 # Reuse scikit-learn functions
 def check_non_negative(X, whom):

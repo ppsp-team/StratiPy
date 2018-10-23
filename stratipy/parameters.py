@@ -2,7 +2,7 @@
 # coding: utf-8
 import sys
 import os
-sys.path.append(os.path.abspath('../../stratipy_cluster'))
+sys.path.append(os.path.abspath('../../stratipy'))
 from sklearn.model_selection import ParameterGrid
 
 
@@ -12,29 +12,27 @@ param_grid = {'data_folder': ['../data/'],
             #   'patient_data': ['Faroe'],
               'ssc_mutation_data': ['LoF_mis15'],
               # 'ssc_mutation_data': ['LoF', 'missense'],
-              # 'ssc_subgroups': ['SSC1'],
-              'ssc_subgroups': ['SSC1', 'SSC2'],
+              'ssc_subgroups': ['SSC1'],
+              # 'ssc_subgroups': ['SSC1', 'SSC2'],
               # 'ssc_subgroups': ['SSC', 'SSC1', 'SSC2'],
-              # 'gene_data': ['all', 'pli', 'sfari', 'brain1SD', 'brain2SD', 'BrainSfariPli'],
-              'gene_data': ['all'],
-              'ppi_data': ['STRING'],
-              # 'ppi_data': ['APID', 'STRING'],
+              # 'gene_data': ['all', 'pli', 'sfari', 'brain1SD', 'brain2SD'],
+              'gene_data': ['all', 'brain1SD', 'BrainSfariPli'],
+              # 'gene_data': ['BrainSfariPli'],
+              # 'ppi_data': ['STRING'],
+              'ppi_data': ['APID', 'STRING'],
               'influence_weight': ['min'],
               'simplification': [True],
               'compute': [True],
               'overwrite': [False],
-            #   'alpha': [0, 0.3, 0.5, 0.7, 1],
               'alpha': [0.7],
-              # 'alpha': [0, 0.7],
               'tol': [10e-3],
               'ngh_max': [11],
               'keep_singletons': [False],
               'min_mutation': [0],
               'max_mutation': [2000],
-              # 'qn': [None],
-              'qn': [None, 'mean', 'median'],
+              'mut_type': ['raw', 'diff', 'mean_qn', 'median_qn'],
               'n_components': [2],
-              # 'n_components': range(2, 11),
+              # 'n_components': range(2, 21),
             #   'n_permutations': [1000],
               'n_permutations': [300],
               'sub_perm': [5],
@@ -73,7 +71,8 @@ def get_params(i):
     keep_singletons = d.get('keep_singletons')
     min_mutation = d.get('min_mutation')
     max_mutation = d.get('max_mutation')
-    qn = d.get('qn')
+    mut_type = d.get('mut_type')
+    # qn = d.get('qn')
     n_components = d.get('n_components')
     n_permutations = d.get('n_permutations')
     sub_perm = d.get('sub_perm')
@@ -92,6 +91,6 @@ def get_params(i):
     return (data_folder, patient_data, ssc_mutation_data, ssc_subgroups,
             gene_data, ppi_data, influence_weight, simplification, compute,
             overwrite, alpha, tol, ngh_max, keep_singletons, min_mutation,
-            max_mutation, qn, n_components, n_permutations, sub_perm, sub_perm,
+            max_mutation, mut_type, n_components, n_permutations, sub_perm, sub_perm,
             run_bootstrap, run_consensus, lambd, tol_nmf,
             compute_gene_clustering, linkage_method, p_val_threshold)

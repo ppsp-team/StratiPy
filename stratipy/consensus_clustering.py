@@ -122,8 +122,7 @@ def run_save_consensus(consensus_file, genes_clustering, patients_clustering,
     return distance_genes, distance_patients
 
 
-def consensus_from_full_bootstrap(consensus_file, genes_clustering,
-                                  patients_clustering, run_consensus,
+def consensus_from_full_bootstrap(consensus_file, boot_file, run_consensus,
                                   compute_gene_clustering=False):
     # TODO overwrite condition
     existance_same_param = os.path.exists(consensus_file)
@@ -135,6 +134,10 @@ def consensus_from_full_bootstrap(consensus_file, genes_clustering,
         print(' **** Same parameters file of consensus clustering already exists')
     else:
         if run_consensus:
+            boot_data = loadmat(boot_file)
+            genes_clustering = boot_data['genes_clustering']
+            patients_clustering = boot_data['patients_clustering']
+
             distance_genes, distance_patients = run_save_consensus(
                 consensus_file, genes_clustering, patients_clustering,
                 compute_gene_clustering)
@@ -199,5 +202,8 @@ def sub_consensus(result_folder, mut_type, influence_weight,
     distance_genes, distance_patients = consensus_from_sub_bootstrap(
         consensus_file, run_consensus, boot_factorization_directory,
         boot_filename, boot_file, n_permutations, compute_gene_clustering)
+
+    # distance_genes, distance_patients = consensus_from_full_bootstrap(
+    #     consensus_file, boot_file, run_consensus, compute_gene_clustering)
 
     return distance_genes, distance_patients
