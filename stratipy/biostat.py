@@ -170,22 +170,23 @@ def get_individual_lists_from_clusters(hierarchical_clustering_file,
         mutation_nb_cluster_list.append(mutation_nb_list)
 
     # Siblings and Probands rapports
-    sib_vs_total = [indiv/total for indiv, total
+    # np.float64() returns nan if division by 0
+    sib_vs_total = [np.float64(indiv)/total for indiv, total
                     in zip(siblings_cluster_list, total_cluster_list)]
-    prob_vs_total = [indiv/total for indiv, total
+    prob_vs_total = [np.float64(indiv)/total for indiv, total
                      in zip(probands_cluster_list, total_cluster_list)]
-    sib_within_sibtotal = [i/sum(siblings_cluster_list) for i
+    sib_within_sibtotal = [np.float64(i)/sum(siblings_cluster_list) for i
                            in siblings_cluster_list]
-    prob_within_probtotal = [i/sum(probands_cluster_list) for i
+    prob_within_probtotal = [np.float64(i)/sum(probands_cluster_list) for i
                              in probands_cluster_list]
     # sex rapports
-    female_vs_total = [indiv/total for indiv, total
+    female_vs_total = [np.float64(indiv)/total for indiv, total
                        in zip(female_cluster_list, total_cluster_list)]
-    male_vs_total = [indiv/total for indiv, total
+    male_vs_total = [np.float64(indiv)/total for indiv, total
                      in zip(male_cluster_list, total_cluster_list)]
-    female_within_femaletotal = [i/sum(female_cluster_list) for i
+    female_within_femaletotal = [np.float64(i)/sum(female_cluster_list) for i
                                  in female_cluster_list]
-    male_within_maletotal = [i/sum(male_cluster_list) for i
+    male_within_maletotal = [np.float64(i)/sum(male_cluster_list) for i
                              in male_cluster_list]
     # list of median values for each cluster, ignoring NaN values
     iq_cluster_median = [np.nanmedian(i) for i in iq_cluster_list]
@@ -249,7 +250,11 @@ def individual_cluster_analysis(n_components, total_cluster_list,
         p_sex = chi2test(male_cluster_list, total_cluster_list)
 
         #  ‘omit’ performs the calculations ignoring nan values
-        p_iq = kruskal(*iq_cluster_list, nan_policy='omit')[1]
+        if sum([sum(~np.isnan(i)) for i in iq_cluster_list]) != 0:
+            p_iq = kruskal(*iq_cluster_list, nan_policy='omit')[1]
+        else:
+            print(" no IQ score")
+            p_iq = np.nan
         p_srs = kruskal(*srs_cluster_list, nan_policy='omit')[1]
         p_vineland = kruskal(*vineland_cluster_list, nan_policy='omit')[1]
         p_ancestral = kruskal(*distCEU_list)[1]
@@ -424,16 +429,16 @@ def biostat_analysis(data_folder, result_folder, patient_data,
         keep_singletons, ngh_max, min_mutation, max_mutation, n_components,
         n_permutations, lambd, tol_nmf, linkage_method)
 
-    # biostat_factorization_directory, biostat_file = biostatistics_file(
-    #     result_folder, mut_type, influence_weight, simplification, alpha, tol,
-    #     keep_singletons, ngh_max, min_mutation, max_mutation, n_components,
-    #     n_permutations, lambd, tol_nmf, linkage_method)
-    #
-    # biostat_individuals(
-    #     hierarchical_clustering_file, biostat_file, data_folder,
-    #     patient_data, ssc_mutation_data, ssc_subgroups, ppi_data, gene_data,
-    #     mut_type, alpha, ngh_max, n_components, n_permutations, lambd,
-    #     p_val_threshold)
+    biostat_factorization_directory, biostat_file = biostatistics_file(
+        result_folder, mut_type, influence_weight, simplification, alpha, tol,
+        keep_singletons, ngh_max, min_mutation, max_mutation, n_components,
+        n_permutations, lambd, tol_nmf, linkage_method)
+
+    biostat_individuals(
+        hierarchical_clustering_file, biostat_file, data_folder,
+        patient_data, ssc_mutation_data, ssc_subgroups, ppi_data, gene_data,
+        mut_type, alpha, ngh_max, n_components, n_permutations, lambd,
+        p_val_threshold)
 
     get_entrezgene_from_cluster(
         hierarchical_clustering_file, data_folder, ssc_mutation_data,
