@@ -1,6 +1,7 @@
 import sys
 import os
-# sys.path.append(os.path.abspath('../../stratipy_cluster'))
+sys.path.append(os.path.abspath('../../stratipy'))
+from stratipy import biostat
 import numpy as np
 import pandas as pd
 import re
@@ -174,8 +175,9 @@ def biostat_individuals_plot(df, data_folder, ssc_mutation_data, gene_data,
         Line2D([0], [0], fillstyle='full', linestyle='', color='orangered',
                **m_style, label='p-value < 0.05')]
 
+    # k=20 -> figsize=(5, 9)
     fig, ax = plt.subplots(nrows=df_fill.shape[0], ncols=df_fill.shape[1],
-                           sharex=True, sharey=True, figsize=(5, 9))
+                           sharex=True, sharey=True, figsize=(5, 20))
     if lambd > 0:
         nmf = 'GNMF'
     else:
