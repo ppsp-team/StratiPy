@@ -117,26 +117,26 @@ def post_bootstrap(result_folder, mut_type, influence_weight, simplification,
                    ppi_data, patient_data, data_folder, ssc_subgroups,
                    ssc_mutation_data, gene_data, p_val_threshold, compute,
                    overwrite):
-    # print("------------ consensus_clustering.py ------------ {}"
-    #       .format(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')),
-    #       flush=True)
-    # distance_genes, distance_patients = (
-    #     consensus_clustering.sub_consensus(
-    #         result_folder, mut_type, influence_weight, simplification, alpha,
-    #         tol, keep_singletons, ngh_max, min_mutation, max_mutation,
-    #         n_components, n_permutations, lambd, tol_nmf,
-    #         compute_gene_clustering, run_consensus))
-    #
-    # print("------------ hierarchical_clustering.py ------------ {}"
-    #       .format(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')),
-    #       flush=True)
-    # hierarchical_clustering.hierarchical(
-    #     result_folder, distance_genes, distance_patients, ppi_data, mut_type,
-    #     influence_weight, simplification, alpha, tol, keep_singletons, ngh_max,
-    #     min_mutation, max_mutation, n_components, n_permutations, lambd,
-    #     tol_nmf, linkage_method, patient_data, data_folder, ssc_subgroups,
-    #     ssc_mutation_data, gene_data)
-    #
+    print("------------ consensus_clustering.py ------------ {}"
+          .format(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')),
+          flush=True)
+    distance_genes, distance_patients = (
+        consensus_clustering.sub_consensus(
+            result_folder, mut_type, influence_weight, simplification, alpha,
+            tol, keep_singletons, ngh_max, min_mutation, max_mutation,
+            n_components, n_permutations, lambd, tol_nmf,
+            compute_gene_clustering, run_consensus))
+
+    print("------------ hierarchical_clustering.py ------------ {}"
+          .format(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')),
+          flush=True)
+    hierarchical_clustering.hierarchical(
+        result_folder, distance_genes, distance_patients, ppi_data, mut_type,
+        influence_weight, simplification, alpha, tol, keep_singletons, ngh_max,
+        min_mutation, max_mutation, n_components, n_permutations, lambd,
+        tol_nmf, linkage_method, patient_data, data_folder, ssc_subgroups,
+        ssc_mutation_data, gene_data)
+
     print("\n------------ biostat.py ------------ {}"
           .format(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')),
           flush=True)
@@ -145,7 +145,7 @@ def post_bootstrap(result_folder, mut_type, influence_weight, simplification,
     #     ppi_data, result_folder, influence_weight, simplification, compute,
     #     overwrite, alpha, tol, ngh_max, keep_singletons, min_mutation,
     #     max_mutation, mut_type)
-
+    #
     # biostat.biostat_analysis(
     #     data_folder, result_folder, patient_data, ssc_mutation_data,
     #     ssc_subgroups, ppi_data, gene_data, mut_type, influence_weight,
@@ -157,14 +157,15 @@ def post_bootstrap(result_folder, mut_type, influence_weight, simplification,
         alpha, result_folder, mut_type, patient_data, data_folder, ssc_mutation_data,
         ssc_subgroups, gene_data, ppi_data, lambd, n_components, ngh_max, n_permutations)
 
-    # print("\n------------ biostat_plot.py ------------ {}"
-    #       .format(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')),
-    #       flush=True)
-    # biostat_plot.load_plot_biostat_individuals(
-    #     result_folder, data_folder, ssc_mutation_data,
-    #     gene_data, patient_data, ppi_data, mut_type, lambd, influence_weight,
-    #     simplification, alpha, tol, keep_singletons, ngh_max, min_mutation,
-    #     max_mutation, n_components, n_permutations, tol_nmf, linkage_method)
+    print("\n------------ biostat_plot.py ------------ {}"
+          .format(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')),
+          flush=True)
+    # no need SSC1/SSC2, no need k
+    biostat_plot.load_plot_biostat_individuals(
+        result_folder, data_folder, ssc_mutation_data,
+        gene_data, patient_data, ppi_data, mut_type, lambd, influence_weight,
+        simplification, alpha, tol, keep_singletons, ngh_max, min_mutation,
+        max_mutation, n_components, n_permutations, tol_nmf, linkage_method)
 ###############################################################################
 ###############################################################################
 ###############################################################################

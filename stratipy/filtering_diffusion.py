@@ -477,7 +477,7 @@ def propagation_profile(mut_raw, adj, result_folder, alpha, tol, mut_type):
             mut_propag[np.isnan(mut_propag)] = 0
             if mut_type == 'mean_qn':
                 mut_propag = quantile_norm_mean(mut_propag)
-            elif qn == 'median':
+            elif mut_type == 'median_qn':
                 mut_propag = quantile_norm_median(mut_propag)
 
         savemat(final_influence_mutation_file,

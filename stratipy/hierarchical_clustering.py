@@ -1,6 +1,6 @@
 import sys
 import os
-sys.path.append(os.path.abspath('../../stratipy_cluster'))
+sys.path.append(os.path.abspath('../../stratipy'))
 from stratipy import consensus_clustering
 from scipy.cluster.hierarchy import linkage, dendrogram, fcluster, cophenet
 from scipy.spatial.distance import pdist
