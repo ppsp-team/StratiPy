@@ -115,7 +115,7 @@ def load_overall_SSC_mutation_profile(data_folder, ssc_mutation_data):
         print('overall_{}_mutation_profile file is calculating.....'
               .format(ssc_mutation_data))
 
-        df = pd.read_csv(data_folder + 'SSC_EntrezGene_{}.csv'
+        df = pd.read_csv(data_folder + 'SSC_EntrezGene_{}_gene_filtered.csv'
                          .format(ssc_mutation_data), sep='\t')
         # create gene ID (EntrezGene ID) list
         gene_id = [int(i) for i in df.entrez_id.tolist()]
@@ -168,7 +168,7 @@ def load_specific_SSC_mutation_profile(data_folder, ssc_mutation_data, ssc_subgr
             print('{}_{}_mutation_profile file is calculating.....'.format(
                 ssc_mutation_data, ssc_subgroups))
 
-            df_ssc = pd.read_csv(data_folder + '{}_indiv_sex_iq.csv'
+            df_ssc = pd.read_csv(data_folder + '{}_phenotype.csv'
                                  .format(ssc_subgroups), sep='\t')
             ind_ssc_raw = df_ssc.individual.tolist()
 #             ind_ssc_raw = df_ssc.individual.apply(eval).tolist()
