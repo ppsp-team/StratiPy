@@ -166,9 +166,16 @@ def consensus_from_sub_bootstrap(consensus_file, run_consensus,
         print(' **** Same parameters file of consensus clustering already exists')
     else:
         if run_consensus:
-            genes_clustering, patients_clustering = merge_sub_bootstrap(
-                boot_factorization_directory, boot_filename, boot_file,
-                n_permutations, compute_gene_clustering)
+            existance_merged_boot = os.path.exists(boot_file)
+            if existance_merged_boot:
+                boot_data = loadmat(boot_file)
+                genes_clustering = boot_data['genes_clustering']
+                patients_clustering = boot_data['patients_clustering']
+
+            else:
+                genes_clustering, patients_clustering = merge_sub_bootstrap(
+                    boot_factorization_directory, boot_filename, boot_file,
+                    n_permutations, compute_gene_clustering)
 
             distance_genes, distance_patients = run_save_consensus(
                 consensus_file, genes_clustering, patients_clustering,
@@ -180,6 +187,13 @@ def consensus_from_sub_bootstrap(consensus_file, run_consensus,
             consensus_data = loadmat(newest_file)
             distance_genes = consensus_data['distance_genes']
             distance_patients = consensus_data['distance_patients']
+
+        # remove all sub-bootstrap files
+        subfiles_list = glob.glob(boot_factorization_directory + 'sub*_' +
+                                  boot_filename)
+        for file_path in subfiles_list:
+            os.remove(file_path)
+        print(" ....... Removed sub-bootstrap files: ", len(subfiles_list))
 
     return distance_genes, distance_patients
 
