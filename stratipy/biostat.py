@@ -1,6 +1,6 @@
 import sys
 import os
-sys.path.append(os.path.abspath('../../stratipy_cluster'))
+sys.path.append(os.path.abspath('../../stratipy'))
 from stratipy import hierarchical_clustering
 from scipy.cluster.hierarchy import linkage, dendrogram, fcluster, cophenet
 import numpy as np
@@ -76,11 +76,6 @@ def load_SSC_clinical_data(data_folder, ssc_mutation_data, ssc_subgroups, gene_d
     # load individual data including sex and IQ
     df_ssc = pd.read_csv(data_folder + '{}_phenotype.csv'
                          .format(ssc_subgroups), sep='\t')
-    ind_ssc_raw = df_ssc['individual'].tolist()
-#     # get only not null IQ data
-#     df_ssc_iq = df_ssc[df_ssc['iq'].notnull()]
-#     ind_ssc_iq = df_ssc_iq['individual'].tolist()
-#     max_iq_value = int(df_ssc_iq['iq'].max())
 
     # load distance_CEU data
     df_dist = pd.read_csv(data_folder + 'SSC_distanceCEU.csv', sep="\t")
@@ -92,10 +87,9 @@ def load_SSC_clinical_data(data_folder, ssc_mutation_data, ssc_subgroups, gene_d
         .format(ssc_mutation_data, ssc_subgroups, gene_data))
     loadfile = loadmat(mutation_profile_file)
     mutation_profile = loadfile['mutation_profile']
+    indiv = (loadfile['indiv'].flatten()).tolist()
 
-#     return (df_ssc, ind_ssc_raw, df_ssc_iq, ind_ssc_iq, max_iq_value, df_dist,
-#             ind_dist, mutation_profile)
-    return (df_ssc, ind_ssc_raw, df_dist, ind_dist, mutation_profile)
+    return (df_ssc, indiv, df_dist, ind_dist, mutation_profile)
 
 
 def get_individual_lists_from_clusters(hierarchical_clustering_file,
@@ -109,10 +103,7 @@ def get_individual_lists_from_clusters(hierarchical_clustering_file,
     clust_nb_indiv = np.squeeze(h['flat_cluster_number_individuals'])
     idx_indiv = np.squeeze(h['dendrogram_index_individuals'])
 
-#     (df_ssc, ind_ssc_raw, df_ssc_iq, ind_ssc_iq, max_iq_value, df_dist,
-#      ind_dist, mutation_profile) = load_SSC_clinical_data(
-#          data_folder, ssc_mutation_data, ssc_subgroups, gene_data)
-    (df_ssc, ind_ssc_raw, df_dist, ind_dist,
+    (df_ssc, indiv, df_dist, ind_dist,
      mutation_profile) = load_SSC_clinical_data(
         data_folder, ssc_mutation_data, ssc_subgroups, gene_data)
 
@@ -132,7 +123,7 @@ def get_individual_lists_from_clusters(hierarchical_clustering_file,
     # for each cluster
     for i, cluster in enumerate(clusters):
         idCluster = [i for i, c in enumerate(clust_nb_indiv) if c == cluster]
-        subjs = [ind_ssc_raw[i] for i in idx_indiv[idCluster]]
+        subjs = [indiv[i] for i in idx_indiv[idCluster]]
         total_cluster_list.append(len(subjs))
         ind_cluster_list.append(subjs)
 
@@ -143,7 +134,7 @@ def get_individual_lists_from_clusters(hierarchical_clustering_file,
         probands_cluster_list.append(len(prob_indiv))
 
         # sex count
-        sex_list = [df_ssc['sex'].iloc[ind_ssc_raw.index(i)] for i in subjs if i in ind_ssc_raw]
+        sex_list = [df_ssc['sex'].iloc[indiv.index(i)] for i in subjs if i in indiv]
         female_cluster_list.append(sex_list.count('female'))
         male_cluster_list.append(sex_list.count('male'))
 
@@ -151,22 +142,22 @@ def get_individual_lists_from_clusters(hierarchical_clustering_file,
 #         iq_list = [df_ssc_iq['iq'].iloc[ind_ssc_iq.index(i)] for i in subjs if i in ind_ssc_iq]
 #         iq_list = [int(i) for i in iq_list]  # element type: np.float -> int
 #         iq_cluster_list.append(iq_list)
-        iq_list = [df_ssc['iq'].iloc[ind_ssc_raw.index(i)] for i in subjs if i in ind_ssc_raw]
+        iq_list = [df_ssc['iq'].iloc[indiv.index(i)] for i in subjs if i in indiv]
         iq_cluster_list.append(iq_list)
 
         # get SRS list
-        srs_list = [df_ssc['srs'].iloc[ind_ssc_raw.index(i)] for i in subjs if i in ind_ssc_raw]
+        srs_list = [df_ssc['srs'].iloc[indiv.index(i)] for i in subjs if i in indiv]
         srs_cluster_list.append(srs_list)
 
         # get Vineland II list
-        vineland_list = [df_ssc['vineland'].iloc[ind_ssc_raw.index(i)] for i in subjs if i in ind_ssc_raw]
+        vineland_list = [df_ssc['vineland'].iloc[indiv.index(i)] for i in subjs if i in indiv]
         vineland_cluster_list.append(vineland_list)
 
         # get distance CEU for each cluster
         distCEU_list.append([df_dist['distanceCEU'].iloc[ind_dist.index(i)] for i in subjs if i in ind_dist])
 
         # mutation number median for each cluster
-        mutation_nb_list = [int(mutation_profile[ind_ssc_raw.index(i), :].sum(axis=1)) for i in subjs]
+        mutation_nb_list = [int(mutation_profile[indiv.index(i), :].sum(axis=1)) for i in subjs]
         mutation_nb_cluster_list.append(mutation_nb_list)
 
     # Siblings and Probands rapports
@@ -445,147 +436,3 @@ def biostat_analysis(data_folder, result_folder, patient_data,
         patient_data, ssc_subgroups, alpha, n_components, ngh_max,
         n_permutations, lambd, gene_data, ppi_data, gene_id_ppi, idx_ppi,
         idx_ppi_only, mut_type)
-
-
-
-# def analysis_from_clusters(data_folder, patient_data, ssc_mutation_data,
-#                            ssc_subgroups, ppi_data, gene_data, result_folder,
-#                            mut_type, influence_weight,
-#                            simplification, alpha, tol, keep_singletons,
-#                            ngh_max, min_mutation, max_mutation, n_components,
-#                            n_permutations, lambd, tol_nmf, linkage_method):
-#     hierarchical_mut_type_directory = result_folder+'hierarchical_clustering/' + mut_type + '/'
-#     if lambd > 0:
-#         hierarchical_factorization_directory = (
-#             hierarchical_mut_type_directory + 'gnmf/')
-#     else:
-#         hierarchical_factorization_directory = (
-#             hierarchical_mut_type_directory + 'nmf/')
-#
-#     hierarchical_clustering_file = (
-#         hierarchical_factorization_directory +
-#         'hierarchical_clustering_Patients_weight={}_simp={}_alpha={}_tol={}_singletons={}_ngh={}_minMut={}_maxMut={}_comp={}_permut={}_lambd={}_tolNMF={}_method={}.mat'
-#         .format(influence_weight, simplification, alpha, tol, keep_singletons,
-#                 ngh_max, min_mutation, max_mutation, n_components,
-#                 n_permutations, lambd, tol_nmf, linkage_method))
-#
-#     h = loadmat(hierarchical_clustering_file)
-#     clust_nb = np.squeeze(h['flat_cluster_number_individuals']) # cluster index for each individual
-#     idx = np.squeeze(h['dendrogram_index_individuals']) # individuals' index
-#
-#     # load individual data including sex and IQ
-#     df_ssc = pd.read_csv(data_folder + '{}_indiv_sex_iq.csv'
-#                          .format(ssc_subgroups), sep='\t')
-#     ind_ssc_raw = df_ssc['individual'].tolist()
-#     df_ssc_iq = df_ssc[df_ssc['iq'].notnull()]
-#     ind_ssc_iq = df_ssc_iq['individual'].tolist()
-#     max_iq_value = int(df_ssc_iq['iq'].max())
-#
-#     # load distance_CEU data
-#     df_dist = pd.read_csv(data_folder + 'SSC_distanceCEU.csv', sep="\t")
-#     ind_dist = df_dist.individual.tolist()
-#
-#     # load mutation profile data
-#     overall_mutation_profile_file = (
-#         data_folder + "{}_overall_mutation_profile.mat".format(ssc_mutation_data))
-#     loadfile = loadmat(overall_mutation_profile_file)
-#     mutation_profile = loadfile['mutation_profile']
-#     indiv = (loadfile['indiv'].flatten()).tolist()
-#
-#     clusters = list(set(clust_nb))
-#     total_cluster_list = []
-#     siblings_cluster_list = []
-#     probands_cluster_list = []
-#     female_cluster_list = []
-#     male_cluster_list = []
-#     iq_cluster_list = []
-#     distCEU_list = []
-#     mutation_nb_cluster_list = []
-#     ind_cluster_list = []
-#
-#     for i, cluster in enumerate(clusters):
-#         idCluster = [i for i, c in enumerate(clust_nb) if c == cluster]
-#         subjs = [indiv[i] for i in idx[idCluster]]
-#         total_cluster_list.append(len(subjs))
-#         ind_cluster_list.append(subjs)
-#
-#         sib_indiv = [i for i in subjs if i[-2:-1] == 's'] # individuals' ID list
-#         siblings_cluster_list.append(len(sib_indiv))
-#         prob_indiv = [i for i in subjs if i[-2:-1] == 'p'] # individuals' ID list
-#         probands_cluster_list.append(len(prob_indiv))
-#
-#         # sex count in each cluster
-#         sex_list = [df_ssc['sex'].iloc[ind_ssc_raw.index(i)] for i in subjs if i in ind_ssc_raw]
-#         female_cluster_list.append(sex_list.count('female'))
-#         male_cluster_list.append(sex_list.count('male'))
-#
-#         # get IQ list for each cluster
-#         iq_list = [df_ssc_iq['iq'].iloc[ind_ssc_iq.index(i)] for i in subjs if i in ind_ssc_iq]
-#         iq_list = [int(i) for i in iq_list] # element type: np.float -> int
-#         # create frequency (count individuals for each IQ) list
-# #         iq_count_list = [0]*(max_iq_value+1)
-# #         for j in iq_list:
-# #             iq_count_list[j] = iq_list.count(j)
-# #         iq_cluster_list.append(iq_count_list)
-#         iq_cluster_list.append(iq_list)
-#
-#         # get distance CEU for each cluster
-#         distCEU_list.append([df_dist['distanceCEU'].iloc[ind_dist.index(i)] for i in subjs if i in ind_dist])
-#
-#         # mutation number median for each cluster
-#         mutation_nb_list = [int(mutation_profile[indiv.index(i), :].sum(axis=1)) for i in subjs]
-#         mutation_nb_cluster_list.append(mutation_nb_list)
-#
-#     if patient_data == 'SSC':
-#         file_directory = (data_folder + 'text/clusters_stat/{}_{}_{}_{}/'.
-#                           format(ssc_mutation_data, ssc_subgroups, gene_data,
-#                                  ppi_data))
-#     else:
-#         file_directory = (data_folder + 'text/clusters_stat/{}_{}/'.
-#                           format(patient_data, ppi_data))
-#     os.makedirs(file_directory, exist_ok=True)
-#
-#     text_file = file_directory + (
-#         '{}_{}_k={}_ngh={}_permut={}_lambd={}.txt'
-#         .format(mut_type, alpha, n_components, ngh_max, n_permutations, lambd))
-#     print(text_file)
-#     # create text output file
-#     with open(text_file, 'w+') as f:
-#         # Individual numbers in clusters
-#         print("individuals: \n{} ({}%) / {} ({}%)"
-#           .format(total_cluster_list[0], round(total_cluster_list[0]*100/len(idx), 1),
-#                  total_cluster_list[1], round(total_cluster_list[1]*100/len(idx), 1)), file=f)
-#
-#         p_val_threshold = 0.05
-#         # Fisher's exact test between probands/siblings
-#         prob_sib = [probands_cluster_list, siblings_cluster_list]
-#         p = fisher_exact(prob_sib)[1]
-#         if p <= p_val_threshold:
-#             print("\nProbands / Siblings (Fisher's exact):\n{}".format(p), file=f)
-#
-#         # Fisher's exact test between sex
-#         male_female = [male_cluster_list, female_cluster_list]
-#         p = fisher_exact(male_female)[1]
-#         if p <= p_val_threshold:
-#             print("\nMales / Females (Fisher's exact):\n{}".format(p), file=f)
-#
-#         # Distance_CEU distribution between 2 samples
-#         p = ks_2samp(distCEU_list[0], distCEU_list[1])[1]
-#         if p <= p_val_threshold:
-#             print("\nDistance_CEU (Kolmogorov-Smirnov):\n{}".format(p), file=f)
-#
-#         # IQ
-#         iq_array = np.array(iq_cluster_list)
-#         p = ks_2samp(iq_array[0], iq_array[1])[1]
-#         if p <= p_val_threshold:
-#             print("\nProbands' IQ median: \n{} / {}".format(median(iq_array[0]), median(iq_array[1])), file=f)
-#             print("{}".format(p), file=f)
-#
-#         # Mutation number median
-#         p = ks_2samp(mutation_nb_cluster_list[0], mutation_nb_cluster_list[1])[1]
-#         if p <= p_val_threshold:
-#             print("\nMutation number median: \n{} / {}".format(median(mutation_nb_cluster_list[0]),
-#                                                                          median(mutation_nb_cluster_list[1])), file=f)
-#             print("{}".format(p), file=f)
-#
-#     # return ind_cluster_list, iq_array, siblings_cluster_list, probands_cluster_list, female_cluster_list, male_cluster_list
