@@ -13,7 +13,7 @@ def check_sparsity(X):
 def check_shape_matching(X, L, array_name, list_name):
     if X.shape[0] != len(L):
         raise Exception("Numbers in {} shape ({}) and in {} ({}) don't match "
-                        .format(array_name, X.shape(), list_name, len(L)))
+                        .format(array_name, X.shape, list_name, len(L)))
 
 
 #TODO check ID order in list and network
@@ -187,3 +187,15 @@ def all_genes_in_submatrices(network, idx_ppi, idx_mut, idx_ppi_only,
 
     # TODO for numpy docring: Raises (errors), Note, Examples
     # errors : sparse (ppi, patients), 0 on diagonal (ppi)
+
+
+def formatting(network, mutation_profile, gene_id_ppi, gene_id_patient):
+    (network, mutation_profile,
+     idx_ppi, idx_mut, idx_ppi_only, idx_mut_only) = (classify_gene_index(
+         network, mutation_profile, gene_id_ppi, gene_id_patient))
+
+    (ppi_total, mut_total, ppi_filt, mut_filt) = (all_genes_in_submatrices(
+        network, idx_ppi, idx_mut, idx_ppi_only, idx_mut_only,
+        mutation_profile))
+
+    return idx_ppi, idx_ppi_only, ppi_total, mut_total, ppi_filt
