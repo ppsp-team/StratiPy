@@ -24,7 +24,7 @@ import datetime
 
 
 # @profile
-def propagation(M, adj, alpha=0.7, tol=10e-6):  # TODO equation, M, alpha
+def propagation(M, adj, alpha, tol=10e-6):  # TODO equation, M, alpha
     """Network propagation iterative process
 
     Iterative algorithm for apply propagation using random walk on a network:

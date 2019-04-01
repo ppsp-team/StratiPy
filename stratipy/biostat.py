@@ -415,6 +415,7 @@ def biostat_analysis(data_folder, result_folder, patient_data,
                      n_components, n_permutations, lambd, tol_nmf,
                      linkage_method, p_val_threshold, gene_id_ppi,
                      idx_ppi, idx_ppi_only):
+#     import hierarchical_clustering
     hierarchical_clustering_file = hierarchical_clustering.hierarchical_file(
         result_folder, mut_type, influence_weight, simplification, alpha, tol,
         keep_singletons, ngh_max, min_mutation, max_mutation, n_components,

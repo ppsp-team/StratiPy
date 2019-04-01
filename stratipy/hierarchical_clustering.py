@@ -1,7 +1,7 @@
 import sys
 import os
 sys.path.append(os.path.abspath('../../stratipy'))
-from stratipy import consensus_clustering
+# from stratipy import consensus_clustering
 from scipy.cluster.hierarchy import linkage, dendrogram, fcluster, cophenet
 from scipy.spatial.distance import pdist
 import numpy as np
@@ -123,6 +123,67 @@ def linkage_dendrogram(hierarchical_clustering_file, distance_genes,
         os.makedirs(fig_directory, exist_ok=True)
         fig_name = ('{}_{}_k={}_ngh={}_permut={}_lambd={}'.format(
             mut_type, alpha, n_components, ngh_max, n_permutations, lambd))
+        plt.savefig('{}{}.png'.format(fig_directory, fig_name),
+                    bbox_inches='tight')
+
+
+# for no SSC data
+def individual_linkage_dendrogram(hierarchical_clustering_file,
+                       distance_patients, ppi_data, mut_type, alpha, ngh_max,
+                       n_components, n_permutations, lambd, linkage_method,
+                       patient_data, data_folder, result_folder, repro):
+
+    existance_same_param = os.path.exists(hierarchical_clustering_file)
+
+    if existance_same_param:
+        h = loadmat(hierarchical_clustering_file)
+        # cluster index for each individual
+        clust_nb_patients = np.squeeze(h['flat_cluster_number_individuals'])
+        # individuals' index
+        idx_patients = np.squeeze(h['dendrogram_index_individuals'])
+        print(' **** Same parameters file of hierarchical clustering already exists')
+    else:
+        # hierarchical clustering on distance matrix (here: distance_patients)
+        start = time.time()
+        Z_patients = linkage(distance_patients, method=linkage_method)
+        end = time.time()
+        print("---------- Linkage based on Individual distance = {} ---------- {}"
+              .format(datetime.timedelta(seconds=end-start),
+                      datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")),
+              flush=True)
+
+        P_patients = dendrogram(
+            Z_patients, count_sort='ascending', no_labels=True)
+        
+        idx_patients = np.array(P_patients['leaves'])
+
+        # forms flat clusters from Z
+        # given k -> maxclust
+        clust_nb_patients = fcluster(
+            Z_patients, n_components, criterion='maxclust')
+
+        # start = time.time()
+        savemat(hierarchical_clustering_file,
+                {'Z_linkage_matrix_individuals': Z_patients,
+                 'dendrogram_data_dictionary_individuals': P_patients,
+                 'dendrogram_index_individuals': idx_patients,
+                 'flat_cluster_number_individuals': clust_nb_patients},
+                do_compression=True)
+
+        D_patients = distance_patients[idx_patients, :][:, idx_patients]
+
+        fig = plt.figure(figsize=(3, 3))
+        im = plt.imshow(D_patients, interpolation='nearest', cmap=cm.viridis)
+        plt.axis('off')
+        if repro:
+            directory = result_folder
+        else:
+            directory = data_folder
+        fig_directory = directory + 'figures/similarity/' + patient_data + '_' + ppi_data + '/'
+        os.makedirs(fig_directory, exist_ok=True)
+        fig_name = ('{}_{}_k={}_ngh={}_permut={}_lambd={}'.format(
+            mut_type, alpha, n_components, ngh_max, n_permutations, lambd))
+        print('saving plot')
         plt.savefig('{}{}.png'.format(fig_directory, fig_name),
                     bbox_inches='tight')
 

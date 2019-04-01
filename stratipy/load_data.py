@@ -80,13 +80,13 @@ def get_indiv_list(indiv_from_df):
     return alist
 
 
-def mutation_profile_coordinate(df, indiv_list):
+def mutation_profile_coordinate(df, indiv_list, indiv_type):
     coord_gene = []
     coord_indiv = []
 
     for i in trange(df.shape[0], desc="mutation profile coordinates"):
         # for each row (each gene), we get list of individuals' ID
-        individuals_per_gene = coordinate(df.iloc[i, 1], indiv_list)
+        individuals_per_gene = coordinate(df[indiv_type][i], indiv_list)
         # for each element of coordinate listes x/y:
         for j in individuals_per_gene:
             # gene is saved as gene's INDEX (not EntrezGene) in dataframe
@@ -122,12 +122,15 @@ def load_overall_SSC_mutation_profile(data_folder, ssc_mutation_data):
 
         # individuals' ID list for each row is transformed in string of list
         # we thus reformate to list
-        df.individuals = df.individuals.apply(eval)
+        indiv_type = 'eu_individuals' # only Europeans
+        df[indiv_type] = df[indiv_type].apply(eval)
         # create individual ID list
-        indiv = get_indiv_list(df.individuals)
+        indiv = get_indiv_list(df[indiv_type])
+        if '[' in indiv: indiv.remove('[')
+        if ']' in indiv: indiv.remove(']')
 
         # calculate coordinates genes x individuals -> sparse matrix
-        coord_indiv, coord_gene = mutation_profile_coordinate(df, indiv)
+        coord_indiv, coord_gene = mutation_profile_coordinate(df, indiv, indiv_type)
         # mutation weight = 1
         weight = np.ones(len(coord_gene))
         # coo matrix then to csr matrix
@@ -162,6 +165,8 @@ def load_specific_SSC_mutation_profile(data_folder, ssc_mutation_data, ssc_subgr
     else:
         mutation_profile, gene_id, indiv = (
             load_overall_SSC_mutation_profile(data_folder, ssc_mutation_data))
+        print("SSC overall mutation profile matrix\n    shape: {}\n    stored elements: {}".format(mutation_profile.shape, mutation_profile.nnz))
+    
 
         # if SSC 1 or 2
         if ssc_subgroups != "SSC":
@@ -210,6 +215,8 @@ def load_specific_SSC_mutation_profile(data_folder, ssc_mutation_data, ssc_subgr
         savemat(mutation_profile_file, {'mutation_profile': mutation_profile,
                                         'gene_id': gene_id,
                                         'indiv': indiv}, do_compression=True)
+    
+    print("Mutation profile matrix\n    shape: {}\n    stored elements: {}".format(mutation_profile.shape, mutation_profile.nnz))
 
     return mutation_profile, gene_id, indiv
 

@@ -2,6 +2,7 @@ import sys
 import os
 sys.path.append(os.path.abspath('../../stratipy'))
 from stratipy import biostat
+# import biostat
 import numpy as np
 import pandas as pd
 import re
@@ -177,7 +178,7 @@ def biostat_individuals_plot(df, data_folder, ssc_mutation_data, gene_data,
 
     # k=20 -> figsize=(5, 9)
     fig, ax = plt.subplots(nrows=df_fill.shape[0], ncols=df_fill.shape[1],
-                           sharex=True, sharey=True, figsize=(5, 20))
+                           sharex=True, sharey=True, figsize=(5, 9))
     if lambd > 0:
         nmf = 'GNMF'
     else:
@@ -186,7 +187,7 @@ def biostat_individuals_plot(df, data_folder, ssc_mutation_data, gene_data,
     fig.suptitle(
         "Statistical significance between individual clusters\n(mutation:{} // gene:{} // PPI:{} // {} // {})".
         format(ssc_mutation_data, gene_data, ppi_data, mut_type, nmf), x=0.5,
-        y=1.15, fontsize=14, linespacing=2)
+        y=1.15, fontsize=14, linespacing=2) # y=1.15 for k=20
 
     for col in range(len(p_col)):
         for row in range(df_fill.shape[0]):

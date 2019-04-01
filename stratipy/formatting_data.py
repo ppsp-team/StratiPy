@@ -13,7 +13,7 @@ def check_sparsity(X):
 def check_shape_matching(X, L, array_name, list_name):
     if X.shape[0] != len(L):
         raise Exception("Numbers in {} shape ({}) and in {} ({}) don't match "
-                        .format(array_name, X.shape(), list_name, len(L)))
+                        .format(array_name, X.shape, list_name, len(L)))
 
 
 #TODO check ID order in list and network

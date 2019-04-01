@@ -2,7 +2,7 @@
 # coding: utf-8
 import sys
 import os
-sys.path.append(os.path.abspath('../../stratipy_cluster'))
+sys.path.append(os.path.abspath('../../stratipy'))
 from stratipy import (load_data, formatting_data, filtering_diffusion,
                       nmf_bootstrap, consensus_clustering,
                       hierarchical_clustering, biostat, biostat_go,
@@ -21,8 +21,11 @@ def initiation(mut_type, alpha, patient_data, data_folder, ssc_mutation_data,
         alpha = 0
 
     if patient_data == 'SSC':
+        # result_folder = (
+        #     data_folder + 'result_' + ssc_mutation_data + '_' +
+        #     ssc_subgroups + '_' + gene_data + '_' + ppi_data + '/')
         result_folder = (
-            data_folder + 'result_' + ssc_mutation_data + '_' +
+            data_folder + '/Volumes/Abu3/min/201812_MAF50_alpha0.7/result_' + ssc_mutation_data + '_' +
             ssc_subgroups + '_' + gene_data + '_' + ppi_data + '/')
     else:
         result_folder = (data_folder + 'result_' + patient_data + '_' +
@@ -117,55 +120,55 @@ def post_bootstrap(result_folder, mut_type, influence_weight, simplification,
                    ppi_data, patient_data, data_folder, ssc_subgroups,
                    ssc_mutation_data, gene_data, p_val_threshold, compute,
                    overwrite):
-    print("------------ consensus_clustering.py ------------ {}"
-          .format(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')),
-          flush=True)
-    distance_genes, distance_patients = (
-        consensus_clustering.sub_consensus(
-            result_folder, mut_type, influence_weight, simplification, alpha,
-            tol, keep_singletons, ngh_max, min_mutation, max_mutation,
-            n_components, n_permutations, lambd, tol_nmf,
-            compute_gene_clustering, run_consensus))
-
-    print("------------ hierarchical_clustering.py ------------ {}"
-          .format(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')),
-          flush=True)
-    hierarchical_clustering.hierarchical(
-        result_folder, distance_genes, distance_patients, ppi_data, mut_type,
-        influence_weight, simplification, alpha, tol, keep_singletons, ngh_max,
-        min_mutation, max_mutation, n_components, n_permutations, lambd,
-        tol_nmf, linkage_method, patient_data, data_folder, ssc_subgroups,
-        ssc_mutation_data, gene_data)
+    # print("------------ consensus_clustering.py ------------ {}"
+    #       .format(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')),
+    #       flush=True)
+    # distance_genes, distance_patients = (
+    #     consensus_clustering.sub_consensus(
+    #         result_folder, mut_type, influence_weight, simplification, alpha,
+    #         tol, keep_singletons, ngh_max, min_mutation, max_mutation,
+    #         n_components, n_permutations, lambd, tol_nmf,
+    #         compute_gene_clustering, run_consensus))
+    #
+    # print("------------ hierarchical_clustering.py ------------ {}"
+    #       .format(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')),
+    #       flush=True)
+    # hierarchical_clustering.hierarchical(
+    #     result_folder, distance_genes, distance_patients, ppi_data, mut_type,
+    #     influence_weight, simplification, alpha, tol, keep_singletons, ngh_max,
+    #     min_mutation, max_mutation, n_components, n_permutations, lambd,
+    #     tol_nmf, linkage_method, patient_data, data_folder, ssc_subgroups,
+    #     ssc_mutation_data, gene_data)
 
     print("\n------------ biostat.py ------------ {}"
           .format(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')),
           flush=True)
-    # gene_id_ppi, idx_ppi, idx_ppi_only = preprocessing(
-    #     data_folder, patient_data, ssc_mutation_data, ssc_subgroups, gene_data,
-    #     ppi_data, result_folder, influence_weight, simplification, compute,
-    #     overwrite, alpha, tol, ngh_max, keep_singletons, min_mutation,
-    #     max_mutation, mut_type)
-    #
-    # biostat.biostat_analysis(
-    #     data_folder, result_folder, patient_data, ssc_mutation_data,
-    #     ssc_subgroups, ppi_data, gene_data, mut_type, influence_weight,
-    #     simplification, alpha, tol, keep_singletons, ngh_max, min_mutation,
-    #     max_mutation, n_components, n_permutations, lambd, tol_nmf,
-    #     linkage_method, p_val_threshold, gene_id_ppi, idx_ppi, idx_ppi_only)
+    gene_id_ppi, idx_ppi, idx_ppi_only = preprocessing(
+        data_folder, patient_data, ssc_mutation_data, ssc_subgroups, gene_data,
+        ppi_data, result_folder, influence_weight, simplification, compute,
+        overwrite, alpha, tol, ngh_max, keep_singletons, min_mutation,
+        max_mutation, mut_type)
 
-    biostat_go.biostat_go_enrichment(
-        alpha, result_folder, mut_type, patient_data, data_folder, ssc_mutation_data,
-        ssc_subgroups, gene_data, ppi_data, lambd, n_components, ngh_max, n_permutations)
+    biostat.biostat_analysis(
+        data_folder, result_folder, patient_data, ssc_mutation_data,
+        ssc_subgroups, ppi_data, gene_data, mut_type, influence_weight,
+        simplification, alpha, tol, keep_singletons, ngh_max, min_mutation,
+        max_mutation, n_components, n_permutations, lambd, tol_nmf,
+        linkage_method, p_val_threshold, gene_id_ppi, idx_ppi, idx_ppi_only)
+
+    # biostat_go.biostat_go_enrichment(
+    #     alpha, result_folder, mut_type, patient_data, data_folder, ssc_mutation_data,
+    #     ssc_subgroups, gene_data, ppi_data, lambd, n_components, ngh_max, n_permutations)
 
     print("\n------------ biostat_plot.py ------------ {}"
           .format(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')),
           flush=True)
     # no need SSC1/SSC2, no need k
-    biostat_plot.load_plot_biostat_individuals(
-        result_folder, data_folder, ssc_mutation_data,
-        gene_data, patient_data, ppi_data, mut_type, lambd, influence_weight,
-        simplification, alpha, tol, keep_singletons, ngh_max, min_mutation,
-        max_mutation, n_components, n_permutations, tol_nmf, linkage_method)
+    # biostat_plot.load_plot_biostat_individuals(
+    #     result_folder, data_folder, ssc_mutation_data,
+    #     gene_data, patient_data, ppi_data, mut_type, lambd, influence_weight,
+    #     simplification, alpha, tol, keep_singletons, ngh_max, min_mutation,
+    #     max_mutation, n_components, n_permutations, tol_nmf, linkage_method)
 ###############################################################################
 ###############################################################################
 ###############################################################################
