@@ -1,6 +1,7 @@
 import sys
 import numpy as np
 import scipy.sparse as sp
+import pandas as pd
 from scipy.sparse.linalg import norm
 from scipy.io import loadmat, savemat
 from stratipy.nbs_class import Ppi, Patient
@@ -236,8 +237,6 @@ def calcul_final_influence(M, adj, result_folder, influence_weight='min',
 
     else:
         if compute:
-            start = time.time()
-
             # check if influence distance file exists
             existance_same_influence = os.path.exists(influence_distance_file)
             if existance_same_influence:
@@ -282,8 +281,6 @@ def calcul_final_influence(M, adj, result_folder, influence_weight='min',
                 final_influence = final_influence_min
             else:
                 final_influence = final_influence_max
-
-            end = time.time()
 
         # take most recent file
         else:
@@ -424,8 +421,7 @@ def filter_ppi_patients(result_folder, influence_weight, simplification, alpha, 
     return ppi_final, mut_final
 
 
-# @profile
-def quantile_norm_mean(anarray):
+def quantile_norm_mean(df):
     """Helper function for propagation_profile
 
     Forces the observations/variables to have identical intensity distribution.
@@ -437,22 +433,30 @@ def quantile_norm_mean(anarray):
     -------
 
     """
-    A = np.squeeze(np.asarray(anarray.T))
-    AA = np.zeros_like(A)
-    I = np.argsort(A, axis=0)
-    AA[I, np.arange(A.shape[1])] = np.mean(A[I, np.arange(A.shape[1])],
-                                           axis=1)[:, np.newaxis]
-    return AA.T
+    if not isinstance(df, pd.DataFrame):
+        df = pd.DataFrame(df)
+    rank_mean = df.stack().groupby(df.rank(method='first').stack().astype(int)).mean()
+    df_norm = df.rank(method='min').stack().astype(int).map(rank_mean).unstack()
+    return df_norm.values
 
 
-# @profile
-def quantile_norm_median(anarray):
-    A = np.squeeze(np.asarray(anarray.T))
-    AA = np.zeros_like(A)
-    I = np.argsort(A, axis=0)
-    AA[I, np.arange(A.shape[1])] = np.median(A[I, np.arange(A.shape[1])],
-                                             axis=1)[:, np.newaxis]
-    return AA.T
+def quantile_norm_median(df):
+    """Helper function for propagation_profile
+
+    Forces the observations/variables to have identical intensity distribution.
+
+    Parameters
+    ----------
+
+    Returns
+    -------
+
+    """
+    if not isinstance(df, pd.DataFrame):
+        df = pd.DataFrame(df)
+    rank_median = df.stack().groupby(df.rank(method='first').stack().astype(int)).median()
+    df_norm = df.rank(method='min').stack().astype(int).map(rank_median).unstack()
+    return df_norm.values
 
 
 def propagation_profile(mut_raw, adj, result_folder, alpha, tol, mut_type):
