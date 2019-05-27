@@ -19,14 +19,17 @@ def initiation(mut_type, alpha, patient_data, data_folder, ssc_mutation_data,
                ssc_subgroups, gene_data, ppi_data, lambd, n_components):
     if mut_type == 'raw':
         alpha = 0
+        result_folder = (
+            data_folder + 'result_' + ssc_mutation_data + '_' +
+            ssc_subgroups + '_' + gene_data +  '/' + mut_type + '/')
 
     if patient_data == 'SSC':
-        # result_folder = (
-        #     data_folder + 'result_' + ssc_mutation_data + '_' +
-        #     ssc_subgroups + '_' + gene_data + '_' + ppi_data + '/')
         result_folder = (
-            data_folder + '/Volumes/Abu3/min/201812_MAF50_alpha0.7/result_' + ssc_mutation_data + '_' +
+            data_folder + 'result_' + ssc_mutation_data + '_' +
             ssc_subgroups + '_' + gene_data + '_' + ppi_data + '/')
+        # result_folder = (
+        #     data_folder + '/Volumes/Abu3/min/201812_MAF50_alpha0.7/result_' + ssc_mutation_data + '_' +
+        #     ssc_subgroups + '_' + gene_data + '_' + ppi_data + '/')
     else:
         result_folder = (data_folder + 'result_' + patient_data + '_' +
                          ppi_data + '/')
