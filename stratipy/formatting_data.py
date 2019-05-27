@@ -64,7 +64,6 @@ def classify_gene_index(network, mutation_profile, gene_id_ppi, gene_id_patient)
     idx_mut_only : list
         List of genes' indexes only in patients' mutation profiles.
     """
-    print(' ==== classify_gene_index  ')
     # check step
     check_shape_matching(network, gene_id_ppi,
                          'PPI network matrix', 'List of Entrez Gene ID in PPI')
@@ -152,7 +151,6 @@ def all_genes_in_submatrices(network, idx_ppi, idx_mut, idx_ppi_only,
     mut_filt : sparse matrix
         Filtration from mut_total : only genes in PPI are considered.
     """
-    print(' ==== all_genes_in_submatrices ')
     AA = network[idx_ppi][:, idx_ppi]
     if AA.shape[0] == 0:
         warnings.warn("There are no common genes between PPI network and patients' mutation profile")
@@ -167,22 +165,17 @@ def all_genes_in_submatrices(network, idx_ppi, idx_mut, idx_ppi_only,
     CB = sp.csc_matrix((len(idx_mut_only), len(idx_ppi_only)), dtype=np.float32)
     CC = sp.csc_matrix((len(idx_mut_only), len(idx_mut_only)), dtype=np.float32)
 
-    print(' ==== ABC  ')
     ppi_total = sp.bmat([[AA, AB, AC], [BA, BB, BC], [CA, CB, CC]],
                         format='csc')
     # NOTE ppi_total in COO matrix -> csc matrix
-    # ppi_total = ppi_total.tocsc()
-    print(' ==== mut_total  ')
     mut_total = sp.bmat([[mutation_profile[:, idx_mut],
                           sp.csc_matrix((mutation_profile.shape[0],
                                          len(idx_ppi_only)), dtype=np.float32),
                           mutation_profile[:, idx_mut_only]]])
     # filter only genes in PPI
-    print(' ==== filter only genes in PPI  ')
     degree = Ppi(ppi_total).deg
     ppi_filt = ppi_total[degree > 0, :][:, degree > 0]
     mut_filt = mut_total[:, degree > 0]
-    print(' ==== all_genes_in_submatrices finish  ')
     return ppi_total, mut_total, ppi_filt, mut_filt
 
     # TODO for numpy docring: Raises (errors), Note, Examples

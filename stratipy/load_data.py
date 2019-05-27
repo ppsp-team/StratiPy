@@ -115,14 +115,15 @@ def load_overall_SSC_mutation_profile(data_folder, ssc_mutation_data):
         print('overall_{}_mutation_profile file is calculating.....'
               .format(ssc_mutation_data))
 
-        df = pd.read_csv(data_folder + 'SSC_EntrezGene_{}_gene_filtered.csv'
-                         .format(ssc_mutation_data), sep='\t')
+        df = pd.read_csv(data_folder + 'SSC_{}_gene_filtered.csv'
+                         .format(ssc_mutation_data), sep=';')
         # create gene ID (EntrezGene ID) list
-        gene_id = [int(i) for i in df.entrez_id.tolist()]
+        gene_id = [int(i) for i in df['entrez_id'].tolist()]
 
         # individuals' ID list for each row is transformed in string of list
         # we thus reformate to list
-        indiv_type = 'eu_individuals' # only Europeans
+        # indiv_type = 'individual' # all individuals
+        indiv_type = 'Admixture_individual' # Admixture European probands
         df[indiv_type] = df[indiv_type].apply(eval)
         # create individual ID list
         indiv = get_indiv_list(df[indiv_type])
@@ -166,7 +167,6 @@ def load_specific_SSC_mutation_profile(data_folder, ssc_mutation_data, ssc_subgr
         mutation_profile, gene_id, indiv = (
             load_overall_SSC_mutation_profile(data_folder, ssc_mutation_data))
         print("SSC overall mutation profile matrix\n    shape: {}\n    stored elements: {}".format(mutation_profile.shape, mutation_profile.nnz))
-    
 
         # if SSC 1 or 2
         if ssc_subgroups != "SSC":
@@ -205,17 +205,15 @@ def load_specific_SSC_mutation_profile(data_folder, ssc_mutation_data, ssc_subgr
                           len(gene_filtered),
                           len(gene_id) - len(gene_filtered)))
 
-            # print(gene_id[:10])
             gene_id = [gene_id[i] for i in gene_filtered]
 
             # slice overall mutation profile by filtered gene
-            # print(gene_filtered[:10])
             mutation_profile = mutation_profile[:, gene_filtered]
 
         savemat(mutation_profile_file, {'mutation_profile': mutation_profile,
                                         'gene_id': gene_id,
                                         'indiv': indiv}, do_compression=True)
-    
+
     print("Mutation profile matrix\n    shape: {}\n    stored elements: {}".format(mutation_profile.shape, mutation_profile.nnz))
 
     return mutation_profile, gene_id, indiv
@@ -223,7 +221,6 @@ def load_specific_SSC_mutation_profile(data_folder, ssc_mutation_data, ssc_subgr
 
 # @profile
 def load_PPI(data_folder, ppi_data, load_gene_id_ppi=True):
-    print(' ==== load_PPI ')
     if ppi_data == 'STRING':
         filename = 'PPI_STRING_v10_5.mat'
     else:
@@ -232,7 +229,6 @@ def load_PPI(data_folder, ppi_data, load_gene_id_ppi=True):
     network = loadfile['adj_mat'].astype(np.float32)
 
     if load_gene_id_ppi:
-        print(' ==== load_gene_id_ppi ')
         gene_id_ppi = (loadfile['entrez_id'].flatten()).tolist()
         return gene_id_ppi, network
     else:
@@ -270,12 +266,10 @@ def create_adjacency_matrix(prot1, prot2, PPI_file):
     gene_id_ppi = list(set(gene_id_ppi))
 
     # From ID list to coordinate list
-    print(' ==== coordinates ')
     coo1 = coordinate(prot1.tolist(), gene_id_ppi)
     coo2 = coordinate(prot2.tolist(), gene_id_ppi)
 
     # Adjacency matrix
-    print(' ==== Adjacency matrix ')
     n = len(gene_id_ppi)
     weight = np.ones(len(coo1))  # if interaction -> 1
     network = sp.coo_matrix((weight, (coo1, coo2)), shape=(n, n))
