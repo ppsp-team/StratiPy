@@ -1,6 +1,7 @@
 import sys
 import numpy as np
 import scipy.sparse as sp
+import pandas as pd
 from scipy.sparse.linalg import norm
 from scipy.io import loadmat, savemat
 from stratipy.nbs_class import Ppi, Patient
@@ -49,7 +50,7 @@ def propagation(M, adj, alpha, tol=10e-6):  # TODO equation, M, alpha
     adj : sparse matrix
         Adjacency matrice.
 
-    alpha : float, default: 0.7
+    alpha : float
         Diffusion/propagation factor with 0 <= alpha <= 1.
         For alpha = 0 : no diffusion.
         For alpha = 1 :
@@ -75,13 +76,16 @@ def propagation(M, adj, alpha, tol=10e-6):  # TODO equation, M, alpha
 
     X1 = M.astype(np.float32)
     X2 = alpha * X1.dot(A) + (1-alpha) * M
-    i = 0
-    while norm(X2-X1) > tol:
-        X1 = X2
-        X2 = alpha * X1.dot(A) + (1-alpha) * M
-        i += 1
-        print(' Propagation iteration = {}  ----- {}'.format(
-            i, datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
+
+    if tol:
+        i = 0
+        while norm(X2-X1) > tol:
+            X1 = X2
+            X2 = alpha * X1.dot(A) + (1-alpha) * M
+            i += 1
+            print(' Propagation iteration = {}  ----- {}'.format(
+                i, datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")),
+                  flush=True)
     return X2
 
 
@@ -150,9 +154,9 @@ def compare_ij_ji(ppi, out_min=True, out_max=True):
 
 
 # @profile
-def calcul_final_influence(M, adj, result_folder, influence_weight='min',
+def calcul_final_influence(M, adj, result_folder, alpha, influence_weight='min',
                            simplification=True, compute=False, overwrite=False,
-                           alpha=0.7, tol=10e-6):
+                           tol=10e-6):
     """Compute network influence score
 
     Network propagation iterative process is applied on PPI. (1) The  network
@@ -196,7 +200,7 @@ def calcul_final_influence(M, adj, result_folder, influence_weight='min',
         If True, new network influence score will be computed even if the file
         which same parameters already exists in the directory.
 
-    alpha : float, default: 0.7
+    alpha : float
         Diffusion (propagation) factor with 0 <= alpha <= 1.
         For alpha = 0 : no diffusion.
         For alpha = 1 :
@@ -223,7 +227,7 @@ def calcul_final_influence(M, adj, result_folder, influence_weight='min',
 
     existance_same_param = os.path.exists(final_influence_file)
     # TODO overwrite condition
-
+    print("+++++", final_influence_file)
     # check if same parameters file exists in directory
     if existance_same_param:
         final_influence_data = loadmat(final_influence_file)
@@ -236,10 +240,9 @@ def calcul_final_influence(M, adj, result_folder, influence_weight='min',
 
     else:
         if compute:
-            start = time.time()
-
             # check if influence distance file exists
             existance_same_influence = os.path.exists(influence_distance_file)
+            print("+++++", influence_distance_file)
             if existance_same_influence:
                 influence_data = loadmat(influence_distance_file)
                 influence = influence_data['influence_distance']
@@ -282,8 +285,6 @@ def calcul_final_influence(M, adj, result_folder, influence_weight='min',
                 final_influence = final_influence_min
             else:
                 final_influence = final_influence_max
-
-            end = time.time()
 
         # take most recent file
         else:
@@ -424,8 +425,7 @@ def filter_ppi_patients(result_folder, influence_weight, simplification, alpha, 
     return ppi_final, mut_final
 
 
-# @profile
-def quantile_norm_mean(anarray):
+def quantile_norm_mean(df):
     """Helper function for propagation_profile
 
     Forces the observations/variables to have identical intensity distribution.
@@ -437,22 +437,30 @@ def quantile_norm_mean(anarray):
     -------
 
     """
-    A = np.squeeze(np.asarray(anarray.T))
-    AA = np.zeros_like(A)
-    I = np.argsort(A, axis=0)
-    AA[I, np.arange(A.shape[1])] = np.mean(A[I, np.arange(A.shape[1])],
-                                           axis=1)[:, np.newaxis]
-    return AA.T
+    if not isinstance(df, pd.DataFrame):
+        df = pd.DataFrame(df)
+    rank_mean = df.stack().groupby(df.rank(method='first').stack().astype(int)).mean()
+    df_norm = df.rank(method='min').stack().astype(int).map(rank_mean).unstack()
+    return df_norm.values
 
 
-# @profile
-def quantile_norm_median(anarray):
-    A = np.squeeze(np.asarray(anarray.T))
-    AA = np.zeros_like(A)
-    I = np.argsort(A, axis=0)
-    AA[I, np.arange(A.shape[1])] = np.median(A[I, np.arange(A.shape[1])],
-                                             axis=1)[:, np.newaxis]
-    return AA.T
+def quantile_norm_median(df):
+    """Helper function for propagation_profile
+
+    Forces the observations/variables to have identical intensity distribution.
+
+    Parameters
+    ----------
+
+    Returns
+    -------
+
+    """
+    if not isinstance(df, pd.DataFrame):
+        df = pd.DataFrame(df)
+    rank_median = df.stack().groupby(df.rank(method='first').stack().astype(int)).median()
+    df_norm = df.rank(method='min').stack().astype(int).map(rank_median).unstack()
+    return df_norm.values
 
 
 def propagation_profile(mut_raw, adj, result_folder, alpha, tol, mut_type):
@@ -492,7 +500,7 @@ def filtering(ppi_filt, result_folder, influence_weight, simplification,
               keep_singletons, min_mutation, max_mutation, mut_type):
     final_influence = (calcul_final_influence(
         sp.eye(ppi_filt.shape[0], dtype=np.float32), ppi_filt, result_folder,
-        influence_weight, simplification, compute, overwrite, alpha, tol))
+        alpha, influence_weight, simplification, compute, overwrite, tol))
 
     ppi_final, mut_final = filter_ppi_patients(
         result_folder, influence_weight, simplification, alpha, tol, ppi_total,

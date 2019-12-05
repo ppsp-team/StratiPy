@@ -48,18 +48,18 @@ def merge_sub_bootstrap(boot_factorization_directory, boot_filename, boot_file,
     subfiles_list = glob.glob(boot_factorization_directory + 'sub*_' +
                               boot_filename)
     genes_clustering = []
-    patients_clustering = []
+    individuals_clustering = []
     for file_path in subfiles_list:
         genes_clustering.append(loadmat(file_path)['genes_clustering'])
-        patients_clustering.append(loadmat(file_path)['patients_clustering'])
+        individuals_clustering.append(loadmat(file_path)['individuals_clustering'])
     genes_clustering = np.hstack(genes_clustering)
-    patients_clustering = np.hstack(patients_clustering)
+    individuals_clustering = np.hstack(individuals_clustering)
 
     if (genes_clustering.shape[1] != n_permutations or
-        patients_clustering.shape[1] != n_permutations):
+        individuals_clustering.shape[1] != n_permutations):
         print('Bootstrap permutation error:  {} were requested but {} (gene clustering) and {} (individual clustering) obtained'
               .format(n_permutations, genes_clustering.shape[1],
-                      patients_clustering.shape[1]))
+                      individuals_clustering.shape[1]))
 
     # clustering std for each permutation of bootstrap
     if compute_gene_clustering:
@@ -67,17 +67,17 @@ def merge_sub_bootstrap(boot_factorization_directory, boot_filename, boot_file,
             genes_clustering)
     else:
         genes_clustering_std = float('NaN')
-    patients_clustering_std = nmf_bootstrap.clustering_std_for_each_bootstrap(
-        patients_clustering)
+    individuals_clustering_std = nmf_bootstrap.clustering_std_for_each_bootstrap(
+        individuals_clustering)
 
     savemat(boot_file, {'genes_clustering': genes_clustering,
-                        'patients_clustering': patients_clustering,
+                        'individuals_clustering': individuals_clustering,
                         'genes_clustering_std': genes_clustering_std,
-                        'patients_clustering_std': patients_clustering_std},
+                        'individuals_clustering_std': individuals_clustering_std},
             do_compression=True)
     print(" ==== Sub-bootstrap data merged")
 
-    return genes_clustering, patients_clustering
+    return genes_clustering, individuals_clustering
 
 
 def simple_consensus(mat):
@@ -96,7 +96,7 @@ def simple_consensus(mat):
     return distance  # return np ndarray
 
 
-def run_save_consensus(consensus_file, genes_clustering, patients_clustering,
+def run_save_consensus(consensus_file, genes_clustering, individuals_clustering,
                        compute_gene_clustering=False):
     start = time.time()
     if compute_gene_clustering:
@@ -109,17 +109,17 @@ def run_save_consensus(consensus_file, genes_clustering, patients_clustering,
                   datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
 
     start = time.time()
-    distance_patients = simple_consensus(patients_clustering)
+    distance_individuals = simple_consensus(individuals_clustering)
     end = time.time()
-    print(" ==== distance_patients = {} ---------- {}"
+    print(" ==== distance_individuals = {} ---------- {}"
           .format(datetime.timedelta(seconds=end-start),
                   datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
 
     savemat(consensus_file, {'distance_genes': distance_genes,
-                             'distance_patients': distance_patients},
+                             'distance_individuals': distance_individuals},
             do_compression=True)
 
-    return distance_genes, distance_patients
+    return distance_genes, distance_individuals
 
 
 def consensus_from_full_bootstrap(consensus_file, boot_file, run_consensus,
@@ -130,16 +130,16 @@ def consensus_from_full_bootstrap(consensus_file, boot_file, run_consensus,
     if existance_same_param:
         consensus_data = loadmat(consensus_file)
         distance_genes = consensus_data['distance_genes']
-        distance_patients = consensus_data['distance_patients']
+        distance_individuals = consensus_data['distance_individuals']
         print(' **** Same parameters file of consensus clustering already exists')
     else:
         if run_consensus:
             boot_data = loadmat(boot_file)
             genes_clustering = boot_data['genes_clustering']
-            patients_clustering = boot_data['patients_clustering']
+            individuals_clustering = boot_data['individuals_clustering']
 
-            distance_genes, distance_patients = run_save_consensus(
-                consensus_file, genes_clustering, patients_clustering,
+            distance_genes, distance_individuals = run_save_consensus(
+                consensus_file, genes_clustering, individuals_clustering,
                 compute_gene_clustering)
         else:
             #TODO condition wich no file exists
@@ -147,9 +147,9 @@ def consensus_from_full_bootstrap(consensus_file, boot_file, run_consensus,
                 consensus_factorization_directory + '*.mat'), key=os.path.getctime)
             consensus_data = loadmat(newest_file)
             distance_genes = consensus_data['distance_genes']
-            distance_patients = consensus_data['distance_patients']
+            distance_individuals = consensus_data['distance_individuals']
 
-    return distance_genes, distance_patients
+    return distance_genes, distance_individuals
 
 
 def consensus_from_sub_bootstrap(consensus_file, run_consensus,
@@ -162,7 +162,7 @@ def consensus_from_sub_bootstrap(consensus_file, run_consensus,
     if existance_same_param:
         consensus_data = loadmat(consensus_file)
         distance_genes = consensus_data['distance_genes']
-        distance_patients = consensus_data['distance_patients']
+        distance_individuals = consensus_data['distance_individuals']
         print(' **** Same parameters file of consensus clustering already exists')
     else:
         if run_consensus:
@@ -170,15 +170,15 @@ def consensus_from_sub_bootstrap(consensus_file, run_consensus,
             if existance_merged_boot:
                 boot_data = loadmat(boot_file)
                 genes_clustering = boot_data['genes_clustering']
-                patients_clustering = boot_data['patients_clustering']
+                individuals_clustering = boot_data['individuals_clustering']
 
             else:
-                genes_clustering, patients_clustering = merge_sub_bootstrap(
+                genes_clustering, individuals_clustering = merge_sub_bootstrap(
                     boot_factorization_directory, boot_filename, boot_file,
                     n_permutations, compute_gene_clustering)
 
-            distance_genes, distance_patients = run_save_consensus(
-                consensus_file, genes_clustering, patients_clustering,
+            distance_genes, distance_individuals = run_save_consensus(
+                consensus_file, genes_clustering, individuals_clustering,
                 compute_gene_clustering)
         else:
             #TODO condition wich no file exists
@@ -186,22 +186,22 @@ def consensus_from_sub_bootstrap(consensus_file, run_consensus,
                 consensus_factorization_directory + '*.mat'), key=os.path.getctime)
             consensus_data = loadmat(newest_file)
             distance_genes = consensus_data['distance_genes']
-            distance_patients = consensus_data['distance_patients']
+            distance_individuals = consensus_data['distance_individuals']
 
         # remove all sub-bootstrap files
         subfiles_list = glob.glob(boot_factorization_directory + 'sub*_' +
                                   boot_filename)
         for file_path in subfiles_list:
             os.remove(file_path)
-        print(" ....... Removed sub-bootstrap files: ", len(subfiles_list))
+        print(" ..... Removed sub-bootstrap files: ", len(subfiles_list))
 
-    return distance_genes, distance_patients
+    return distance_genes, distance_individuals
 
 
-def sub_consensus(result_folder, mut_type, influence_weight,
+def consensus(result_folder, mut_type, influence_weight,
                   simplification, alpha, tol, keep_singletons, ngh_max,
                   min_mutation, max_mutation, n_components, n_permutations,
-                  lambd, tol_nmf, compute_gene_clustering, run_consensus):
+                  lambd, tol_nmf, compute_gene_clustering, run_consensus, run_bootstrap):
     consensus_file = consensus_filename(
         result_folder, influence_weight, simplification, mut_type, alpha, tol,
         keep_singletons, ngh_max, min_mutation, max_mutation, n_components,
@@ -213,11 +213,13 @@ def sub_consensus(result_folder, mut_type, influence_weight,
          keep_singletons, ngh_max, min_mutation, max_mutation, n_components,
          n_permutations, lambd, tol_nmf)
 
-    distance_genes, distance_patients = consensus_from_sub_bootstrap(
-        consensus_file, run_consensus, boot_factorization_directory,
-        boot_filename, boot_file, n_permutations, compute_gene_clustering)
+    if run_bootstrap == 'full':
+        distance_genes, distance_individuals = consensus_from_full_bootstrap(
+                consensus_file, boot_file, run_consensus, compute_gene_clustering)
 
-    # distance_genes, distance_patients = consensus_from_full_bootstrap(
-    #     consensus_file, boot_file, run_consensus, compute_gene_clustering)
+    elif run_bootstrap == 'split':
+        distance_genes, distance_individuals = consensus_from_sub_bootstrap(
+            consensus_file, run_consensus, boot_factorization_directory,
+            boot_filename, boot_file, n_permutations, compute_gene_clustering)
 
-    return distance_genes, distance_patients
+    return distance_genes, distance_individuals

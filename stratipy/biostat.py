@@ -353,33 +353,33 @@ def biostat_individuals(hierarchical_clustering_file, biostat_file,
 def get_entrezgene_from_cluster(hierarchical_clustering_file, data_folder,
                                 ssc_mutation_data, patient_data, ssc_subgroups,
                                 alpha, n_components, ngh_max, n_permutations,
-                                lambd, gene_data, ppi_data, gene_id_ppi,
-                                idx_ppi, idx_ppi_only, mut_type):
+                                lambd, gene_data, ppi_data, mp_gene,
+                                entrez_ppi, idx_filtred,  mut_type):
+    if mut_type == 'raw':
+        # Entrez Gene ID in mutation profiles
+        df1 = pd.DataFrame({'filt_idx': list(range(len(mp_gene))),
+                            'entrez_id': mp_gene})
+    else:
+        # EntrezGene ID
+        df_id_ref = pd.DataFrame({'ref_idx': list(range(len(entrez_ppi))),
+                                  'entrez_id': entrez_ppi})
+        # Indexes after formatting
+        df_filtered = pd.DataFrame({'filt_idx': list(range(len(idx_filtred))),
+                                   'idx_in_ppi': idx_filtred})
+        # link EntrezGene and Indexes in PPI
+        df1 = df_filtered.merge(
+            df_id_ref, how='inner', left_on='idx_in_ppi', right_on='ref_idx')
+
+    # load hierarchical clusering data
     h = loadmat(hierarchical_clustering_file)
     # cluster index for each gene
     clust_nb_genes = np.squeeze(h['flat_cluster_number_genes'])
     # gene's index
     idx_genes = np.squeeze(h['dendrogram_index_genes'])
-
-    # EntrezGene ID to int
-    entrez_ppi = [int(i) for i in gene_id_ppi]
-    # EntrezGene indexes in PPI after formatting
-    idx_filtred = idx_ppi + idx_ppi_only
-
-    # EntrezGene ID
-    df_id_ref = pd.DataFrame({'ref_idx': list(range(len(entrez_ppi))),
-                              'entrez_id': entrez_ppi})
-    # Indexes after formatting
-    df_filtered = pd.DataFrame({'filt_idx': list(range(len(idx_filtred))),
-                               'idx_in_ppi': idx_filtred})
-
     # Dendrogram results: clusters
     df_dendro = pd.DataFrame({'dendro_idx': idx_genes.tolist(),
                               'cluster': clust_nb_genes.tolist()})
 
-    # link EntrezGene and Indexes in PPI
-    df1 = df_filtered.merge(
-        df_id_ref, how='inner', left_on='idx_in_ppi', right_on='ref_idx')
     # link EntrezGene and Cluster number
     df2 = df1.merge(
         df_dendro, how='inner', left_on='filt_idx', right_on='dendro_idx')
@@ -413,8 +413,8 @@ def biostat_analysis(data_folder, result_folder, patient_data,
                      mut_type, influence_weight, simplification, alpha, tol,
                      keep_singletons, ngh_max, min_mutation, max_mutation,
                      n_components, n_permutations, lambd, tol_nmf,
-                     linkage_method, p_val_threshold, gene_id_ppi,
-                     idx_ppi, idx_ppi_only):
+                     linkage_method, p_val_threshold, mp_gene,
+                     entrez_ppi, idx_filtred):
 #     import hierarchical_clustering
     hierarchical_clustering_file = hierarchical_clustering.hierarchical_file(
         result_folder, mut_type, influence_weight, simplification, alpha, tol,
@@ -435,5 +435,5 @@ def biostat_analysis(data_folder, result_folder, patient_data,
     get_entrezgene_from_cluster(
         hierarchical_clustering_file, data_folder, ssc_mutation_data,
         patient_data, ssc_subgroups, alpha, n_components, ngh_max,
-        n_permutations, lambd, gene_data, ppi_data, gene_id_ppi, idx_ppi,
-        idx_ppi_only, mut_type)
+        n_permutations, lambd, gene_data, ppi_data, mp_gene, entrez_ppi,
+        idx_filtred,  mut_type)
