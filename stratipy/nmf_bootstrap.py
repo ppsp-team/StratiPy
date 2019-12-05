@@ -1,4 +1,6 @@
 import sys
+import os
+from stratipy import load_data
 import numpy as np
 import numpy.linalg as LA
 import scipy.sparse as sp
@@ -6,11 +8,11 @@ from scipy.io import loadmat, savemat
 import itertools
 from sklearn.utils import check_random_state, check_array
 from sklearn.utils.extmath import randomized_svd
+from sklearn.decomposition import NMF
 from scipy.spatial.distance import pdist, squareform
 import warnings
 import time
 import datetime
-import os
 import glob
 import collections
 from tqdm import tqdm, trange
@@ -227,31 +229,56 @@ def gnmf(X, A, lambd=0, n_components=None, tol_nmf=1e-3, max_iter=100,
                 list_reconstruction_err_)
 
 
-def full_bootstrap(mut_propag, n_permutations, ppi_final, lambd, n_components,
-                   tol_nmf, compute_gene_clustering):
-    n_patients, n_genes = mut_propag.shape
+def nmf(X, n_components, tol_nmf, max_iter=100):
+    # return W,H as numpy array even X as sparce matrix
+    check_non_negative(X, "NMF initialization")
+    n_samples, n_features = X.shape
+
+    if not n_components:
+        n_components = min(n_samples, n_features)
+    else:
+        n_components = n_components
+
+    model = NMF(n_components, tol=tol_nmf, max_iter=max_iter, init='nndsvd')
+    W = model.fit_transform(X)
+    H = model.components_
+
+    return W, H
+
+
+def full_bootstrap(mut_type, mut_propag, n_permutations, lambd, n_components,
+                   tol_nmf, compute_gene_clustering, **kwargs):
+    n_individuals, n_genes = mut_propag.shape
     genes_clustering = np.zeros([n_genes, n_permutations],
                                 dtype=np.float32)*np.nan
-    patients_clustering = np.zeros([n_patients, n_permutations],
+    individuals_clustering = np.zeros([n_individuals, n_permutations],
                                    dtype=np.float32)*np.nan
-    ppi_final = ppi_final.todense()
+    # GNMF
+    if (mut_type != 'raw' and lambd != 0):
+        ppi_final = kwargs['network'].todense()
 
     tqdm_bar = trange(n_permutations, desc='Bootstrap')
     for perm in tqdm_bar:
-        # only 80% of patients and genes
-        patients_boot = np.random.permutation(n_patients)[
-            0:int(n_patients*0.8)]
+        # only 80% of individuals and genes
+        individuals_boot = np.random.permutation(n_individuals)[
+            0:int(n_individuals*0.8)]
         genes_boot = np.random.permutation(n_genes)[0:int(n_genes*0.8)]
-        mut_boot = mut_propag[patients_boot, :][:, genes_boot]
-        ppi_boot = ppi_final[genes_boot, :][:, genes_boot]
+        mut_boot = mut_propag[individuals_boot, :][:, genes_boot]
 
-        W, H, list_reconstruction_err_ = gnmf(mut_boot,
-                                              ppi_boot, lambd,
-                                              n_components, tol_nmf)
+        # GNMF
+        if (mut_type != 'raw' and lambd != 0):
+            ppi_boot = ppi_final[genes_boot, :][:, genes_boot]
+            W, H, list_reconstruction_err_ = gnmf(mut_boot,
+                                                  ppi_boot, lambd,
+                                                  n_components, tol_nmf)
+        # NMF
+        else:
+            W, H = nmf(mut_boot, n_components, tol_nmf)
+
         if n_components > 1:
             if compute_gene_clustering:
                 genes_clustering[genes_boot, perm] = np.argmax(H, axis=0)
-            patients_clustering[patients_boot, perm] = np.argmax(W, axis=1)
+            individuals_clustering[individuals_boot, perm] = np.argmax(W, axis=1)
         else:
             if compute_gene_clustering:
                 genes_clustering[genes_boot, perm] = H
@@ -273,25 +300,34 @@ def sub_bootstrap(boot_factorization_directory, boot_filename, sub_perm,
     else:
         n_patients, n_genes = mut_propag.shape
         genes_clustering = np.zeros([n_genes, sub_perm], dtype=np.float32)*np.nan
-        patients_clustering = np.zeros([n_patients, sub_perm],
+        individuals_clustering = np.zeros([n_individuals, sub_perm],
                                           dtype=np.float32)*np.nan
-        ppi_final = ppi_final.todense()
+        # GNMF
+        if (mut_type != 'raw' and lambd != 0):
+            ppi_final = kwargs['network'].todense()
 
         tqdm_bar = trange(sub_perm, desc='Sub-permutations of Bootstrap')
         for sub in tqdm_bar:
-            patients_boot = np.random.permutation(n_patients)[
-                0:int(n_patients*0.8)]
+            individuals_boot = np.random.permutation(n_individuals)[
+                0:int(n_individuals*0.8)]
             genes_boot = np.random.permutation(n_genes)[0:int(n_genes*0.8)]
-            mut_boot = mut_propag[patients_boot, :][:, genes_boot]
-            ppi_boot = ppi_final[genes_boot, :][:, genes_boot]
-            # NMF or GNMF
-            W, H, list_reconstruction_err_ = gnmf(mut_boot, ppi_boot, lambd,
-                                                  n_components, tol_nmf)
+            mut_boot = mut_propag[individuals_boot, :][:, genes_boot]
+
+            # GNMF
+            if (mut_type != 'raw' and lambd != 0):
+                ppi_boot = ppi_final[genes_boot, :][:, genes_boot]
+                # NMF or GNMF
+                W, H, list_reconstruction_err_ = gnmf(mut_boot, ppi_boot, lambd,
+                                                      n_components, tol_nmf)
+            # NMF
+            else:
+                W, H = nmf(mut_boot, n_components, tol_nmf)
+
             genes_clustering[genes_boot, sub] = np.argmax(H, axis=0)
-            patients_clustering[patients_boot, sub] = np.argmax(W, axis=1)
+            individuals_clustering[individuals_boot, sub] = np.argmax(W, axis=1)
 
         savemat(sub_boot_file, {'genes_clustering': genes_clustering,
-                                'patients_clustering': patients_clustering},
+                                'individuals_clustering': individuals_clustering},
                 do_compression=True)
 
 
@@ -330,10 +366,40 @@ def bootstrap_file(result_folder, mut_type, influence_weight, simplification,
     return boot_factorization_directory, boot_filename, boot_file
 
 
-def bootstrap(result_folder, mut_type, mut_propag, ppi_final,
-              influence_weight, simplification,
-              alpha, tol, keep_singletons, ngh_max, min_mutation, max_mutation,
-              n_components, n_permutations,
+def get_mutation_profile_ppi(data_folder, ssc_mutation_data, ssc_subgroups,
+                             gene_data, result_folder, mut_type, alpha, tol,
+                             lambd, influence_weight, simplification,
+                             keep_singletons, ngh_max):
+    if mut_type == 'raw':
+        mut_propag, mp_gene, mp_indiv = (
+            load_data.load_specific_SSC_mutation_profile(
+                data_folder, ssc_mutation_data, ssc_subgroups, gene_data))
+    else:
+        final_influence_mutation_directory = result_folder + 'final_influence/'
+        final_influence_mutation_file = (
+            final_influence_mutation_directory +
+            'final_influence_mutation_profile_{}_alpha={}_tol={}.mat'.format(
+                mut_type, alpha, tol))
+        final_influence_data = loadmat(final_influence_mutation_file)
+        mut_propag = final_influence_data['mut_propag']
+
+        if lambd != 0:
+            ppi_final_file = (
+                final_influence_mutation_directory +
+                'PPI_final_weight={}_simp={}_alpha={}_tol={}_singletons={}_ngh={}.mat'
+                .format(influence_weight, simplification, alpha, tol, keep_singletons,
+                        ngh_max))
+            ppi_final_data = loadmat(ppi_final_file)
+            ppi_final = ppi_final_data['ppi_final']
+
+            return mut_propag, ppi_final
+    return mut_propag
+
+
+def bootstrap(data_folder, ssc_mutation_data, ssc_subgroups, gene_data,
+              result_folder, mut_type, influence_weight,
+              simplification, alpha, tol, keep_singletons, ngh_max,
+              min_mutation, max_mutation, n_components, n_permutations,
               run_bootstrap, lambd, tol_nmf,
               compute_gene_clustering, sub_perm):
     boot_factorization_directory, boot_filename, boot_file = bootstrap_file(
@@ -345,15 +411,32 @@ def bootstrap(result_folder, mut_type, mut_propag, ppi_final,
     if existance_same_param:
         bootstrap_data = loadmat(boot_file)
         genes_clustering = bootstrap_data['genes_clustering']
-        patients_clustering = bootstrap_data['patients_clustering']
+        individuals_clustering = bootstrap_data['individuals_clustering']
         print(' **** Same parameters file of bootstrap already exists')
 
     else:
         if run_bootstrap == 'full':
             start = time.time()
-            genes_clustering, patients_clustering = full_bootstrap(
-                mut_propag, n_permutations, ppi_final, lambd, n_components,
-                tol_nmf, compute_gene_clustering)
+
+            if (mut_type != 'raw' and lambd != 0):
+                print('   === GNMF full bootstrap')
+                mut_propag, ppi_final = get_mutation_profile_ppi(
+                    data_folder, ssc_mutation_data, ssc_subgroups, gene_data,
+                    result_folder, mut_type, alpha, tol, lambd,
+                    influence_weight, simplification, keep_singletons, ngh_max)
+                genes_clustering, individuals_clustering = full_bootstrap(
+                    mut_type, mut_propag, n_permutations, lambd, n_components, tol_nmf,
+                    compute_gene_clustering, network=ppi_final)
+            else:
+                print('   === NMF full bootstrap')
+                mut_propag = get_mutation_profile_ppi(
+                    data_folder, ssc_mutation_data, ssc_subgroups, gene_data,
+                    result_folder, mut_type, alpha, tol, lambd,
+                    influence_weight, simplification, keep_singletons, ngh_max)
+                genes_clustering, individuals_clustering = full_bootstrap(
+                    mut_type, mut_propag, n_permutations, lambd, n_components, tol_nmf,
+                    compute_gene_clustering)
+
             end = time.time()
             print("---------- Bootstrap = {} ---------- {}"
                   .format(datetime.timedelta(seconds=end-start),
@@ -364,20 +447,37 @@ def bootstrap(result_folder, mut_type, mut_propag, ppi_final,
                     genes_clustering)
             else:
                 genes_clustering_std = float('NaN')
-            patients_clustering_std = clustering_std_for_each_bootstrap(patients_clustering)
+            individuals_clustering_std = clustering_std_for_each_bootstrap(
+                individuals_clustering)
 
             savemat(boot_file, {'genes_clustering': genes_clustering,
-                                'patients_clustering': patients_clustering,
+                                'individuals_clustering': individuals_clustering,
                                 'genes_clustering_std': genes_clustering_std,
-                                'patients_clustering_std': patients_clustering_std},
+                                'individuals_clustering_std': individuals_clustering_std},
                     do_compression=True)
 
-            return genes_clustering, patients_clustering
+            return genes_clustering, individuals_clustering
 
         elif run_bootstrap == 'split':
             start = time.time()
-            sub_bootstrap(boot_factorization_directory, boot_filename, sub_perm,
-                          mut_propag, ppi_final, lambd, n_components, tol_nmf)
+            if (mut_type != 'raw' and lambd != 0):
+                print('   === GNMF split bootstrap')
+                mut_propag, ppi_final = get_mutation_profile_ppi(
+                    data_folder, ssc_mutation_data, ssc_subgroups, gene_data,
+                    result_folder, mut_type, alpha, tol, lambd,
+                    influence_weight, simplification, keep_singletons, ngh_max)
+                sub_bootstrap(
+                    mut_type, boot_factorization_directory, boot_filename, sub_perm,
+                    mut_propag, lambd, n_components, tol_nmf, network=ppi_final)
+            else:
+                print('   === NMF split bootstrap')
+                mut_propag = get_mutation_profile_ppi(
+                    data_folder, ssc_mutation_data, ssc_subgroups, gene_data,
+                    result_folder, mut_type, alpha, tol, lambd,
+                    influence_weight, simplification, keep_singletons, ngh_max)
+                sub_bootstrap(
+                    mut_type, boot_factorization_directory, boot_filename, sub_perm,
+                    mut_propag, lambd, n_components, tol_nmf)
             end = time.time()
             print("---------- Sub-Bootstrap = {} ---------- {}"
                   .format(datetime.timedelta(seconds=end-start),
@@ -388,5 +488,5 @@ def bootstrap(result_folder, mut_type, mut_propag, ppi_final,
         #         boot_factorization_directory + '*.mat'), key=os.path.getctime)
         #     bootstrap_data = loadmat(newest_file)
         #     genes_clustering = bootstrap_data['genes_clustering']
-        #     patients_clustering = bootstrap_data['patients_clustering']
-        #     return genes_clustering, patients_clustering
+        #     individuals_clustering = bootstrap_data['individuals_clustering']
+        #     return genes_clustering, individuals_clustering

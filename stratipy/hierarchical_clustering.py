@@ -21,7 +21,7 @@ import matplotlib.pyplot as plt
 import matplotlib.cm as cm
 plt.switch_backend('agg')
 # to avoid recursion error during hierarchical clustering
-sys.setrecursionlimit(10000)
+sys.setrecursionlimit(100000)
 
 def hierarchical_file(result_folder, mut_type, influence_weight,
                       simplification, alpha, tol, keep_singletons, ngh_max,
@@ -50,7 +50,7 @@ def hierarchical_file(result_folder, mut_type, influence_weight,
 
 
 def linkage_dendrogram(hierarchical_clustering_file, distance_genes,
-                       distance_patients, ppi_data, mut_type, alpha, ngh_max,
+                       distance_individuals, ppi_data, mut_type, alpha, ngh_max,
                        n_components, n_permutations, lambd, linkage_method,
                        patient_data, data_folder, ssc_subgroups,
                        ssc_mutation_data, gene_data):
@@ -60,16 +60,16 @@ def linkage_dendrogram(hierarchical_clustering_file, distance_genes,
     if existance_same_param:
         h = loadmat(hierarchical_clustering_file)
         # cluster index for each individual
-        clust_nb_patients = np.squeeze(h['flat_cluster_number_individuals'])
+        clust_nb_individuals = np.squeeze(h['flat_cluster_number_individuals'])
         # individuals' index
-        idx_patients = np.squeeze(h['dendrogram_index_individuals'])
+        idx_individuals = np.squeeze(h['dendrogram_index_individuals'])
         print(' **** Same parameters file of hierarchical clustering already exists')
     else:
-        # hierarchical clustering on distance matrix (here: distance_patients)
+        # hierarchical clustering on distance matrix (here: distance_individuals)
         start = time.time()
-        Z_patients = linkage(distance_patients, method=linkage_method)
+        Z_individuals = linkage(distance_individuals, method=linkage_method)
         end = time.time()
-        print("---------- Linkage based on Individual distance = {} ---------- {}"
+        print(" ==== Linkage based on Individual distance = {} ---------- {}"
               .format(datetime.timedelta(seconds=end-start),
                       datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")),
               flush=True)
@@ -77,41 +77,40 @@ def linkage_dendrogram(hierarchical_clustering_file, distance_genes,
         start = time.time()
         Z_genes = linkage(distance_genes, method=linkage_method)
         end = time.time()
-        print("---------- Linkage based on Gene distance = {} ---------- {}"
+        print(" ==== Linkage based on Gene distance = {} ---------- {}"
               .format(datetime.timedelta(seconds=end-start),
                       datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")),
               flush=True)
 
-        P_patients = dendrogram(
-            Z_patients, count_sort='ascending', no_labels=True)
+        # dendrogram too slow (too many recursion for genes)
+        P_individuals = dendrogram(
+            Z_individuals, count_sort='ascending', no_labels=True)
         P_genes = dendrogram(Z_genes, count_sort='ascending', no_labels=True)
-
-
-        idx_patients = np.array(P_patients['leaves'])
+        idx_individuals = np.array(P_individuals['leaves'])
         idx_genes = np.array(P_genes['leaves'])
 
         # forms flat clusters from Z
         # given k -> maxclust
-        clust_nb_patients = fcluster(
-            Z_patients, n_components, criterion='maxclust')
+        clust_nb_individuals = fcluster(
+            Z_individuals, n_components, criterion='maxclust')
         clust_nb_genes = fcluster(Z_genes, n_components, criterion='maxclust')
 
         # start = time.time()
         savemat(hierarchical_clustering_file,
-                {'Z_linkage_matrix_individuals': Z_patients,
-                 'dendrogram_data_dictionary_individuals': P_patients,
-                 'dendrogram_index_individuals': idx_patients,
-                 'flat_cluster_number_individuals': clust_nb_patients,
+                {'Z_linkage_matrix_individuals': Z_individuals,
+                 'dendrogram_data_dictionary_individuals': P_individuals,
+                 'dendrogram_index_individuals': idx_individuals,
+                 'flat_cluster_number_individuals': clust_nb_individuals,
                  'Z_linkage_matrix_genes': Z_genes,
                  'dendrogram_data_dictionary_genes': P_genes,
                  'dendrogram_index_genes': idx_genes,
                  'flat_cluster_number_genes': clust_nb_genes},
                 do_compression=True)
 
-        D_patients = distance_patients[idx_patients, :][:, idx_patients]
+        D_individuals = distance_individuals[idx_individuals, :][:, idx_individuals]
 
         fig = plt.figure(figsize=(3, 3))
-        im = plt.imshow(D_patients, interpolation='nearest', cmap=cm.viridis)
+        im = plt.imshow(D_individuals, interpolation='nearest', cmap=cm.viridis)
         plt.axis('off')
         if patient_data == 'SSC':
             fig_directory = (
@@ -154,7 +153,7 @@ def individual_linkage_dendrogram(hierarchical_clustering_file,
 
         P_patients = dendrogram(
             Z_patients, count_sort='ascending', no_labels=True)
-        
+
         idx_patients = np.array(P_patients['leaves'])
 
         # forms flat clusters from Z
@@ -200,14 +199,14 @@ def hierarchical(result_folder, distance_genes, distance_patients, ppi_data,
         n_permutations, lambd, tol_nmf, linkage_method)
 
     linkage_dendrogram(hierarchical_clustering_file, distance_genes,
-                       distance_patients, ppi_data, mut_type, alpha, ngh_max,
+                       distance_individuals, ppi_data, mut_type, alpha, ngh_max,
                        n_components, n_permutations, lambd, linkage_method,
                        patient_data, data_folder, ssc_subgroups,
                        ssc_mutation_data, gene_data)
 
 # # TODO formatting for not SSC data
-# def distance_patients_from_consensus_file(
-#     result_folder, distance_patients, ppi_data, mut_type,
+# def distance_individuals_from_consensus_file(
+#     result_folder, distance_individuals, ppi_data, mut_type,
 #     influence_weight, simplification,
 #     alpha, tol,  keep_singletons, ngh_max, min_mutation, max_mutation,
 #     n_components, n_permutations, lambd, tol_nmf, linkage_method,
@@ -244,9 +243,9 @@ def hierarchical(result_folder, distance_genes, distance_patients, ppi_data,
 #     if existance_same_param:
 #         print(' **** Same parameters file of hierarchical clustering already exists')
 #     else:
-#         # print(type(distance_patients), distance_patients.shape)
-#         # hierarchical clustering on distance matrix (here: distance_patients)
-#         Z = linkage(distance_patients, method=linkage_method)
+#         # print(type(distance_individuals), distance_individuals.shape)
+#         # hierarchical clustering on distance matrix (here: distance_individuals)
+#         Z = linkage(distance_individuals, method=linkage_method)
 #
 #         # Plot setting
 #         matplotlib.rcParams.update({'font.size': 14})
@@ -263,7 +262,7 @@ def hierarchical(result_folder, distance_genes, distance_patients, ppi_data,
 #         # Plot distance matrix.
 #         ax_matrix = fig.add_axes([0, 0.1, 0.6, 0.6])
 #         idx = np.array(P['leaves'])
-#         D = distance_patients[idx, :][:, idx]
+#         D = distance_individuals[idx, :][:, idx]
 #         im = ax_matrix.imshow(D, interpolation='nearest', cmap=cm.viridis)
 #         ax_matrix.set_xticks([])
 #         ax_matrix.set_yticks([])
@@ -277,7 +276,7 @@ def hierarchical(result_folder, distance_genes, distance_patients, ppi_data,
 #         # given k -> maxclust
 #         clust_nb = fcluster(Z, n_components, criterion='maxclust')
 #         # cophenetic correlation distance
-#         coph_dist, coph_matrix = cophenet(Z, pdist(distance_patients))
+#         coph_dist, coph_matrix = cophenet(Z, pdist(distance_individuals))
 #         print(' ==== cophenetic correlation distance = ', coph_dist)
 #
 #         ax_dendro.set_title(
