@@ -8,6 +8,7 @@ from numpy import genfromtxt
 from stratipy.nbs_class import Ppi
 from tqdm import trange
 import glob
+from statistics import median
 
 # NOTE some variable names changed:
 # dataFolder -> data_folder
@@ -80,9 +81,10 @@ def get_indiv_list(indiv_from_df):
     return alist
 
 
-def mutation_profile_coordinate(df, indiv_list, indiv_type):
+def mutation_profile_coordinate_score(df, indiv_list, indiv_type, score_list):
     coord_gene = []
     coord_indiv = []
+    weight = []
 
     for i in trange(df.shape[0], desc="mutation profile coordinates"):
         # for each row (each gene), we get list of individuals' ID
@@ -93,8 +95,51 @@ def mutation_profile_coordinate(df, indiv_list, indiv_type):
             coord_gene.append(i)
             # individual is saved as his/her INDEX (not ID) in indiv_list
             coord_indiv.append(j)
+            # pLI score for each point
+            weight.append(score_list[i])
 
-    return coord_indiv, coord_gene
+    return coord_indiv, coord_gene, weight
+
+
+def generate_mp(df, pLI_type):
+    gene_id = [int(i) for i in df['entrez_id'].tolist()]
+    indiv_type = 'Admixture_individual'  # Admixture European probands
+    df[indiv_type] = df[indiv_type].apply(eval)
+    # create individual ID list
+    indiv = get_indiv_list(df[indiv_type])
+    if '[' in indiv: indiv.remove('[')
+    if ']' in indiv: indiv.remove(']')
+    # pLI_oe score list
+    pLI_score = df[pLI_type].tolist()
+
+    # calculate coordinates genes x individuals -> sparse matrix
+    coord_indiv, coord_gene, weight = mutation_profile_coordinate_score(
+        df, indiv, indiv_type, pLI_score)
+
+    mutation_profile = sp.coo_matrix((weight, (coord_indiv, coord_gene)),
+                                     shape=(len(indiv), len(gene_id)),
+                                     dtype=np.float32).tocsr()
+    return mutation_profile, gene_id, indiv
+
+
+def merge_lof_mis(df_lof, df_mis, pLI_lof_name, pLI_mis_name):
+    mp_lof, gene_lof, indiv_lof = generate_mp(df_lof, pLI_lof_name)
+    mp_mis, gene_mis, indiv_mis = generate_mp(df_mis, pLI_mis_name)
+
+    df_lof = pd.DataFrame(mp_lof.toarray(), columns=gene_lof, index=indiv_lof)
+    df_mis = pd.DataFrame(mp_mis.toarray(), columns=gene_mis, index=indiv_mis)
+
+    # merge 2 dataframes and take high value if needed
+    df = pd.concat([df_lof, df_mis]).groupby(level=0).max()
+    # fill NA by 0
+    df = df.fillna(0)
+
+    # dataframe to scipy sparse matrix
+    mutation_profile = sp.csr_matrix(df.values)
+    indiv = df.index.values.tolist()
+    gene_id = df.columns.tolist()
+
+    return mutation_profile, gene_id, indiv
 
 
 def load_overall_SSC_mutation_profile(data_folder, ssc_mutation_data):
@@ -115,29 +160,18 @@ def load_overall_SSC_mutation_profile(data_folder, ssc_mutation_data):
         print('overall_{}_mutation_profile file is calculating.....'
               .format(ssc_mutation_data))
 
-        df = pd.read_csv(data_folder + 'SSC_{}_gene_filtered.csv'
-                         .format(ssc_mutation_data), sep=';')
-        # create gene ID (EntrezGene ID) list
-        gene_id = [int(i) for i in df['entrez_id'].tolist()]
+        df_lof = pd.read_csv(
+            data_folder + 'SSC_MAF1_LoF_gene_filtered_pLI_oe.csv', sep=';')
 
-        # individuals' ID list for each row is transformed in string of list
-        # we thus reformate to list
-        # indiv_type = 'individual' # all individuals
-        indiv_type = 'Admixture_individual' # Admixture European probands
-        df[indiv_type] = df[indiv_type].apply(eval)
-        # create individual ID list
-        indiv = get_indiv_list(df[indiv_type])
-        if '[' in indiv: indiv.remove('[')
-        if ']' in indiv: indiv.remove(']')
+        if 'mis15' in ssc_mutation_data:
+            df_mis = pd.read_csv(
+                data_folder + 'SSC_MAF1_mis15_gene_filtered_pLI_oe.csv', sep=';')
+        elif 'mis30' in ssc_mutation_data:
+            df_mis = pd.read_csv(
+                data_folder + 'SSC_MAF1_mis30_gene_filtered_pLI_oe.csv', sep=';')
 
-        # calculate coordinates genes x individuals -> sparse matrix
-        coord_indiv, coord_gene = mutation_profile_coordinate(df, indiv, indiv_type)
-        # mutation weight = 1
-        weight = np.ones(len(coord_gene))
-        # coo matrix then to csr matrix
-        mutation_profile = sp.coo_matrix((weight, (coord_indiv, coord_gene)),
-                                         shape=(len(indiv), len(gene_id)),
-                                         dtype=np.float32).tocsr()
+        mutation_profile, gene_id, indiv = merge_lof_mis(
+            df_lof, df_mis, 'oe_lof_rescaled', 'oe_mis_rescaled')
 
         savemat(overall_mutation_profile_file,
                 {'mutation_profile': mutation_profile,
@@ -168,15 +202,30 @@ def load_specific_SSC_mutation_profile(data_folder, ssc_mutation_data, ssc_subgr
             load_overall_SSC_mutation_profile(data_folder, ssc_mutation_data))
         print("SSC overall mutation profile matrix\n    shape: {}\n    stored elements: {}".format(mutation_profile.shape, mutation_profile.nnz))
 
-        # if SSC 1 or 2
         if ssc_subgroups != "SSC":
             print('{}_{}_mutation_profile file is calculating.....'.format(
                 ssc_mutation_data, ssc_subgroups))
+            if (ssc_subgroups == 'SSC1') or (ssc_subgroups == 'SSC2'):
+                print('{}_{}_mutation_profile file is calculating.....'.format(
+                    ssc_mutation_data, ssc_subgroups))
 
-            df_ssc = pd.read_csv(data_folder + '{}_phenotype.csv'
-                                 .format(ssc_subgroups), sep='\t')
-            ind_ssc_raw = df_ssc.individual.tolist()
-#             ind_ssc_raw = df_ssc.individual.apply(eval).tolist()
+                df_ssc = pd.read_csv(data_folder + '{}_phenotype.csv'
+                                     .format(ssc_subgroups), sep='\t')
+                ind_ssc_raw = df_ssc.individual.tolist()
+    #             ind_ssc_raw = df_ssc.individual.apply(eval).tolist()
+
+            # 'SSC_all', 'SSC_male', 'SSC_female'
+            else:
+                if ssc_subgroups == 'SSC_all':
+                    indiv_file = data_folder + 'admixture_1175_all.txt'
+                elif ssc_subgroups == 'SSC_male':
+                    indiv_file = data_folder + 'admixture_1175_male.txt'
+                elif ssc_subgroups == 'SSC_female':
+                    indiv_file = data_folder + 'admixture_1175_female.txt'
+
+                with open(indiv_file) as f:
+                    ind_ssc_raw = [line.rstrip('\n') for line in f]
+
             # looking for corresponding individual ID in overall data (indiv)
             # then append their index in a list (ind_ssc)
             ind_ssc = []
@@ -189,7 +238,7 @@ def load_specific_SSC_mutation_profile(data_folder, ssc_mutation_data, ssc_subgr
             # slice overall mutation profile by SSC subgroup individuals
             mutation_profile = mutation_profile[ind_ssc, :]
 
-        if gene_data != 'all':
+        if gene_data != 'allGenes':
             print('genes filtering according to:', gene_data)
             df_gene = pd.read_csv(data_folder + 'EntrezGene_{}.csv'
                                   .format(gene_data), sep='\t')

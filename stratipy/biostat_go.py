@@ -173,7 +173,7 @@ def merge_2_subgroups(data_folder, ssc_mutation_data, ssc_subgroups, gene_data,
 
     df_enrich1, df_pcount1 = p_df_by_subgroup(
         data_folder, ssc_mutation_data, ssc_subgroups, gene_data, ppi_data,
-        n_components, mut_type, alpha, ngh_max, n_permutations, lambd, O,
+        n_components, mut_type, alpha, ngh_max, n_permutations, lambd, O,
         min_category_size, max_category_size, max_category_depth)
 
     ################ SSC 2 ################
