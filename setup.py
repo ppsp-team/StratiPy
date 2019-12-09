@@ -3,7 +3,7 @@ from setuptools import setup
 
 setup(
     name = "stratipy",
-    version = "0.7.2",
+    version = "0.8",
     author = "Yang-Min KIM, Guillaume DUMAS",
     author_email = "yang-min.kim@pasteur.fr, guillaume.dumas@pasteur.fr",
     description = ("Patients stratification with Graph-regularized"
