@@ -227,7 +227,7 @@ def calcul_final_influence(M, adj, result_folder, alpha, influence_weight='min',
 
     existance_same_param = os.path.exists(final_influence_file)
     # TODO overwrite condition
-    print("+++++", final_influence_file)
+
     # check if same parameters file exists in directory
     if existance_same_param:
         final_influence_data = loadmat(final_influence_file)
@@ -242,19 +242,20 @@ def calcul_final_influence(M, adj, result_folder, alpha, influence_weight='min',
         if compute:
             # check if influence distance file exists
             existance_same_influence = os.path.exists(influence_distance_file)
-            print("+++++", influence_distance_file)
             if existance_same_influence:
                 influence_data = loadmat(influence_distance_file)
                 influence = influence_data['influence_distance']
                 print(' **** Same parameters file of INFLUENCE DISTANCE on PPI network already exists')
             else:
-                print(' ==== Diffusion over PPI network (it can take approximately 10 min) ==== ')
+                print(' ==== Diffusion over PPI network (it can take approximately 10 min) ==== ', flush=True)
                 influence = propagation(M, adj, alpha, tol)
 
                 # save influence distance before simplification with parameters' values in filename
                 os.makedirs(influence_distance_directory, exist_ok=True)  # NOTE For Python ≥ 3.2
                 print(' Start to save INFLUENCE DISTANCE (before filtering) ----- {}'
-                      .format(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
+                      .format(
+                          datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                          ), flush=True)
                 savemat(influence_distance_file,
                         {'influence_distance': influence,
                          'alpha': alpha},
@@ -275,7 +276,9 @@ def calcul_final_influence(M, adj, result_folder, alpha, influence_weight='min',
             os.makedirs(final_influence_directory, exist_ok=True)
 
             print(' Start to save FINAL INFLUENCE (after filtering) ----- {}'
-                  .format(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
+                  .format(
+                      datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")),
+                  flush=True)
             savemat(final_influence_file,
                     {'final_influence_min': final_influence_min,
                      'final_influence_max': final_influence_max,
@@ -420,7 +423,8 @@ def filter_ppi_patients(result_folder, influence_weight, simplification, alpha, 
                                     Patient(mut_final).mut_per_patient])]
 
     print(" Removing %i patients with less than %i or more than %i mutations" %
-          (mut_total.shape[0]-mut_final.shape[0], min_mutation, max_mutation))
+          (mut_total.shape[0]-mut_final.shape[0], min_mutation, max_mutation),
+          flush=True)
 
     return ppi_final, mut_final
 
@@ -480,7 +484,7 @@ def propagation_profile(mut_raw, adj, result_folder, alpha, tol, mut_type):
         if mut_type == 'raw':
             mut_propag = mut_raw.todense()
         else:
-            print(' ==== Diffusion over mutation profile ==== ')
+            print(' ==== Diffusion over mutation profile ==== ', flush=True)
             mut_propag = propagation(mut_raw, adj, alpha, tol).todense()
             mut_propag[np.isnan(mut_propag)] = 0
             if mut_type == 'mean_qn':
