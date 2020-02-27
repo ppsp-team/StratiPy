@@ -2,7 +2,6 @@ import sys
 import os
 sys.path.append(os.path.abspath('../../stratipy'))
 from stratipy import biostat
-# import biostat
 import numpy as np
 import pandas as pd
 import re
