@@ -32,20 +32,18 @@ def initiation(mut_type, patient_data, data_folder, ssc_mutation_data,
         result_folder = (
             data_folder + 'result_' + ssc_mutation_data + '_' +
             ssc_subgroups + '_' + gene_data + '_' + ppi_data + '/')
-        # result_folder = (
-        #     data_folder + '/Volumes/Abu3/min/201812_MAF50_alpha0.7/result_' + ssc_mutation_data + '_' +
-        #     ssc_subgroups + '_' + gene_data + '_' + ppi_data + '/')
     else:
         result_folder = (data_folder + 'result_' + patient_data + '_' +
                          ppi_data + '/')
         if mut_type == 'raw':
             alpha = 0
 
-    print(result_folder, flush=True)
-    print("\nIndividuals =", ssc_subgroups, flush=True)
+    print("\n", result_folder, flush=True)
+    print("\nMutation data =", ssc_mutation_data, flush=True)
+    print("Individuals =", ssc_subgroups, flush=True)
     print("mutation type =", mut_type, flush=True)
+    print("PPI = ", ppi_data, flush=True)
     print("alpha =", alpha, flush=True)
-    print("lambda =", lambd, flush=True)
     print("k =", n_components, flush=True)
 
     return alpha, result_folder, ppi_data
@@ -119,48 +117,18 @@ def preprocessing(ppi_data, mut_type, ssc_subgroups, data_folder, patient_data,
         return mutation_profile, mp_indiv, mp_gene, entrez_ppi, idx_filtred
 
 
-def parallel_bootstrap(result_folder, mut_type, influence_weight,
-                       simplification, alpha, tol, keep_singletons,
-                       ngh_max, min_mutation, max_mutation, n_components,
-                       n_permutations, run_bootstrap, lambd, tol_nmf,
-                       compute_gene_clustering, sub_perm, data_folder, ssc_mutation_data, ssc_subgroups, gene_data):
-    # if mut_type == 'raw':
-    #     mut_propag, mp_gene, mp_indiv = (
-    #         load_data.load_specific_SSC_mutation_profile(
-    #             data_folder, ssc_mutation_data, ssc_subgroups, gene_data))
-    #     # fake
-    #     ppi_final_file = '../data/result_MAF1_LoF_mis15_SSC_all_allGenes_APID/final_influence/PPI_final_weight=min_simp=True_alpha=0.7_tol=0.01_singletons=False_ngh=11.mat'
-    #
-    # else:
-    #     final_influence_mutation_directory = result_folder + 'final_influence/'
-    #     final_influence_mutation_file = (
-    #         final_influence_mutation_directory +
-    #         'final_influence_mutation_profile_{}_alpha={}_tol={}.mat'.format(
-    #             mut_type, alpha, tol))
-    #     final_influence_data = loadmat(final_influence_mutation_file)
-    #     mut_propag = final_influence_data['mut_propag']
-    #
-    #     ppi_final_file = (
-    #         final_influence_mutation_directory +
-    #         'PPI_final_weight={}_simp={}_alpha={}_tol={}_singletons={}_ngh={}.mat'
-    #         .format(influence_weight, simplification, alpha, tol, keep_singletons,
-    #                 ngh_max))
-    # ppi_final_data = loadmat(ppi_final_file)
-    # ppi_final = ppi_final_data['ppi_final']
-    #
-    # nmf_bootstrap.bootstrap(
-    #     result_folder, mut_type, mut_propag, ppi_final,
-    #     influence_weight, simplification, alpha, tol, keep_singletons,
-    #     ngh_max, min_mutation, max_mutation, n_components,
-    #     n_permutations, run_bootstrap, lambd, tol_nmf,
-    #     compute_gene_clustering, sub_perm)
-
-    nmf_bootstrap.bootstrap(data_folder, ssc_mutation_data, ssc_subgroups, gene_data,
-                  result_folder, mut_type, influence_weight,
-                  simplification, alpha, tol, keep_singletons, ngh_max,
-                  min_mutation, max_mutation, n_components, n_permutations,
-                  run_bootstrap, lambd, tol_nmf,
-                  compute_gene_clustering, sub_perm)
+def subsampling_bootstrap(result_folder, mut_type, influence_weight,
+                          simplification, alpha, tol, keep_singletons, ngh_max,
+                          min_mutation, max_mutation, n_components,
+                          n_permutations, run_bootstrap, lambd, tol_nmf,
+                          compute_gene_clustering, sub_perm, data_folder,
+                          ssc_mutation_data, ssc_subgroups, gene_data):
+    nmf_bootstrap.bootstrap(
+        data_folder, ssc_mutation_data, ssc_subgroups, gene_data,
+        result_folder, mut_type, influence_weight, simplification, alpha, tol,
+        keep_singletons, ngh_max, min_mutation, max_mutation, n_components,
+        n_permutations, run_bootstrap, lambd, tol_nmf, compute_gene_clustering,
+        sub_perm)
 
 
 def post_bootstrap(result_folder, mut_type, influence_weight, simplification,
@@ -171,55 +139,56 @@ def post_bootstrap(result_folder, mut_type, influence_weight, simplification,
                    ppi_data, patient_data, data_folder, ssc_subgroups,
                    ssc_mutation_data, gene_data, p_val_threshold, compute,
                    overwrite):
-    # print("------------ consensus_clustering.py ------------ {}"
+    print("------------ consensus_clustering.py ------------ {}"
+          .format(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')),
+          flush=True)
+    distance_genes, distance_individuals = (
+       consensus_clustering.consensus(
+           result_folder, mut_type, influence_weight, simplification, alpha,
+           tol, keep_singletons, ngh_max, min_mutation, max_mutation,
+           n_components, n_permutations, lambd, tol_nmf,
+           compute_gene_clustering, run_consensus, run_bootstrap))
+
+    print("------------ hierarchical_clustering.py ------------ {}"
+          .format(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')),
+          flush=True)
+    hierarchical_clustering.hierarchical(
+       result_folder, distance_genes, distance_individuals, ppi_data, mut_type,
+       influence_weight, simplification, alpha, tol, keep_singletons, ngh_max,
+       min_mutation, max_mutation, n_components, n_permutations, lambd,
+       tol_nmf, linkage_method, patient_data, data_folder, ssc_subgroups,
+       ssc_mutation_data, gene_data)
+
+    # print("\n------------ biostat.py ------------ {}"
     #       .format(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')),
     #       flush=True)
-    # distance_genes, distance_patients = (
-    #     consensus_clustering.sub_consensus(
-    #         result_folder, mut_type, influence_weight, simplification, alpha,
-    #         tol, keep_singletons, ngh_max, min_mutation, max_mutation,
-    #         n_components, n_permutations, lambd, tol_nmf,
-    #         compute_gene_clustering, run_consensus))
+    # mutation_profile, mp_indiv, mp_gene, entrez_ppi, idx_filtred = preprocessing(
+    #     ppi_data, mut_type, ssc_subgroups, data_folder, patient_data,
+    #     ssc_mutation_data, gene_data, influence_weight,
+    #     simplification, compute, overwrite, tol, ngh_max,
+    #     keep_singletons, min_mutation, max_mutation, result_folder, alpha, return_val=True)
     #
-    # print("------------ hierarchical_clustering.py ------------ {}"
+    # biostat.biostat_analysis(
+    #    data_folder, result_folder, patient_data, ssc_mutation_data,
+    #    ssc_subgroups, ppi_data, gene_data, mut_type, influence_weight,
+    #    simplification, alpha, tol, keep_singletons, ngh_max, min_mutation,
+    #    max_mutation, n_components, n_permutations, lambd, tol_nmf,
+    #    linkage_method, p_val_threshold, mp_gene, entrez_ppi, idx_filtred)
+
+    # # no need SSC1/SSC2, no need k
+    # biostat_go.biostat_go_enrichment(
+    #      alpha, result_folder, mut_type, patient_data, data_folder, ssc_mutation_data,
+    #      ssc_subgroups, gene_data, ppi_data, lambd, n_components, ngh_max, n_permutations)
+    #
+    # print("\n------------ biostat_plot.py ------------ {}"
     #       .format(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')),
     #       flush=True)
-    # hierarchical_clustering.hierarchical(
-    #     result_folder, distance_genes, distance_patients, ppi_data, mut_type,
-    #     influence_weight, simplification, alpha, tol, keep_singletons, ngh_max,
-    #     min_mutation, max_mutation, n_components, n_permutations, lambd,
-    #     tol_nmf, linkage_method, patient_data, data_folder, ssc_subgroups,
-    #     ssc_mutation_data, gene_data)
-
-    print("\n------------ biostat.py ------------ {}"
-          .format(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')),
-          flush=True)
-    gene_id_ppi, idx_ppi, idx_ppi_only = preprocessing(
-        data_folder, patient_data, ssc_mutation_data, ssc_subgroups, gene_data,
-        ppi_data, result_folder, influence_weight, simplification, compute,
-        overwrite, alpha, tol, ngh_max, keep_singletons, min_mutation,
-        max_mutation, mut_type)
-
-    biostat.biostat_analysis(
-        data_folder, result_folder, patient_data, ssc_mutation_data,
-        ssc_subgroups, ppi_data, gene_data, mut_type, influence_weight,
-        simplification, alpha, tol, keep_singletons, ngh_max, min_mutation,
-        max_mutation, n_components, n_permutations, lambd, tol_nmf,
-        linkage_method, p_val_threshold, gene_id_ppi, idx_ppi, idx_ppi_only)
-
-    # biostat_go.biostat_go_enrichment(
-    #     alpha, result_folder, mut_type, patient_data, data_folder, ssc_mutation_data,
-    #     ssc_subgroups, gene_data, ppi_data, lambd, n_components, ngh_max, n_permutations)
-
-    print("\n------------ biostat_plot.py ------------ {}"
-          .format(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')),
-          flush=True)
-    # no need SSC1/SSC2, no need k
+    #  # no need SSC1/SSC2, no need k
     # biostat_plot.load_plot_biostat_individuals(
-    #     result_folder, data_folder, ssc_mutation_data,
-    #     gene_data, patient_data, ppi_data, mut_type, lambd, influence_weight,
-    #     simplification, alpha, tol, keep_singletons, ngh_max, min_mutation,
-    #     max_mutation, n_components, n_permutations, tol_nmf, linkage_method)
+    #      result_folder, data_folder, ssc_mutation_data,
+    #      gene_data, patient_data, ppi_data, mut_type, lambd, influence_weight,
+    #      simplification, alpha, tol, keep_singletons, ngh_max, min_mutation,
+    #      max_mutation, n_components, n_permutations, tol_nmf, linkage_method)
 ###############################################################################
 ###############################################################################
 ###############################################################################
@@ -229,62 +198,91 @@ def post_bootstrap(result_folder, mut_type, influence_weight, simplification,
 def all_functions(i, step):
     (data_folder, patient_data, ssc_mutation_data, ssc_subgroups,
      gene_data, ppi_data, influence_weight, simplification, compute,
-     overwrite, alpha, tol, ngh_max, keep_singletons, min_mutation,
+     overwrite, tol, ngh_max, keep_singletons, min_mutation,
      max_mutation, mut_type, n_components, n_permutations, sub_perm, sub_perm,
      run_bootstrap, run_consensus, lambd, tol_nmf, compute_gene_clustering,
      linkage_method, p_val_threshold) = parameters.get_params(i)
 
-    alpha, result_folder = initiation(
-        mut_type, alpha, patient_data, data_folder, ssc_mutation_data,
-        ssc_subgroups, gene_data, ppi_data, lambd, n_components)
+    if mut_type == 'raw' and ppi_data == 'APID':
+        print('############ PASS ############')
+        pass
 
-    if step == "preprocessing":
-        print('\n############ preprocessing step ############', flush=True)
-        preprocessing(data_folder, patient_data, ssc_mutation_data, ssc_subgroups,
-                      gene_data, ppi_data, result_folder, influence_weight,
-                      simplification, compute, overwrite, alpha, tol,
-                      ngh_max, keep_singletons, min_mutation, max_mutation,
-                      mut_type)
+    else:
+        start = time.time()
 
-    if step == "parallel_bootstrap":
-        print('\n############ parallel_bootstrap step ############',
-              flush=True)
-        parallel_bootstrap(result_folder, mut_type, influence_weight,
+        alpha, result_folder, ppi_data = initiation(
+            mut_type, patient_data, data_folder, ssc_mutation_data,
+            ssc_subgroups, gene_data, ppi_data, lambd, n_components)
+
+        #######################################################################
+        # run StratiPy by split steps
+        #######################################################################
+        if step == "preprocessing":
+            print('\n############ preprocessing step ############', flush=True)
+            preprocessing(ppi_data, mut_type, ssc_subgroups, data_folder,
+                          patient_data, ssc_mutation_data, gene_data,
+                          influence_weight, simplification, compute, overwrite,
+                          tol, ngh_max, keep_singletons, min_mutation,
+                          max_mutation, result_folder, alpha, return_val=False)
+
+        elif step == "bootstrap":
+            print('\n############ bootstrap step ############',
+                  flush=True)
+            subsampling_bootstrap(result_folder, mut_type, influence_weight,
+                                  simplification, alpha, tol, keep_singletons,
+                                  ngh_max, min_mutation, max_mutation,
+                                  n_components, n_permutations, run_bootstrap,
+                                  lambd, tol_nmf, compute_gene_clustering,
+                                  sub_perm, data_folder, ssc_mutation_data,
+                                  ssc_subgroups, gene_data)
+
+        elif step == "clustering":
+            print('\n############ clustering step ############', flush=True)
+            post_bootstrap(result_folder, mut_type, influence_weight,
                            simplification, alpha, tol, keep_singletons,
-                           ngh_max, min_mutation, max_mutation,
-                           n_components, n_permutations, run_bootstrap,
-                           lambd, tol_nmf, compute_gene_clustering,
-                           sub_perm)
+                           ngh_max, min_mutation, max_mutation, n_components,
+                           n_permutations, lambd, tol_nmf,
+                           compute_gene_clustering, run_consensus, run_bootstrap,
+                           linkage_method, ppi_data, patient_data, data_folder,
+                           ssc_subgroups, ssc_mutation_data, gene_data,
+                           p_val_threshold, compute, overwrite)
 
-    if step == "clustering":
-        print('\n############ clustering step ############', flush=True)
-        post_bootstrap(result_folder, mut_type, influence_weight,
-                       simplification, alpha, tol, keep_singletons,
-                       ngh_max, min_mutation, max_mutation, n_components,
-                       n_permutations, lambd, tol_nmf,
-                       compute_gene_clustering, run_consensus,
-                       linkage_method, ppi_data, patient_data, data_folder,
-                       ssc_subgroups, ssc_mutation_data, gene_data,
-                       p_val_threshold, compute, overwrite)
+        #######################################################################
+        # run Stratipy in once
+        #######################################################################
+        elif step == "full_step":
+            print('\n############ preprocessing step ############', flush=True)
+            preprocessing(ppi_data, mut_type, ssc_subgroups, data_folder,
+                          patient_data, ssc_mutation_data, gene_data,
+                          influence_weight, simplification, compute, overwrite,
+                          tol, ngh_max, keep_singletons, min_mutation,
+                          max_mutation, result_folder, alpha, return_val=False)
 
+            print('\n############ bootstrap step ############',
+                  flush=True)
+            subsampling_bootstrap(result_folder, mut_type, influence_weight,
+                                  simplification, alpha, tol, keep_singletons,
+                                  ngh_max, min_mutation, max_mutation,
+                                  n_components, n_permutations, run_bootstrap,
+                                  lambd, tol_nmf, compute_gene_clustering,
+                                  sub_perm, data_folder, ssc_mutation_data,
+                                  ssc_subgroups, gene_data)
 
+            print('\n############ clustering step ############', flush=True)
+            post_bootstrap(result_folder, mut_type, influence_weight,
+                           simplification, alpha, tol, keep_singletons,
+                           ngh_max, min_mutation, max_mutation, n_components,
+                           n_permutations, lambd, tol_nmf,
+                           compute_gene_clustering, run_consensus, run_bootstrap,
+                           linkage_method, ppi_data, patient_data, data_folder,
+                           ssc_subgroups, ssc_mutation_data, gene_data,
+                           p_val_threshold, compute, overwrite)
 
-
-        # if step == "all":
-        #
-        #
-        #
-        #
-        #     consensus_file = consensus_clustering.consensus_file(
-        #         result_folder, influence_weight, simplification, mut_type, alpha, tol,
-        #         keep_singletons, ngh_max, min_mutation, max_mutation, n_components,
-        #         n_permutations, lambd, tol_nmf)
-        #
-        #     # genes_clustering, patients_clustering directely from full bootstrap
-        #     distance_genes, distance_patients = (
-        #         consensus_clustering.consensus_from_full_bootstrap(
-        #             consensus_file, genes_clustering, patients_clustering,
-        #             run_consensus, compute_gene_clustering))
+        end = time.time()
+        print("----------  FIN = {} ---------- {}"
+              .format(datetime.timedelta(seconds=end-start),
+                      datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")),
+              flush=True)
 
 
 i = int(sys.argv[1])-1
