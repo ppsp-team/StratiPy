@@ -282,9 +282,9 @@ def full_bootstrap(mut_type, mut_propag, n_permutations, lambd, n_components,
         else:
             if compute_gene_clustering:
                 genes_clustering[genes_boot, perm] = H
-            patients_clustering[patients_boot, perm] = W
+            individuals_clustering[individuals_boot, perm] = W
 
-    return genes_clustering, patients_clustering
+    return genes_clustering, individuals_clustering
 
 
 def sub_bootstrap(boot_factorization_directory, boot_filename, sub_perm,
@@ -298,7 +298,7 @@ def sub_bootstrap(boot_factorization_directory, boot_filename, sub_perm,
     if existance_same_param:
         print(' **** Same parameters file of Sub-bootstrap already exists')
     else:
-        n_patients, n_genes = mut_propag.shape
+        n_individuals, n_genes = mut_propag.shape
         genes_clustering = np.zeros([n_genes, sub_perm], dtype=np.float32)*np.nan
         individuals_clustering = np.zeros([n_individuals, sub_perm],
                                           dtype=np.float32)*np.nan
@@ -336,7 +336,7 @@ def clustering_std_for_each_bootstrap(M):
     for col in range(M.shape[1]):
         # for each column (each bootstrap permutation), nan values removed
         one_col = M[:, col][~np.isnan(M[:, col])]
-        # count of patient/gene number for each cluster
+        # count of individual/gene number for each cluster
         occurences = [v for v in collections.Counter(one_col).values()]
         # standard deviation of occurences
         std = np.std(np.array(occurences))

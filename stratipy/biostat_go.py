@@ -165,7 +165,7 @@ def merge_2_subgroups(data_folder, ssc_mutation_data, ssc_subgroups, gene_data,
         formatting_data.classify_gene_index(
              network, mutation_profile, gene_id_ppi, gene_id_patient))
 
-    # idx_mut : List of common genes' indexes in patients' mutation profiles.
+    # idx_mut : List of common genes' indexes in individuals' mutation profiles.
     reference = pd.DataFrame({'GeneID': [gene_id_patient[i] for i in idx_mut]})
     background = tools.generate_background(
         gene2go, reference, 'GO_ID', 'GeneID')
@@ -189,7 +189,7 @@ def merge_2_subgroups(data_folder, ssc_mutation_data, ssc_subgroups, gene_data,
         formatting_data.classify_gene_index(
              network, mutation_profile, gene_id_ppi, gene_id_patient))
 
-    # idx_mut : List of common genes' indexes in patients' mutation profiles.
+    # idx_mut : List of common genes' indexes in individuals' mutation profiles.
     reference = pd.DataFrame({'GeneID': [gene_id_patient[i] for i in idx_mut]})
     background = tools.generate_background(
         gene2go, reference, 'GO_ID', 'GeneID')
