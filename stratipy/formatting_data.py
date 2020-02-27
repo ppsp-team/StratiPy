@@ -171,7 +171,8 @@ def all_genes_in_submatrices(network, idx_ppi, idx_mut, idx_ppi_only,
     mut_total = sp.bmat([[mutation_profile[:, idx_mut],
                           sp.csc_matrix((mutation_profile.shape[0],
                                          len(idx_ppi_only)), dtype=np.float32),
-                          mutation_profile[:, idx_mut_only]]])
+                          mutation_profile[:, idx_mut_only]]],
+                        format='csc')
     # filter only genes in PPI
     degree = Ppi(ppi_total).deg
     ppi_filt = ppi_total[degree > 0, :][:, degree > 0]
