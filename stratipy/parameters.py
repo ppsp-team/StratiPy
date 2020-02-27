@@ -8,25 +8,24 @@ from sklearn.model_selection import ParameterGrid
 
 # TODO PPI type param
 param_grid = {
-    'mut_type': ['raw', 'propagated', 'mean_qn', 'median_qn'],
-    # 'mut_type': ['raw'],
+    # 'mut_type': ['raw', 'propagated', 'median_qn'],
+    'mut_type': ['median_qn'],
 
-    'ppi_data': ['APID', 'STRING'],
-    # 'ppi_data': ['STRING'],
+    'ppi_data': ['STRING'],
+    # 'ppi_data': ['APID', 'STRING'],
 
-    # 'n_components': [2],
-     'n_components': range(2, 21),
+    'n_components': range(2, 21),
 
-    # 'ssc_subgroups': ['SSC1_probands', 'SSC1_siblings', 'SSC2_probands', 'SSC2_siblings'],
-    # 'ssc_subgroups': ['SSC1', 'SSC2'],
-     'ssc_subgroups': ['SSC_all', 'SSC_male', 'SSC_female'],
+    'ssc_subgroups': ['SSC_all', 'SSC_male', 'SSC_female'],
      # 'ssc_subgroups': ['SSC', 'SSC1', 'SSC2', 'SSC_all', 'SSC_male', 'SSC_female'],
+     # 'ssc_subgroups': ['SSC1_probands', 'SSC1_siblings', 'SSC2_probands', 'SSC2_siblings'],
+     # 'ssc_subgroups': ['SSC1', 'SSC2'],
 
-     # 'gene_data': ['all', 'pli', 'sfari', 'brain1SD', 'brain2SD'],
      'gene_data': ['allGenes'],
+     # 'gene_data': ['all', 'pli', 'sfari', 'brain1SD', 'brain2SD'],
 
-     'ssc_mutation_data': ['MAF1_LoF_mis15'],
-     # 'ssc_mutation_data': ['MAF1_LoF_mis30'],
+     'ssc_mutation_data': ['MAF1_LoF_pLIoe_mis15', 'MAF1_LoF_pLIoe_mis30'],
+     # 'ssc_mutation_data': ['MAF1_LoF_pLIoe_mis30'],
 
     'sub_perm': [1],
     # 'run_bootstrap': ['split'],
@@ -34,7 +33,6 @@ param_grid = {
 
     'lambd': [0],
     # 'lambd': [200],
-    # 'lambd': [0, 200],
 
     'data_folder': ['../data/'],
     'patient_data': ['SSC'],
@@ -42,18 +40,16 @@ param_grid = {
     'simplification': [True],
     'compute': [True],
     'overwrite': [False],
-    # 'alpha': [0.7],
-    'tol': [10e-3],
+    'tol': [None],
     'ngh_max': [11],
     'keep_singletons': [False],
     'min_mutation': [0],
     'max_mutation': [20000],
-    #   'n_permutations': [1000],
     'n_permutations': [300],
     'run_consensus': [True],
     'tol_nmf': [1e-3],
     'compute_gene_clustering': [True],
-    'linkage_method': ['average'],
+    'linkage_method': ['ward'],
     'p_val_threshold': [0.05]
               }
 
