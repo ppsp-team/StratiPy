@@ -2,7 +2,7 @@ import sys
 import numpy as np
 import scipy.sparse as sp
 import pandas as pd
-from scipy.sparse.linalg import norm
+from numpy.linalg import norm
 from scipy.io import loadmat, savemat
 from stratipy.nbs_class import Ppi, Patient
 from subprocess import call
@@ -25,7 +25,7 @@ import datetime
 
 
 # @profile
-def propagation(M, adj, alpha, tol=10e-6):  # TODO equation, M, alpha
+def propagation(M, adj, alpha, tol=1e-6):  # TODO equation, M, alpha
     """Network propagation iterative process
 
     Iterative algorithm for apply propagation using random walk on a network:
@@ -55,7 +55,7 @@ def propagation(M, adj, alpha, tol=10e-6):  # TODO equation, M, alpha
         For alpha = 0 : no diffusion.
         For alpha = 1 :
 
-    tol : float, default: 10e-6
+    tol : float, default: 1e-6
         Convergence threshold.
 
     Returns
@@ -66,15 +66,11 @@ def propagation(M, adj, alpha, tol=10e-6):  # TODO equation, M, alpha
 
     n = adj.shape[0]
     # diagonal = 1 -> degree
-    # TODO to set diagonal = 0 before applying eye
-    adj = adj+sp.eye(n, dtype=np.float32)
+    A = adj.toarray()
+    np.fill_diagonal(A, 1) # set diagonal elements to 1
+    A = A / A.sum(axis=0)
 
-    d = sp.dia_matrix((np.array(adj.sum(axis=0))**-1, [0]),
-                      shape=(n,  n),
-                      dtype=np.float32)
-    A = adj.dot(d)
-
-    X1 = M.astype(np.float32)
+    X1 = M.astype(np.float32).toarray()
     X2 = alpha * X1.dot(A) + (1-alpha) * M
 
     if tol:
@@ -86,7 +82,7 @@ def propagation(M, adj, alpha, tol=10e-6):  # TODO equation, M, alpha
             print(' Propagation iteration = {}  ----- {}'.format(
                 i, datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")),
                   flush=True)
-    return X2
+    return sp.csc_matrix(X2)
 
 
 # @profile
